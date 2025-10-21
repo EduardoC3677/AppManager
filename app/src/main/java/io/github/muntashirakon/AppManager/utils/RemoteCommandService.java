@@ -23,8 +23,8 @@ public class RemoteCommandService extends IRemoteCommandService.Stub {
     }
 
     @Override
-    public Bundle executeJavaCode(String code, String shell, Bundle extras) throws RemoteException {
-        Log.d(TAG, "Executing Java code: " + code + ", shell: " + shell + ", extras: " + extras);
+    public Bundle executeJavaCode(String className, String methodName, Bundle args) throws RemoteException {
+        Log.d(TAG, "Executing Java code: " + className + ", method: " + methodName + ", args: " + args);
         // For now, return an empty bundle. Implement actual code execution here.
         return new Bundle();
     }
