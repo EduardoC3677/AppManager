@@ -30,6 +30,7 @@ public class ArchivedApp {
         this.apkPath = apkPath;
     }
 
+    @Ignore
     public ArchivedApp(@NonNull String packageName, String appName, long archiveTimestamp) {
         this(packageName, appName, archiveTimestamp, null);
     }
