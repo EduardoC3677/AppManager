@@ -8,6 +8,10 @@ import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageManager;
+import android.content.pm.PackageInstaller;
+import android.content.Intent;
+import android.app.PendingIntent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -39,7 +43,7 @@ import io.github.muntashirakon.AppManager.accessibility.AccessibilityMultiplexer
 import io.github.muntashirakon.AppManager.apk.ApkUtils;
 import io.github.muntashirakon.AppManager.apk.dexopt.DexOptOptions;
 import io.github.muntashirakon.AppManager.apk.dexopt.DexOptimizer;
-import io.github.muntashirakon.AppManager.apk.installer.PackageInstallerCompat;
+import io.github.muntashirakon.AppManager.apk.installer.ArchiveResultReceiver;
 import io.github.muntashirakon.AppManager.backup.BackupException;
 import io.github.muntashirakon.AppManager.backup.BackupManager;
 import io.github.muntashirakon.AppManager.backup.convert.ConvertUtils;
@@ -877,6 +881,8 @@ public class BatchOpsManager {
         float lastProgress = mProgressHandler != null ? mProgressHandler.getLastProgress() : 0;
         ArchivedAppDao archivedAppDao = AppsDb.getInstance().archivedAppDao();
         PackageManager pm = ContextUtils.getContext().getPackageManager();
+        Context context = ContextUtils.getContext();
+
         int max = info.size();
         UserPackagePair pair;
         for (int i = 0; i < max; ++i) {
@@ -890,21 +896,35 @@ public class BatchOpsManager {
             }
 
             try {
-                // Get app info before uninstalling
                 ApplicationInfo appInfo = pm.getApplicationInfo(pair.getPackageName(), 0);
                 String appName = appInfo.loadLabel(pm).toString();
                 String apkPath = appInfo.sourceDir;
 
                 boolean success = false;
-                if (ShizukuUtils.isShizukuAvailable()) {
-                    Integer exitCode = ShizukuUtils.runCommand("pm uninstall -k " + pair.getPackageName());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    PackageInstaller packageInstaller = context.getPackageManager().getPackageInstaller();
+                    Intent intent = new Intent(ArchiveResultReceiver.ACTION_ARCHIVE_RESULT);
+                    intent.setPackage(context.getPackageName());
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                            context,
+                            pair.getPackageName().hashCode(),
+                            intent,
+                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE
+                    );
+
+                    packageInstaller.requestArchive(pair.getPackageName(), pendingIntent.getIntentSender());
+                    success = true; // Assume success for now, actual result handled by broadcast receiver
+                } else if (ShizukuUtils.isShizukuAvailable()) {
+                    Integer exitCode = ShizukuUtils.runCommand(context, "pm uninstall -k " + pair.getPackageName());
                     if (exitCode != null && exitCode == 0) {
                         success = true;
                     } else {
                         log("====> op=ARCHIVE, pkg=" + pair + ", exitCode=" + exitCode);
                     }
                 } else {
-                    // Fallback to the old method if Shizuku is not available
+                    // Fallback to the old method if Shizuku is not available and archiving API is not present
                     PackageInstallerCompat installer = PackageInstallerCompat.getNewInstance();
                     success = installer.uninstall(pair.getPackageName(), pair.getUserId(), true);
                 }

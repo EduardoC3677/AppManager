@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import rikka.shizuku.Shizuku;
+import rikka.shizuku.Shizuku.UserServiceArgs;
 import io.github.muntashirakon.AppManager.utils.IRemoteCommandService;
 
 
@@ -42,6 +43,13 @@ public class ShizukuUtils {
         final Integer[] result = {null};
         final CountDownLatch latch = new CountDownLatch(1);
 
+        UserServiceArgs args = new UserServiceArgs(
+                new ComponentName(context.getPackageName(), RemoteCommandService.class.getName())
+        )
+                .daemon(false)
+                .processNameSuffix("command")
+                .tag("RemoteCommandService");
+
         ServiceConnection connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -51,7 +59,7 @@ public class ShizukuUtils {
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } finally {
-                    Shizuku.unbindUserService(this);
+                    Shizuku.unbindUserService(args, this, true);
                     latch.countDown();
                 }
             }
@@ -62,8 +70,7 @@ public class ShizukuUtils {
             }
         };
 
-        Intent intent = new Intent(context, RemoteCommandService.class);
-        Shizuku.bindUserService(intent, connection, Context.BIND_AUTO_CREATE);
+        Shizuku.bindUserService(args, connection);
 
         try {
             latch.await(5, TimeUnit.SECONDS);

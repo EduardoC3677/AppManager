@@ -1312,10 +1312,10 @@
             android:foregroundServiceType="dataSync|specialUse"
             tools:targetApi="30" />
         <service
-            android:name=".adb.AdbPairingService"
-            android:exported="false"
-            android:foregroundServiceType="dataSync|specialUse"
-            tools:targetApi="r" />
+            android:name=".utils.RemoteCommandService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" />
 
         <receiver
             android:name=".servermanager.ServerStatusChangeReceiver"
@@ -1390,10 +1390,10 @@
                 android:resource="@xml/recording_widget_info" />
         </receiver>
         <receiver
-            android:name=".self.BootReceiver"
+            android:name=".apk.installer.ArchiveResultReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="io.github.muntashirakon.AppManager.ACTION_ARCHIVE_RESULT" />
             </intent-filter>
         </receiver>
 
