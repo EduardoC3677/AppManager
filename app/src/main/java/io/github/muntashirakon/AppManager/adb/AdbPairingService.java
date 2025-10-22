@@ -63,7 +63,7 @@ public class AdbPairingService extends Service {
 
     @MainThread
     private void launchDeveloperOptions() {
-        Intent intent = new Intent(android.provider.Settings.ACTION_DEVELOPER_OPTIONS);
+        Intent intent = new Intent("android.settings.APPLICATION_DEVELOPMENT_SETTINGS");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
