@@ -26,9 +26,7 @@
 \n \\item GitHub Repository.\\\\
 \n \\textit{Normale Veröffentlichungen:} \\url{https://github.com/MuntashirAkon/AppManager/releases}\\\\
 \n \\textit{Debug-Versionen:} \\url{https://github.com/MuntashirAkon/AppManager/actions}
-\n \\item Telegram.\\\\
-\n \\textit{Normale Veröffentlichungen:} \\url{https://t.me/AppManagerChannel}\\\\
-\n \\textit{Debug-Versionen:} \\url{https://t.me/AppManagerDebug}
+
 \n\\end{enumerate}</string>
     <string name="intro$main$donation">\\emph{Eine Spende oder ein Kauf ist keine Voraussetzung für die Nutzung von App Manager.} App Manager unterstützt zwar keine
 \nKäufe, es können aber Spenden über Open Source Collective an den Entwickler von App Manager gesendet werden.

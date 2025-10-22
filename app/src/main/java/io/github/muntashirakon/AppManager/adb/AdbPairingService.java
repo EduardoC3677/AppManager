@@ -48,6 +48,7 @@ public class AdbPairingService extends Service {
     public static final String ACTION_START_SEARCHING = BuildConfig.APPLICATION_ID + ".action.START_SEARCHING";
     public static final String ACTION_STOP_SEARCHING = BuildConfig.APPLICATION_ID + ".action.STOP_SEARCHING";
     public static final String ACTION_START_PAIRING = BuildConfig.APPLICATION_ID + ".action.ENTER_CODE";
+    public static final String ACTION_LAUNCH_DEVELOPER_OPTIONS = BuildConfig.APPLICATION_ID + ".action.LAUNCH_DEVELOPER_OPTIONS";
     public static final String EXTRA_PORT = "port";
     public static final String INPUT_CODE = "code";
 
@@ -59,6 +60,13 @@ public class AdbPairingService extends Service {
         Log.i(TAG, "Found port %d", port);
         inputPairingCode(port);
     };
+
+    @MainThread
+    private void launchDeveloperOptions() {
+        Intent intent = new Intent(android.provider.Settings.ACTION_DEVELOPER_OPTIONS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     @Override
     public void onCreate() {
@@ -104,6 +112,10 @@ public class AdbPairingService extends Service {
             case ACTION_STOP_SEARCHING:
                 ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE);
                 stopSelf();
+                return START_NOT_STICKY;
+            case ACTION_LAUNCH_DEVELOPER_OPTIONS:
+                launchDeveloperOptions();
+                return START_NOT_STICKY;
             default:
                 return START_NOT_STICKY;
         }
@@ -167,9 +179,15 @@ public class AdbPairingService extends Service {
         NotificationCompat.Action inputAction = new NotificationCompat.Action.Builder(null, getString(R.string.adb_pairing_input_pairing_code), inputPendingIntent)
                 .addRemoteInput(pairingCodeInput)
                 .build();
+
+        Intent launchDevOptionsIntent = new Intent(this, getClass()).setAction(ACTION_LAUNCH_DEVELOPER_OPTIONS);
+        PendingIntent launchDevOptionsPendingIntent = PendingIntentCompat.getForegroundService(this, 4, launchDevOptionsIntent, 0, false);
+        NotificationCompat.Action launchDevOptionsAction = new NotificationCompat.Action.Builder(null, getString(R.string.adb_pairing_launch_developer_options), launchDevOptionsPendingIntent).build();
+
         mNotificationBuilder.setContentText(getString(R.string.adb_pairing_found_pairing_service_with_port, port))
                 .clearActions()
-                .addAction(inputAction);
+                .addAction(inputAction)
+                .addAction(launchDevOptionsAction);
         if (SelfPermissions.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)) {
             NotificationManagerCompat.from(this).notify(1, mNotificationBuilder.build());
         }

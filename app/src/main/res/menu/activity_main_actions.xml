@@ -55,14 +55,9 @@
                           android:icon="@drawable/ic_liquid_spot_off"
                           android:title="@string/debloater_title" />
                   
-                      <item
-                          android:id="@+id/action_archived_apps"
-                          android:icon="@drawable/ic_archive"
-                          android:title="Archived Apps" />
+
                   
-                      <item                 android:id="@+id/action_archived_apps"
-                 android:icon="@drawable/ic_archive"
-                 android:title="Archived Apps" />
+
          
              <item        android:id="@+id/action_archived_apps"
         android:icon="@drawable/ic_archive"
