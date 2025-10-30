@@ -426,7 +426,8 @@ public class Ops {
                 .setTitle(R.string.wireless_debugging)
                 .setEndIcon(R.drawable.ic_open_in_new, v -> {
                     Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra(":settings:fragment_args_key", "toggle_adb_wireless");
                     activity.startActivity(intent);
                 })
                 .setEndIconContentDescription(R.string.open_developer_options_page);
