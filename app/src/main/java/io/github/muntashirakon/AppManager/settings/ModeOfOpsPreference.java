@@ -25,7 +25,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import io.github.muntashirakon.AppManager.R;
@@ -35,7 +34,6 @@ import io.github.muntashirakon.AppManager.servermanager.ServerConfig;
 import io.github.muntashirakon.AppManager.users.Users;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
 import io.github.muntashirakon.AppManager.utils.Utils;
-import io.github.muntashirakon.dialog.SearchableSingleChoiceDialogBuilder;
 import io.github.muntashirakon.util.UiUtils;
 import io.github.muntashirakon.view.TextInputLayoutCompat;
 import io.github.muntashirakon.widget.TextInputTextView;
@@ -110,29 +108,33 @@ public class ModeOfOpsPreference extends Fragment {
         mRemoteServicesStatusView = view.findViewById(R.id.remote_services_status);
         mModeOfOpsView = view.findViewById(R.id.op_name);
         MaterialButton changeModeView = view.findViewById(R.id.action_settings);
-        List<String> disabledItems;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R || Utils.isTv(requireContext())) {
-            disabledItems = Collections.singletonList(Ops.MODE_ADB_WIFI);
-        } else disabledItems = null;
-        changeModeView.setOnClickListener(v -> new SearchableSingleChoiceDialogBuilder<>(requireActivity(), MODE_NAMES, mModes)
-                .setTitle(R.string.pref_mode_of_operations)
-                .setSelection(mCurrentMode)
-                .addDisabledItems(disabledItems)
-                .setPositiveButton(R.string.apply, (dialog, which, selectedItem) -> {
-                    if (selectedItem != null) {
-                        mCurrentMode = selectedItem;
-                        if (Ops.MODE_ADB_OVER_TCP.equals(mCurrentMode)) {
-                            ServerConfig.setAdbPort(ServerConfig.DEFAULT_ADB_PORT);
+        boolean disableWifiMode = Build.VERSION.SDK_INT < Build.VERSION_CODES.R || Utils.isTv(requireContext());
+        changeModeView.setOnClickListener(v -> {
+            int currentIndex = MODE_NAMES.indexOf(mCurrentMode);
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle(R.string.pref_mode_of_operations)
+                    .setSingleChoiceItems(mModes, currentIndex, (dialog, which) -> {
+                        // Disable WiFi mode selection if not supported
+                        if (disableWifiMode && which == MODE_NAMES.indexOf(Ops.MODE_ADB_WIFI)) {
+                            return; // Don't allow selection
                         }
-                        Ops.setMode(mCurrentMode);
-                        mModeOfOpsAlertDialog.show();
-                        mConnecting = true;
-                        updateViews();
-                        mModel.setModeOfOps();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null)
-                .show());
+                        String selectedMode = MODE_NAMES.get(which);
+                        if (selectedMode != null) {
+                            mCurrentMode = selectedMode;
+                            if (Ops.MODE_ADB_OVER_TCP.equals(mCurrentMode)) {
+                                ServerConfig.setAdbPort(ServerConfig.DEFAULT_ADB_PORT);
+                            }
+                            Ops.setMode(mCurrentMode);
+                            mModeOfOpsAlertDialog.show();
+                            mConnecting = true;
+                            updateViews();
+                            mModel.setModeOfOps();
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        });
         TextInputTextView customCommand0 = view.findViewById(android.R.id.text1);
         TextInputLayout customCommand0Layout = TextInputLayoutCompat.fromTextInputEditText(customCommand0);
         customCommand0Layout.setEndIconOnClickListener(v -> {
