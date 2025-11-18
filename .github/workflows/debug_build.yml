@@ -59,6 +59,28 @@ jobs:
 
             ${{ github.event.head_commit.message }}
         continue-on-error: true
+      - name: Create GitHub Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.APP_VERSION }}-debug-${{ github.run_number }}
+          name: ${{ env.APP_NAME }}
+          body: |
+            ### Debug Build #${{ github.run_number }}
+
+            **Version:** ${{ env.APP_VERSION }}
+            **Commit:** ${{ github.sha }}
+
+            #### Changes:
+            ${{ github.event.head_commit.message }}
+
+            ---
+            🤖 Automatically generated debug build
+          files: ./${{ env.APP_NAME }}.apk
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: Checkout AMInsecureDebugBuilds
 #        uses: actions/checkout@v4
 #        with:

@@ -26,6 +26,9 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
 
+    - name: Get app version
+      run: echo "APP_VERSION=v$(cat ./app/build.gradle | grep -m1 versionName | awk -F \" '{print $2}')" >> $GITHUB_ENV
+
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
@@ -34,3 +37,27 @@ jobs:
       with:
         name: app-debug-apk
         path: app/build/outputs/apk/debug/app-debug.apk
+
+    - name: Create GitHub Release
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.APP_VERSION }}-ci-${{ github.run_number }}
+        name: AppManager ${{ env.APP_VERSION }} (CI Build #${{ github.run_number }})
+        body: |
+          ### CI Build #${{ github.run_number }}
+
+          **Version:** ${{ env.APP_VERSION }}
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+
+          #### Latest Changes:
+          ${{ github.event.head_commit.message }}
+
+          ---
+          🤖 Automatically generated CI build
+        files: app/build/outputs/apk/debug/app-debug.apk
+        draft: false
+        prerelease: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
