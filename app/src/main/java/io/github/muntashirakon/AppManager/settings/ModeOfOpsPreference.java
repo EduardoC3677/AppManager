@@ -46,6 +46,7 @@ public class ModeOfOpsPreference extends Fragment {
             Ops.MODE_ROOT,
             Ops.MODE_ADB_OVER_TCP,
             Ops.MODE_ADB_WIFI,
+            Ops.MODE_SHIZUKU,
             Ops.MODE_NO_ROOT);
 
     private MaterialTextView mInferredModeView;
@@ -260,7 +261,9 @@ public class ModeOfOpsPreference extends Fragment {
     }
 
     private static boolean requireRemoteServices(@NonNull String mode) {
-        return !Ops.MODE_AUTO.equals(mode) && !Ops.MODE_NO_ROOT.equals(mode);
+        return !Ops.MODE_AUTO.equals(mode)
+                && !Ops.MODE_NO_ROOT.equals(mode)
+                && !Ops.MODE_SHIZUKU.equals(mode);  // Shizuku doesn't need remote services
     }
 
     private static boolean badInferredMode(@NonNull String mode, int uid) {
@@ -270,6 +273,9 @@ public class ModeOfOpsPreference extends Fragment {
             case Ops.MODE_ADB_OVER_TCP:
             case Ops.MODE_ADB_WIFI:
                 return uid > Ops.SHELL_UID;
+            case Ops.MODE_SHIZUKU:
+                // Shizuku manages its own elevated permissions, always good if selected
+                return false;
             default:
                 return false;
         }
