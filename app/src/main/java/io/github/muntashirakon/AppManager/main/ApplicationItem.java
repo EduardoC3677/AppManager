@@ -38,6 +38,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -145,6 +146,13 @@ public class ApplicationItem extends PackageItemInfo implements IFilterableAppIn
     public int openCount = 0;
     public Long screenTime = 0L;
     public Long lastUsageTime = 0L;
+
+    // OPTIMIZATION: Pre-computed lowercase strings for search performance
+    @NonNull
+    public transient String packageNameLowerCase = "";
+    @NonNull
+    public transient String labelLowerCase = "";
+
     /**
      * Whether the item is a user app (or system app)
      */
@@ -914,5 +922,15 @@ public class ApplicationItem extends PackageItemInfo implements IFilterableAppIn
             }
         }
         return mBloatwareInfo;
+    }
+
+    // OPTIMIZATION: Ensure lowercase fields are populated for search performance
+    public void ensureLowerCaseFields() {
+        if (packageNameLowerCase.isEmpty() && packageName != null) {
+            packageNameLowerCase = packageName.toLowerCase(Locale.ROOT);
+        }
+        if (labelLowerCase.isEmpty() && label != null) {
+            labelLowerCase = label.toLowerCase(Locale.ROOT);
+        }
     }
 }

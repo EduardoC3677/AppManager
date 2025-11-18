@@ -64,6 +64,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -167,6 +168,8 @@ public final class PackageUtils {
                     item = new ApplicationItem();
                     applicationItems.put(app.packageName, item);
                     item.packageName = app.packageName;
+                    // OPTIMIZATION: Pre-compute lowercase for search performance
+                    item.packageNameLowerCase = item.packageName.toLowerCase(Locale.ROOT);
                 }
                 item.userIds = ArrayUtils.appendInt(item.userIds, app.userId);
                 item.isInstalled = true;
@@ -196,6 +199,8 @@ public final class PackageUtils {
                     // Item doesn't exist, don't add user handle
                     item = new ApplicationItem();
                     item.packageName = app.packageName;
+                    // OPTIMIZATION: Pre-compute lowercase for search performance
+                    item.packageNameLowerCase = item.packageName.toLowerCase(Locale.ROOT);
                     applicationItems.put(app.packageName, item);
                     item.isInstalled = false;
                     item.isOnlyDataInstalled = app.isOnlyDataInstalled;
@@ -209,6 +214,8 @@ public final class PackageUtils {
             item.isUser = !app.isSystemApp();
             item.isDisabled = !app.isEnabled;
             item.label = app.packageLabel;
+            // OPTIMIZATION: Pre-compute lowercase for search performance
+            item.labelLowerCase = item.label != null ? item.label.toLowerCase(Locale.ROOT) : "";
             item.targetSdk = app.sdk;
             item.versionName = app.versionName;
             item.versionCode = app.versionCode;
@@ -229,11 +236,15 @@ public final class PackageUtils {
             if (backup == null) continue;
             ApplicationItem item = new ApplicationItem();
             item.packageName = backup.packageName;
+            // OPTIMIZATION: Pre-compute lowercase for search performance
+            item.packageNameLowerCase = item.packageName.toLowerCase(Locale.ROOT);
             applicationItems.put(backup.packageName, item);
             item.backup = backup;
             item.versionName = backup.versionName;
             item.versionCode = backup.versionCode;
             item.label = backup.label;
+            // OPTIMIZATION: Pre-compute lowercase for search performance
+            item.labelLowerCase = item.label != null ? item.label.toLowerCase(Locale.ROOT) : "";
             item.firstInstallTime = backup.backupTime;
             item.lastUpdateTime = backup.backupTime;
             item.isUser = !backup.isSystem;
