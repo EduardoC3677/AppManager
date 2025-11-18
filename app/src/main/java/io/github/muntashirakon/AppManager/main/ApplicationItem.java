@@ -80,7 +80,8 @@ import io.github.muntashirakon.io.Path;
 /**
  * Stores an application info
  */
-public class ApplicationItem extends PackageItemInfo implements IFilterableAppInfo {
+public class ApplicationItem extends PackageItemInfo implements IFilterableAppInfo, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * Version name
      */
