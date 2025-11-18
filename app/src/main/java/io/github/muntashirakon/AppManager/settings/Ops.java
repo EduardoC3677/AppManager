@@ -52,6 +52,7 @@ import io.github.muntashirakon.AppManager.users.Owners;
 import io.github.muntashirakon.AppManager.users.Users;
 import io.github.muntashirakon.AppManager.utils.AppPref;
 import io.github.muntashirakon.AppManager.utils.ExUtils;
+import io.github.muntashirakon.AppManager.utils.ShizukuUtils;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
 import io.github.muntashirakon.AppManager.utils.Utils;
@@ -313,7 +314,7 @@ public class Ops {
                 case MODE_SHIZUKU:
                     // ENHANCEMENT: Shizuku mode support
                     // Check if Shizuku is available and has permission
-                    if (!io.github.muntashirakon.AppManager.utils.ShizukuUtils.isShizukuAvailable()) {
+                    if (!ShizukuUtils.isShizukuAvailable()) {
                         throw new Exception("Shizuku is unavailable or permission not granted.");
                     }
                     // Disable other services
