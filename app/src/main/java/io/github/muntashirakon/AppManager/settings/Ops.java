@@ -66,7 +66,7 @@ import io.github.muntashirakon.dialog.TextInputDialogBuilder;
 public class Ops {
     public static final String TAG = Ops.class.getSimpleName();
 
-    @StringDef({MODE_AUTO, MODE_ROOT, MODE_ADB_OVER_TCP, MODE_ADB_WIFI, MODE_NO_ROOT})
+    @StringDef({MODE_AUTO, MODE_ROOT, MODE_ADB_OVER_TCP, MODE_ADB_WIFI, MODE_SHIZUKU, MODE_NO_ROOT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Mode {
     }
@@ -75,6 +75,7 @@ public class Ops {
     public static final String MODE_ROOT = "root";
     public static final String MODE_ADB_OVER_TCP = "adb_tcp";
     public static final String MODE_ADB_WIFI = "adb_wifi";
+    public static final String MODE_SHIZUKU = "shizuku";  // ENHANCEMENT: Added Shizuku as first-class mode
     public static final String MODE_NO_ROOT = "no-root";
 
     @IntDef({
@@ -108,6 +109,7 @@ public class Ops {
     private static boolean sIsAdb = false; // UID = 2000
     private static boolean sIsSystem = false; // UID = 1000
     private static boolean sIsRoot = false; // UID = 0
+    private static boolean sIsShizuku = false; // ENHANCEMENT: Shizuku mode
 
     // Security
     private static final Object sSecurityLock = new Object();
@@ -164,6 +166,14 @@ public class Ops {
     @AnyThread
     public static boolean isAdb() {
         return sIsAdb;
+    }
+
+    /**
+     * Whether App Manager is running in Shizuku mode
+     */
+    @AnyThread
+    public static boolean isShizuku() {
+        return sIsShizuku;
     }
 
     /**
@@ -248,7 +258,7 @@ public class Ops {
         }
         if (MODE_NO_ROOT.equals(mode)) {
             sDirectRoot = false;
-            sIsAdb = sIsSystem = sIsRoot = false;
+            sIsAdb = sIsSystem = sIsRoot = sIsShizuku = false;
             // Also, stop existing services if any
             if (LocalServices.alive()) {
                 LocalServices.stopServices();
@@ -300,11 +310,30 @@ public class Ops {
                     LocalServer.restart();
                     LocalServices.bindServicesIfNotAlready();
                     return checkRootOrIncompleteUsbDebuggingInAdb();
+                case MODE_SHIZUKU:
+                    // ENHANCEMENT: Shizuku mode support
+                    // Check if Shizuku is available and has permission
+                    if (!io.github.muntashirakon.AppManager.utils.ShizukuUtils.isShizukuAvailable()) {
+                        throw new Exception("Shizuku is unavailable or permission not granted.");
+                    }
+                    // Disable other services
+                    ExUtils.exceptionAsIgnored(() -> {
+                        if (LocalServer.alive(context)) {
+                            LocalServer.getInstance().closeBgServer();
+                        }
+                    });
+                    if (LocalServices.alive()) {
+                        LocalServices.stopServices();
+                    }
+                    sIsRoot = sIsSystem = sIsAdb = false;
+                    sIsShizuku = true;
+                    // Shizuku doesn't need LocalServices or LocalServer
+                    return STATUS_SUCCESS;
             }
         } catch (Throwable e) {
             Log.e(TAG, e);
             // Fallback to no-root mode for this session, this does not modify the user preference
-            sIsAdb = sIsSystem = sIsRoot = false;
+            sIsAdb = sIsSystem = sIsRoot = sIsShizuku = false;
             ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(R.string.failed_to_use_the_current_mode_of_operation));
         }
         return STATUS_FAILURE;
@@ -364,7 +393,15 @@ public class Ops {
             sIsRoot = false;
             // Fall-through, in case we can use other options
         }
-        // Root was not working/granted, but check for AM service just in case
+        // ENHANCEMENT: Check for Shizuku before falling back to ADB
+        if (ShizukuUtils.isShizukuAvailable()) {
+            Log.i(TAG, "Shizuku is available, using Shizuku mode");
+            setMode(MODE_SHIZUKU);
+            sIsRoot = sIsSystem = sIsAdb = false;
+            sIsShizuku = true;
+            return;
+        }
+        // Root and Shizuku were not working/granted, but check for AM service just in case
         if (LocalServices.alive()) {
             setMode(MODE_ADB_OVER_TCP);
             int uid = Users.getSelfOrRemoteUid();

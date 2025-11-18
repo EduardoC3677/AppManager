@@ -76,12 +76,15 @@ public abstract class Runner {
 
     private static NormalShell sRootShell;
     private static PrivilegedShell sPrivilegedShell;
+    private static ShizukuShell sShizukuShell;
     private static NormalShell sNoRootShell;
 
     @NonNull
     private static Runner getInstance() {
         if (Ops.isDirectRoot()) {
             return getRootInstance();
+        } else if (Ops.isShizuku()) {
+            return getShizukuInstance();
         } else if (LocalServices.alive()) {
             return getPrivilegedInstance();
         } else {
@@ -105,6 +108,15 @@ public abstract class Runner {
             Log.d(TAG, "PrivilegedShell");
         }
         return sPrivilegedShell;
+    }
+
+    @NonNull
+    private static Runner getShizukuInstance() {
+        if (sShizukuShell == null) {
+            sShizukuShell = new ShizukuShell();
+            Log.d(TAG, "ShizukuShell");
+        }
+        return sShizukuShell;
     }
 
     private static Runner getNoRootInstance() {
