@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,7 +24,26 @@ import io.github.muntashirakon.AppManager.utils.FreezeUtils;
 import io.github.muntashirakon.AppManager.utils.Utils;
 
 @SuppressWarnings("NotNullFieldNotInitialized")
-@Entity(tableName = "app", primaryKeys = {"package_name", "user_id"})
+@Entity(tableName = "app",
+        primaryKeys = {"package_name", "user_id"},
+        indices = {
+                // OPTIMIZATION: Add indices for common filter queries
+                // Speeds up filtering by flags (system/user apps, disabled apps, etc.)
+                @Index(value = "flags"),
+                // Speeds up filtering by installed status
+                @Index(value = "is_installed"),
+                // Speeds up filtering by enabled/disabled status
+                @Index(value = "is_enabled"),
+                // Speeds up filtering and sorting by last update time
+                @Index(value = "last_update_time"),
+                // Speeds up filtering by target SDK
+                @Index(value = "target_sdk"),
+                // Speeds up filtering by tracker count
+                @Index(value = "tracker_count"),
+                // Composite index for common combined filters
+                @Index(value = {"is_installed", "user_id"}),
+                @Index(value = {"flags", "is_installed"})
+        })
 public class App implements Serializable {
     @ColumnInfo(name = "package_name")
     @NonNull
