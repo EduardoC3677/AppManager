@@ -59,7 +59,9 @@ public class ImageLoader implements Closeable {
         return sInstance;
     }
 
-    private final LruCache<String, Bitmap> mMemoryCache = new LruCache<>(300);
+    // OPTIMIZATION: Increased cache size from 300 to 2000 for users with many apps
+    // At ~50KB per icon, 2000 icons = ~100MB memory (acceptable on modern devices)
+    private final LruCache<String, Bitmap> mMemoryCache = new LruCache<>(2000);
     private final ImageFileCache mImageFileCache = new ImageFileCache();
     private boolean mIsClosed = false;
 

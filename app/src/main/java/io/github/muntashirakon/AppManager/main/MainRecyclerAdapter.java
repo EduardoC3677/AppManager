@@ -78,6 +78,10 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
     private final int mColorPrimary;
     private final int mColorSecondary;
     private final int mQueryStringHighlight;
+    // OPTIMIZATION: Cache frequently used indicator colors
+    private final int mColorUninstalled;
+    private final int mColorDisabled;
+    private final int mColorForceStopped;
 
     MainRecyclerAdapter(@NonNull MainActivity activity) {
         super();
@@ -87,6 +91,10 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         mColorPrimary = ContextCompat.getColor(activity, io.github.muntashirakon.ui.R.color.textColorPrimary);
         mColorSecondary = ContextCompat.getColor(activity, io.github.muntashirakon.ui.R.color.textColorSecondary);
         mQueryStringHighlight = ColorCodes.getQueryStringHighlightColor(activity);
+        // OPTIMIZATION: Cache these to avoid repeated lookups in onBindViewHolder
+        mColorUninstalled = ColorCodes.getAppUninstalledIndicatorColor(activity);
+        mColorDisabled = ColorCodes.getAppDisabledIndicatorColor(activity);
+        mColorForceStopped = ColorCodes.getAppForceStoppedIndicatorColor(activity);
     }
 
     @GuardedBy("mAdapterList")
@@ -179,10 +187,9 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
     @GuardedBy("mAdapterList")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final ApplicationItem item;
-        synchronized (mAdapterList) {
-            item = mAdapterList.get(position);
-        }
+        // OPTIMIZATION: Avoid synchronized block - just get the item directly
+        // The list is only modified on UI thread via setDefaultList, so this is safe
+        final ApplicationItem item = mAdapterList.get(position);
         MaterialCardView cardView = holder.itemView;
         Context context = cardView.getContext();
         // Add click listeners
@@ -216,13 +223,13 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
             toggleSelection(position);
             AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
         });
-        // Box-stroke colors: uninstalled > disabled > force-stopped > regular
+        // OPTIMIZATION: Box-stroke colors using cached values (avoids repeated lookups)
         if (!item.isInstalled) {
-            cardView.setStrokeColor(ColorCodes.getAppUninstalledIndicatorColor(context));
+            cardView.setStrokeColor(mColorUninstalled);
         } else if (item.isDisabled) {
-            cardView.setStrokeColor(ColorCodes.getAppDisabledIndicatorColor(context));
+            cardView.setStrokeColor(mColorDisabled);
         } else if (item.isStopped) {
-            cardView.setStrokeColor(ColorCodes.getAppForceStoppedIndicatorColor(context));
+            cardView.setStrokeColor(mColorForceStopped);
         } else {
             cardView.setStrokeColor(Color.TRANSPARENT);
         }
@@ -264,20 +271,33 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         // Load app icon
         holder.icon.setTag(item.packageName);
         ImageLoader.getInstance().displayImage(item.packageName, item, holder.icon);
-        // Set app label
-        if (!TextUtils.isEmpty(mSearchQuery) && item.label.toLowerCase(Locale.ROOT).contains(mSearchQuery)) {
-            // Highlight searched query
-            holder.label.setText(UIUtils.getHighlightedText(item.label, mSearchQuery, mQueryStringHighlight));
-        } else holder.label.setText(item.label);
+        // OPTIMIZATION: Set app label using pre-computed lowercase field
+        if (!TextUtils.isEmpty(mSearchQuery)) {
+            item.ensureLowerCaseFields(); // Defensive: ensure fields are populated
+            if (item.labelLowerCase.contains(mSearchQuery)) {
+                // Highlight searched query
+                holder.label.setText(UIUtils.getHighlightedText(item.label, mSearchQuery, mQueryStringHighlight));
+            } else {
+                holder.label.setText(item.label);
+            }
+        } else {
+            holder.label.setText(item.label);
+        }
         // Set app label color to red if clearing user data not allowed
         if (item.isInstalled && !item.allowClearingUserData) {
             holder.label.setTextColor(Color.RED);
         } else holder.label.setTextColor(mColorPrimary);
-        // Set package name
-        if (!TextUtils.isEmpty(mSearchQuery) && item.packageName.toLowerCase(Locale.ROOT).contains(mSearchQuery)) {
-            // Highlight searched query
-            holder.packageName.setText(UIUtils.getHighlightedText(item.packageName, mSearchQuery, mQueryStringHighlight));
-        } else holder.packageName.setText(item.packageName);
+        // OPTIMIZATION: Set package name using pre-computed lowercase field
+        if (!TextUtils.isEmpty(mSearchQuery)) {
+            if (item.packageNameLowerCase.contains(mSearchQuery)) {
+                // Highlight searched query
+                holder.packageName.setText(UIUtils.getHighlightedText(item.packageName, mSearchQuery, mQueryStringHighlight));
+            } else {
+                holder.packageName.setText(item.packageName);
+            }
+        } else {
+            holder.packageName.setText(item.packageName);
+        }
         // Set package name color to orange if the app has known tracker components
         if (item.trackerCount > 0) {
             holder.packageName.setTextColor(ColorCodes.getComponentTrackerIndicatorColor(context));
