@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import java.util.concurrent.ExecutorService;
 
 import io.github.muntashirakon.AppManager.R;
 import io.github.muntashirakon.AppManager.db.AppsDb;
@@ -43,7 +44,7 @@ import io.github.muntashirakon.AppManager.logs.Log;
 import io.github.muntashirakon.AppManager.runner.Runner;
 import io.github.muntashirakon.AppManager.self.filecache.FileCache;
 import io.github.muntashirakon.AppManager.settings.Prefs;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.io.IoUtils;
 import io.github.muntashirakon.io.Path;
@@ -75,7 +76,7 @@ public class LogViewerViewModel extends AndroidViewModel {
     private final MutableLiveData<List<LogFilter>> mLogFiltersLiveData = new MutableLiveData<>();
     private final MutableLiveData<Path> mLogSavedLiveData = new MutableLiveData<>();
     private final MutableLiveData<SendLogDetails> mLogToBeSentLiveData = new MutableLiveData<>();
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
 
     public LogViewerViewModel(@NonNull Application application) {
         super(application);
@@ -85,7 +86,6 @@ public class LogViewerViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         killLogcatReaderInternal();
-        mExecutor.shutdown();
         super.onCleared();
     }
 

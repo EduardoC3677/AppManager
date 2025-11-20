@@ -115,12 +115,16 @@ public class AppDetailsViewModel extends AndroidViewModel {
 
     private final PackageManager mPackageManager;
     private final Object mBlockerLocker = new Object();
-    private final ExecutorService mExecutor = Executors.newFixedThreadPool(4);
+    private final ExecutorService mExecutor = Executors.newFixedThreadPool(getCoreCount() * 2);
     private final CountDownLatch mPackageInfoWatcher = new CountDownLatch(1);
     private final MutableLiveData<PackageInfo> mPackageInfoLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> mTagsAlteredLiveData = new MutableLiveData<>();
     private final MutableLiveData<Integer> mFreezeTypeLiveData = new MutableLiveData<>();
     private final MutableLiveData<AppDetailsComponentItem> mComponentChangedLiveData = new MutableLiveData<>();
+
+    private int getCoreCount() {
+        return Runtime.getRuntime().availableProcessors();
+    }
 
     @Nullable
     private PackageInfo mPackageInfo;

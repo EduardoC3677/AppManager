@@ -107,7 +107,7 @@ public class ThreadUtils {
 
     public static synchronized ExecutorService getBackgroundThreadExecutor() {
         if (sThreadExecutor == null) {
-            sThreadExecutor = MultithreadedExecutor.getNewInstance();
+            sThreadExecutor = AppExecutor.getExecutor();
         }
         return sThreadExecutor;
     }

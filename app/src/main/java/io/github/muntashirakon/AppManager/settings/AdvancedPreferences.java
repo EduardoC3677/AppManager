@@ -31,9 +31,9 @@ import java.util.Objects;
 
 import io.github.muntashirakon.AppManager.R;
 import io.github.muntashirakon.AppManager.settings.crypto.ImportExportKeyStoreDialogFragment;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.AppPref;
 import io.github.muntashirakon.AppManager.utils.ArrayUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
 import io.github.muntashirakon.AppManager.utils.Utils;
 import io.github.muntashirakon.dialog.SearchableMultiChoiceDialogBuilder;
 import io.github.muntashirakon.dialog.TextInputDialogBuilder;
@@ -105,7 +105,7 @@ public class AdvancedPreferences extends PreferenceFragment {
         });
         // Thread count
         Preference threadCountPref = Objects.requireNonNull(findPreference("thread_count"));
-        mThreadCount = MultithreadedExecutor.getThreadCount();
+        mThreadCount = AppExecutor.getThreadCount();
         threadCountPref.setSummary(getResources().getQuantityString(R.plurals.pref_thread_count_msg, mThreadCount, mThreadCount));
         threadCountPref.setOnPreferenceClickListener(preference -> {
             new TextInputDialogBuilder(requireActivity(), null)
@@ -118,8 +118,8 @@ public class AdvancedPreferences extends PreferenceFragment {
                     .setPositiveButton(R.string.save, (dialog, which, inputText, isChecked) -> {
                         if (inputText != null && TextUtils.isDigitsOnly(inputText)) {
                             int c = Integer.decode(inputText.toString());
-                            MultithreadedExecutor.setThreadCount(c);
-                            mThreadCount = MultithreadedExecutor.getThreadCount();
+                            AppExecutor.setThreadCount(c);
+                            mThreadCount = AppExecutor.getThreadCount();
                             threadCountPref.setSummary(getResources().getQuantityString(R.plurals.pref_thread_count_msg, mThreadCount, mThreadCount));
                         }
                     })

@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import io.github.muntashirakon.AppManager.compat.AppOpsManagerCompat;
@@ -42,7 +43,7 @@ import io.github.muntashirakon.AppManager.scanner.vt.VtFileReport;
 import io.github.muntashirakon.AppManager.settings.Prefs;
 import io.github.muntashirakon.AppManager.types.UserPackagePair;
 import io.github.muntashirakon.AppManager.utils.DigestUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.io.Path;
 import io.github.muntashirakon.io.Paths;
 import io.github.muntashirakon.proc.ProcFs;
@@ -53,7 +54,7 @@ public class RunningAppsViewModel extends AndroidViewModel {
     private int mSortOrder;
     @RunningAppsActivity.Filter
     private int mFilter;
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
     @Nullable
     private final VirusTotal mVt;
 
@@ -66,7 +67,6 @@ public class RunningAppsViewModel extends AndroidViewModel {
 
     @Override
     protected void onCleared() {
-        mExecutor.shutdownNow();
         super.onCleared();
     }
 

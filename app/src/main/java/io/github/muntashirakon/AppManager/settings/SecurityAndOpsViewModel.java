@@ -12,18 +12,20 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.concurrent.ExecutorService;
+
 import io.github.muntashirakon.AppManager.BuildConfig;
 import io.github.muntashirakon.AppManager.logs.Log;
 import io.github.muntashirakon.AppManager.self.Migrations;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.AppPref;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
 
 public class SecurityAndOpsViewModel extends AndroidViewModel implements Ops.AdbConnectionInterface {
     public static final String TAG = SecurityAndOpsViewModel.class.getSimpleName();
 
     private boolean mIsAuthenticating = false;
     private final MutableLiveData<Integer> mAuthenticationStatus = new MutableLiveData<>();
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
 
     public SecurityAndOpsViewModel(@NonNull Application application) {
         super(application);
@@ -31,7 +33,6 @@ public class SecurityAndOpsViewModel extends AndroidViewModel implements Ops.Adb
 
     @Override
     protected void onCleared() {
-        mExecutor.shutdown();
         super.onCleared();
     }
 

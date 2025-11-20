@@ -26,9 +26,9 @@ import io.github.muntashirakon.AppManager.StaticDataset;
 import io.github.muntashirakon.AppManager.misc.AdvancedSearchView;
 import io.github.muntashirakon.AppManager.types.UserPackagePair;
 import io.github.muntashirakon.AppManager.users.Users;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.AppPref;
 import io.github.muntashirakon.AppManager.utils.ArrayUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
 
 public class DebloaterViewModel extends AndroidViewModel {
     @DebloaterListOptions.Filter
@@ -41,7 +41,7 @@ public class DebloaterViewModel extends AndroidViewModel {
 
     private final Map<String, int[]> mSelectedPackages = new HashMap<>();
     private final MutableLiveData<List<DebloatObject>> mDebloatObjectListLiveData = new MutableLiveData<>();
-    private final ExecutorService mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
 
     public DebloaterViewModel(@NonNull Application application) {
         super(application);

@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 
 import io.github.muntashirakon.AppManager.BaseActivity;
 import io.github.muntashirakon.AppManager.R;
@@ -59,7 +60,7 @@ import io.github.muntashirakon.AppManager.settings.Prefs;
 import io.github.muntashirakon.AppManager.settings.SettingsActivity;
 import io.github.muntashirakon.AppManager.utils.BetterActivityResult;
 import io.github.muntashirakon.AppManager.utils.CpuUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.StoragePermission;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
@@ -108,7 +109,7 @@ public class LogViewerActivity extends BaseActivity implements SearchView.OnQuer
     private LogViewerViewModel mViewModel;
     private PowerManager.WakeLock mWakeLock;
 
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
     private final BetterActivityResult<Intent, ActivityResult> mActivityLauncher =
             BetterActivityResult.registerActivityForResult(this);
     private final StoragePermission mStoragePermission = StoragePermission.init(this);
@@ -313,7 +314,6 @@ public class LogViewerActivity extends BaseActivity implements SearchView.OnQuer
     public void onDestroy() {
         CpuUtils.releaseWakeLock(mWakeLock);
         super.onDestroy();
-        mExecutor.shutdownNow();
     }
 
     private void startLiveLogViewer(boolean force) {

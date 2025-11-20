@@ -81,12 +81,14 @@ import io.github.muntashirakon.AppManager.utils.ArrayUtils;
 import io.github.muntashirakon.AppManager.utils.ContextUtils;
 import io.github.muntashirakon.AppManager.utils.ExUtils;
 import io.github.muntashirakon.AppManager.utils.FreezeUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.PackageUtils;
 import io.github.muntashirakon.AppManager.utils.ShizukuUtils;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.io.Path;
 import io.github.muntashirakon.io.Paths;
+
+import java.util.concurrent.ExecutorService;
 
 @WorkerThread
 public class BatchOpsManager {
@@ -346,7 +348,7 @@ public class BatchOpsManager {
         Context context = ContextUtils.getContext();
         PackageManager pm = context.getPackageManager();
         CharSequence operationName = context.getString(R.string.backup_restore);
-        MultithreadedExecutor executor = MultithreadedExecutor.getNewInstance();
+        ExecutorService executor = AppExecutor.getExecutor();
         AtomicInteger counter = new AtomicInteger(0);
         float lastProgress = mProgressHandler != null ? mProgressHandler.getLastProgress() : 0;
         try {
@@ -377,7 +379,6 @@ public class BatchOpsManager {
         } catch (Throwable th) {
             log("====> op=BACKUP_RESTORE, mode=BACKUP", th);
         }
-        executor.awaitCompletion();
         return new Result(failedPackages);
     }
 
@@ -387,7 +388,7 @@ public class BatchOpsManager {
         Context context = ContextUtils.getContext();
         PackageManager pm = context.getPackageManager();
         CharSequence operationName = context.getString(R.string.backup_restore);
-        MultithreadedExecutor executor = MultithreadedExecutor.getNewInstance();
+        ExecutorService executor = AppExecutor.getExecutor();
         AtomicBoolean requiresRestart = new AtomicBoolean();
         AtomicInteger count = new AtomicInteger(0);
         float lastProgress = mProgressHandler != null ? mProgressHandler.getLastProgress() : 0;
@@ -420,7 +421,6 @@ public class BatchOpsManager {
         } catch (Throwable th) {
             log("====> op=BACKUP_RESTORE, mode=RESTORE", th);
         }
-        executor.awaitCompletion();
         Result result = new Result(failedPackages);
         result.setRequiresRestart(requiresRestart.get());
         return result;
@@ -454,7 +454,7 @@ public class BatchOpsManager {
     @NonNull
     private Result opImportBackups(@NonNull BatchOpsInfo info) {
         final List<UserPackagePair> failedPkgList = Collections.synchronizedList(new ArrayList<>());
-        MultithreadedExecutor executor = MultithreadedExecutor.getNewInstance();
+        ExecutorService executor = AppExecutor.getExecutor();
         try {
             int userId = UserHandleHidden.myUserId();
             BatchBackupImportOptions options = (BatchBackupImportOptions) Objects.requireNonNull(info.options);
@@ -490,7 +490,6 @@ public class BatchOpsManager {
         } catch (Throwable th) {
             log("====> op=IMPORT_BACKUP", th);
         }
-        executor.awaitCompletion();
         return new Result(failedPkgList);
     }
 

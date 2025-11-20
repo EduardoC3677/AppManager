@@ -44,6 +44,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
 
 import io.github.muntashirakon.AppManager.apk.list.ListExporter;
 import io.github.muntashirakon.AppManager.backup.BackupUtils;
@@ -73,7 +74,7 @@ import io.github.muntashirakon.AppManager.usage.UsageUtils;
 import io.github.muntashirakon.AppManager.users.Users;
 import io.github.muntashirakon.AppManager.utils.ArrayUtils;
 import io.github.muntashirakon.AppManager.utils.ExUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.AppManager.utils.PackageUtils;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.AppManager.utils.Utils;
@@ -96,7 +97,7 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
     private int mSearchType;
     private Future<?> mFilterResult;
     private final Map<String, ApplicationItem> mSelectedPackageApplicationItemMap = Collections.synchronizedMap(new LinkedHashMap<>());
-    final MultithreadedExecutor executor = MultithreadedExecutor.getNewInstance();
+    final ExecutorService executor = AppExecutor.getExecutor();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -939,7 +940,6 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
     @Override
     protected void onCleared() {
         if (mPackageObserver != null) getApplication().unregisterReceiver(mPackageObserver);
-        executor.shutdownNow();
         super.onCleared();
     }
 

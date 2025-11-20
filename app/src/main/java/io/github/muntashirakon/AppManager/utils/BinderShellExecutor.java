@@ -28,6 +28,14 @@ import io.github.muntashirakon.AppManager.ipc.ProxyBinder;
 import io.github.muntashirakon.AppManager.logs.Log;
 import io.github.muntashirakon.io.Path;
 
+/**
+ * A utility class for executing shell commands via a Binder interface.
+ * <p>
+ * <strong>Warning:</strong> The {@code execute} methods in this class are synchronous and will
+ * block the calling thread until the shell command completes. To avoid UI freezes,
+ * always call these methods from a background thread.
+ * </p>
+ */
 @RequiresApi(Build.VERSION_CODES.N)
 public class BinderShellExecutor {
     public static class ShellResult {

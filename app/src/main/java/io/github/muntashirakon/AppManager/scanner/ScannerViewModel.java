@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.regex.Pattern;
@@ -46,7 +47,7 @@ import io.github.muntashirakon.AppManager.settings.FeatureController;
 import io.github.muntashirakon.AppManager.utils.DigestUtils;
 import io.github.muntashirakon.AppManager.utils.ExUtils;
 import io.github.muntashirakon.AppManager.utils.FileUtils;
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.algo.AhoCorasick;
 import io.github.muntashirakon.io.IoUtils;
 import io.github.muntashirakon.io.Path;
@@ -72,7 +73,7 @@ public class ScannerViewModel extends AndroidViewModel implements VirusTotal.Ful
 
     private CountDownLatch mWaitForFile;
     private final FileCache mFileCache = new FileCache();
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
     private final MutableLiveData<Pair<String, String>[]> mApkChecksumsLiveData = new MutableLiveData<>();
     private final MutableLiveData<ApkVerifier.Result> mApkVerifierResultLiveData = new MutableLiveData<>();
     private final MutableLiveData<PackageInfo> mPackageInfoLiveData = new MutableLiveData<>();
@@ -94,7 +95,6 @@ public class ScannerViewModel extends AndroidViewModel implements VirusTotal.Ful
     @Override
     protected void onCleared() {
         super.onCleared();
-        mExecutor.shutdownNow();
         IoUtils.closeQuietly(mFileCache);
         try {
             VirtualFileSystem.unmount(mDexVfsId);

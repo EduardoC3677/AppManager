@@ -18,12 +18,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 import io.github.muntashirakon.io.Path;
 
 public class SharedPrefsViewModel extends AndroidViewModel {
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
     private final MutableLiveData<Map<String, Object>> mSharedPrefsMapLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> mSharedPrefsSavedLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> mSharedPrefsDeletedLiveData = new MutableLiveData<>();
@@ -40,7 +41,6 @@ public class SharedPrefsViewModel extends AndroidViewModel {
 
     @Override
     protected void onCleared() {
-        mExecutor.shutdownNow();
         super.onCleared();
     }
 

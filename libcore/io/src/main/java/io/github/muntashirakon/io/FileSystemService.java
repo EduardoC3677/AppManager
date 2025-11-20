@@ -270,7 +270,11 @@ class FileSystemService extends IFileSystemService.Stub {
     // I/O APIs
 
     private final FileContainer openFiles = new FileContainer();
-    private final ExecutorService streamPool = Executors.newCachedThreadPool();
+    private final ExecutorService streamPool = Executors.newFixedThreadPool(getCoreCount() * 2);
+
+    private int getCoreCount() {
+        return Runtime.getRuntime().availableProcessors();
+    }
 
     @Override
     public void register(IBinder client) {

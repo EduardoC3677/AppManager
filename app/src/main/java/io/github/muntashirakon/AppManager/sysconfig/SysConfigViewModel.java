@@ -12,12 +12,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
-import io.github.muntashirakon.AppManager.utils.MultithreadedExecutor;
+import io.github.muntashirakon.AppManager.utils.AppExecutor;
 
 public class SysConfigViewModel extends AndroidViewModel {
     private final MutableLiveData<List<SysConfigInfo>> mSysConfigInfoListLiveData = new MutableLiveData<>();
-    private final MultithreadedExecutor mExecutor = MultithreadedExecutor.getNewInstance();
+    private final ExecutorService mExecutor = AppExecutor.getExecutor();
 
     public SysConfigViewModel(@NonNull Application application) {
         super(application);
@@ -26,7 +27,6 @@ public class SysConfigViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        mExecutor.shutdown();
     }
 
     public LiveData<List<SysConfigInfo>> getSysConfigInfoListLiveData() {
