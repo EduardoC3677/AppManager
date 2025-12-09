@@ -1315,7 +1315,7 @@
             android:name=".utils.RemoteCommandService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
         <receiver
             android:name=".servermanager.ServerStatusChangeReceiver"

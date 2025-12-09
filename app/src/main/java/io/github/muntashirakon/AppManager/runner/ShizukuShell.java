@@ -43,18 +43,32 @@ class ShizukuShell extends Runner {
             }
 
             // Execute via Shizuku
-            Integer exitCode = ShizukuUtils.runCommand(ContextUtils.getContext(), combinedCommand);
+            ShizukuUtils.CommandResult result = ShizukuUtils.runCommand(ContextUtils.getContext(), combinedCommand);
 
-            if (exitCode == null) {
+            if (result == null) {
                 // Shizuku unavailable or failed
                 Log.e(TAG, "Shizuku command failed: " + combinedCommand);
                 return new Result(1); // Return error exit code
             }
 
-            // Note: Current ShizukuUtils.runCommand doesn't capture stdout/stderr
-            // This is a limitation of the current implementation
-            // TODO: Enhance ShizukuUtils to capture command output
-            return new Result(Collections.emptyList(), Collections.emptyList(), exitCode);
+            // Parse stdout and stderr into lists
+            ArrayList<String> stdoutList = new ArrayList<>();
+            if (!result.getStdout().isEmpty()) {
+                String[] lines = result.getStdout().split("\n");
+                for (String line : lines) {
+                    stdoutList.add(line);
+                }
+            }
+
+            ArrayList<String> stderrList = new ArrayList<>();
+            if (!result.getStderr().isEmpty()) {
+                String[] lines = result.getStderr().split("\n");
+                for (String line : lines) {
+                    stderrList.add(line);
+                }
+            }
+
+            return new Result(stdoutList, stderrList, result.getExitCode());
 
         } catch (Exception e) {
             Log.e(TAG, "Shizuku shell execution failed", e);

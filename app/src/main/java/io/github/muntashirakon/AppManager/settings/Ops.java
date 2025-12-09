@@ -314,8 +314,20 @@ public class Ops {
                 case MODE_SHIZUKU:
                     // ENHANCEMENT: Shizuku mode support
                     // Check if Shizuku is available and has permission
+                    if (!ShizukuUtils.isShizukuInstalled()) {
+                        ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(
+                                "Shizuku is not installed. Please install Shizuku app first."));
+                        throw new Exception("Shizuku is not installed.");
+                    }
+                    if (ShizukuUtils.needsPermission()) {
+                        ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(
+                                "Shizuku permission required. Please grant permission in Shizuku app."));
+                        throw new Exception("Shizuku permission not granted.");
+                    }
                     if (!ShizukuUtils.isShizukuAvailable()) {
-                        throw new Exception("Shizuku is unavailable or permission not granted.");
+                        ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(
+                                "Shizuku is not running. Please start Shizuku first."));
+                        throw new Exception("Shizuku is unavailable.");
                     }
                     // Disable other services
                     ExUtils.exceptionAsIgnored(() -> {
@@ -328,6 +340,7 @@ public class Ops {
                     }
                     sIsRoot = sIsSystem = sIsAdb = false;
                     sIsShizuku = true;
+                    ThreadUtils.postOnMainThread(() -> UIUtils.displayShortToast("Working in Shizuku mode"));
                     // Shizuku doesn't need LocalServices or LocalServer
                     return STATUS_SUCCESS;
             }
@@ -400,6 +413,7 @@ public class Ops {
             setMode(MODE_SHIZUKU);
             sIsRoot = sIsSystem = sIsAdb = false;
             sIsShizuku = true;
+            ThreadUtils.postOnMainThread(() -> UIUtils.displayShortToast("Working in Shizuku mode"));
             return;
         }
         // Root and Shizuku were not working/granted, but check for AM service just in case
