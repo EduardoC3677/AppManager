@@ -75,13 +75,13 @@ public class MainPreferences extends PreferenceFragment {
     public void onStart() {
         super.onStart();
         // Load mode and locale asynchronously to avoid blocking main thread
-        ThreadUtils.postOnBackgroundThread(() -> {
+        new Thread(() -> {
             try {
                 String mode = Ops.getMode();
-                String inferredMode = Ops.getInferredMode(mActivity);
+                CharSequence inferredMode = Ops.getInferredMode(mActivity);
                 int modeIndex = MODE_NAMES.indexOf(mode);
 
-                ThreadUtils.postOnMainThread(() -> {
+                requireActivity().runOnUiThread(() -> {
                     if (mModePref != null && isAdded()) {
                         mModePref.setSummary(getString(R.string.mode_of_op_with_inferred_mode_of_op,
                                 mModes[modeIndex], inferredMode));
@@ -90,7 +90,7 @@ public class MainPreferences extends PreferenceFragment {
             } catch (Exception e) {
                 // Ignore errors during mode retrieval
             }
-        });
+        }).start();
 
         if (mLocalePref != null) {
             mLocalePref.setSummary(getLanguageName());

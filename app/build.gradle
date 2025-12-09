@@ -2,6 +2,9 @@
 
 plugins {
     id('com.android.application')
+    id('org.jetbrains.kotlin.android')
+    id('org.jetbrains.kotlin.kapt')
+    id('org.jetbrains.kotlin.plugin.parcelize')
     id('dev.rikka.tools.refine') version "${refine_version}"
 }
 
@@ -62,6 +65,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += [
+            '-Xjvm-default=all',
+            '-opt-in=kotlin.RequiresOptIn'
+        ]
+    }
     externalNativeBuild {
         cmake {
             path 'src/main/cpp/CMakeLists.txt'
@@ -108,6 +118,11 @@ dependencies {
     compileOnly project(path: ':hiddenapi')
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:${desugar_jdk_version}"
 
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinx_coroutines_version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinx_coroutines_version}"
+
     // Core Libraries
     implementation project(path: ':libcore:compat')
     implementation project(path: ':libcore:io')
@@ -144,7 +159,8 @@ dependencies {
 
     // DB
     implementation "androidx.room:room-runtime:${room_version}"
-    annotationProcessor "androidx.room:room-compiler:${room_version}"
+    implementation "androidx.room:room-ktx:${room_version}"
+    kapt "androidx.room:room-compiler:${room_version}"
 
     // FM
     implementation "com.j256.simplemagic:simplemagic:${simplemagic_version}"

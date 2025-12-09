@@ -8,6 +8,7 @@ ext {
 
     // Gradle plugins
     agp_version = '8.9.2'
+    kotlin_version = '1.9.25'
 
     // Library dependencies
     activity_version = "1.10.1" // Draw around the display cutouts
@@ -42,6 +43,9 @@ ext {
     unapkm_version = "v1.4" // https://github.com/MuntashirAkon/unapkm-android
     webkit_version = "1.14.0"
     zstd_version = "1.5.7-4" // https://github.com/luben/zstd-jni
+
+    // Kotlin dependencies
+    kotlinx_coroutines_version = "1.9.0" // https://github.com/Kotlin/kotlinx.coroutines
 
     // Test dependencies
     junit_version = "4.13.2" // https://github.com/junit-team/junit4
