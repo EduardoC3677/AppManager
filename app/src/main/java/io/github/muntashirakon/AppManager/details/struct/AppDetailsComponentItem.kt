@@ -8,7 +8,7 @@ import io.github.muntashirakon.AppManager.rules.struct.ComponentRule
 /**
  * Stores individual app details component item
  */
-class AppDetailsComponentItem(
+open class AppDetailsComponentItem(
     componentInfo: ComponentInfo
 ) : AppDetailsItem<ComponentInfo>(componentInfo) {
 

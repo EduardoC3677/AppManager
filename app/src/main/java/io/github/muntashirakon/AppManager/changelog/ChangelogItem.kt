@@ -7,7 +7,7 @@ import androidx.core.text.HtmlCompat
 
 // Copyright 2013 Gabriele Mariotti <gabri.mariotti@gmail.com>
 // Copyright 2022 Muntashir Al-Islam
-class ChangelogItem {
+open class ChangelogItem {
 
     @IntDef(HEADER, TITLE, NOTE, NEW, IMPROVE, FIX)
     @Retention(AnnotationRetention.SOURCE)
