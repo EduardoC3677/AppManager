@@ -62,7 +62,7 @@ public class RemoteCommandService extends IRemoteCommandService.Stub {
             Log.e(TAG, "Error executing command: " + command, e);
             result.putInt("exitCode", -1);
             result.putString("stdout", "");
-            result.putString("stderr", "Error: " + e.getMessage());
+            result.putString("stderr", "Error (" + e.getClass().getSimpleName() + "): " + e.getMessage());
         }
 
         return result;

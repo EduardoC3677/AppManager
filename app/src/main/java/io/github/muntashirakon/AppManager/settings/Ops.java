@@ -348,7 +348,15 @@ public class Ops {
             Log.e(TAG, e);
             // Fallback to no-root mode for this session, this does not modify the user preference
             sIsAdb = sIsSystem = sIsRoot = sIsShizuku = false;
-            ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(R.string.failed_to_use_the_current_mode_of_operation));
+            ThreadUtils.postOnMainThread(() -> {
+                String message;
+                if (e instanceof Exception && e.getMessage() != null && !e.getMessage().isEmpty()) {
+                    message = e.getMessage();
+                } else {
+                    message = context.getString(R.string.failed_to_use_the_current_mode_of_operation);
+                }
+                UIUtils.displayLongToast(message);
+            });
         }
         return STATUS_FAILURE;
     }

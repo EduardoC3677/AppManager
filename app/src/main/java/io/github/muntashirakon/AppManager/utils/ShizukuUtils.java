@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import rikka.shizuku.Shizuku;
+import io.github.muntashirakon.AppManager.logs.Log;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,7 @@ public class ShizukuUtils {
             Shizuku.pingBinder();
             return !Shizuku.isPreV11();
         } catch (Exception e) {
+            io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "isShizukuInstalled check failed: " + e.getMessage());
             return false;
         }
     }
@@ -35,6 +37,7 @@ public class ShizukuUtils {
             }
             return Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
         } catch (Exception e) {
+            io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "isShizukuAvailable check failed: " + e.getMessage());
             return false;
         }
     }
@@ -70,6 +73,7 @@ public class ShizukuUtils {
     @Nullable
     public static CommandResult runCommand(@NonNull Context context, @NonNull String command) {
         if (!isShizukuAvailable()) {
+            io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "Shizuku not available for command: " + command);
             return null;
         }
 
@@ -93,7 +97,7 @@ public class ShizukuUtils {
                     String stderr = bundle.getString("stderr", "");
                     result[0] = new CommandResult(exitCode, stdout, stderr);
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "RemoteException during command execution: " + command, e);
                     result[0] = new CommandResult(-1, "", "RemoteException: " + e.getMessage());
                 } finally {
                     Shizuku.unbindUserService(args, this, true);
@@ -112,7 +116,7 @@ public class ShizukuUtils {
         try {
             latch.await(35, TimeUnit.SECONDS); // Increased timeout to 35s (30s command + 5s overhead)
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "InterruptedException while waiting for command: " + command, e);
         }
 
         return result[0];
@@ -143,7 +147,7 @@ public class ShizukuUtils {
 
             Shizuku.requestPermission(requestCode);
         } catch (Exception e) {
-            e.printStackTrace();
+            io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "Exception during requestPermission", e);
             onDenied.run();
         }
     }
