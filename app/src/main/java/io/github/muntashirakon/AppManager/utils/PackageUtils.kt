@@ -964,8 +964,8 @@ object PackageUtils {
         }
         // Change permission
         val f = psd.file ?: throw IllegalStateException("File cannot be null")
-        if ((f.mode and 0x1FF) != 0711) {
-            f.mode = 0711
+        if ((f.mode and 0o777) != 0o711) {
+            f.mode = 0o711
         }
         // Change UID, GID
         val uidGidPair = f.uidGid
