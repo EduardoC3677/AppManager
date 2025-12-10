@@ -185,7 +185,7 @@ object NotificationUtils {
             NotificationManagerCompat.IMPORTANCE_NONE,
             NotificationManagerCompat.IMPORTANCE_MIN -> NotificationCompat.PRIORITY_MIN
             NotificationManagerCompat.IMPORTANCE_DEFAULT,
-            NotificationManagerCompat.IMPORTANCE_UNSPECIFIED,
+            NotificationManagerCompat.IMPORTANCE_UNSPECIFIED -> NotificationCompat.PRIORITY_DEFAULT
             else -> NotificationCompat.PRIORITY_DEFAULT
         }
     }
