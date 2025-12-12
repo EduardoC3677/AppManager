@@ -5,7 +5,6 @@ package io.github.muntashirakon.AppManager.backup.struct
 import android.annotation.UserIdInt
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 import org.json.JSONException
 import org.json.JSONObject
 import io.github.muntashirakon.AppManager.backup.BackupFlags
@@ -17,22 +16,25 @@ data class RestoreOpOptions(
     val packageName: String,
     @UserIdInt val userId: Int,
     val relativeDir: String?,
-    @field:RawValue val flags: BackupFlags
+    val flagsValue: Int
 ) : Parcelable, IJsonSerializer {
+
+    val flags: BackupFlags
+        get() = BackupFlags(flagsValue)
 
     constructor(
         packageName: String,
         userId: Int,
         relativeDir: String?,
-        flags: Int
-    ) : this(packageName, userId, relativeDir, BackupFlags(flags))
+        flags: BackupFlags
+    ) : this(packageName, userId, relativeDir, flags.flags)
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         packageName = jsonObject.getString("package_name"),
         userId = jsonObject.getInt("user_id"),
         relativeDir = JSONUtils.optString(jsonObject, "relative_dir"),
-        flags = BackupFlags(jsonObject.getInt("flags"))
+        flagsValue = jsonObject.getInt("flags")
     )
 
     @Throws(JSONException::class)
@@ -41,7 +43,7 @@ data class RestoreOpOptions(
             put("package_name", packageName)
             put("user_id", userId)
             put("relative_dir", relativeDir)
-            put("flags", flags.flags)
+            put("flags", flagsValue)
         }
     }
 }
