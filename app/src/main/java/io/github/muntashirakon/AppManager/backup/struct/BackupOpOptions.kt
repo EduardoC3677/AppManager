@@ -5,6 +5,7 @@ package io.github.muntashirakon.AppManager.backup.struct
 import android.annotation.UserIdInt
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import org.json.JSONException
 import org.json.JSONObject
 import io.github.muntashirakon.AppManager.backup.BackupFlags
@@ -15,7 +16,7 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 data class BackupOpOptions(
     val packageName: String,
     @UserIdInt val userId: Int,
-    val flags: BackupFlags,
+    @RawValue val flags: BackupFlags,
     val backupName: String?,
     val override: Boolean
 ) : Parcelable, IJsonSerializer {

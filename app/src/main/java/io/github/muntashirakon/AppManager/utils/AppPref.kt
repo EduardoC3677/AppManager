@@ -32,10 +32,7 @@ import io.github.muntashirakon.AppManager.runningapps.RunningAppsActivity
 import io.github.muntashirakon.AppManager.settings.Ops
 import java.util.Locale
 
-object AppPref {
-    private const val PREF_NAME = "preferences"
-    private const val PREF_SKIP = 5
-
+class AppPref {
     /**
      * Preference keys. It's necessary to do things manually as the shared prefs in Android is
      * literary unusable.
@@ -196,80 +193,85 @@ object AppPref {
     @Retention(AnnotationRetention.SOURCE)
     annotation class Type
 
-    const val TYPE_BOOLEAN = 0
-    const val TYPE_FLOAT = 1
-    const val TYPE_INTEGER = 2
-    const val TYPE_LONG = 3
-    const val TYPE_STRING = 4
+    companion object {
+        private const val PREF_NAME = "preferences"
+        private const val PREF_SKIP = 5
 
-    @SuppressLint("StaticFieldLeak")
-    private var sAppPref: AppPref? = null
+        const val TYPE_BOOLEAN = 0
+        const val TYPE_FLOAT = 1
+        const val TYPE_INTEGER = 2
+        const val TYPE_LONG = 3
+        const val TYPE_STRING = 4
 
-    @JvmStatic
-    fun getInstance(): AppPref {
-        if (sAppPref == null) {
-            sAppPref = AppPref(ContextUtils.getContext())
+        @SuppressLint("StaticFieldLeak")
+        private var sAppPref: AppPref? = null
+
+        @JvmStatic
+        fun getInstance(): AppPref {
+            if (sAppPref == null) {
+                sAppPref = AppPref(ContextUtils.getContext())
+            }
+            return sAppPref!!
         }
-        return sAppPref!!
-    }
 
-    @JvmStatic
-    fun getNewInstance(context: Context): AppPref {
-        return AppPref(context)
-    }
-
-    @JvmStatic
-    fun get(key: PrefKey): Any {
-        val index = PrefKey.indexOf(key)
-        val appPref = getInstance()
-        return when (PrefKey.sTypes[index]) {
-            TYPE_BOOLEAN -> appPref.mPreferences.getBoolean(
-                PrefKey.sKeys[index],
-                appPref.getDefaultValue(key) as Boolean
-            )
-            TYPE_FLOAT -> appPref.mPreferences.getFloat(
-                PrefKey.sKeys[index],
-                appPref.getDefaultValue(key) as Float
-            )
-            TYPE_INTEGER -> appPref.mPreferences.getInt(
-                PrefKey.sKeys[index],
-                appPref.getDefaultValue(key) as Int
-            )
-            TYPE_LONG -> appPref.mPreferences.getLong(
-                PrefKey.sKeys[index],
-                appPref.getDefaultValue(key) as Long
-            )
-            TYPE_STRING -> appPref.mPreferences.getString(
-                PrefKey.sKeys[index],
-                appPref.getDefaultValue(key) as String
-            )!!
-            else -> throw IllegalArgumentException("Unknown key or type.")
+        @JvmStatic
+        fun getNewInstance(context: Context): AppPref {
+            return AppPref(context)
         }
-    }
 
-    @JvmStatic
-    fun getBoolean(key: PrefKey): Boolean {
-        return get(key) as Boolean
-    }
+        @JvmStatic
+        fun get(key: PrefKey): Any {
+            val index = PrefKey.indexOf(key)
+            val appPref = getInstance()
+            return when (PrefKey.sTypes[index]) {
+                TYPE_BOOLEAN -> appPref.mPreferences.getBoolean(
+                    PrefKey.sKeys[index],
+                    appPref.getDefaultValue(key) as Boolean
+                )
+                TYPE_FLOAT -> appPref.mPreferences.getFloat(
+                    PrefKey.sKeys[index],
+                    appPref.getDefaultValue(key) as Float
+                )
+                TYPE_INTEGER -> appPref.mPreferences.getInt(
+                    PrefKey.sKeys[index],
+                    appPref.getDefaultValue(key) as Int
+                )
+                TYPE_LONG -> appPref.mPreferences.getLong(
+                    PrefKey.sKeys[index],
+                    appPref.getDefaultValue(key) as Long
+                )
+                TYPE_STRING -> appPref.mPreferences.getString(
+                    PrefKey.sKeys[index],
+                    appPref.getDefaultValue(key) as String
+                )!!
+                else -> throw IllegalArgumentException("Unknown key or type.")
+            }
+        }
 
-    @JvmStatic
-    fun getInt(key: PrefKey): Int {
-        return get(key) as Int
-    }
+        @JvmStatic
+        fun getBoolean(key: PrefKey): Boolean {
+            return get(key) as Boolean
+        }
 
-    @JvmStatic
-    fun getLong(key: PrefKey): Long {
-        return get(key) as Long
-    }
+        @JvmStatic
+        fun getInt(key: PrefKey): Int {
+            return get(key) as Int
+        }
 
-    @JvmStatic
-    fun getString(key: PrefKey): String {
-        return get(key) as String
-    }
+        @JvmStatic
+        fun getLong(key: PrefKey): Long {
+            return get(key) as Long
+        }
 
-    @JvmStatic
-    fun set(key: PrefKey, value: Any) {
-        getInstance().setPref(key, value)
+        @JvmStatic
+        fun getString(key: PrefKey): String {
+            return get(key) as String
+        }
+
+        @JvmStatic
+        fun set(key: PrefKey, value: Any) {
+            getInstance().setPref(key, value)
+        }
     }
 
     private val mPreferences: SharedPreferences
