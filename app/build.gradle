@@ -182,6 +182,7 @@ dependencies {
     // UI
     implementation "com.google.android.material:material:${material_version}"
     implementation "androidx.core:core:${androidx_core_version}"
+    implementation "androidx.core:core-ktx:${androidx_core_version}"
     implementation "androidx.appcompat:appcompat:${appcompat_version}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
     implementation "androidx.documentfile:documentfile:${documentfile_version}"
