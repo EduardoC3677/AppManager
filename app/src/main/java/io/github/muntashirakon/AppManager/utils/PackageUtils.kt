@@ -196,8 +196,8 @@ object PackageUtils {
             item.backup = backups.remove(item.packageName)
             item.flags = app.flags
             item.uid = app.uid
-            item.debuggable = app.isDebuggable
-            item.isUser = !app.isSystemApp
+            item.debuggable = app.isDebuggable()
+            item.isUser = !app.isSystemApp()
             item.isDisabled = !app.isEnabled
             item.label = app.packageLabel
             // OPTIMIZATION: Pre-compute lowercase for search performance
@@ -362,7 +362,7 @@ object PackageUtils {
         } else {
             try {
                 val storageStatsManager = IStorageStatsManager.Stub.asInterface(
-                    ProxyBinder.getService(Context.STORAGE_STATS_SERVICE)
+                    ProxyBinder.getService("storagestats")
                 )
                 val uuidString = storageUuid?.let { StorageManagerHidden.convert(it) }
                 val storageStats = storageStatsManager.queryStatsForPackage(
@@ -642,7 +642,7 @@ object PackageUtils {
         // Is an external app
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P || packageInfo.signatures == null) {
             // Could be a false-negative, try with apksig library
-            val apkPath = packageInfo.applicationInfo.publicSourceDir
+            val apkPath = packageInfo.applicationInfo?.publicSourceDir
             if (apkPath != null) {
                 Log.w(TAG, "getSignerInfo: Using fallback method")
                 return getSignerInfo(File(apkPath))

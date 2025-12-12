@@ -139,7 +139,7 @@ class BinderShellExecutor {
                         if (BuildConfig.DEBUG) {
                             Log.d("BinderShell_IN", TextUtils.join(" ", command))
                             Log.d("BinderShell_OUT", "(exit code: ${result.resultCode})")
-                            Log.d("BinderShell_OUT", result.stdout)
+                            Log.d("BinderShell_OUT", result.stdout ?: "")
                         }
                         return result
                     }

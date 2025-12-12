@@ -165,7 +165,7 @@ object DigestUtils {
             try {
                 MessageDigest.getInstance(algorithms[i])
             } catch (e: NoSuchAlgorithmException) {
-                throw ExUtils.rethrowAsIOException<MessageDigest>(e)
+                ExUtils.rethrowAsIOException(e)
             }
         }
         file.openInputStream().use { inputStream ->

@@ -18,9 +18,10 @@ import io.github.muntashirakon.AppManager.db.AppsDb
 import io.github.muntashirakon.AppManager.db.entity.FreezeType
 import io.github.muntashirakon.AppManager.self.SelfPermissions
 import io.github.muntashirakon.AppManager.settings.Prefs
+import kotlinx.coroutines.runBlocking
 
 object FreezeUtils {
-    @IntDef(FREEZE_DISABLE, FREEZE_SUSPEND, FREEZE_HIDE, FREEZE_ADV_SUSPEND)
+    @IntDef(value = [1, 2, 4, 8])
     @Retention(AnnotationRetention.SOURCE)
     annotation class FreezeMethod
 
@@ -39,13 +40,17 @@ object FreezeUtils {
     @JvmStatic
     @WorkerThread
     fun storeFreezeMethod(packageName: String, @FreezeMethod freezeType: Int) {
-        AppsDb.getInstance().freezeTypeDao().insert(FreezeType(packageName, freezeType))
+        runBlocking {
+            AppsDb.getInstance().freezeTypeDao().insert(FreezeType(packageName, freezeType))
+        }
     }
 
     @JvmStatic
     @WorkerThread
     fun deleteFreezeMethod(packageName: String) {
-        AppsDb.getInstance().freezeTypeDao().delete(packageName)
+        runBlocking {
+            AppsDb.getInstance().freezeTypeDao().delete(packageName)
+        }
     }
 
     @JvmStatic
@@ -53,7 +58,9 @@ object FreezeUtils {
     @FreezeMethod
     fun loadFreezeMethod(packageName: String?): Int? {
         if (packageName != null) {
-            val freezeType: FreezeType? = AppsDb.getInstance().freezeTypeDao().get(packageName)
+            val freezeType: FreezeType? = runBlocking {
+                AppsDb.getInstance().freezeTypeDao().get(packageName)
+            }
             if (freezeType != null) {
                 return freezeType.type
             }

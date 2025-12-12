@@ -73,13 +73,13 @@ object ExUtils {
         return try {
             r.run()
         } catch (th: Throwable) {
-            Log.w("ExUtils", "(Suppressed error)", th)
+            Log.w("ExUtils", th, "(Suppressed error)")
             null
         }
     }
 
     @JvmStatic
-    fun <T> requireNonNullElse(r: ThrowingRunnable<T>, defaultObj: T): T {
+    fun <T> requireNonNullElse(r: ThrowingRunnable<T>, defaultObj: T & Any): T & Any {
         return ObjectsCompat.requireNonNullElse(exceptionAsNull(r), defaultObj)
     }
 
@@ -97,7 +97,7 @@ object ExUtils {
         try {
             r.run()
         } catch (th: Throwable) {
-            Log.w("ExUtils", "(Suppressed error)", th)
+            Log.w("ExUtils", th, "(Suppressed error)")
         }
     }
 }

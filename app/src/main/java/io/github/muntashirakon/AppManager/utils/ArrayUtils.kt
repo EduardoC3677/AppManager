@@ -10,7 +10,7 @@ import androidx.annotation.CheckResult
 import androidx.annotation.RequiresApi
 import aosp.libcore.util.EmptyArray
 import java.io.File
-import java.lang.reflect.Array
+import java.lang.reflect.Array as JavaArray
 import java.util.Collections
 import java.util.Objects
 import java.util.function.IntFunction
@@ -94,7 +94,7 @@ object ArrayUtils {
         var cache = sCache[bucket]
 
         if (cache == null || cache.javaClass.componentType != kind) {
-            cache = Array.newInstance(kind, 0)
+            cache = JavaArray.newInstance(kind, 0)
             sCache[bucket] = cache
 
             // Log.e("cache", "new empty " + kind.getName() + " at " + bucket);
@@ -382,7 +382,7 @@ object ArrayUtils {
                 return EmptyArray.OBJECT as Array<T>
             }
         }
-        val res = Array.newInstance(kind, an + bn) as Array<T>
+        val res = JavaArray.newInstance(kind, an + bn) as Array<T>
         if (an > 0) System.arraycopy(a, 0, res, 0, an)
         if (bn > 0) System.arraycopy(b, 0, res, an, bn)
         return res
@@ -415,11 +415,11 @@ object ArrayUtils {
         if (array != null) {
             if (!allowDuplicates && contains(array, element)) return array
             end = array.size
-            result = Array.newInstance(kind, end + 1) as Array<T>
+            result = JavaArray.newInstance(kind, end + 1) as Array<T>
             System.arraycopy(array, 0, result, 0, end)
         } else {
             end = 0
-            result = Array.newInstance(kind, 1) as Array<T>
+            result = JavaArray.newInstance(kind, 1) as Array<T>
         }
         result[end] = element
         return result
@@ -439,7 +439,7 @@ object ArrayUtils {
                     if (length == 1) {
                         return null
                     }
-                    val result = Array.newInstance(kind, length - 1) as Array<T>
+                    val result = JavaArray.newInstance(kind, length - 1) as Array<T>
                     System.arraycopy(array, 0, result, 0, i)
                     System.arraycopy(array, i + 1, result, i, length - i - 1)
                     return result

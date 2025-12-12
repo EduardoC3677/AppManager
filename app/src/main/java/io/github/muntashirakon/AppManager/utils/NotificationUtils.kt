@@ -58,7 +58,7 @@ object NotificationUtils {
         fun build(builder: NotificationCompat.Builder): Notification
     }
 
-    private val sNotificationIds: MutableMap<String, Int> = Collections.synchronizedMap(HashMap())
+    private val sNotificationIds: MutableMap<String?, Int> = Collections.synchronizedMap(HashMap())
 
     @JvmStatic
     fun nextNotificationId(tag: String?): Int {
@@ -81,7 +81,7 @@ object NotificationUtils {
 
     @JvmStatic
     fun displayHighPriorityNotification(context: Context, notification: Notification) {
-        displayHighPriorityNotification(context) { notification }
+        displayHighPriorityNotification(context) { _ -> notification }
     }
 
     @JvmStatic

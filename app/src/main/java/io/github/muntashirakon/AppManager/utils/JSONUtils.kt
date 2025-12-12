@@ -5,7 +5,7 @@ package io.github.muntashirakon.AppManager.utils
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.reflect.Array
+import java.lang.reflect.Array as JavaArray
 
 object JSONUtils {
     @JvmStatic
@@ -25,7 +25,7 @@ object JSONUtils {
     fun <T> getJSONArray(typicalArray: Array<T>?): JSONArray? {
         if (typicalArray == null) return null
         val jsonArray = JSONArray()
-        for (elem in typicalArray) jsonArray.put(elem)
+        for (elem in typicalArray) jsonArray.put(elem as Any)
         return jsonArray
     }
 
@@ -50,7 +50,7 @@ object JSONUtils {
     fun <T> getArray(clazz: Class<T>, jsonArray: JSONArray?): Array<T>? {
         if (jsonArray == null) return null
         @Suppress("UNCHECKED_CAST")
-        val typicalArray = Array.newInstance(clazz, jsonArray.length()) as Array<T>
+        val typicalArray = JavaArray.newInstance(clazz, jsonArray.length()) as Array<T>
         for (i in 0 until jsonArray.length()) {
             typicalArray[i] = clazz.cast(jsonArray.get(i))
         }
