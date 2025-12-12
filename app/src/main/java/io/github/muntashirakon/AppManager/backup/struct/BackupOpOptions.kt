@@ -16,7 +16,7 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 data class BackupOpOptions(
     val packageName: String,
     @UserIdInt val userId: Int,
-    @RawValue val flags: BackupFlags,
+    @field:RawValue val flags: BackupFlags,
     val backupName: String?,
     val override: Boolean
 ) : Parcelable, IJsonSerializer {

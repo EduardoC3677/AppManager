@@ -17,7 +17,7 @@ data class RestoreOpOptions(
     val packageName: String,
     @UserIdInt val userId: Int,
     val relativeDir: String?,
-    @RawValue val flags: BackupFlags
+    @field:RawValue val flags: BackupFlags
 ) : Parcelable, IJsonSerializer {
 
     constructor(
