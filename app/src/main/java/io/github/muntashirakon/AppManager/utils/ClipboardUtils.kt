@@ -19,7 +19,7 @@ object ClipboardUtils {
      */
     @JvmStatic
     fun copyToClipboard(context: Context, label: CharSequence?, text: String) {
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as  as ClipboardManager
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val textBytes = text.toByteArray()
         val clip = if (textBytes.size < MAX_CLIPBOARD_SIZE_BYTES) {
             // Small text: copy directly
@@ -43,7 +43,7 @@ object ClipboardUtils {
 
     @JvmStatic
     fun readClipboard(context: Context): CharSequence? {
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as  as ClipboardManager
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = clipboard.primaryClip
         if (clipData != null && clipData.itemCount > 0) {
             return clipData.getItemAt(0).coerceToText(context)

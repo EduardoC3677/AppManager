@@ -585,7 +585,7 @@ object Utils {
 
     @JvmStatic
     fun isWifiActive(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as  as ConnectivityManager
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
             return capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
