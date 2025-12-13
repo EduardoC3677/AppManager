@@ -53,8 +53,8 @@ object AppearanceUtils {
             layoutDirection = Prefs.Appearance.getLayoutDirection()
         }
         updateConfiguration(context, options)
-        if (context != context.applicationContext) {
-            updateConfiguration(context.applicationContext, options)
+        if (context != context.getApplicationContext()) {
+            updateConfiguration(context.getApplicationContext(), options)
         }
     }
 
@@ -319,7 +319,7 @@ object AppearanceUtils {
                 mode
             AppCompatDelegate.MODE_NIGHT_AUTO_TIME -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    val uiModeManager = context.applicationContext
+                    val uiModeManager = context.getApplicationContext()
                         .getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
                     if (uiModeManager.nightMode == UiModeManager.MODE_NIGHT_AUTO) {
                         // If we're set to AUTO and the system's auto night mode is already enabled,
@@ -336,7 +336,7 @@ object AppearanceUtils {
             }
             AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY -> {
                 // Unlike AppCompatDelegateImpl, we don't need to change it based on configuration
-                val pm = context.applicationContext
+                val pm = context.getApplicationContext()
                     .getSystemService(Context.POWER_SERVICE) as PowerManager
                 if (pm.isPowerSaveMode) {
                     AppCompatDelegate.MODE_NIGHT_YES

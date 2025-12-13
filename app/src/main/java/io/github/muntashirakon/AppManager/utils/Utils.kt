@@ -514,7 +514,7 @@ object Utils {
 
     @JvmStatic
     fun isTv(context: Context): Boolean {
-        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK)
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK)
     }
 
     @JvmStatic
@@ -548,7 +548,7 @@ object Utils {
             val openFile = Intent(Intent.ACTION_VIEW)
             openFile.setDataAndType(android.net.Uri.parse(dir), "resource/folder")
             openFile.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            if (openFile.resolveActivityInfo(context.packageManager, 0) != null)
+            if (openFile.resolveActivityInfo(context.getPackageManager(), 0) != null)
                 context.startActivity(openFile)
         }
     }
@@ -585,7 +585,7 @@ object Utils {
 
     @JvmStatic
     fun isWifiActive(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as  as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
             return capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
