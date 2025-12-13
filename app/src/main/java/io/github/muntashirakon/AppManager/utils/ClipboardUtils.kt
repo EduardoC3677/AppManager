@@ -31,7 +31,7 @@ object ClipboardUtils {
                 // Use FileProvider to get content Uri for the file
                 val contentUri = FmProvider.getContentUri(Paths.get(cacheFile))
                 // Grant temporary read permission
-                ClipData.newUri(context.contentResolver, label, contentUri)
+                ClipData.newUri(context.getContentResolver(), label, contentUri)
             } catch (e: IOException) {
                 e.printStackTrace()
                 // Fallback: copy truncated text if writing file fails
