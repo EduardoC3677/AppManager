@@ -20,7 +20,7 @@ class AppDetailsOverlayItem(
         name = if (overlayInfo.overlayName != null) {
             overlayInfo.overlayName
         } else {
-            overlayInfo.overlayIdentifier.toString()
+            overlayInfo.overlayIdentifier?.toString() ?: overlayInfo.packageName
         }
     }
 

@@ -61,7 +61,7 @@ class DebloaterViewModel(application: Application) : AndroidViewModel(applicatio
     fun getSelectedItemCount(): Int = selectedPackages.size
 
     fun select(debloatObject: DebloatObject) {
-        selectedPackages[debloatObject.packageName] = debloatObject.getUsers()
+        selectedPackages[debloatObject.packageName] = debloatObject.users ?: IntArray(0)
     }
 
     fun deselect(debloatObject: DebloatObject) {

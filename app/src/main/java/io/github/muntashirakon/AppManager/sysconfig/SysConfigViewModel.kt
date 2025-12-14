@@ -17,8 +17,7 @@ class SysConfigViewModel(application: Application) : AndroidViewModel(applicatio
     fun loadSysConfigInfo(@SysConfigType sysConfigType: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val sysConfigInfoList = SysConfigWrapper.getSysConfigs(sysConfigType)
-            sysConfigInfoList.sortedBy { it.name.lowercase() }
-            _sysConfigInfoListLiveData.postValue(sysConfigInfoList)
+            _sysConfigInfoListLiveData.postValue(sysConfigInfoList.sortedBy { it.name.lowercase() })
         }
     }
 }

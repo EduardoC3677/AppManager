@@ -183,7 +183,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
                 val baseStartWith = "$baseName$"
                 val paths = parent?.listFiles { _, name ->
                     name == baseSmali || name.startsWith(baseStartWith)
-                } ?: emptyArray()
+                } ?: emptyArray<Path>()
 
                 val contents = ArrayList<String>(paths.size + 1)
                 contents.add(smaliContent.toString())

@@ -26,7 +26,7 @@ class WhatsNewDialogViewModel(application: Application) : AndroidViewModel(appli
             val changeList = ArrayList<ApkWhatsNewFinder.Change>()
             for (changes1 in changes) {
                 if (changes1.isNotEmpty()) {
-                    changeList.addAll(changes1)
+                    changeList.addAll(changes1.toList())
                 }
             }
             if (changeList.isEmpty()) {

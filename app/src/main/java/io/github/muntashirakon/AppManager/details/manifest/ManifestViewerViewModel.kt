@@ -44,6 +44,7 @@ class ManifestViewerViewModel(application: Application) : AndroidViewModel(appli
         manifestLoaderJob = viewModelScope.launch(Dispatchers.IO) {
             val pm = getApplication<Application>().packageManager
             val realApkSource = apkSource ?: try {
+                if (packageName == null) return@launch
                 val applicationInfo = pm.getApplicationInfo(packageName, 0)
                 ApkSource.getApkSource(applicationInfo)
             } catch (e: PackageManager.NameNotFoundException) {
