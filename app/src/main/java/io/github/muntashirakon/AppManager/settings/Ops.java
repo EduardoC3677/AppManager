@@ -396,17 +396,13 @@ public class Ops {
                 LocalServices.stopServices();
             }
             try {
-                // Service is confirmed dead
-                LocalServices.bindServices();
-                if (LocalServices.alive() && Users.getSelfOrRemoteUid() == ROOT_UID) {
-                    // Service is running in root
-                    return;
-                }
-            } catch (RemoteException e) {
-                Log.e(TAG, e);
-            }
-            // Root is granted but Binder communication cannot be initiated
-            Log.e(TAG, "Root granted but could not use root to initiate a connection. Trying ADB...");
+                            // Service is confirmed dead
+                            LocalServices.bindServices();
+                            if (LocalServices.alive() && Users.getSelfOrRemoteUid() == ROOT_UID) {
+                                // Service is running in root
+                                return;
+                            }
+                            // Root is granted but Binder communication cannot be initiated            Log.e(TAG, "Root granted but could not use root to initiate a connection. Trying ADB...");
             if (AdbUtils.startAdb(AdbUtils.getAdbPortOrDefault())) {
                 Log.i(TAG, "Started ADB over TCP via root.");
             } else {
@@ -516,7 +512,7 @@ public class Ops {
             LocalServer.restart();
             LocalServices.bindServicesIfNotAlready();
             return checkRootOrIncompleteUsbDebuggingInAdb();
-        } catch (RemoteException | IOException | AdbPairingRequiredException e) {
+        } catch (IOException | AdbPairingRequiredException e) {
             Log.e(TAG, "Could not auto-connect to adbd", e);
             // Go back to the last mode
             sIsAdb = lastAdb;
@@ -544,7 +540,7 @@ public class Ops {
             LocalServer.restart();
             LocalServices.bindServicesIfNotAlready();
             return checkRootOrIncompleteUsbDebuggingInAdb();
-        } catch (RemoteException | IOException | AdbPairingRequiredException e) {
+        } catch (IOException | AdbPairingRequiredException e) {
             Log.e(TAG, "Could not connect to adbd using port " + port, e);
             // Go back to the last mode
             sIsAdb = lastAdb;
@@ -708,7 +704,7 @@ public class Ops {
             try {
                 LocalServer.getInstance();
                 LocalServices.bindServicesIfNotAlready();
-            } catch (RemoteException | IOException | AdbPairingRequiredException e) {
+            } catch (IOException | AdbPairingRequiredException e) {
                 Log.e(TAG, e);
                 // fall-through, because the remote service may still be alive
             }
