@@ -134,10 +134,15 @@ public final class Users {
 
     @IntRange(from = 0)
     public static int getSelfOrRemoteUid() {
-        try {
-            return LocalServices.getAmService().getUid();
-        } catch (RemoteException e) {
-            return Process.myUid();
+        IAMService amService = LocalServices.getAmService();
+        if (amService != null) {
+            try {
+                return amService.getUid();
+            } catch (RemoteException e) {
+                // This indicates an issue with the binder itself, fall back to current UID
+                io.github.muntashirakon.AppManager.logs.Log.e(TAG, "Failed to get UID from AmService", e);
+            }
         }
+        return Process.myUid();
     }
 }
