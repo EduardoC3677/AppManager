@@ -32,6 +32,7 @@ import io.github.muntashirakon.AppManager.ipc.LocalServices;
 import io.github.muntashirakon.AppManager.servermanager.LocalServer;
 import io.github.muntashirakon.AppManager.servermanager.ServerConfig;
 import io.github.muntashirakon.AppManager.users.Users;
+import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
 import io.github.muntashirakon.AppManager.utils.Utils;
 import io.github.muntashirakon.util.UiUtils;
@@ -215,26 +216,33 @@ public class ModeOfOpsPreference extends Fragment {
             mModeOfOpsView.setCompoundDrawablesRelativeWithIntrinsicBounds(mIconProgress, 0, 0, 0);
             mModeOfOpsView.setText(getString(R.string.status_connecting_via_mode, mModes[MODE_NAMES.indexOf(mCurrentMode)]));
         } else {
-            int uid = Users.getSelfOrRemoteUid();
-            boolean goodMode = !badInferredMode(mCurrentMode, uid);
-            mInferredModeView.setText(Ops.getInferredMode(requireContext()));
-            if (goodMode) {
-                mInferredModeView.setTextColor(mColorActive);
-                TextViewCompat.setCompoundDrawableTintList(mModeOfOpsView, mColorActive);
-                mModeOfOpsView.setTextColor(mColorActive);
-                mModeOfOpsView.setCompoundDrawablesRelativeWithIntrinsicBounds(mIconActive, 0, 0, 0);
-                CharSequence mode;
-                if (serverActive && uid != Process.myUid()) {
-                    mode = "remote service";
-                } else mode = mModes[MODE_NAMES.indexOf(mCurrentMode)];
-                mModeOfOpsView.setText(getString(R.string.status_connected_via_mode, mode));
-            } else {
-                mInferredModeView.setTextColor(mColorError);
-                TextViewCompat.setCompoundDrawableTintList(mModeOfOpsView, mColorError);
-                mModeOfOpsView.setTextColor(mColorError);
-                mModeOfOpsView.setCompoundDrawablesRelativeWithIntrinsicBounds(mIconInactive, 0, 0, 0);
-                mModeOfOpsView.setText(getString(R.string.status_not_connected_via_mode, mModes[MODE_NAMES.indexOf(mCurrentMode)]));
-            }
+            ThreadUtils.postOnBackgroundThread(() -> {
+                int uid = Users.getSelfOrRemoteUid();
+                boolean goodMode = !badInferredMode(mCurrentMode, uid);
+                CharSequence inferredMode = Ops.getInferredMode(requireContext());
+
+                requireActivity().runOnUiThread(() -> {
+                    if (!isAdded()) return;
+                    mInferredModeView.setText(inferredMode);
+                    if (goodMode) {
+                        mInferredModeView.setTextColor(mColorActive);
+                        TextViewCompat.setCompoundDrawableTintList(mModeOfOpsView, mColorActive);
+                        mModeOfOpsView.setTextColor(mColorActive);
+                        mModeOfOpsView.setCompoundDrawablesRelativeWithIntrinsicBounds(mIconActive, 0, 0, 0);
+                        CharSequence mode;
+                        if (serverActive && uid != Process.myUid()) {
+                            mode = "remote service";
+                        } else mode = mModes[MODE_NAMES.indexOf(mCurrentMode)];
+                        mModeOfOpsView.setText(getString(R.string.status_connected_via_mode, mode));
+                    } else {
+                        mInferredModeView.setTextColor(mColorError);
+                        TextViewCompat.setCompoundDrawableTintList(mModeOfOpsView, mColorError);
+                        mModeOfOpsView.setTextColor(mColorError);
+                        mModeOfOpsView.setCompoundDrawablesRelativeWithIntrinsicBounds(mIconInactive, 0, 0, 0);
+                        mModeOfOpsView.setText(getString(R.string.status_not_connected_via_mode, mModes[MODE_NAMES.indexOf(mCurrentMode)]));
+                    }
+                });
+            });
         }
         // Server
         if (serverRequired) {

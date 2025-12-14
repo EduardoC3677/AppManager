@@ -292,7 +292,6 @@ public class AppPref {
         else if (value instanceof Long) mEditor.putLong(PrefKey.sKeys[index], (Long) value);
         else if (value instanceof String) mEditor.putString(PrefKey.sKeys[index], (String) value);
         mEditor.apply();
-        mEditor.commit();
     }
 
     public void setPref(String key, @Nullable Object value) {
@@ -306,7 +305,6 @@ public class AppPref {
         else if (value instanceof Long) mEditor.putLong(key, (Long) value);
         else if (value instanceof String) mEditor.putString(key, (String) value);
         mEditor.apply();
-        mEditor.commit();
     }
 
     @NonNull
