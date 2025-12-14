@@ -917,11 +917,12 @@ public class BatchOpsManager {
                     packageInstaller.requestArchive(pair.getPackageName(), pendingIntent.getIntentSender());
                     success = true; // Assume success for now, actual result handled by broadcast receiver
                 } else if (ShizukuUtils.isShizukuAvailable()) {
-                    Integer exitCode = ShizukuUtils.runCommand(context, "pm uninstall -k " + pair.getPackageName());
-                    if (exitCode != null && exitCode == 0) {
+                    ShizukuUtils.CommandResult result = ShizukuUtils.runCommand(context, "pm uninstall -k " + pair.getPackageName());
+                    if (result != null && result.exitCode == 0) {
                         success = true;
                     } else {
-                        log("====> op=ARCHIVE, pkg=" + pair + ", exitCode=" + exitCode);
+                        log("====> op=ARCHIVE, pkg=" + pair + ", exitCode=" + (result != null ? result.exitCode : "null") +
+                                ", stderr=" + (result != null ? result.stderr : "null"));
                     }
                 } else {
                     // Fallback to the old method if Shizuku is not available and archiving API is not present
