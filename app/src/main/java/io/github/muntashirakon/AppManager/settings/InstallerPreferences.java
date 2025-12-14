@@ -42,6 +42,7 @@ import io.github.muntashirakon.AppManager.apk.signing.Signer;
 import io.github.muntashirakon.AppManager.self.SelfPermissions;
 import io.github.muntashirakon.AppManager.utils.PackageUtils;
 import io.github.muntashirakon.AppManager.utils.Utils;
+import io.github.muntashirakon.AppManager.settings.InstallerPreferencesViewModel;
 import io.github.muntashirakon.dialog.ScrollableDialogBuilder;
 import io.github.muntashirakon.dialog.SearchableSingleChoiceDialogBuilder;
 import io.github.muntashirakon.dialog.TextInputDialogBuilder;
@@ -81,12 +82,14 @@ public class InstallerPreferences extends PreferenceFragment {
     private String mInstallerApp;
     private Preference mInstallerAppPref;
     private MainPreferencesViewModel mModel;
+    private InstallerPreferencesViewModel mInstallerViewModel; // New ViewModel
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences_installer, rootKey);
         getPreferenceManager().setPreferenceDataStore(new SettingsDataStore());
         mModel = new ViewModelProvider(requireActivity()).get(MainPreferencesViewModel.class);
+        mInstallerViewModel = new ViewModelProvider(this).get(InstallerPreferencesViewModel.class); // Initialize new ViewModel
         mActivity = (SettingsActivity) requireActivity();
         mPm = mActivity.getPackageManager();
         boolean isInstallerEnabled = FeatureController.isInstallerEnabled();
@@ -125,7 +128,9 @@ public class InstallerPreferences extends PreferenceFragment {
         });
         // Set installer app
         mInstallerAppPref = Objects.requireNonNull(findPreference("installer_installer_app"));
-        mInstallerAppPref.setEnabled(SelfPermissions.checkSelfOrRemotePermission(Manifest.permission.INSTALL_PACKAGES));
+        // Remove blocking SelfPermissions.checkSelfOrRemotePermission(Manifest.permission.INSTALL_PACKAGES) from UI thread
+        mInstallerViewModel.loadCanInstallPackagesPermission(); // Trigger async load
+
         mInstallerApp = Prefs.Installer.getInstallerPackageName();
         mInstallerAppPref.setSummary(PackageUtils.getPackageLabel(mPm, mInstallerApp));
         mInstallerAppPref.setOnPreferenceClickListener(preference -> {
@@ -159,7 +164,9 @@ public class InstallerPreferences extends PreferenceFragment {
         });
         // Disable verification
         SwitchPreferenceCompat disableVerification = Objects.requireNonNull(findPreference("installer_disable_verification"));
-        disableVerification.setEnabled(SelfPermissions.isSystemOrRootOrShell());
+        // Remove blocking SelfPermissions.isSystemOrRootOrShell() from UI thread
+        mInstallerViewModel.loadSystemOrRootOrShellStatus(); // Trigger async load
+
         disableVerification.setChecked(Prefs.Installer.isDisableApkVerification());
         // Update ownership
         SwitchPreferenceCompat updateOwnership = Objects.requireNonNull(findPreference("installer_update_ownership"));
@@ -218,7 +225,9 @@ public class InstallerPreferences extends PreferenceFragment {
                 .setChecked(Prefs.Installer.displayChanges());
         // Block trackers
         SwitchPreferenceCompat blockTrackersPref = Objects.requireNonNull(findPreference("installer_block_trackers"));
-        blockTrackersPref.setVisible(SelfPermissions.canModifyAppComponentStates(UserHandleHidden.myUserId(), null, true));
+        // Remove blocking SelfPermissions.canModifyAppComponentStates(...) from UI thread
+        mInstallerViewModel.loadCanModifyAppComponentStates(); // Trigger async load
+
         blockTrackersPref.setChecked(Prefs.Installer.blockTrackers());
         // Running installer in the background
         SwitchPreferenceCompat backgroundPref = Objects.requireNonNull(findPreference("installer_always_on_background"));
@@ -231,6 +240,21 @@ public class InstallerPreferences extends PreferenceFragment {
         super.onViewCreated(view, savedInstanceState);
         // Observe installer app selection
         mModel.getPackageNameLabelPairLiveData().observe(getViewLifecycleOwner(), this::displayInstallerAppSelectionDialog);
+
+        // Observe LiveData from InstallerPreferencesViewModel
+        mInstallerViewModel.canInstallPackages.observe(getViewLifecycleOwner(), hasPermission -> {
+            if (mInstallerAppPref != null) {
+                mInstallerAppPref.setEnabled(hasPermission);
+            }
+        });
+        mInstallerViewModel.isSystemOrRootOrShell.observe(getViewLifecycleOwner(), isSystemOrRootOrShell -> {
+            SwitchPreferenceCompat disableVerification = Objects.requireNonNull(findPreference("installer_disable_verification"));
+            disableVerification.setEnabled(isSystemOrRootOrShell);
+        });
+        mInstallerViewModel.canModifyAppComponentStates.observe(getViewLifecycleOwner(), canModify -> {
+            SwitchPreferenceCompat blockTrackersPref = Objects.requireNonNull(findPreference("installer_block_trackers"));
+            blockTrackersPref.setVisible(canModify);
+        });
     }
 
     @Override
