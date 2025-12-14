@@ -19,6 +19,7 @@ import java.security.Security;
 import dalvik.system.ZipPathValidator;
 import io.github.muntashirakon.AppManager.misc.AMExceptionHandler;
 import io.github.muntashirakon.AppManager.utils.Utils;
+import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.AppManager.utils.appearance.AppearanceUtils;
 import io.github.muntashirakon.AppManager.utils.appearance.TypefaceUtil;
 
@@ -44,6 +45,9 @@ public class AppManager extends Application {
         Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
         Security.addProvider(new JavaKeyStoreProvider());
         Security.addProvider(new BouncyCastleProvider());
+
+        // Initialize AppPref on a background thread to prevent UI freezes on first access
+        ThreadUtils.postOnBackgroundThread(io.github.muntashirakon.AppManager.utils.AppPref::getInstance);
     }
 
     @Keep
