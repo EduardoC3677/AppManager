@@ -21,6 +21,7 @@ import io.github.muntashirakon.AppManager.misc.AMExceptionHandler;
 import io.github.muntashirakon.AppManager.utils.Utils;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.AppManager.utils.appearance.AppearanceUtils;
+import io.github.muntashirakon.AppManager.ipc.LocalServices;
 import io.github.muntashirakon.AppManager.utils.appearance.TypefaceUtil;
 
 public class AppManager extends Application {
@@ -48,6 +49,16 @@ public class AppManager extends Application {
 
         // Initialize AppPref on a background thread to prevent UI freezes on first access
         ThreadUtils.postOnBackgroundThread(io.github.muntashirakon.AppManager.utils.AppPref::getInstance);
+
+        // Bind LocalServices early on a background thread to prevent UI blocking IPC calls
+        ThreadUtils.postOnBackgroundThread(() -> {
+            try {
+                io.github.muntashirakon.AppManager.ipc.LocalServices.bindServices();
+            } catch (RemoteException e) {
+                // Log the exception, but do not rethrow or block
+                io.github.muntashirakon.AppManager.logs.Log.e("AppManager", "Failed to bind LocalServices on startup", e);
+            }
+        });
     }
 
     @Keep
