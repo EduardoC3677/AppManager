@@ -5,6 +5,7 @@ package io.github.muntashirakon.AppManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.os.RemoteException;
 import android.sun.security.provider.JavaKeyStoreProvider;
 
 import androidx.annotation.Keep;
