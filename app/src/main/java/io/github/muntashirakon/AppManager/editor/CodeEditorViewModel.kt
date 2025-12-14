@@ -107,7 +107,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
                         }
                     }
                 } catch (e: IOException) {
-                    Log.e(TAG, "Unable to convert XML bytes to plain text.", e)
+                    Log.e(TAG, "Unable to convert XML bytes to plain text.: $e")
                 }
             }
             if (content == null) {
@@ -117,7 +117,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
                         xmlType = XML_TYPE_NONE
                     }
                 } catch (e: IOException) {
-                    Log.e(TAG, "Could not read file $file", e)
+                    Log.e(TAG, "Could not read file $file: $e")
                 }
             }
             _contentLiveData.postValue(content)
@@ -150,7 +150,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
                 }
                 _saveFileLiveData.postValue(true)
             } catch (e: IOException) {
-                Log.e(TAG, "Could not write to file $savingPath", e)
+                Log.e(TAG, "Could not write to file $savingPath: $e")
                 _saveFileLiveData.postValue(false)
             }
         }

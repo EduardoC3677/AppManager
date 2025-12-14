@@ -72,8 +72,8 @@ data class BatchBackupOptions(
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         flags = jsonObject.getInt("flags"),
-        backupNames = JSONUtils.getArray(String::class.java, jsonObject.optJSONArray("backup_names")),
-        relativeDirs = JSONUtils.getArray(String::class.java, jsonObject.optJSONArray("relative_dirs"))
+        backupNames = JSONUtils.getArray<String>(jsonObject.optJSONArray("backup_names")),
+        relativeDirs = JSONUtils.getArray<String>(jsonObject.optJSONArray("relative_dirs"))
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }

@@ -17,10 +17,11 @@ class AppDetailsOverlayItem(
 ) : AppDetailsItem<OverlayInfoHidden>(Refine.unsafeCast(overlayInfo)) {
 
     init {
-        name = if (overlayInfo.overlayName != null) {
-            overlayInfo.overlayName
+        name = if (item.overlayName != null) {
+            item.overlayName
         } else {
-            overlayInfo.overlayIdentifier?.toString() ?: overlayInfo.packageName
+            // overlayIdentifier is not available in OverlayInfoHidden stub, fallback to packageName
+            item.packageName
         }
     }
 

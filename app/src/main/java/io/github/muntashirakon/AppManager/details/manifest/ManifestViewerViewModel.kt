@@ -48,14 +48,14 @@ class ManifestViewerViewModel(application: Application) : AndroidViewModel(appli
                 val applicationInfo = pm.getApplicationInfo(packageName, 0)
                 ApkSource.getApkSource(applicationInfo)
             } catch (e: PackageManager.NameNotFoundException) {
-                Log.e(TAG, "Error: ", e)
+                Log.e(TAG, e)
                 return@launch
             }
 
             try {
                 apkFile = realApkSource.resolve()
             } catch (e: ApkFile.ApkFileException) {
-                Log.e(TAG, "Error: ", e)
+                Log.e(TAG, e)
                 return@launch
             }
 
@@ -75,7 +75,7 @@ class ManifestViewerViewModel(application: Application) : AndroidViewModel(appli
                     }
                     _manifestLiveData.postValue(Uri.fromFile(cachedFile))
                 } catch (e: Throwable) {
-                    Log.e(TAG, "Could not parse APK", e)
+                    Log.e(TAG, "Could not parse APK: $e")
                 }
             }
         }

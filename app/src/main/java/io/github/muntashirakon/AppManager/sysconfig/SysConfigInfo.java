@@ -4,7 +4,7 @@ package io.github.muntashirakon.AppManager.sysconfig;
 
 import androidx.annotation.NonNull;
 
-class SysConfigInfo {
+public class SysConfigInfo {
     @SysConfigType
     final String type;
     /**

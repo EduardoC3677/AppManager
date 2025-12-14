@@ -185,7 +185,7 @@ class DebloaterViewModel(application: Application) : AndroidViewModel(applicatio
         }
         debloatObjects.addAll(StaticDataset.getDebloatObjectsWithInstalledInfo(getApplication()))
         debloatObjects.sortWith { o1, o2 ->
-            CharSequence.compare(o1.getLabelOrPackageName(), o2.getLabelOrPackageName())
+            o1.getLabelOrPackageName().toString().compareTo(o2.getLabelOrPackageName().toString())
         }
     }
 }

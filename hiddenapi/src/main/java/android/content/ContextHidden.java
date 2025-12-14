@@ -5,9 +5,11 @@ package android.content;
 import android.content.pm.PackageManager;
 import android.os.UserHandle;
 
+import dev.rikka.tools.refine.RefineAs;
 import misc.utils.HiddenUtil;
 
-public class Context {
+@RefineAs(Context.class)
+public class ContextHidden {
     public Context createPackageContextAsUser(String packageName, int flags, UserHandle user)
             throws PackageManager.NameNotFoundException {
         return HiddenUtil.throwUOE();
