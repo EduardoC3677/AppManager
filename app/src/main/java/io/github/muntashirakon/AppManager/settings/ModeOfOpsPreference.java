@@ -153,6 +153,9 @@ public class ModeOfOpsPreference extends Fragment {
             }
         });
         mModel.loadCustomCommands();
+        // Set loading state for initial display
+        mConnecting = true;
+        mModeOfOpsAlertDialog.show();
         updateViews();
         // Mode of ops
         mModel.getModeOfOpsStatus().observe(getViewLifecycleOwner(), status -> {
@@ -166,18 +169,21 @@ public class ModeOfOpsPreference extends Fragment {
                 case Ops.STATUS_WIRELESS_DEBUGGING_CHOOSER_REQUIRED:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         mModeOfOpsAlertDialog.dismiss();
+                        mConnecting = false; // Reset connecting state
                         updateViews();
                         Ops.connectWirelessDebugging(requireActivity(), mModel);
                         return;
                     } // fall-through
                 case Ops.STATUS_ADB_CONNECT_REQUIRED:
                     mModeOfOpsAlertDialog.dismiss();
+                    mConnecting = false; // Reset connecting state
                     updateViews();
                     Ops.connectAdbInput(requireActivity(), mModel);
                     return;
                 case Ops.STATUS_ADB_PAIRING_REQUIRED:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         mModeOfOpsAlertDialog.dismiss();
+                        mConnecting = false; // Reset connecting state
                         updateViews();
                         Ops.pairAdbInput(requireActivity(), mModel);
                         return;
