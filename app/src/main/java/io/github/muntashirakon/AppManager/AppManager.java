@@ -53,12 +53,7 @@ public class AppManager extends Application {
 
         // Bind LocalServices early on a background thread to prevent UI blocking IPC calls
         ThreadUtils.postOnBackgroundThread(() -> {
-            try {
-                io.github.muntashirakon.AppManager.ipc.LocalServices.bindServices();
-            } catch (RemoteException e) {
-                // Log the exception, but do not rethrow or block
-                io.github.muntashirakon.AppManager.logs.Log.e("AppManager", "Failed to bind LocalServices on startup", e);
-            }
+            io.github.muntashirakon.AppManager.ipc.LocalServices.bindServices();
         });
     }
 
