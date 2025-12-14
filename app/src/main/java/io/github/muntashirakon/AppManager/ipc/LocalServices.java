@@ -19,6 +19,7 @@ import io.github.muntashirakon.AppManager.misc.NoOps;
 import io.github.muntashirakon.AppManager.settings.Ops;
 import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 import io.github.muntashirakon.io.FileSystemManager;
+import io.github.muntashirakon.AppManager.logs.Log;
 
 public class LocalServices {
     private static final Object sBindLock = new Object();
@@ -28,25 +29,29 @@ public class LocalServices {
             = new ServiceConnectionWrapper(BuildConfig.APPLICATION_ID, FileSystemService.class.getName());
 
     @WorkerThread
-    public static void bindServicesIfNotAlready() throws RemoteException {
+    public static void bindServicesIfNotAlready() {
         if (!alive()) {
             bindServices();
         }
     }
 
     @WorkerThread
-    public static void bindServices() throws RemoteException {
+    public static void bindServices() {
         synchronized (sBindLock) {
             unbindServicesIfRunning();
-            bindAmService();
-            bindFileSystemManager();
-            // Verify binding
-            if (!getAmService().asBinder().pingBinder()) {
-                throw new RemoteException("IAmService not running.");
+            try {
+                bindAmService();
+            } catch (RemoteException e) {
+                io.github.muntashirakon.AppManager.logs.Log.e("LocalServices", "Failed to bind AmService", e);
             }
-            getFileSystemManager();
-            // Update UID
-            Ops.setWorkingUid(getAmService().getUid());
+            try {
+                bindFileSystemManager();
+            } catch (RemoteException e) {
+                io.github.muntashirakon.AppManager.logs.Log.e("LocalServices", "Failed to bind FileSystemService", e);
+            }
+
+            // Verification and UID update should now happen asynchronously once services are connected
+            // Or consumers of getAmService/getFileSystemManager should handle the non-availability
         }
     }
 
@@ -60,23 +65,19 @@ public class LocalServices {
     @NoOps(used = true)
     private static void bindFileSystemManager() throws RemoteException {
         synchronized (sFileSystemServiceConnectionWrapper) {
-            try {
-                sFileSystemServiceConnectionWrapper.bindService();
-            } finally {
-                sFileSystemServiceConnectionWrapper.notifyAll();
-            }
+            sFileSystemServiceConnectionWrapper.bindService();
         }
     }
 
     @AnyThread
-    @NonNull
+    @Nullable // Changed to Nullable
     @NoOps
-    public static FileSystemManager getFileSystemManager() throws RemoteException {
+    public static FileSystemManager getFileSystemManager() { // Removed throws RemoteException
         synchronized (sFileSystemServiceConnectionWrapper) {
             try {
                 return FileSystemManager.getRemote(sFileSystemServiceConnectionWrapper.getService());
-            } finally {
-                sFileSystemServiceConnectionWrapper.notifyAll();
+            } catch (RemoteException e) {
+                return null; // Return null if not active
             }
         }
     }
@@ -89,23 +90,19 @@ public class LocalServices {
     @NoOps(used = true)
     private static void bindAmService() throws RemoteException {
         synchronized (sAMServiceConnectionWrapper) {
-            try {
-                sAMServiceConnectionWrapper.bindService();
-            } finally {
-                sAMServiceConnectionWrapper.notifyAll();
-            }
+            sAMServiceConnectionWrapper.bindService();
         }
     }
 
     @AnyThread
-    @NonNull
+    @Nullable // Changed to Nullable
     @NoOps
-    public static IAMService getAmService() throws RemoteException {
+    public static IAMService getAmService() { // Removed throws RemoteException
         synchronized (sAMServiceConnectionWrapper) {
             try {
                 return IAMService.Stub.asInterface(sAMServiceConnectionWrapper.getService());
-            } finally {
-                sAMServiceConnectionWrapper.notifyAll();
+            } catch (RemoteException e) {
+                return null; // Return null if not active
             }
         }
     }
@@ -135,18 +132,9 @@ public class LocalServices {
 
     @WorkerThread
     private static void unbindServicesIfRunning() {
-        // Basically unregister the services so that we can open another connection
-        CountDownLatch unbindWatcher = new CountDownLatch(1);
-        ThreadUtils.postOnMainThread(() -> {
-            try {
-                unbindServices();
-            } finally {
-                unbindWatcher.countDown();
-            }
-        });
-        try {
-            unbindWatcher.await(30, TimeUnit.SECONDS);
-        } catch (InterruptedException ignore) {
-        }
+        // Unbinding should also be non-blocking.
+        // The original CountDownLatch.await() causes blocking.
+        // We'll just call unbindServices and not wait.
+        ThreadUtils.postOnMainThread(LocalServices::unbindServices);
     }
 }

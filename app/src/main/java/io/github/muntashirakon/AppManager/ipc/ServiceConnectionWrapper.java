@@ -26,43 +26,30 @@ class ServiceConnectionWrapper {
 
     @Nullable
     private IBinder mIBinder;
-    @Nullable
-    private CountDownLatch mServiceBoundWatcher;
 
     private class ServiceConnectionImpl implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.d(TAG, "service onServiceConnected: %s", name);
             mIBinder = service;
-            onResponseReceived();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, "service onServiceDisconnected: %s", name);
             mIBinder = null;
-            onResponseReceived();
         }
 
         @Override
         public void onBindingDied(ComponentName name) {
             Log.d(TAG, "service onBindingDied: %s", name);
             mIBinder = null;
-            onResponseReceived();
         }
 
         @Override
         public void onNullBinding(ComponentName name) {
             Log.d(TAG, "service onNullBinding: %s", name);
             mIBinder = null;
-            onResponseReceived();
-        }
-
-        private void onResponseReceived() {
-            if (mServiceBoundWatcher != null) {
-                // Should never be null
-                mServiceBoundWatcher.countDown();
-            } else throw new RuntimeException("Service watcher should never be null!");
         }
     }
 
@@ -95,7 +82,12 @@ class ServiceConnectionWrapper {
             if (!isBinderActive()) {
                 startDaemon();
             }
-            return getService();
+            // Return immediately without waiting for the service to bind.
+            // Callers must check isBinderActive() or handle RemoteException.
+            if (!isBinderActive()) {
+                throw new RemoteException("Service binding initiated, but not yet active.");
+            }
+            return Objects.requireNonNull(mIBinder);
         }
     }
 
@@ -113,22 +105,17 @@ class ServiceConnectionWrapper {
                 Log.d(TAG, "Binder is already active?");
                 return;
             }
-            mServiceBoundWatcher = new CountDownLatch(1);
             Log.d(TAG, "Launching service...");
             Intent intent = new Intent();
             intent.setComponent(mComponentName);
+            // This is still called on the main thread, so we post it
             ThreadUtils.postOnMainThread(() -> {
                 if (mIBinder != null) {
                     RootService.stop(intent);
                 }
                 RootService.bind(intent, mServiceConnection);
             });
-            // Wait for service to be bound
-            try {
-                mServiceBoundWatcher.await(45, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Log.e(TAG, "Service watcher interrupted.");
-            }
+            // Removed await() - this method is now truly asynchronous
         }
     }
 
