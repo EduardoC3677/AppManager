@@ -30,10 +30,11 @@ class WhatsNewDialogViewModel(application: Application) : AndroidViewModel(appli
                 }
             }
             if (changeList.isEmpty()) {
+                val app = getApplication<Application>()
                 changeList.add(
                     ApkWhatsNewFinder.Change(
                         ApkWhatsNewFinder.CHANGE_INFO,
-                        getApplication<Application>().getString(R.string.no_changes)
+                        app.getString(R.string.no_changes)
                     )
                 )
             }

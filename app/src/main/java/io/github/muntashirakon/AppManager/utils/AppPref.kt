@@ -479,7 +479,7 @@ class AppPref {
             PrefKey.PREF_FM_HOME_STR ->
                 Uri.fromFile(Environment.getExternalStorageDirectory()).toString()
             PrefKey.PREF_LOG_VIEWER_FILTER_PATTERN_STR ->
-                mContext.getString(R.string.pref_filter_pattern_default)
+                mContext.resources.getString(R.string.pref_filter_pattern_default)
             PrefKey.PREF_LOG_VIEWER_DISPLAY_LIMIT_INT ->
                 LogcatHelper.DEFAULT_DISPLAY_LIMIT
             PrefKey.PREF_LOG_VIEWER_WRITE_PERIOD_INT ->

@@ -16,7 +16,7 @@ data class BatchComponentOptions(
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
-        signatures = JSONUtils.getArray(String::class.java, jsonObject.getJSONArray("signatures"))
+        signatures = JSONUtils.getArray(String::class.java, jsonObject.getJSONArray("signatures"))!!
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }

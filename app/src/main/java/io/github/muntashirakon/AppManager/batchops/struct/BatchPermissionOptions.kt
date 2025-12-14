@@ -16,7 +16,7 @@ data class BatchPermissionOptions(
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
-        permissions = JSONUtils.getArray(String::class.java, jsonObject.getJSONArray("permissions"))
+        permissions = JSONUtils.getArray(String::class.java, jsonObject.getJSONArray("permissions"))!!
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }

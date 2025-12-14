@@ -42,19 +42,22 @@ data class BatchQueueItem(
         }
 
     val title: String?
-        get() = try {
-            ContextUtils.getContext().getString(titleRes)
-        } catch (e: Resources.NotFoundException) {
-            // This resource may not always be found
-            null
+        get() {
+            val context = ContextUtils.getContext()
+            return try {
+                context.getString(titleRes)
+            } catch (e: Resources.NotFoundException) {
+                // This resource may not always be found
+                null
+            }
         }
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         titleRes = jsonObject.getInt("title_res"),
         op = jsonObject.getInt("op"),
-        packages = JSONUtils.getArray(jsonObject.getJSONArray("packages")),
-        _users = JSONUtils.getArray(jsonObject.getJSONArray("users")),
+        packages = JSONUtils.getArray(jsonObject.getJSONArray("packages")) as ArrayList<String>,
+        _users = JSONUtils.getArray(jsonObject.getJSONArray("users")) as ArrayList<Int>?,
         options = jsonObject.optJSONObject("options")?.let {
             IBatchOpOptions.DESERIALIZER.deserialize(it)
         }
