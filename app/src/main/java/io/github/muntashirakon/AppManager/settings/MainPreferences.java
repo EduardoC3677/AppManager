@@ -47,7 +47,7 @@ public class MainPreferences extends PreferenceFragment {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.preferences_main_test, rootKey);
+        setPreferencesFromResource(R.xml.preferences_main, rootKey);
         getPreferenceManager().setPreferenceDataStore(new SettingsDataStore());
         MainPreferencesViewModel model = new ViewModelProvider(requireActivity()).get(MainPreferencesViewModel.class);
         mActivity = requireActivity();

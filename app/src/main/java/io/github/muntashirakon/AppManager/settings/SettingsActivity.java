@@ -117,12 +117,6 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(
-                        R.animator.enter_from_left,
-                        R.animator.enter_from_right,
-                        R.animator.exit_from_right,
-                        R.animator.exit_from_left
-                )
                 .replace(R.id.main_layout, MainPreferences.getInstance(defaultPref, mDualPaneMode))
                 .commit();
     }
