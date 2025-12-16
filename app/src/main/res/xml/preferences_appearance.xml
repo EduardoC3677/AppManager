@@ -30,4 +30,12 @@
         app:title="@string/enable_disable_features"
         app:summary="@string/pref_enable_disable_features_msg"
         app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        app:key="use_bottom_bar"
+        app:title="Use bottom navigation bar"
+        app:summary="Move navigation and search to the bottom of the screen"
+        app:defaultValue="true"
+        app:iconSpaceReserved="false" />
+
 </PreferenceScreen>

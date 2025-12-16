@@ -7,19 +7,35 @@
     android:layout_height="match_parent"
     tools:context="io.github.muntashirakon.AppManager.main.MainActivity">
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_linear"
-        style="@style/Widget.AppTheme.LinearProgressIndicator"
-        android:indeterminate="true"
+    <io.github.muntashirakon.widget.AppBarLayout
+        android:id="@+id/top_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top" />
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@+id/item_list">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@null"
+            tools:menu="@menu/activity_main_actions" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_linear"
+            style="@style/Widget.AppTheme.LinearProgressIndicator"
+            android:indeterminate="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </io.github.muntashirakon.widget.AppBarLayout>
 
     <io.github.muntashirakon.AppManager.misc.AdvancedSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         android:visibility="gone"
         tools:visibility="visible" />
 
@@ -44,8 +60,7 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:focusable="false">
 
         <io.github.muntashirakon.widget.RecyclerView
             android:id="@+id/item_list"

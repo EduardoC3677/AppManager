@@ -148,6 +148,7 @@ public class AppPref {
         PREF_VIRUS_TOTAL_PROMPT_BEFORE_UPLOADING_BOOL,
 
         PREF_USE_SYSTEM_FONT_BOOL,
+        PREF_USE_BOTTOM_BAR_BOOL,
         PREF_ZIP_ALIGN_BOOL,
         ;
 
@@ -408,6 +409,7 @@ public class AppPref {
             case PREF_INSTALLER_UPDATE_OWNERSHIP_BOOL:
             case PREF_VIRUS_TOTAL_PROMPT_BEFORE_UPLOADING_BOOL:
             case PREF_ZIP_ALIGN_BOOL:
+            case PREF_USE_BOTTOM_BAR_BOOL:
             case PREF_SEND_NOTIFICATIONS_TO_CONNECTED_DEVICES_BOOL:
             case PREF_ENABLE_AUTO_LOCK_BOOL:
                 return true;

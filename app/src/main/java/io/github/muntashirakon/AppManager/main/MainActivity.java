@@ -100,7 +100,11 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
 
     MainViewModel viewModel;
 
-    private MainRecyclerAdapter mAdapter;
+    private io.github.muntashirakon.widget.AppBarLayout mTopAppBarLayout;
+    private com.google.android.material.appbar.MaterialToolbar mTopToolbar;
+    private com.google.android.material.bottomappbar.BottomAppBar mBottomAppBar;
+    private com.google.android.material.floatingactionbutton.FloatingActionButton mFab;
+
     private AdvancedSearchView mSearchView;
     private LinearProgressIndicator mProgressIndicator;
     private SwipeRefreshLayout mSwipeRefresh;
@@ -199,19 +203,61 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         }
     };
 
-    @SuppressLint("RestrictedApi")
-    @Override
-    protected void onAuthenticated(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
-        getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        @SuppressLint("RestrictedApi")
 
-        // Setup BottomAppBar
-        com.google.android.material.bottomappbar.BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
-        setSupportActionBar(bottomAppBar);
+        @Override
 
-        com.google.android.material.floatingactionbutton.FloatingActionButton fab = findViewById(R.id.fab);
-        mSearchView = findViewById(R.id.search_view);
+        protected void onAuthenticated(Bundle savedInstanceState) {
+
+            setContentView(R.layout.activity_main);
+
+            getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
+
+            viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+    
+
+            // Read preference for bottom bar
+
+            boolean useBottomBar = AppPref.getBoolean(AppPref.PrefKey.PREF_USE_BOTTOM_BAR_BOOL);
+
+    
+
+            // Initialize all UI components
+
+            mTopAppBarLayout = findViewById(R.id.top_app_bar_layout);
+
+            mTopToolbar = findViewById(R.id.top_toolbar);
+
+            mBottomAppBar = findViewById(R.id.bottom_app_bar);
+
+            mFab = findViewById(R.id.fab);
+
+            mProgressIndicator = findViewById(R.id.progress_linear);
+
+            mSearchView = findViewById(R.id.search_view);
+
+        // Conditional visibility and action bar setup
+        if (useBottomBar) {
+            mTopAppBarLayout.setVisibility(View.GONE);
+            mBottomAppBar.setVisibility(View.VISIBLE);
+            mFab.setVisibility(View.VISIBLE);
+            setSupportActionBar(mBottomAppBar);
+            // Adjust search view gravity for bottom
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mSearchView.getLayoutParams();
+            params.gravity = Gravity.BOTTOM;
+            mSearchView.setLayoutParams(params);
+        } else {
+            mTopAppBarLayout.setVisibility(View.VISIBLE);
+            mBottomAppBar.setVisibility(View.GONE);
+            mFab.setVisibility(View.GONE);
+            setSupportActionBar(mTopToolbar);
+            // Adjust search view gravity for top
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mSearchView.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            mSearchView.setLayoutParams(params);
+        }
+
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnFocusChangeListener((v, hasFocus) -> {
@@ -231,10 +277,11 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             }
         }
 
-        fab.setOnClickListener(v -> {
+        mFab.setOnClickListener(v -> {
             if (mSearchView.getVisibility() == View.VISIBLE) {
                 mSearchView.setQuery("", false);
                 mSearchView.setVisibility(View.GONE);
+                UiUtils.hideKeyboard(mSearchView);
                 mOnBackPressedCallback.setEnabled(false);
             } else {
                 mSearchView.setVisibility(View.VISIBLE);
@@ -244,45 +291,7 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             }
         });
 
-        mProgressIndicator = findViewById(R.id.progress_linear);
         mProgressIndicator.setVisibilityAfterHide(View.GONE);
-
-        // The previous search view and progress indicator setup (from the top toolbar)
-        // will be re-integrated or replaced later.
-        /*
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-            AdvancedSearchView searchView = new AdvancedSearchView(actionBar.getThemedContext());
-            searchView.setId(R.id.action_search);
-            searchView.setOnQueryTextListener(this);
-            // Set layout params
-            ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.gravity = Gravity.CENTER;
-            actionBar.setCustomView(searchView, layoutParams);
-            mSearchView = searchView;
-            mSearchView.setIconifiedByDefault(false);
-            mSearchView.setOnFocusChangeListener((v, hasFocus) -> {
-                if (!hasFocus) {
-                    UiUtils.hideKeyboard(v);
-                }
-            });
-            // Check for market://search/?q=<query>
-            Uri marketUri = getIntent().getData();
-            if (marketUri != null && "market".equals(marketUri.getScheme()) && "search".equals(marketUri.getHost())) {
-                String query = marketUri.getQueryParameter("q");
-                if (query != null) {
-                    mSearchView.setQuery(query, true);
-                }
-            }
-        }
-        */
-
-        // mProgressIndicator = findViewById(R.id.progress_linear); // No longer in top app bar
-        // mProgressIndicator.setVisibilityAfterHide(View.GONE); // No longer in top app bar
-
         RecyclerView recyclerView = findViewById(R.id.item_list);
         recyclerView.requestFocus(); // Initially (the view isn't actually focusable)
         mSwipeRefresh = findViewById(R.id.swipe_refresh);
@@ -560,10 +569,15 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
 
         // Set filter
         if (viewModel != null && mSearchView != null && !TextUtils.isEmpty(viewModel.getSearchQuery())) {
+            mSearchView.setVisibility(View.VISIBLE);
             if (mSearchView.isIconified()) {
                 mSearchView.setIconified(false);
             }
             mSearchView.setQuery(viewModel.getSearchQuery(), false);
+            mOnBackPressedCallback.setEnabled(true);
+        } else if (mSearchView != null) {
+            mSearchView.setVisibility(View.GONE);
+            mOnBackPressedCallback.setEnabled(false);
         }
         // Show/hide app usage menu
         if (mAppUsageMenu != null) {
