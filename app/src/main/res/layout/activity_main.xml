@@ -7,6 +7,25 @@
     android:layout_height="match_parent"
     tools:context="io.github.muntashirakon.AppManager.main.MainActivity">
 
+    <io.github.muntashirakon.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <io.github.muntashirakon.widget.RecyclerView
+            android:id="@+id/item_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:focusable="false"
+            android:clipToPadding="false"
+            app:fastScrollerEnabled="true"
+            tools:listitem="@layout/item_main" />
+
+    </io.github.muntashirakon.widget.SwipeRefreshLayout>
+
     <io.github.muntashirakon.widget.AppBarLayout
         android:id="@+id/top_app_bar_layout"
         android:layout_width="match_parent"
@@ -56,25 +75,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
         app:layout_anchor="@id/bottom_app_bar" />
-
-    <io.github.muntashirakon.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <io.github.muntashirakon.widget.RecyclerView
-            android:id="@+id/item_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:focusable="false"
-            android:clipToPadding="false"
-            app:fastScrollerEnabled="true"
-            tools:listitem="@layout/item_main" />
-
-    </io.github.muntashirakon.widget.SwipeRefreshLayout>
 
     <io.github.muntashirakon.widget.MultiSelectionView
         android:id="@+id/selection_view"
