@@ -71,7 +71,6 @@
             android:scrollbars="none"
             android:focusable="false"
             android:clipToPadding="false"
-            android:fitsSystemWindows="true"
             app:fastScrollerEnabled="true"
             tools:listitem="@layout/item_main" />
 
