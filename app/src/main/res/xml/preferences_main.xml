@@ -50,6 +50,7 @@
         app:summary="@string/pref_apk_signing_msg"
         app:title="@string/apk_signing" />
 
+    <!--
     <Preference
         android:fragment="io.github.muntashirakon.AppManager.settings.InstallerPreferences"
         app:icon="@drawable/ic_get_app"
@@ -118,5 +119,6 @@
         app:icon="@drawable/ic_hammer_wrench"
         app:key="troubleshooting_prefs"
         app:title="@string/troubleshooting" />
+    -->
 
 </PreferenceScreen>
