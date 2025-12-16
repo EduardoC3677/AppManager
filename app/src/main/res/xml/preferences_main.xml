@@ -22,6 +22,7 @@
         app:title="@string/pref_app_language"
         tools:summary="Auto" />
 
+    <!--
     <Preference
         android:fragment="io.github.muntashirakon.AppManager.settings.AppearancePreferences"
         app:icon="@drawable/ic_palette_swatch"
@@ -49,6 +50,7 @@
         app:key="apk_signing_prefs"
         app:summary="@string/pref_apk_signing_msg"
         app:title="@string/apk_signing" />
+    -->
 
     <!--
     <Preference
