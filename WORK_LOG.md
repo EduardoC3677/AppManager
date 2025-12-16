@@ -1,4 +1,3 @@
-
 # App Manager Work Log - 2025-09-23
 
 This log summarizes the work done on the App Manager application.
@@ -39,3 +38,23 @@ The main goal was to fix and improve the "app archiving" functionality.
 ## Current Status
 
 All the requested code changes have been implemented and saved in the `app_archive_fix.patch` file. The app is ready to be built and tested.
+
+# App Manager Work Log - 2025-12-15
+
+## Objective
+
+Apply pending changes for "Archive" button in App Details Page and ensure consistency with the codebase.
+
+## Changes Made
+
+1.  **Applied Missing Changes to `AppInfoFragment.java`:**
+    - Added logic to handle `R.id.action_archive` click event.
+    - Implemented the confirmation dialog and call to `BatchOpsService` via `BatchQueueItem`.
+    - Ensured `ArrayList` is used for `BatchQueueItem` compatibility, resolving potential type mismatch issues.
+
+2.  **Updated `fragment_app_info_actions.xml`:**
+    - Added the `action_archive` menu item.
+
+## Current Status
+
+The "Archive" button functionality in the App Details page is now fully implemented in the codebase.

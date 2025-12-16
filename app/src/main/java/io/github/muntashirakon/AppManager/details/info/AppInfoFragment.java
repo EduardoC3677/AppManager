@@ -618,6 +618,22 @@ public class AppInfoFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     }
                 });
             });
+        } else if (itemId == R.id.action_archive) {
+            new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.are_you_sure)
+                    .setMessage(R.string.this_action_cannot_be_undone)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        showProgressIndicator(true);
+                        ArrayList<String> packages = new ArrayList<>();
+                        packages.add(mPackageName);
+                        ArrayList<Integer> users = new ArrayList<>();
+                        users.add(mUserId);
+                        BatchQueueItem item = BatchQueueItem.getBatchOpQueue(BatchOpsManager.OP_ARCHIVE, packages, users, null);
+                        Intent intent = BatchOpsService.getServiceIntent(requireContext(), item);
+                        ContextCompat.startForegroundService(requireContext(), intent);
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
         } else if (itemId == R.id.action_install) {
             List<UserInfo> users = Users.getUsers();
             CharSequence[] userNames = new String[users.size()];

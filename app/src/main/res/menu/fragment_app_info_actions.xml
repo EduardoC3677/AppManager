@@ -94,6 +94,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_archive"
+        android:icon="@drawable/ic_archive"
+        android:title="@string/archive"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_install"
         android:icon="@drawable/ic_get_app"
         android:title="@string/install_for_another_user"
