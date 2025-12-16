@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="false"
+        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <io.github.muntashirakon.widget.RecyclerView
@@ -66,6 +67,7 @@
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="10dp"
+        app:navigationIcon="@null"
         app:menu="@menu/activity_main_actions"
         tools:menu="@menu/activity_main_actions" />
 

@@ -113,6 +113,17 @@ public class AppearancePreferences extends PreferenceFragment {
                             .show();
                     return true;
                 });
+
+        // Bottom bar
+        SwitchPreferenceCompat useBottomBarPref = Objects.requireNonNull(findPreference("use_bottom_bar"));
+        useBottomBarPref.setChecked(Prefs.Appearance.useBottomBar());
+        useBottomBarPref.setOnPreferenceChangeListener((preference, newValue) -> {
+            boolean enabled = (boolean) newValue;
+            Prefs.Appearance.setUseBottomBar(enabled);
+            // Recreate activity to apply changes
+            requireActivity().recreate();
+            return true;
+        });
     }
 
     @Override

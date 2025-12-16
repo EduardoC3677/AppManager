@@ -164,6 +164,14 @@ public final class Prefs {
         public static boolean useSystemFont() {
             return AppPref.getBoolean(AppPref.PrefKey.PREF_USE_SYSTEM_FONT_BOOL);
         }
+
+        public static boolean useBottomBar() {
+            return AppPref.getBoolean(AppPref.PrefKey.PREF_USE_BOTTOM_BAR_BOOL);
+        }
+
+        public static void setUseBottomBar(boolean useBottomBar) {
+            AppPref.set(AppPref.PrefKey.PREF_USE_BOTTOM_BAR_BOOL, useBottomBar);
+        }
     }
 
     public static final class BackupRestore {
