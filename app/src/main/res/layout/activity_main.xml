@@ -19,7 +19,7 @@
             android:id="@+id/top_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@null"
+            app:navigationIcon="@drawable/ic_menu"
             tools:menu="@menu/activity_main_actions" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -47,6 +47,7 @@
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="10dp"
+        app:navigationIcon="@drawable/ic_menu"
         tools:menu="@menu/activity_main_actions" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
