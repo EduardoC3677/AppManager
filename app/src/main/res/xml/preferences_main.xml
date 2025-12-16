@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
     <io.github.muntashirakon.preference.WarningAlertPreference
         app:icon="@drawable/ic_caution"
         app:key="app_manager_expiring_notice"
@@ -49,6 +50,7 @@
         app:key="apk_signing_prefs"
         app:summary="@string/pref_apk_signing_msg"
         app:title="@string/apk_signing" />
+    -->
 
     <Preference
         android:fragment="io.github.muntashirakon.AppManager.settings.InstallerPreferences"
