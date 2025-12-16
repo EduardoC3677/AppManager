@@ -121,10 +121,10 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
             defaultPref = "custom_locale";
             Log.d(TAG, "onAuthenticated: defaultPref (dual pane) = " + defaultPref);
         }
-        // getSupportFragmentManager()
-        //         .beginTransaction()
-        //         .replace(R.id.main_layout, MainPreferences.getInstance(defaultPref, mDualPaneMode))
-        //         .commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_layout, MainPreferences.getInstance(defaultPref, mDualPaneMode))
+                .commit();
         Log.d(TAG, "onAuthenticated: exit");
     }
 
