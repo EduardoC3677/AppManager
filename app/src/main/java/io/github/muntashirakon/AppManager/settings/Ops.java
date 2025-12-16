@@ -396,13 +396,18 @@ public class Ops {
                 LocalServices.stopServices();
             }
             try {
-                            // Service is confirmed dead
-                            LocalServices.bindServices();
-                            if (LocalServices.alive() && Users.getSelfOrRemoteUid() == ROOT_UID) {
-                                // Service is running in root
-                                return;
-                            }
-                            // Root is granted but Binder communication cannot be initiated            Log.e(TAG, "Root granted but could not use root to initiate a connection. Trying ADB...");
+                // Service is confirmed dead
+                LocalServices.bindServices();
+                if (LocalServices.alive() && Users.getSelfOrRemoteUid() == ROOT_UID) {
+                    // Service is running in root
+                    return;
+                }
+                // Root is granted but Binder communication cannot be initiated
+                Log.e(TAG, "Root granted but could not use root to initiate a connection. Trying ADB...");
+            } catch (Throwable e) {
+                Log.e(TAG, e);
+            }
+
             if (AdbUtils.startAdb(AdbUtils.getAdbPortOrDefault())) {
                 Log.i(TAG, "Started ADB over TCP via root.");
             } else {
