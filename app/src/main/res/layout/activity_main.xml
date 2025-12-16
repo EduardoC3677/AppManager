@@ -19,7 +19,7 @@
             android:id="@+id/top_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_menu"
+            app:navigationIcon="@null"
             tools:menu="@menu/activity_main_actions" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -47,7 +47,7 @@
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="10dp"
-        app:navigationIcon="@drawable/ic_menu"
+        app:menu="@menu/activity_main_actions"
         tools:menu="@menu/activity_main_actions" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -61,7 +61,8 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="false">
+        android:focusable="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <io.github.muntashirakon.widget.RecyclerView
             android:id="@+id/item_list"
