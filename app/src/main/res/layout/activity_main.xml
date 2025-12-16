@@ -7,36 +7,45 @@
     android:layout_height="match_parent"
     tools:context="io.github.muntashirakon.AppManager.main.MainActivity">
 
-    <io.github.muntashirakon.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_linear"
+        style="@style/Widget.AppTheme.LinearProgressIndicator"
+        android:indeterminate="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:liftOnScroll="true"
-        app:liftOnScrollTargetViewId="@+id/item_list">
+        android:layout_gravity="top" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@null"
-            tools:menu="@menu/activity_main_actions" />
+    <io.github.muntashirakon.AppManager.misc.AdvancedSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progress_linear"
-            style="@style/Widget.AppTheme.LinearProgressIndicator"
-            android:indeterminate="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleVerticalOffset="10dp"
+        tools:menu="@menu/activity_main_actions" />
 
-    </io.github.muntashirakon.widget.AppBarLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
+        app:layout_anchor="@id/bottom_app_bar" />
 
     <io.github.muntashirakon.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="false"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <io.github.muntashirakon.widget.RecyclerView
             android:id="@+id/item_list"
