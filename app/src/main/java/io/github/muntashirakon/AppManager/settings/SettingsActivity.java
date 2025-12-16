@@ -69,9 +69,11 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 
     @Override
     protected void onAuthenticated(Bundle savedInstanceState) {
+        Log.d(TAG, "onAuthenticated: entry");
         int mainPrefSize = UiUtils.dpToPx(this, 450);
         int windowWidth = getResources().getDisplayMetrics().widthPixels;
         mDualPaneMode = windowWidth >= 2 * mainPrefSize;
+        Log.d(TAG, "onAuthenticated: mDualPaneMode = " + mDualPaneMode);
         setContentView(mDualPaneMode ? R.layout.activity_settings_dual_pane : R.layout.activity_settings);
         setSupportActionBar(findViewById(R.id.toolbar));
         mSecondaryToolbar = findViewById(R.id.toolbar2);
@@ -88,6 +90,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         }
 
         if (savedInstanceState != null) {
+            Log.d(TAG, "onAuthenticated: savedInstanceState is not null");
             clearBackStack();
             ArrayList<String> savedKeys = savedInstanceState.getStringArrayList(SAVED_KEYS);
             if (savedKeys != null) {
@@ -97,13 +100,14 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         setKeysFromIntent(getIntent());
 
         getSupportFragmentManager().addFragmentOnAttachListener((fragmentManager, fragment) -> {
+            Log.d(TAG, "onAuthenticated: Fragment attached: " + fragment.getClass().getSimpleName());
             if (!(fragment instanceof MainPreferences)) {
                 ++mLevel;
             }
         });
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
             mLevel = getSupportFragmentManager().getBackStackEntryCount();
-            Log.d(TAG, "Backstack changed. Level: %d", mLevel);
+            Log.d(TAG, "onAuthenticated: Backstack changed. Level: %d", mLevel);
             // Update saved level: Delete everything from mLevel to the last item)
             int size = mSavedKeys.size();
             if (mLevel <= size - 1) {
@@ -112,18 +116,22 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         });
 
         String defaultPref = getKey(mLevel);
+        Log.d(TAG, "onAuthenticated: defaultPref = " + defaultPref);
         if (defaultPref == null && mDualPaneMode) {
             defaultPref = "custom_locale";
+            Log.d(TAG, "onAuthenticated: defaultPref (dual pane) = " + defaultPref);
         }
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_layout, MainPreferences.getInstance(defaultPref, mDualPaneMode))
                 .commit();
+        Log.d(TAG, "onAuthenticated: exit");
     }
 
     @Override
     protected void onNewIntent(@NonNull Intent intent) {
         super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent: entry, intent = " + intent.getData());
         if (setKeysFromIntent(intent)) {
             // Clear old items
             mSavedKeys.clear();
@@ -131,9 +139,10 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_layout);
             if (fragment instanceof MainPreferences) {
                 ((MainPreferences) fragment).setPrefKey(getKey(mLevel = 0));
-                Log.d(TAG, "Selected pref: %s", fragment.getClass().getName());
+                Log.d(TAG, "onNewIntent: Selected pref (MainPreferences) = %s", fragment.getClass().getName());
             }
         }
+        Log.d(TAG, "onNewIntent: exit");
     }
 
     @Override
@@ -145,6 +154,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected: item = " + item.getItemId());
         if (item.getItemId() == android.R.id.home) {
             getOnBackPressedDispatcher().onBackPressed();
             return true;
@@ -154,7 +164,9 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 
     @Override
     public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
+        Log.d(TAG, "onPreferenceStartFragment: entry, caller = " + caller.getClass().getSimpleName() + ", pref = " + pref.getKey());
         if (pref.getFragment() == null) {
+            Log.d(TAG, "onPreferenceStartFragment: pref.getFragment() is null, returning false");
             return false;
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -170,6 +182,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
             }
             // Save current key
             saveKey(mLevel, pref.getKey());
+            Log.d(TAG, "onPreferenceStartFragment: mLevel = " + mLevel + ", savedKey = " + pref.getKey());
         }
         fragment.setArguments(args);
         // The line below is kept because this is how it is handled in AndroidX library
@@ -186,6 +199,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         transaction
                 .replace(mDualPaneMode ? R.id.secondary_layout : R.id.main_layout, fragment)
                 .commit();
+        Log.d(TAG, "onPreferenceStartFragment: exit");
         return true;
     }
 

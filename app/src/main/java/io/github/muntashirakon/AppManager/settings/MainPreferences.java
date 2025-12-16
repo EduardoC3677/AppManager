@@ -21,8 +21,10 @@ import io.github.muntashirakon.AppManager.utils.LangUtils;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
 import io.github.muntashirakon.preference.InfoAlertPreference;
 import io.github.muntashirakon.preference.WarningAlertPreference;
+import io.github.muntashirakon.AppManager.logs.Log; // Add import for Log
 
 public class MainPreferences extends PreferenceFragment {
+    public static final String TAG = MainPreferences.class.getSimpleName(); // Add TAG constant
     @NonNull
     public static MainPreferences getInstance(@Nullable String key, boolean dualPane) {
         MainPreferences preferences = new MainPreferences();
@@ -47,6 +49,7 @@ public class MainPreferences extends PreferenceFragment {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        Log.d(TAG, "onCreatePreferences: entry");
         setPreferencesFromResource(R.xml.preferences_main, rootKey);
         getPreferenceManager().setPreferenceDataStore(new SettingsDataStore());
         MainPreferencesViewModel model = new ViewModelProvider(requireActivity()).get(MainPreferencesViewModel.class);
@@ -69,32 +72,39 @@ public class MainPreferences extends PreferenceFragment {
             }
             UIUtils.displayShortToast(R.string.the_operation_was_successful);
         });
+        Log.d(TAG, "onCreatePreferences: exit");
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart: entry");
         // Load mode and locale asynchronously to avoid blocking main thread
         new Thread(() -> {
+            Log.d(TAG, "onStart: new thread started");
             try {
                 String mode = Ops.getMode();
                 CharSequence inferredMode = Ops.getInferredMode(mActivity);
                 int modeIndex = MODE_NAMES.indexOf(mode);
 
                 requireActivity().runOnUiThread(() -> {
+                    Log.d(TAG, "onStart: updating UI on main thread");
                     if (mModePref != null && isAdded()) {
                         mModePref.setSummary(getString(R.string.mode_of_op_with_inferred_mode_of_op,
                                 mModes[modeIndex], inferredMode));
                     }
                 });
             } catch (Exception e) {
+                Log.e(TAG, "onStart: error in new thread", e);
                 // Ignore errors during mode retrieval
             }
+            Log.d(TAG, "onStart: new thread finished");
         }).start();
 
         if (mLocalePref != null) {
             mLocalePref.setSummary(getLanguageName());
         }
+        Log.d(TAG, "onStart: exit");
     }
 
     @Override
