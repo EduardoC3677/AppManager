@@ -89,6 +89,7 @@ import io.github.muntashirakon.multiselection.MultiSelectionActionsView;
 import io.github.muntashirakon.util.UiUtils;
 import io.github.muntashirakon.widget.MultiSelectionView;
 import io.github.muntashirakon.widget.SwipeRefreshLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQueryTextListener,
         SwipeRefreshLayout.OnRefreshListener, MultiSelectionActionsView.OnItemSelectedListener,
@@ -111,6 +112,7 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
     private MultiSelectionView mMultiSelectionView;
     MainBatchOpsHandler mBatchOpsHandler;
     private MenuItem mAppUsageMenu;
+    private MainRecyclerAdapter mAdapter;
 
     private final StoragePermission mStoragePermission = StoragePermission.init(this);
 
