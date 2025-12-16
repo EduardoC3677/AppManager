@@ -628,8 +628,8 @@ public class AppInfoFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         packages.add(mPackageName);
                         ArrayList<Integer> users = new ArrayList<>();
                         users.add(mUserId);
-                        BatchQueueItem item = BatchQueueItem.getBatchOpQueue(BatchOpsManager.OP_ARCHIVE, packages, users, null);
-                        Intent intent = BatchOpsService.getServiceIntent(requireContext(), item);
+                        BatchQueueItem archiveBatchQueueItem = BatchQueueItem.getBatchOpQueue(BatchOpsManager.OP_ARCHIVE, packages, users, null);
+                        Intent intent = BatchOpsService.getServiceIntent(requireContext(), archiveBatchQueueItem);
                         ContextCompat.startForegroundService(requireContext(), intent);
                     })
                     .setNegativeButton(R.string.no, null)

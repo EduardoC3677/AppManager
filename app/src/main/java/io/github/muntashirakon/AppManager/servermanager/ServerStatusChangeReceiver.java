@@ -82,8 +82,6 @@ public class ServerStatusChangeReceiver extends BroadcastReceiver {
                 LocalServices.bindServicesIfNotAlready();
             } catch (IOException | AdbPairingRequiredException e) {
                 Log.w(TAG, "Failed to start server", e);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Failed to start services", e);
             }
         });
     }
