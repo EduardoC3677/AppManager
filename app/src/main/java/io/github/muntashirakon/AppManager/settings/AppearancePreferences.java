@@ -115,7 +115,6 @@ public class AppearancePreferences extends PreferenceFragment {
                 });
 
         // Bottom bar
-        /*
         SwitchPreferenceCompat useBottomBarPref = Objects.requireNonNull(findPreference("use_bottom_bar"));
         useBottomBarPref.setChecked(Prefs.Appearance.useBottomBar());
         useBottomBarPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -125,7 +124,6 @@ public class AppearancePreferences extends PreferenceFragment {
             requireActivity().recreate();
             return true;
         });
-        */
     }
 
     @Override
