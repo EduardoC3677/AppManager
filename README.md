@@ -52,7 +52,7 @@
 - View/change net policy
 - Control battery optimization
 - Freeze/unfreeze apps
-- Shizuku support for archiving apps
+- Shizuku support for executing root/privileged commands
 
 ### Root-only features
 
