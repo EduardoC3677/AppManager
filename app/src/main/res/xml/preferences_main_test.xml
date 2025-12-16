@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        android:fragment="io.github.muntashirakon.AppManager.settings.AppearancePreferences"
+        app:icon="@drawable/ic_palette_swatch"
+        app:key="appearance_prefs"
+        app:summary="@string/pref_appearance_description"
+        app:title="@string/pref_cat_appearance" />
+</PreferenceScreen>
