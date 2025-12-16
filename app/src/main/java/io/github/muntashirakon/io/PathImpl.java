@@ -141,7 +141,7 @@ class PathImpl extends Path {
             try {
                 FileSystemManager fs = LocalServices.getFileSystemManager();
                 return new ExtendedRawDocumentFile(fs.getFile(path));
-            } catch (RemoteException e) {
+            } catch (Throwable e) {
                 Log.w(TAG, "Could not get privileged access to path " + path + " due to \"" + e.getMessage() + "\"");
                 // Fall-back to unprivileged access
             }
@@ -1255,7 +1255,7 @@ class PathImpl extends Path {
             if (file instanceof RemoteFile) {
                 try {
                     return LocalServices.getFileSystemManager().openChannel(file, mode);
-                } catch (RemoteException e) {
+                } catch (Throwable e) {
                     throw new IOException(e);
                 }
             }
