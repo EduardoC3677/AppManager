@@ -4,6 +4,27 @@
     <style name="AppThemeOverlay" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">#99000000</item>
         <item name="android:navigationBarColor">#99000000</item>
+
+        <!-- Material Design Expressive Shape Tokens -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AppTheme.SmallComponent.Expressive</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.AppTheme.MediumComponent.Expressive</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.AppTheme.LargeComponent.Expressive</item>
+
+        <!-- Expressive Typography - Bolder, larger text -->
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.AppTheme.DisplayLarge.Expressive</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.AppTheme.DisplayMedium.Expressive</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.AppTheme.HeadlineLarge.Expressive</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.AppTheme.TitleLarge.Expressive</item>
+
+        <!-- Expressive Motion - Longer, more dramatic animations -->
+        <item name="motionDurationLong1">500</item>
+        <item name="motionDurationLong2">700</item>
+        <item name="motionDurationLong3">900</item>
+        <item name="motionDurationMedium1">300</item>
+        <item name="motionDurationMedium2">400</item>
+        <item name="motionEasingEmphasizedInterpolator">@android:interpolator/fast_out_extra_slow_in</item>
+        <item name="motionEasingEmphasizedAccelerateInterpolator">@android:anim/accelerate_interpolator</item>
+        <item name="motionEasingEmphasizedDecelerateInterpolator">@android:anim/decelerate_interpolator</item>
     </style>
 
     <style name="AppTheme" parent="AppThemeOverlay">
@@ -11,8 +32,8 @@
 
         <item name="android:colorBackground">?colorSurface</item>
 
-        <!-- Medium title should've been 18sp, not 16 -->
-        <item name="textAppearanceTitleMedium">@style/TextAppearance.AppTheme.TitleMedium</item>
+        <!-- Expressive title - even larger for impact -->
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.AppTheme.TitleMedium.Expressive</item>
 
         <item name="materialFullScreenAlertDialogTheme">@style/AppTheme</item>
         <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialog</item>
@@ -58,15 +79,15 @@
         <item name="switchPreferenceStyle">@style/Preference.M3.SwitchPreference</item>
         <item name="switchPreferenceCompatStyle">@style/Preference.M3.SwitchPreferenceCompat</item>
 
-        <!-- List items -->
+        <!-- List items - Expressive design with larger shapes and spacing -->
         <item name="android:textAppearanceListItem">?attr/textAppearanceTitleMedium</item>
         <item name="android:textAppearanceListItemSecondary">@style/TextAppearance.AppTheme.BodyMedium.Secondary</item>
-        <item name="listItemMarginVertical">1dp</item>
-        <item name="listItemMarginHorizontal">@dimen/padding_small</item>
-        <item name="listItemPaddingVertical">@dimen/padding_small</item>
+        <item name="listItemMarginVertical">2dp</item>
+        <item name="listItemMarginHorizontal">@dimen/padding_medium</item>
+        <item name="listItemPaddingVertical">@dimen/padding_medium</item>
         <item name="listItemPaddingHorizontal">?android:attr/listPreferredItemPaddingStart</item>
-        <item name="listItemCornerRadius">24dp</item>
-        <item name="listItemIndicatorWidth">9dp</item>
+        <item name="listItemCornerRadius">32dp</item>
+        <item name="listItemIndicatorWidth">12dp</item>
 
         <!-- Dialog -->
         <item name="materialAlertDialogListItemTextStyle">@style/MaterialAlertDialog.Material3.Body.Text.Large</item>
@@ -568,9 +589,16 @@
         <item name="iconGravity">textStart</item>
     </style>
 
-    <style name="Widget.AppTheme.Button.FAB" parent="Widget.Material3.FloatingActionButton.Primary" />
+    <style name="Widget.AppTheme.Button.FAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <!-- Expressive FAB - Larger for more impact -->
+        <item name="fabCustomSize">64dp</item>
+        <item name="elevation">8dp</item>
+    </style>
 
-    <style name="Widget.AppTheme.Button.EFAB" parent="Widget.Material3.ExtendedFloatingActionButton.Primary" />
+    <style name="Widget.AppTheme.Button.EFAB" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <!-- Expressive Extended FAB -->
+        <item name="elevation">8dp</item>
+    </style>
 
     <!-- ShapeAppearance attributes -->
     <style name="ShapeAppearance.AppTheme.None" parent="ShapeAppearance.Material3.SmallComponent">
@@ -664,4 +692,48 @@
     <style name="TextAppearance.AppTheme.LabelSmaller" parent="TextAppearance.Material3.LabelSmall">
         <item name="android:textSize">10sp</item>
     </style>
+
+    <!-- ========================================== -->
+    <!-- Material Design Expressive Theme Overrides -->
+    <!-- ========================================== -->
+
+    <!-- Expressive Shape Tokens - Larger, More Rounded -->
+    <style name="ShapeAppearance.AppTheme.SmallComponent.Expressive" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.MediumComponent.Expressive" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.LargeComponent.Expressive" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">36dp</item>
+    </style>
+
+    <!-- Expressive Typography - Bolder and Larger for Visual Impact -->
+    <style name="TextAppearance.AppTheme.DisplayLarge.Expressive" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:textSize">61sp</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.DisplayMedium.Expressive" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:textSize">49sp</item>
+        <item name="fontWeight">600</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.HeadlineLarge.Expressive" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textSize">36sp</item>
+        <item name="fontWeight">600</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.TitleLarge.Expressive" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">24sp</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.TitleMedium.Expressive" parent="TextAppearance.AppTheme.TitleMedium">
+        <item name="android:textSize">20sp</item>
+        <item name="fontWeight">600</item>
+    </style>
+
 </resources>

@@ -51,14 +51,6 @@
 
     </io.github.muntashirakon.widget.AppBarLayout>
 
-    <io.github.muntashirakon.AppManager.misc.AdvancedSearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
@@ -77,6 +69,15 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
         app:layout_anchor="@id/bottom_app_bar" />
+
+    <io.github.muntashirakon.AppManager.misc.AdvancedSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:elevation="8dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <io.github.muntashirakon.widget.MultiSelectionView
         android:id="@+id/selection_view"
