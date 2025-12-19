@@ -10,6 +10,8 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -208,11 +210,12 @@ public class MainListOptions extends ListOptions {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        selectUserView = view.findViewById(R.id.user);
-        init(false);
+        super.onViewCreated(view, savedInstanceState);
 
-        // Set OnClickListener for the resetFiltersButton
+        // Set OnClickListener for the reset filters button
+        MaterialButton resetFiltersButton = view.findViewById(R.id.reset_filters);
         resetFiltersButton.setOnClickListener(v -> requireListOptionActions().resetMainPagePreferences());
+
         MainActivity activity = (MainActivity) requireActivity();
         profileNameSpinner.setOnItemClickListener((parent, view1, position, id) -> {
             if (mAdapter == null || activity.viewModel == null) {
