@@ -194,6 +194,12 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         final ApplicationItem item = mAdapterList.get(position);
         MaterialCardView cardView = holder.itemView;
         Context context = cardView.getContext();
+
+        // Apply dynamic corner radius based on user preference
+        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
+        float cornerRadiusPx = cornerRadiusDp * context.getResources().getDisplayMetrics().density;
+        cardView.setRadius(cornerRadiusPx);
+
         // Add click listeners
         cardView.setOnClickListener(v -> {
             // If selection mode is on, select/deselect the current item instead of the default behaviour
