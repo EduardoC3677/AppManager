@@ -40,6 +40,7 @@ public class MainPreferences extends PreferenceFragment {
             Ops.MODE_ROOT,
             Ops.MODE_ADB_OVER_TCP,
             Ops.MODE_ADB_WIFI,
+            Ops.MODE_SHIZUKU,
             Ops.MODE_NO_ROOT);
 
     private FragmentActivity mActivity;
@@ -88,6 +89,11 @@ public class MainPreferences extends PreferenceFragment {
                     String mode = Ops.getMode();
                     CharSequence inferredMode = Ops.getInferredMode(mActivity);
                     int modeIndex = MODE_NAMES.indexOf(mode);
+
+                    if (modeIndex < 0 || modeIndex >= mModes.length) {
+                        Log.e(TAG, "onStart: Invalid mode index: " + modeIndex + " for mode: " + mode);
+                        return;
+                    }
 
                     requireActivity().runOnUiThread(() -> {
                         Log.d(TAG, "onStart: updating UI on main thread");
