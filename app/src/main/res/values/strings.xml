@@ -422,6 +422,7 @@
     <string name="termux">Termux</string>
     <string name="package_name_is_installed_successfully"><xliff:g id="app_name" example="App Manager">%1$s</xliff:g> installed</string>
     <string name="filter">Filter</string>
+    <string name="reset_filters">Reset Filters</string>
     <string name="filter_user_apps">User apps</string>
     <string name="filter_system_apps">System apps</string>
     <string name="filter_apps_with_rules">With rules</string>

@@ -349,6 +349,22 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
         }
     }
 
+    @Override
+    public void resetMainPagePreferences() {
+        Prefs.MainPage.setFilters(MainListOptions.FILTER_NO_FILTER);
+        Prefs.MainPage.setSortOrder(MainListOptions.SORT_BY_APP_LABEL);
+        Prefs.MainPage.setReverseSort(false);
+        Prefs.MainPage.setFilteredProfileName(null);
+        mSelectedUsers = null;
+        // Update local state
+        mFilterFlags = MainListOptions.FILTER_NO_FILTER;
+        mSortBy = MainListOptions.SORT_BY_APP_LABEL;
+        mReverseSort = false;
+        mFilterProfileName = null;
+        // Reload items
+        loadApplicationItems();
+    }
+
     public void saveExportedAppList(@ListExporter.ExportType int exportType, @NonNull Path path) {
         executor.submit(() -> {
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(path.openOutputStream(), StandardCharsets.UTF_8))) {

@@ -208,7 +208,11 @@ public class MainListOptions extends ListOptions {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        selectUserView = view.findViewById(R.id.user);
+        init(false);
+
+        // Set OnClickListener for the resetFiltersButton
+        resetFiltersButton.setOnClickListener(v -> requireListOptionActions().resetMainPagePreferences());
         MainActivity activity = (MainActivity) requireActivity();
         profileNameSpinner.setOnItemClickListener((parent, view1, position, id) -> {
             if (mAdapter == null || activity.viewModel == null) {

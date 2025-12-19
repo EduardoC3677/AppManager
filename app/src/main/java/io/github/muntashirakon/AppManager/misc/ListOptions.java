@@ -64,6 +64,9 @@ public abstract class ListOptions extends CapsuleBottomSheetDialogFragment {
 
         default void onOptionSelected(int option, boolean selected) {
         }
+
+        default void resetMainPagePreferences() {
+        }
     }
 
     private TextView mSortText;
