@@ -814,6 +814,8 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                 return;
         }
         if (modified) {
+            // Invalidate cache when packages change to ensure fresh data on next startup
+            invalidateAppListCache();
             sortApplicationList(mSortBy, mReverseSort);
             filterItemsByFlags();
         }
