@@ -71,7 +71,7 @@ android.libraryVariants.configureEach { variant ->
             injected.execOps.exec {
                 workingDir = project.rootDir
                 executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
-                args = buildArgs
+                args = buildArgs + ['--no-optimize']
                 environment = ['JAVA_OPTS': '-Xmx2048m']
             }
             println("Created ${amJar}")
@@ -87,7 +87,7 @@ android.libraryVariants.configureEach { variant ->
             injected.execOps.exec {
                 workingDir = project.rootDir
                 executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
-                args = buildArgs
+                args = buildArgs + ['--no-optimize']
                 environment = ['JAVA_OPTS': '-Xmx2048m']
             }
             println("Created ${mainJar}")
