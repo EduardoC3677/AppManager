@@ -19,13 +19,27 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class ShizukuUtils {
+    // Cache Shizuku status to avoid repeated slow binder calls
+    private static Boolean sIsInstalled = null;
+    private static Long sLastInstalledCheck = null;
+    private static final long CACHE_VALIDITY_MS = 5000; // 5 seconds
 
     public static boolean isShizukuInstalled() {
+        long now = System.currentTimeMillis();
+        if (sIsInstalled != null && sLastInstalledCheck != null &&
+            (now - sLastInstalledCheck) < CACHE_VALIDITY_MS) {
+            return sIsInstalled;
+        }
+
         try {
             Shizuku.pingBinder();
-            return !Shizuku.isPreV11();
+            sIsInstalled = !Shizuku.isPreV11();
+            sLastInstalledCheck = now;
+            return sIsInstalled;
         } catch (Exception e) {
             io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "isShizukuInstalled check failed: " + e.getMessage());
+            sIsInstalled = false;
+            sLastInstalledCheck = now;
             return false;
         }
     }
@@ -40,6 +54,12 @@ public class ShizukuUtils {
             io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "isShizukuAvailable check failed: " + e.getMessage());
             return false;
         }
+    }
+
+    // Clear cache when permission changes
+    public static void clearCache() {
+        sIsInstalled = null;
+        sLastInstalledCheck = null;
     }
 
     public static boolean needsPermission() {

@@ -153,9 +153,8 @@ public class ModeOfOpsPreference extends Fragment {
             }
         });
         mModel.loadCustomCommands();
-        // Set loading state for initial display
-        mConnecting = true;
-        mModeOfOpsAlertDialog.show();
+        // Don't show loading dialog on initial view creation - only when changing modes
+        mConnecting = false;
         updateViews();
         // Mode of ops
         mModel.getModeOfOpsStatus().observe(getViewLifecycleOwner(), status -> {
