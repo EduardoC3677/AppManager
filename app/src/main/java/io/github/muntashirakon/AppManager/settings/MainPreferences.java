@@ -80,26 +80,31 @@ public class MainPreferences extends PreferenceFragment {
         super.onStart();
         Log.d(TAG, "onStart: entry");
         // Load mode and locale asynchronously to avoid blocking main thread
-        new Thread(() -> {
-            Log.d(TAG, "onStart: new thread started");
-            try {
-                String mode = Ops.getMode();
-                CharSequence inferredMode = Ops.getInferredMode(mActivity);
-                int modeIndex = MODE_NAMES.indexOf(mode);
+        // Only run the thread if mModePref is not null to avoid unnecessary work
+        if (mModePref != null && mModes != null) {
+            new Thread(() -> {
+                Log.d(TAG, "onStart: new thread started");
+                try {
+                    String mode = Ops.getMode();
+                    CharSequence inferredMode = Ops.getInferredMode(mActivity);
+                    int modeIndex = MODE_NAMES.indexOf(mode);
 
-                requireActivity().runOnUiThread(() -> {
-                    Log.d(TAG, "onStart: updating UI on main thread");
-                    if (mModePref != null && isAdded()) {
-                        mModePref.setSummary(getString(R.string.mode_of_op_with_inferred_mode_of_op,
-                                mModes[modeIndex], inferredMode));
-                    }
-                });
-            } catch (Exception e) {
-                Log.e(TAG, "onStart: error in new thread", e);
-                // Ignore errors during mode retrieval
-            }
-            Log.d(TAG, "onStart: new thread finished");
-        }).start();
+                    requireActivity().runOnUiThread(() -> {
+                        Log.d(TAG, "onStart: updating UI on main thread");
+                        if (mModePref != null && isAdded()) {
+                            mModePref.setSummary(getString(R.string.mode_of_op_with_inferred_mode_of_op,
+                                    mModes[modeIndex], inferredMode));
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.e(TAG, "onStart: error in new thread", e);
+                    // Ignore errors during mode retrieval
+                }
+                Log.d(TAG, "onStart: new thread finished");
+            }).start();
+        } else {
+            Log.d(TAG, "onStart: skipping mode thread (mModePref or mModes is null)");
+        }
 
         if (mLocalePref != null) {
             mLocalePref.setSummary(getLanguageName());
