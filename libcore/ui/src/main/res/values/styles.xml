@@ -295,7 +295,7 @@
     <style name="Widget.AppTheme.CardView.ListItem.Outlined" parent="Widget.Material3.CardView.Outlined">
         <item name="cardCornerRadius">?attr/listItemCornerRadius</item>
         <item name="strokeWidth">1dp</item>
-        <item name="cardBackgroundColor">@macro/m3_comp_elevated_card_container_color</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
     </style>
 
     <style name="Widget.AppTheme.CardView.ListItem.Padded" parent="Widget.AppTheme.CardView.ListItem">
@@ -356,12 +356,12 @@
 
     <!-- MultiSelectionActionsView -->
     <style name="Widget.AppTheme.MultiSelectionActionsView" parent="android:Widget">
-        <item name="android:background">@macro/m3_comp_navigation_bar_container_color</item>
+        <item name="android:background">?attr/colorSurface</item>
         <item name="backgroundTint">@null</item>
         <item name="elevation">0dp</item>
         <item name="itemTextAppearanceInactive">?attr/textAppearanceBodyMedium</item>
         <item name="itemTextAppearanceActive">?attr/textAppearanceBodyMedium</item>
-        <item name="itemIconSize">@dimen/m3_comp_navigation_bar_icon_size</item>
+        <item name="itemIconSize">@dimen/m3_navigation_bar_icon_size</item>
         <item name="itemIconTint">@color/m3_textfield_indicator_text_color</item>
         <item name="itemTextColor">@color/m3_textfield_indicator_text_color</item>
         <item name="enforceTextAppearance">true</item>
@@ -737,7 +737,7 @@
     </style>
 
     <!-- Expressive SeekBar Preference -->
-    <style name="Preference.SeekBarPreference.Material.Expressive" parent="Preference.SeekBarPreference.Material">
+    <style name="Preference.SeekBarPreference.Material.Expressive" parent="Preference.Material">
         <!-- Make the preference more prominent with expressive design -->
         <item name="adjustable">true</item>
         <item name="showSeekBarValue">true</item>
