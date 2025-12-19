@@ -61,7 +61,7 @@ android.libraryVariants.configureEach { variant ->
             String mainJar = "${rootDir}/app/src/main/assets/main.jar"
 
             println("Creating am.jar...")
-            def buildArgs = ['--min-api', '24', '--output', amJar, '--classpath', androidJar]
+            def buildArgs = ['--min-api', '24', '--output', amJar, '--classpath', androidJar, '--no-desugaring']
             buildArgs.addAll(Files.list(Paths.get(libserverClassDir)).filter {
                 !it.fileName.toString().startsWith("IRootServiceManager")
             }.map { it.toString() }.collect(Collectors.toList()))
@@ -71,13 +71,13 @@ android.libraryVariants.configureEach { variant ->
             injected.execOps.exec {
                 workingDir = project.rootDir
                 executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
-                args = buildArgs + ['--no-optimize']
+                args = buildArgs
                 environment = ['JAVA_OPTS': '-Xmx2048m']
             }
             println("Created ${amJar}")
 
             println("Creating main.jar...")
-            buildArgs = ['--min-api', '24', '--output', mainJar, '--classpath', androidJar]
+            buildArgs = ['--min-api', '24', '--output', mainJar, '--classpath', androidJar, '--no-desugaring']
             buildArgs.addAll(Files.list(Paths.get(libserverClassDir)).filter {
                 it.fileName.toString().startsWith("IRootServiceManager") || it.fileName.toString().startsWith("ServerUtils")
             }.map { it.toString() }.collect(Collectors.toList()))
@@ -87,7 +87,7 @@ android.libraryVariants.configureEach { variant ->
             injected.execOps.exec {
                 workingDir = project.rootDir
                 executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
-                args = buildArgs + ['--no-optimize']
+                args = buildArgs
                 environment = ['JAVA_OPTS': '-Xmx2048m']
             }
             println("Created ${mainJar}")
