@@ -137,7 +137,7 @@ public abstract class ListOptions extends CapsuleBottomSheetDialogFragment {
     }
 
     @NonNull
-    private ListOptionActions requireListOptionActions() {
+    protected ListOptionActions requireListOptionActions() {
         if (mListOptionsViewModel == null) {
             throw new NullPointerException("ViewModel is not initialized.");
         }
