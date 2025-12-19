@@ -17,6 +17,7 @@ import android.os.UserHandleHidden;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,7 @@ import io.github.muntashirakon.AppManager.details.AppDetailsActivity;
 import io.github.muntashirakon.AppManager.self.SelfPermissions;
 import io.github.muntashirakon.AppManager.self.imagecache.ImageLoader;
 import io.github.muntashirakon.AppManager.settings.FeatureController;
+import io.github.muntashirakon.AppManager.settings.Prefs;
 import io.github.muntashirakon.AppManager.types.UserPackagePair;
 import io.github.muntashirakon.AppManager.users.UserInfo;
 import io.github.muntashirakon.AppManager.users.Users;
@@ -316,10 +318,47 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         }
         // Set app type text color to magenta if the app is persistent
         holder.isSystemApp.setTextColor(item.isPersistent ? Color.MAGENTA : mColorSecondary);
-        // Set SDK
-        if (item.sdkString != null) {
-            holder.size.setText(item.sdkString);
-        } else holder.size.setText("-");
+        // Set size display based on preference
+        String appSizeDisplay = Prefs.Appearance.getAppSizeDisplay();
+        String sizeText;
+        switch (appSizeDisplay) {
+            case "full":
+                long totalSize = item.getTotalSize();
+                sizeText = totalSize > 0 ? Formatter.formatFileSize(context, totalSize) : item.sdkString;
+                break;
+            case "breakdown":
+                long apkSize = item.getApkSize();
+                long dataSize = item.getDataSize();
+                long cacheSize = item.getCacheSize();
+                if (apkSize > 0 || dataSize > 0 || cacheSize > 0) {
+                    sizeText = String.format(Locale.getDefault(), "A:%s D:%s C:%s",
+                            Formatter.formatShortFileSize(context, apkSize),
+                            Formatter.formatShortFileSize(context, dataSize),
+                            Formatter.formatShortFileSize(context, cacheSize));
+                } else {
+                    sizeText = item.sdkString != null ? item.sdkString : "-";
+                }
+                break;
+            case "app_only":
+                long appOnly = item.getApkSize();
+                sizeText = appOnly > 0 ? Formatter.formatFileSize(context, appOnly) : item.sdkString;
+                break;
+            case "data_only":
+                long dataOnly = item.getDataSize();
+                sizeText = dataOnly > 0 ? Formatter.formatFileSize(context, dataOnly) : item.sdkString;
+                break;
+            case "cache_only":
+                long cacheOnly = item.getCacheSize();
+                sizeText = cacheOnly > 0 ? Formatter.formatFileSize(context, cacheOnly) : item.sdkString;
+                break;
+            case "hidden":
+                sizeText = item.sdkString;
+                break;
+            default:
+                sizeText = item.sdkString != null ? item.sdkString : "-";
+                break;
+        }
+        holder.size.setText(sizeText != null ? sizeText : "-");
         // Set SDK color to orange if the app is using cleartext (e.g. HTTP) traffic
         holder.size.setTextColor(item.usesCleartextTraffic ? mColorOrange : mColorSecondary);
         // Check for backup
