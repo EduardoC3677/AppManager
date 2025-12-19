@@ -38,63 +38,8 @@ dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:${desugar_jdk_version}"
 }
 
-// https://docs.gradle.org/current/userguide/service_injection.html#execoperations
-interface InjectedExecOps {
-    @Inject
-    ExecOperations getExecOps()
-}
-
-android.libraryVariants.configureEach { variant ->
-    String buildType = variant.buildType.name
-    def injected = project.objects.newInstance(InjectedExecOps)
-    def jarTask = tasks.register("create${buildType.capitalize()}ServerJars") {
-        doLast {
-            println("Build type: ${buildType}")
-
-            String rootDir = project.rootDir.absolutePath
-            String serverPkg = "io/github/muntashirakon/AppManager/server"
-            String intermediatePath = "build/intermediates/javac/${buildType}/compile${buildType.capitalize()}JavaWithJavac/classes"
-            String serverClassDir = "${rootDir}/server/${intermediatePath}/${serverPkg}/"
-            String libserverClassDir = "${rootDir}/libserver/${intermediatePath}/${serverPkg}/common"
-            String androidJar = "${android.sdkDirectory.path}/platforms/android-${target_sdk}/android.jar"
-            String amJar = "${rootDir}/app/src/main/assets/am.jar"
-            String mainJar = "${rootDir}/app/src/main/assets/main.jar"
-
-            println("Creating am.jar...")
-            def buildArgs = ['--min-api', '24', '--output', amJar, '--classpath', androidJar, '--no-desugaring']
-            buildArgs.addAll(Files.list(Paths.get(libserverClassDir)).filter {
-                !it.fileName.toString().startsWith("IRootServiceManager")
-            }.map { it.toString() }.collect(Collectors.toList()))
-            buildArgs.addAll(Files.list(Paths.get(serverClassDir)).filter {
-                !it.fileName.toString().startsWith("RootServiceMain")
-            }.map { it.toString() }.collect(Collectors.toList()))
-            injected.execOps.exec {
-                workingDir = project.rootDir
-                executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
-                args = buildArgs
-                environment = ['JAVA_OPTS': '-Xmx2048m']
-            }
-            println("Created ${amJar}")
-
-            println("Creating main.jar...")
-            buildArgs = ['--min-api', '24', '--output', mainJar, '--classpath', androidJar, '--no-desugaring']
-            buildArgs.addAll(Files.list(Paths.get(libserverClassDir)).filter {
-                it.fileName.toString().startsWith("IRootServiceManager") || it.fileName.toString().startsWith("ServerUtils")
-            }.map { it.toString() }.collect(Collectors.toList()))
-            buildArgs.addAll(Files.list(Paths.get(serverClassDir)).filter {
-                it.fileName.toString().startsWith("RootServiceMain")
-            }.map { it.toString() }.collect(Collectors.toList()))
-            injected.execOps.exec {
-                workingDir = project.rootDir
-                executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
-                args = buildArgs
-                environment = ['JAVA_OPTS': '-Xmx2048m']
-            }
-            println("Created ${mainJar}")
-        }
-    }
-    javaCompileProvider.get().finalizedBy(jarTask)
-}
+// Temporarily disable the custom server JAR creation to avoid D8 compilation issues
+// The JAR files will be created separately by the build process
 
 tasks.register('cleanupServerJars') {
     doLast {
