@@ -124,6 +124,56 @@ public class AppearancePreferences extends PreferenceFragment {
             requireActivity().recreate();
             return true;
         });
+
+        // Corner Radius Preset
+        final String[] cornerRadiusPresets = getResources().getStringArray(R.array.corner_radius_presets);
+        final List<String> cornerRadiusPresetValues = Arrays.asList("squared", "subtle", "standard", "expressive", "bloat", "custom");
+        String currentCornerRadiusPreset = Prefs.Appearance.getCornerRadiusPreset();
+        Preference cornerRadiusPresetPref = Objects.requireNonNull(findPreference("corner_radius_preset"));
+        int presetIndex = cornerRadiusPresetValues.indexOf(currentCornerRadiusPreset);
+        if (presetIndex == -1) presetIndex = 3; // Default to expressive
+        cornerRadiusPresetPref.setSummary(cornerRadiusPresets[presetIndex]);
+        cornerRadiusPresetPref.setOnPreferenceClickListener(preference -> {
+            new SearchableSingleChoiceDialogBuilder<>(requireActivity(), cornerRadiusPresetValues, cornerRadiusPresets)
+                    .setTitle(R.string.pref_corner_radius_preset)
+                    .setSelection(currentCornerRadiusPreset)
+                    .setPositiveButton(R.string.apply, (dialog, which, selectedPreset) -> {
+                        if (selectedPreset != null) {
+                            Prefs.Appearance.setCornerRadiusPreset(selectedPreset);
+                            cornerRadiusPresetPref.setSummary(cornerRadiusPresets[cornerRadiusPresetValues.indexOf(selectedPreset)]);
+                            // Recreate activity to apply new corner radius
+                            requireActivity().recreate();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+            return true;
+        });
+
+        // App Size Display
+        final String[] appSizeDisplayOptions = getResources().getStringArray(R.array.app_size_display_options);
+        final List<String> appSizeDisplayValues = Arrays.asList("full", "breakdown", "app_only", "data_only", "cache_only", "hidden");
+        String currentAppSizeDisplay = Prefs.Appearance.getAppSizeDisplay();
+        Preference appSizeDisplayPref = Objects.requireNonNull(findPreference("app_size_display"));
+        int sizeIndex = appSizeDisplayValues.indexOf(currentAppSizeDisplay);
+        if (sizeIndex == -1) sizeIndex = 0; // Default to full
+        appSizeDisplayPref.setSummary(appSizeDisplayOptions[sizeIndex]);
+        appSizeDisplayPref.setOnPreferenceClickListener(preference -> {
+            new SearchableSingleChoiceDialogBuilder<>(requireActivity(), appSizeDisplayValues, appSizeDisplayOptions)
+                    .setTitle(R.string.pref_app_size_display)
+                    .setSelection(currentAppSizeDisplay)
+                    .setPositiveButton(R.string.apply, (dialog, which, selectedMode) -> {
+                        if (selectedMode != null) {
+                            Prefs.Appearance.setAppSizeDisplay(selectedMode);
+                            appSizeDisplayPref.setSummary(appSizeDisplayOptions[appSizeDisplayValues.indexOf(selectedMode)]);
+                            // Recreate activity to reload app list with new size display
+                            requireActivity().recreate();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+            return true;
+        });
     }
 
     @Override

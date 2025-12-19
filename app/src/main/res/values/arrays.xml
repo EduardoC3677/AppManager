@@ -274,4 +274,25 @@
         <item>version_name</item>
     </string-array>
     <string name="usage_daily">Daily</string>
+
+    <!-- Corner Radius Presets -->
+    <string-array name="corner_radius_presets">
+        <item>@string/corner_radius_preset_squared</item>
+        <item>@string/corner_radius_preset_subtle</item>
+        <item>@string/corner_radius_preset_standard</item>
+        <item>@string/corner_radius_preset_expressive</item>
+        <item>@string/corner_radius_preset_bloat</item>
+        <item>@string/corner_radius_preset_custom</item>
+    </string-array>
+
+    <!-- App Size Display Options -->
+    <string-array name="app_size_display_options">
+        <item>@string/app_size_full</item>
+        <item>@string/app_size_breakdown</item>
+        <item>@string/app_size_app_only</item>
+        <item>@string/app_size_data_only</item>
+        <item>@string/app_size_cache_only</item>
+        <item>@string/app_size_hidden</item>
+    </string-array>
+
 </resources>

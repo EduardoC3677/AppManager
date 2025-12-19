@@ -56,9 +56,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="10dp"
+        app:fabCradleMargin="12dp"
+        app:fabCradleRoundedCornerRadius="12dp"
+        app:fabCradleVerticalOffset="8dp"
         app:navigationIcon="@null"
         app:menu="@menu/activity_main_actions"
         tools:menu="@menu/activity_main_actions" />

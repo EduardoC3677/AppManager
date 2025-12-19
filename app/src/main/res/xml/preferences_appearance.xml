@@ -38,4 +38,35 @@
         app:defaultValue="true"
         app:iconSpaceReserved="false" />
 
+    <PreferenceCategory
+        app:key="material_design"
+        app:title="@string/pref_material_design"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="corner_radius_preset"
+            app:title="@string/pref_corner_radius_preset"
+            app:summary="@string/pref_corner_radius_preset_msg"
+            app:defaultValue="expressive"
+            app:iconSpaceReserved="false" />
+
+        <SeekBarPreference
+            app:key="corner_radius_custom"
+            app:title="@string/pref_corner_radius_custom"
+            app:summary="@string/pref_corner_radius_custom_msg"
+            app:min="0"
+            app:max="48"
+            app:defaultValue="32"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            app:key="app_size_display"
+            app:title="@string/pref_app_size_display"
+            app:summary="@string/pref_app_size_display_msg"
+            app:defaultValue="full"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

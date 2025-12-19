@@ -172,6 +172,56 @@ public final class Prefs {
         public static void setUseBottomBar(boolean useBottomBar) {
             AppPref.set(AppPref.PrefKey.PREF_USE_BOTTOM_BAR_BOOL, useBottomBar);
         }
+
+        @NonNull
+        public static String getCornerRadiusPreset() {
+            return AppPref.getString(AppPref.PrefKey.PREF_CORNER_RADIUS_PRESET_STR);
+        }
+
+        public static void setCornerRadiusPreset(@NonNull String preset) {
+            AppPref.set(AppPref.PrefKey.PREF_CORNER_RADIUS_PRESET_STR, preset);
+        }
+
+        public static int getCornerRadiusCustom() {
+            return AppPref.getInt(AppPref.PrefKey.PREF_CORNER_RADIUS_CUSTOM_INT);
+        }
+
+        public static void setCornerRadiusCustom(int radius) {
+            AppPref.set(AppPref.PrefKey.PREF_CORNER_RADIUS_CUSTOM_INT, radius);
+        }
+
+        /**
+         * Get the effective corner radius to use based on preset or custom value
+         * @return corner radius in dp
+         */
+        public static int getEffectiveCornerRadius() {
+            String preset = getCornerRadiusPreset();
+            switch (preset) {
+                case "squared":
+                    return 0;
+                case "subtle":
+                    return 8;
+                case "standard":
+                    return 16;
+                case "expressive":
+                    return 32;
+                case "bloat":
+                    return 48;
+                case "custom":
+                    return getCornerRadiusCustom();
+                default:
+                    return 32; // Default to expressive
+            }
+        }
+
+        @NonNull
+        public static String getAppSizeDisplay() {
+            return AppPref.getString(AppPref.PrefKey.PREF_APP_SIZE_DISPLAY_STR);
+        }
+
+        public static void setAppSizeDisplay(@NonNull String mode) {
+            AppPref.set(AppPref.PrefKey.PREF_APP_SIZE_DISPLAY_STR, mode);
+        }
     }
 
     public static final class BackupRestore {

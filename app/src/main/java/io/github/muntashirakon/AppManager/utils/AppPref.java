@@ -149,6 +149,9 @@ public class AppPref {
 
         PREF_USE_SYSTEM_FONT_BOOL,
         PREF_USE_BOTTOM_BAR_BOOL,
+        PREF_CORNER_RADIUS_PRESET_STR,
+        PREF_CORNER_RADIUS_CUSTOM_INT,
+        PREF_APP_SIZE_DISPLAY_STR,
         PREF_ZIP_ALIGN_BOOL,
         ;
 
@@ -493,6 +496,12 @@ public class AppPref {
                 return DebloaterListOptions.getDefaultFilterFlags();
             case PREF_FM_LAST_PATH_STR:
                 return "{}";
+            case PREF_CORNER_RADIUS_PRESET_STR:
+                return "expressive";
+            case PREF_CORNER_RADIUS_CUSTOM_INT:
+                return 32;
+            case PREF_APP_SIZE_DISPLAY_STR:
+                return "full";
         }
         throw new IllegalArgumentException("Pref key not found.");
     }

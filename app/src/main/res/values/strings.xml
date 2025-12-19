@@ -1565,4 +1565,30 @@
     <string name="selected_items_accessibility_description">Selected %d out of %d items</string>
     <string name="adb_local_server_port">ADB local server port</string>
     <string name="waiting_for_wifi">Waiting for Wi-Fi</string>
+
+    <!-- Material Design Appearance Settings -->
+    <string name="pref_material_design">Material Design</string>
+    <string name="pref_corner_radius_preset">Corner Radius Style</string>
+    <string name="pref_corner_radius_preset_msg">Choose a design style preset for corner roundness</string>
+    <string name="pref_corner_radius_custom">Custom Corner Radius</string>
+    <string name="pref_corner_radius_custom_msg">Fine-tune corner roundness (0dp = square, 48dp = very round)</string>
+    <string name="pref_app_size_display">App Size Display</string>
+    <string name="pref_app_size_display_msg">Choose what size information to show in app listings</string>
+
+    <!-- Corner Radius Presets -->
+    <string name="corner_radius_preset_squared">Squared (Pixel UI)</string>
+    <string name="corner_radius_preset_subtle">Subtle Rounded</string>
+    <string name="corner_radius_preset_standard">Standard Material</string>
+    <string name="corner_radius_preset_expressive">Expressive (Default)</string>
+    <string name="corner_radius_preset_bloat">Bloat UI (Extra Round)</string>
+    <string name="corner_radius_preset_custom">Custom</string>
+
+    <!-- App Size Display Options -->
+    <string name="app_size_full">Total Size</string>
+    <string name="app_size_breakdown">Size Breakdown (App/Data/Cache)</string>
+    <string name="app_size_app_only">App Size Only</string>
+    <string name="app_size_data_only">Data Size Only</string>
+    <string name="app_size_cache_only">Cache Size Only</string>
+    <string name="app_size_hidden">Hidden</string>
+
 </resources>
