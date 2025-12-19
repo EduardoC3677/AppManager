@@ -74,7 +74,7 @@
 
         <item name="preferenceScreenStyle">@style/Preference.M3.PreferenceScreen</item>
 
-        <item name="seekBarPreferenceStyle">@style/Preference.SeekBarPreference.Material</item>
+        <item name="seekBarPreferenceStyle">@style/Preference.SeekBarPreference.Material.Expressive</item>
 
         <item name="switchPreferenceStyle">@style/Preference.M3.SwitchPreference</item>
         <item name="switchPreferenceCompatStyle">@style/Preference.M3.SwitchPreferenceCompat</item>
@@ -734,6 +734,14 @@
     <style name="TextAppearance.AppTheme.TitleMedium.Expressive" parent="TextAppearance.AppTheme.TitleMedium">
         <item name="android:textSize">20sp</item>
         <item name="fontWeight">600</item>
+    </style>
+
+    <!-- Expressive SeekBar Preference -->
+    <style name="Preference.SeekBarPreference.Material.Expressive" parent="Preference.SeekBarPreference.Material">
+        <!-- Make the preference more prominent with expressive design -->
+        <item name="adjustable">true</item>
+        <item name="showSeekBarValue">true</item>
+        <item name="updatesContinuously">false</item>
     </style>
 
 </resources>
