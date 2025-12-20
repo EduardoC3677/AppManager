@@ -295,7 +295,7 @@
     <style name="Widget.AppTheme.CardView.ListItem.Outlined" parent="Widget.Material3.CardView.Outlined">
         <item name="cardCornerRadius">?attr/listItemCornerRadius</item>
         <item name="strokeWidth">1dp</item>
-        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="cardBackgroundColor">?android:attr/colorBackground</item>
     </style>
 
     <style name="Widget.AppTheme.CardView.ListItem.Padded" parent="Widget.AppTheme.CardView.ListItem">
@@ -356,7 +356,7 @@
 
     <!-- MultiSelectionActionsView -->
     <style name="Widget.AppTheme.MultiSelectionActionsView" parent="android:Widget">
-        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:background">?android:attr/colorBackground</item>
         <item name="backgroundTint">@null</item>
         <item name="elevation">0dp</item>
         <item name="itemTextAppearanceInactive">?attr/textAppearanceBodyMedium</item>
