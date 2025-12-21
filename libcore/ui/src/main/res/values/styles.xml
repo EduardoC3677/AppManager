@@ -22,7 +22,8 @@
         <item name="motionDurationLong3">900</item>
         <item name="motionDurationMedium1">300</item>
         <item name="motionDurationMedium2">400</item>
-        <item name="motionEasingEmphasizedInterpolator">@android:interpolator/fast_out_extra_slow_in</item>
+        <!-- Use fast_out_slow_in for API 24-27, upgraded to fast_out_extra_slow_in in values-v28 -->
+        <item name="motionEasingEmphasizedInterpolator">@android:anim/accelerate_decelerate_interpolator</item>
         <item name="motionEasingEmphasizedAccelerateInterpolator">@android:anim/accelerate_interpolator</item>
         <item name="motionEasingEmphasizedDecelerateInterpolator">@android:anim/decelerate_interpolator</item>
     </style>
