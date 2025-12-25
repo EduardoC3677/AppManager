@@ -118,6 +118,12 @@ public class DebloaterRecyclerViewAdapter extends MultiSelectionView.Adapter<Deb
         holder.packageNameView.setText(debloatObject.packageName);
         holder.descriptionView.setText(sb);
         holder.itemView.setStrokeColor(removalColor);
+        // Apply dynamic corner radius based on user preference
+        int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+        float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
+        float cornerRadiusPx = cornerRadiusDp * density;
+        holder.itemView.setRadius(cornerRadiusPx);
+
         holder.labelView.setText(label);
         holder.itemView.setOnLongClickListener(v -> {
             toggleSelection(position);

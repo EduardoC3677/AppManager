@@ -420,6 +420,23 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
             // Cache miss or force refresh - load from database (slow path)
             if (updatedApplicationItems == null) {
                 long startTime = System.currentTimeMillis();
+
+                // OPTIMIZATION: Add memory pressure check before loading large dataset
+                Runtime runtime = Runtime.getRuntime();
+                long maxMemory = runtime.maxMemory();
+                long usedMemory = runtime.totalMemory() - runtime.freeMemory();
+                long memoryUsagePercent = (usedMemory * 100) / maxMemory;
+
+                if (memoryUsagePercent > 80) {
+                    // Memory pressure is high, try to free some memory
+                    System.gc();
+                    try {
+                        Thread.sleep(100); // Brief pause to allow GC to work
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+
                 updatedApplicationItems = PackageUtils
                         .getInstalledOrBackedUpApplicationsFromDb(getApplication(), true, true);
                 long loadTime = System.currentTimeMillis() - startTime;
@@ -581,14 +598,20 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                     item.setRunning(runningPackages.contains(item.packageName));
                 }
                 List<FilterItem.FilteredItemInfo<ApplicationItem>> result = filterItem.getFilteredList(candidateApplicationItems);
-                for (FilterItem.FilteredItemInfo<ApplicationItem> item : result) {
-                    if ((mFilterFlags & MainListOptions.FILTER_APPS_WITH_SPLITS) != 0 && !item.info.hasSplits) {
+                for (FilterItem.FilteredItemInfo<ApplicationItem> itemInfo : result) {
+                    if (ThreadUtils.isInterrupted()) {
+                        return;
+                    }
+                    ApplicationItem item = itemInfo.info;
+
+                    // Apply filters efficiently
+                    if ((mFilterFlags & MainListOptions.FILTER_APPS_WITH_SPLITS) != 0 && !item.hasSplits) {
                         continue;
                     }
-                    if ((mFilterFlags & MainListOptions.FILTER_APPS_WITH_SAF) != 0 && !item.info.usesSaf) {
+                    if ((mFilterFlags & MainListOptions.FILTER_APPS_WITH_SAF) != 0 && !item.usesSaf) {
                         continue;
                     }
-                    filteredApplicationItems.add(item.info);
+                    filteredApplicationItems.add(item);
                 }
                 if (!TextUtils.isEmpty(mSearchQuery)) {
                     filterItemsByQuery(filteredApplicationItems);
@@ -597,6 +620,22 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                 }
             }
         }
+    }
+
+    /**
+     * Optimized version of isAmongSelectedUsers that accepts pre-cached array
+     */
+    private boolean isAmongSelectedUsers(@NonNull ApplicationItem applicationItem, @Nullable int[] selectedUsers) {
+        if (selectedUsers == null) {
+            // All users
+            return true;
+        }
+        for (int userId : selectedUsers) {
+            if (ArrayUtils.contains(applicationItem.userIds, userId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // OPTIMIZATION: Extracted method for building usage stats map

@@ -316,17 +316,17 @@ public class Ops {
                     // Check if Shizuku is available and has permission
                     if (!ShizukuUtils.isShizukuInstalled()) {
                         ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(
-                                "Shizuku is not installed. Please install Shizuku app first."));
+                                "Shizuku is not installed. Install Shizuku app for additional features (as helpful as root)."));
                         throw new Exception("Shizuku is not installed.");
                     }
                     if (ShizukuUtils.needsPermission()) {
                         ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(
-                                "Shizuku permission required. Please grant permission in Shizuku app."));
+                                "Shizuku permission helps unlock additional features. Grant permission in Shizuku app for enhanced functionality."));
                         throw new Exception("Shizuku permission not granted.");
                     }
                     if (!ShizukuUtils.isShizukuAvailable()) {
                         ThreadUtils.postOnMainThread(() -> UIUtils.displayLongToast(
-                                "Shizuku is not running. Please start Shizuku first."));
+                                "Shizuku is not running. Start Shizuku for additional features (as helpful as root)."));
                         throw new Exception("Shizuku is unavailable.");
                     }
                     // Disable other services
@@ -340,7 +340,7 @@ public class Ops {
                     }
                     sIsRoot = sIsSystem = sIsAdb = false;
                     sIsShizuku = true;
-                    ThreadUtils.postOnMainThread(() -> UIUtils.displayShortToast("Working in Shizuku mode"));
+                    ThreadUtils.postOnMainThread(() -> UIUtils.displayShortToast("Shizuku mode active - enhanced features available"));
                     // Shizuku doesn't need LocalServices or LocalServer
                     return STATUS_SUCCESS;
             }
@@ -422,7 +422,7 @@ public class Ops {
             setMode(MODE_SHIZUKU);
             sIsRoot = sIsSystem = sIsAdb = false;
             sIsShizuku = true;
-            ThreadUtils.postOnMainThread(() -> UIUtils.displayShortToast("Working in Shizuku mode"));
+            ThreadUtils.postOnMainThread(() -> UIUtils.displayShortToast("Shizuku mode active - enhanced features available"));
             return;
         }
         // Root and Shizuku were not working/granted, but check for AM service just in case

@@ -221,6 +221,12 @@ public class ClassListingFragment extends Fragment implements AdvancedSearchView
                 textView.setText(className);
             }
             holder.itemView.setCardBackgroundColor(position % 2 == 0 ? mCardColor1 : mCardColor0);
+            // Apply dynamic corner radius based on user preference
+            int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+            float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
+            float cornerRadiusPx = cornerRadiusDp * density;
+            holder.itemView.setRadius(cornerRadiusPx);
+
             holder.itemView.setOnClickListener(v -> {
                 try {
                     Intent intent = CodeEditorActivity.getIntent(mActivity, mViewModel.getUriFromClassName(className), null, null, true)

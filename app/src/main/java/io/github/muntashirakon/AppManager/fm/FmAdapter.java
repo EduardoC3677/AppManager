@@ -101,6 +101,12 @@ class FmAdapter extends MultiSelectionView.Adapter<FmAdapter.ViewHolder> {
         }
         // Symbolic link
         holder.symbolicLinkIcon.setVisibility(item.path.isSymbolicLink() ? View.VISIBLE : View.GONE);
+        // Apply dynamic corner radius based on user preference
+        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
+        float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
+        float cornerRadiusPx = cornerRadiusDp * density;
+        holder.itemView.setRadius(cornerRadiusPx);
+
         // Set background colors
         holder.itemView.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.transparent));
         // Set selections

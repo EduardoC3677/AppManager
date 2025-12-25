@@ -286,6 +286,12 @@ public class RunningAppsAdapter extends MultiSelectionView.Adapter<MultiSelectio
             toggleSelection(position);
             AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
         });
+        // Apply dynamic corner radius based on user preference
+        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
+        float density = mActivity.getResources().getDisplayMetrics().density;
+        float cornerRadiusPx = cornerRadiusDp * density;
+        holder.itemView.setRadius(cornerRadiusPx);
+
         holder.itemView.setOnLongClickListener(v -> {
             ProcessItem lastSelectedItem = mModel.getLastSelectedItem();
             int lastSelectedItemPosition = lastSelectedItem == null ? -1 : mProcessItems.indexOf(lastSelectedItem);

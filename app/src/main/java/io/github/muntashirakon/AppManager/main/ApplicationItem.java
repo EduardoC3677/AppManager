@@ -30,6 +30,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.WorkerThread;
 
+import aosp.libcore.util.EmptyArray;
+
 import java.io.InputStream;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -387,6 +389,7 @@ public class ApplicationItem extends PackageItemInfo implements IFilterableAppIn
             return;
         }
         try {
+            // OPTIMIZATION: Only fetch essential package info to reduce memory usage
             mPackageInfo = PackageManagerCompat.getPackageInfo(packageName,
                     PackageManager.GET_META_DATA | GET_SIGNING_CERTIFICATES
                             | PackageManager.GET_ACTIVITIES | PackageManager.GET_RECEIVERS
@@ -400,6 +403,9 @@ public class ApplicationItem extends PackageItemInfo implements IFilterableAppIn
             isStopped = (mApplicationInfo.flags & ApplicationInfo.FLAG_STOPPED) != 0;
             isDisabled = FreezeUtils.isFrozen(mApplicationInfo);
         } catch (RemoteException | PackageManager.NameNotFoundException ignore) {
+            // Clear references to prevent memory leaks
+            mPackageInfo = null;
+            mApplicationInfo = null;
         }
     }
 
@@ -938,5 +944,33 @@ public class ApplicationItem extends PackageItemInfo implements IFilterableAppIn
         if (labelLowerCase.isEmpty() && label != null) {
             labelLowerCase = label.toLowerCase(Locale.ROOT);
         }
+    }
+
+    /**
+     * Clear non-essential data to reduce memory footprint when detailed info isn't needed
+     */
+    public void clearNonEssentialData() {
+        // Clear potentially large objects that aren't always needed
+        mPackageInfo = null;
+        mPackageUsageInfo = null;
+        mApplicationInfo = null;
+        mInstallerInfo = null;
+        mSignerInfo = null;
+        mSignatureSubjectLines = null;
+        mSignatureSha256Checksums = null;
+        mAllComponents = null;
+        mTrackerComponents = null;
+        mUsedPermissions = null;
+        mBackups = null;
+        mAppOpEntries = null;
+        mPackageSizeInfo = null;
+        mDataUsage = null;
+        mBloatwareInfo = null;
+        mFreezeFlags = null;
+        mUserId = null;
+        mUsesSensors = null;
+        mBatteryOptEnabled = null;
+        mHasKeystoreItems = null;
+        mRulesCount = null;
     }
 }

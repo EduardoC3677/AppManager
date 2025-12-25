@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -221,6 +222,14 @@ class AppUsageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.percentUsage.setText(String.format(Locale.getDefault(), "%d%%", percentUsage));
         holder.usageIndicator.show();
         holder.usageIndicator.setProgress(percentUsage);
+        // Apply dynamic corner radius based on user preference
+        int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+        float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
+        float cornerRadiusPx = cornerRadiusDp * density;
+        if (holder.itemView instanceof MaterialCardView) {
+            ((MaterialCardView) holder.itemView).setRadius(cornerRadiusPx);
+        }
+
         // On Click Listener
         holder.itemView.setOnClickListener(v -> mActivity.viewModel.loadPackageUsageInfo(usageInfo));
     }

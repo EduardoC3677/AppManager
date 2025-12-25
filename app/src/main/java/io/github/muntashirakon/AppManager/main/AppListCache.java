@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import aosp.libcore.util.EmptyArray;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -119,10 +121,17 @@ public class AppListCache {
                 return;
             }
 
+            // Pre-process items to optimize memory usage before caching
+            List<ApplicationItem> optimizedItems = new ArrayList<>(items.size());
+            for (ApplicationItem item : items) {
+                // Create a copy with only essential data for caching
+                optimizedItems.add(stripNonEssentialData(item));
+            }
+
             CacheEntry entry = new CacheEntry(
                 System.currentTimeMillis(),
                 packagesHash,
-                new ArrayList<>(items) // Create defensive copy
+                optimizedItems
             );
 
             // Write to temp file first, then rename for atomicity
@@ -134,7 +143,7 @@ public class AppListCache {
 
             // Atomic rename
             if (tempFile.renameTo(mCacheFile)) {
-                Log.d(TAG, "Successfully cached " + items.size() + " apps");
+                Log.d(TAG, "Successfully cached " + items.size() + " apps (optimized for memory)");
             } else {
                 Log.w(TAG, "Failed to rename temp cache file");
                 tempFile.delete();
@@ -143,6 +152,68 @@ public class AppListCache {
         } catch (IOException e) {
             Log.e(TAG, "Failed to save cache", e);
         }
+    }
+
+    /**
+     * Strip non-essential data from ApplicationItem to reduce memory footprint during caching
+     */
+    private ApplicationItem stripNonEssentialData(ApplicationItem original) {
+        ApplicationItem item = new ApplicationItem();
+
+        // Copy essential fields only
+        item.packageName = original.packageName;
+        item.versionName = original.versionName;
+        item.versionCode = original.versionCode;
+        item.backup = original.backup;
+        item.flags = original.flags;
+        item.uid = original.uid;
+        item.sharedUserId = original.sharedUserId;
+        item.label = original.label;
+        item.debuggable = original.debuggable;
+        item.firstInstallTime = original.firstInstallTime;
+        item.lastUpdateTime = original.lastUpdateTime;
+        item.targetSdk = original.targetSdk;
+        item.sha = original.sha;
+        item.blockedCount = original.blockedCount;
+        item.trackerCount = original.trackerCount;
+        item.lastActionTime = original.lastActionTime;
+        item.dataUsage = original.dataUsage;
+        item.totalSize = original.totalSize;
+        item.openCount = original.openCount;
+        item.screenTime = original.screenTime;
+        item.lastUsageTime = original.lastUsageTime;
+
+        // Pre-compute lowercase strings for fast searching
+        item.packageNameLowerCase = original.packageName != null ? original.packageName.toLowerCase(Locale.ROOT) : "";
+        item.labelLowerCase = original.label != null ? original.label.toLowerCase(Locale.ROOT) : "";
+
+        item.isUser = original.isUser;
+        item.isDisabled = original.isDisabled;
+        item.isInstalled = original.isInstalled;
+        item.isOnlyDataInstalled = original.isOnlyDataInstalled;
+        item.hasActivities = original.hasActivities;
+        item.hasSplits = original.hasSplits;
+        item.hasKeystore = original.hasKeystore;
+        item.usesSaf = original.usesSaf;
+        item.ssaid = original.ssaid;
+
+        item.userIds = original.userIds != null ? original.userIds.clone() : EmptyArray.INT;
+
+        // Copy other essential fields
+        item.isStopped = original.isStopped;
+        item.isSystem = original.isSystem;
+        item.isPersistent = original.isPersistent;
+        item.usesCleartextTraffic = original.usesCleartextTraffic;
+        item.uidOrAppIds = original.uidOrAppIds;
+        item.issuerShortName = original.issuerShortName;
+        item.versionTag = original.versionTag;
+        item.appTypePostfix = original.appTypePostfix;
+        item.sdkString = original.sdkString;
+        item.diffInstallUpdateInDays = original.diffInstallUpdateInDays;
+        item.lastBackupDays = original.lastBackupDays;
+        item.backupFlagsStr = original.backupFlagsStr;
+
+        return item;
     }
 
     /**

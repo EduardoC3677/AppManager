@@ -195,42 +195,49 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         MaterialCardView cardView = holder.itemView;
         Context context = cardView.getContext();
 
+        // OPTIMIZATION: Cache context resources to avoid repeated calls
+        float density = context.getResources().getDisplayMetrics().density;
+
         // Apply dynamic corner radius based on user preference
         int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
-        float cornerRadiusPx = cornerRadiusDp * context.getResources().getDisplayMetrics().density;
+        float cornerRadiusPx = cornerRadiusDp * density;
         cardView.setRadius(cornerRadiusPx);
 
-        // Add click listeners
-        cardView.setOnClickListener(v -> {
-            // If selection mode is on, select/deselect the current item instead of the default behaviour
-            if (isInSelectionMode()) {
-                toggleSelection(position);
-                AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
-                return;
-            }
-            handleClick(item);
-        });
-        cardView.setOnLongClickListener(v -> {
-            // Long click listener: Select/deselect an app.
-            // 1) Turn selection mode on if this is the first item in the selection list
-            // 2) Select between last selection position and this position (inclusive) if selection mode is on
-            synchronized (mAdapterList) {
-                ApplicationItem lastSelectedItem = mActivity.viewModel.getLastSelectedPackage();
-                int lastSelectedItemPosition = lastSelectedItem == null ? -1 : mAdapterList.indexOf(lastSelectedItem);
-                if (lastSelectedItemPosition >= 0) {
-                    // Select from last selection to this selection
-                    selectRange(lastSelectedItemPosition, position);
-                } else {
+        // Add click listeners (only set once if not already set)
+        if (cardView.getTag() == null) {
+            cardView.setTag(true); // Mark as listeners set
+            cardView.setOnClickListener(v -> {
+                // If selection mode is on, select/deselect the current item instead of the default behaviour
+                if (isInSelectionMode()) {
                     toggleSelection(position);
                     AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
+                    return;
                 }
-            }
-            return true;
-        });
-        holder.icon.setOnClickListener(v -> {
-            toggleSelection(position);
-            AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
-        });
+                handleClick(item);
+            });
+            cardView.setOnLongClickListener(v -> {
+                // Long click listener: Select/deselect an app.
+                // 1) Turn selection mode on if this is the first item in the selection list
+                // 2) Select between last selection position and this position (inclusive) if selection mode is on
+                synchronized (mAdapterList) {
+                    ApplicationItem lastSelectedItem = mActivity.viewModel.getLastSelectedPackage();
+                    int lastSelectedItemPosition = lastSelectedItem == null ? -1 : mAdapterList.indexOf(lastSelectedItem);
+                    if (lastSelectedItemPosition >= 0) {
+                        // Select from last selection to this selection
+                        selectRange(lastSelectedItemPosition, position);
+                    } else {
+                        toggleSelection(position);
+                        AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
+                    }
+                }
+                return true;
+            });
+            holder.icon.setOnClickListener(v -> {
+                toggleSelection(position);
+                AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
+            });
+        }
+
         // OPTIMIZATION: Box-stroke colors using cached values (avoids repeated lookups)
         if (!item.isInstalled) {
             cardView.setStrokeColor(mColorUninstalled);
@@ -241,8 +248,10 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         } else {
             cardView.setStrokeColor(Color.TRANSPARENT);
         }
+
         // Display yellow star if the app is in debug mode
         holder.debugIcon.setVisibility(item.debuggable ? View.VISIBLE : View.INVISIBLE);
+
         // Set date and (if available,) days between first installation and last update
         String lastUpdateDate = DateUtils.formatDate(context, item.lastUpdateTime);
         if (item.firstInstallTime == item.lastUpdateTime) {
@@ -257,6 +266,7 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         }
         // Set date color to orange if app can read logs (and accepted)
         holder.date.setTextColor(item.canReadLogs ? mColorOrange : mColorSecondary);
+
         if (item.isInstalled) {
             // Set UID
             if (item.uidOrAppIds != null) {
@@ -264,7 +274,10 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
             }
             // Set UID text color to orange if the package is shared
             holder.userId.setTextColor(item.sharedUserId != null ? mColorOrange : mColorSecondary);
-        } else holder.userId.setText("");
+        } else {
+            holder.userId.setText("");
+        }
+
         if (item.sha != null) {
             // Set issuer
             holder.issuer.setVisibility(View.VISIBLE);
@@ -276,9 +289,11 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
             holder.issuer.setVisibility(View.GONE);
             holder.sha.setVisibility(View.GONE);
         }
+
         // Load app icon
         holder.icon.setTag(item.packageName);
         ImageLoader.getInstance().displayImage(item.packageName, item, holder.icon);
+
         // OPTIMIZATION: Set app label using pre-computed lowercase field
         if (!TextUtils.isEmpty(mSearchQuery)) {
             item.ensureLowerCaseFields(); // Defensive: ensure fields are populated
@@ -294,7 +309,10 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         // Set app label color to red if clearing user data not allowed
         if (item.isInstalled && !item.allowClearingUserData) {
             holder.label.setTextColor(Color.RED);
-        } else holder.label.setTextColor(mColorPrimary);
+        } else {
+            holder.label.setTextColor(mColorPrimary);
+        }
+
         // OPTIMIZATION: Set package name using pre-computed lowercase field
         if (!TextUtils.isEmpty(mSearchQuery)) {
             if (item.packageNameLowerCase.contains(mSearchQuery)) {
@@ -309,11 +327,15 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         // Set package name color to orange if the app has known tracker components
         if (item.trackerCount > 0) {
             holder.packageName.setTextColor(ColorCodes.getComponentTrackerIndicatorColor(context));
-        } else holder.packageName.setTextColor(mColorSecondary);
+        } else {
+            holder.packageName.setTextColor(mColorSecondary);
+        }
+
         // Set version (along with HW accelerated, debug and test only flags)
         holder.version.setText(item.versionTag);
         // Set version color to dark cyan if the app is inactive
         holder.version.setTextColor(item.isAppInactive ? mColorGreen : mColorSecondary);
+
         // Set app type: system or user app (along with large heap, suspended, multi-arch,
         // has code, vm safe mode)
         if (item.isInstalled) {
@@ -324,6 +346,7 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         }
         // Set app type text color to magenta if the app is persistent
         holder.isSystemApp.setTextColor(item.isPersistent ? Color.MAGENTA : mColorSecondary);
+
         // Set size display based on preference
         String appSizeDisplay = Prefs.Appearance.getAppSizeDisplay();
         String sizeText;
@@ -367,6 +390,7 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         holder.size.setText(sizeText != null ? sizeText : "-");
         // Set SDK color to orange if the app is using cleartext (e.g. HTTP) traffic
         holder.size.setTextColor(item.usesCleartextTraffic ? mColorOrange : mColorSecondary);
+
         // Check for backup
         if (item.backup != null) {
             holder.backupIndicator.setVisibility(View.VISIBLE);
@@ -393,7 +417,7 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
                     context.getString(R.string.latest_backup), context.getResources()
                             .getQuantityString(R.plurals.usage_days, (int) days, days),
                     context.getString(R.string.version), backup.versionName));
-            holder.backupInfoExt.setText(item.backupFlagsStr);
+            holder.backupInfoExt.setText(item.backupFlagsStr != null ? item.backupFlagsStr.toString() : "");
         } else {
             holder.backupIndicator.setVisibility(View.GONE);
             holder.backupInfo.setVisibility(View.GONE);

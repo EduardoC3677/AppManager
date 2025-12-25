@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
     private static final String PACKAGE_NAME_APK_UPDATER = "com.apkupdater";
     private static final String ACTIVITY_NAME_APK_UPDATER = "com.apkupdater.activity.MainActivity";
 
-    private static boolean SHOW_DISCLAIMER = true;
+    private static boolean SHOW_DISCLAIMER = false;
 
     MainViewModel viewModel;
 
@@ -332,8 +332,16 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
 
         // Set observer
         viewModel.getApplicationItems().observe(this, applicationItems -> {
-            if (mAdapter != null) mAdapter.setDefaultList(applicationItems);
-            showProgressIndicator(false);
+            if (mAdapter != null) {
+                // OPTIMIZATION: Update adapter on background thread to prevent UI freezes
+                ThreadUtils.postOnBackgroundThread(() -> {
+                    mAdapter.setDefaultList(applicationItems);
+                    // Then update UI on main thread
+                    runOnUiThread(() -> showProgressIndicator(false));
+                });
+            } else {
+                showProgressIndicator(false);
+            }
         });
         viewModel.getOperationStatus().observe(this, status -> {
             mProgressIndicator.hide();

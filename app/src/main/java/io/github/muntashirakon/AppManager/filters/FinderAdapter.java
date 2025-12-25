@@ -51,6 +51,12 @@ public class FinderAdapter extends RecyclerView.Adapter<FinderAdapter.ViewHolder
         holder.label.setText(appInfo.getAppLabel());
         holder.pkg.setText(appInfo.getPackageName());
         // TODO: 8/2/24 Add highlighted extras
+        // Apply dynamic corner radius based on user preference
+        int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+        float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
+        float cornerRadiusPx = cornerRadiusDp * density;
+        holder.itemView.setRadius(cornerRadiusPx);
+
         holder.item1.setVisibility(View.GONE);
         holder.item2.setVisibility(View.GONE);
         holder.item3.setVisibility(View.GONE);
