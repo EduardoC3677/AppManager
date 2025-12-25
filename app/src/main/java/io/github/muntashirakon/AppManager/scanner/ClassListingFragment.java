@@ -38,6 +38,7 @@ import java.util.Objects;
 import io.github.muntashirakon.AppManager.R;
 import io.github.muntashirakon.AppManager.editor.CodeEditorActivity;
 import io.github.muntashirakon.AppManager.misc.AdvancedSearchView;
+import io.github.muntashirakon.AppManager.settings.Prefs;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
 import io.github.muntashirakon.AppManager.utils.appearance.ColorCodes;
 import io.github.muntashirakon.util.AdapterUtils;
@@ -222,7 +223,7 @@ public class ClassListingFragment extends Fragment implements AdvancedSearchView
             }
             holder.itemView.setCardBackgroundColor(position % 2 == 0 ? mCardColor1 : mCardColor0);
             // Apply dynamic corner radius based on user preference
-            int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+            int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
             float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
             float cornerRadiusPx = cornerRadiusDp * density;
             holder.itemView.setRadius(cornerRadiusPx);

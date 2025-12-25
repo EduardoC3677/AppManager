@@ -25,6 +25,7 @@ import java.util.Objects;
 
 import io.github.muntashirakon.AppManager.BuildConfig;
 import io.github.muntashirakon.AppManager.R;
+import io.github.muntashirakon.AppManager.settings.Prefs;
 import io.github.muntashirakon.AppManager.self.imagecache.ImageLoader;
 import io.github.muntashirakon.AppManager.utils.DateUtils;
 import io.github.muntashirakon.AppManager.utils.UIUtils;
@@ -223,7 +224,7 @@ class AppUsageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.usageIndicator.show();
         holder.usageIndicator.setProgress(percentUsage);
         // Apply dynamic corner radius based on user preference
-        int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
         float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
         float cornerRadiusPx = cornerRadiusDp * density;
         if (holder.itemView instanceof MaterialCardView) {

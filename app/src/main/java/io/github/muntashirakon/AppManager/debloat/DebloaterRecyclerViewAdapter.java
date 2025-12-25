@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.muntashirakon.AppManager.R;
+import io.github.muntashirakon.AppManager.settings.Prefs;
 import io.github.muntashirakon.AppManager.utils.appearance.ColorCodes;
 import io.github.muntashirakon.util.AccessibilityUtils;
 import io.github.muntashirakon.util.AdapterUtils;
@@ -119,7 +120,7 @@ public class DebloaterRecyclerViewAdapter extends MultiSelectionView.Adapter<Deb
         holder.descriptionView.setText(sb);
         holder.itemView.setStrokeColor(removalColor);
         // Apply dynamic corner radius based on user preference
-        int cornerRadiusDp = io.github.muntashirakon.AppManager.settings.Prefs.Appearance.getEffectiveCornerRadius();
+        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
         float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
         float cornerRadiusPx = cornerRadiusDp * density;
         holder.itemView.setRadius(cornerRadiusPx);
