@@ -246,18 +246,22 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             mBottomAppBar.setVisibility(View.VISIBLE);
             mFab.setVisibility(View.VISIBLE);
             setSupportActionBar(mBottomAppBar);
-            // Adjust search view gravity for bottom
+            // Adjust search view to anchor above bottom app bar
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mSearchView.getLayoutParams();
             params.gravity = Gravity.BOTTOM;
+            params.setAnchorId(R.id.bottom_app_bar);
+            params.anchorGravity = Gravity.TOP;
             mSearchView.setLayoutParams(params);
         } else {
             mTopAppBarLayout.setVisibility(View.VISIBLE);
             mBottomAppBar.setVisibility(View.GONE);
             mFab.setVisibility(View.GONE);
             setSupportActionBar(mTopToolbar);
-            // Adjust search view gravity for top
+            // Adjust search view to anchor below top app bar
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mSearchView.getLayoutParams();
             params.gravity = Gravity.TOP;
+            params.setAnchorId(R.id.top_app_bar_layout);
+            params.anchorGravity = Gravity.BOTTOM;
             mSearchView.setLayoutParams(params);
         }
 
