@@ -334,11 +334,15 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         // Set observer
         viewModel.getApplicationItems().observe(this, applicationItems -> {
             if (mAdapter != null) {
-                // Update adapter directly on main thread since we're already on main thread
-                // (LiveData.observe() always calls on main thread)
-                mAdapter.setDefaultList(applicationItems);
+                // OPTIMIZATION: Update adapter on background thread to prevent UI freezes
+                ThreadUtils.postOnBackgroundThread(() -> {
+                    mAdapter.setDefaultList(applicationItems);
+                    // Then update UI on main thread
+                    runOnUiThread(() -> showProgressIndicator(false));
+                });
+            } else {
+                showProgressIndicator(false);
             }
-            showProgressIndicator(false);
         });
         viewModel.getOperationStatus().observe(this, status -> {
             mProgressIndicator.hide();
