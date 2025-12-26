@@ -334,15 +334,11 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         // Set observer
         viewModel.getApplicationItems().observe(this, applicationItems -> {
             if (mAdapter != null) {
-                // OPTIMIZATION: Update adapter on background thread to prevent UI freezes
-                ThreadUtils.postOnBackgroundThread(() -> {
-                    mAdapter.setDefaultList(applicationItems);
-                    // Then update UI on main thread
-                    runOnUiThread(() -> showProgressIndicator(false));
-                });
-            } else {
-                showProgressIndicator(false);
+                // Update adapter directly on main thread since we're already on main thread
+                // (LiveData.observe() always calls on main thread)
+                mAdapter.setDefaultList(applicationItems);
             }
+            showProgressIndicator(false);
         });
         viewModel.getOperationStatus().observe(this, status -> {
             mProgressIndicator.hide();
@@ -390,6 +386,19 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             MainListOptions listOptions = new MainListOptions();
             listOptions.setListOptionActions(viewModel);
             listOptions.show(getSupportFragmentManager(), MainListOptions.TAG);
+        } else if (id == R.id.action_search) {
+            // Toggle search view visibility (same behavior as FAB)
+            if (mSearchView.getVisibility() == View.VISIBLE) {
+                mSearchView.setQuery("", false);
+                mSearchView.setVisibility(View.GONE);
+                UiUtils.hideKeyboard(mSearchView);
+                mOnBackPressedCallback.setEnabled(false);
+            } else {
+                mSearchView.setVisibility(View.VISIBLE);
+                mSearchView.requestFocus();
+                UiUtils.showKeyboard(mSearchView);
+                mOnBackPressedCallback.setEnabled(true);
+            }
         } else if (id == R.id.action_refresh) {
             if (viewModel != null) {
                 showProgressIndicator(true);
