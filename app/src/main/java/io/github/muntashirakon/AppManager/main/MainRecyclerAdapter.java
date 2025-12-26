@@ -195,6 +195,18 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         MaterialCardView cardView = holder.itemView;
         Context context = cardView.getContext();
 
+        // Add smooth entrance animation for newly visible items
+        cardView.setAlpha(0f);
+        cardView.setScaleX(0.9f);
+        cardView.setScaleY(0.9f);
+        cardView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(200)
+                .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                .start();
+
         // OPTIMIZATION: Cache context resources to avoid repeated calls
         float density = context.getResources().getDisplayMetrics().density;
 

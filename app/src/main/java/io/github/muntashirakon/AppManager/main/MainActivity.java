@@ -286,15 +286,41 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
 
         mFab.setOnClickListener(v -> {
             if (mSearchView.getVisibility() == View.VISIBLE) {
-                mSearchView.setQuery("", false);
-                mSearchView.setVisibility(View.GONE);
+                // Animate search view out with smooth slide and fade
+                mSearchView.animate()
+                        .translationY(-mSearchView.getHeight())
+                        .alpha(0f)
+                        .setDuration(300)
+                        .setInterpolator(new android.view.animation.AccelerateInterpolator())
+                        .withEndAction(() -> {
+                            mSearchView.setVisibility(View.GONE);
+                            mSearchView.setQuery("", false);
+                            mSearchView.setAlpha(1f);
+                            mSearchView.setTranslationY(0f);
+                        })
+                        .start();
                 UiUtils.hideKeyboard(mSearchView);
                 mOnBackPressedCallback.setEnabled(false);
+
+                // Animate FAB rotation
+                v.animate().rotation(0f).setDuration(300).start();
             } else {
+                mSearchView.setAlpha(0f);
+                mSearchView.setTranslationY(-mSearchView.getHeight());
                 mSearchView.setVisibility(View.VISIBLE);
+                // Animate search view in with smooth slide and fade
+                mSearchView.animate()
+                        .translationY(0f)
+                        .alpha(1f)
+                        .setDuration(300)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                        .start();
                 mSearchView.requestFocus();
                 UiUtils.showKeyboard(mSearchView);
                 mOnBackPressedCallback.setEnabled(true);
+
+                // Animate FAB rotation
+                v.animate().rotation(45f).setDuration(300).start();
             }
         });
 
@@ -307,6 +333,17 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         mAdapter = new MainRecyclerAdapter(MainActivity.this);
         mAdapter.setHasStableIds(true);
         recyclerView.setLayoutManager(UIUtils.getGridLayoutAt450Dp(this));
+
+        // Add smooth item animations
+        recyclerView.setItemAnimator(new androidx.recyclerview.widget.DefaultItemAnimator() {
+            {
+                setAddDuration(300);
+                setRemoveDuration(300);
+                setMoveDuration(300);
+                setChangeDuration(300);
+            }
+        });
+
         recyclerView.setAdapter(mAdapter);
         mMultiSelectionView = findViewById(R.id.selection_view);
         mMultiSelectionView.setOnItemSelectedListener(this);
@@ -395,14 +432,34 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             listOptions.setListOptionActions(viewModel);
             listOptions.show(getSupportFragmentManager(), MainListOptions.TAG);
         } else if (id == R.id.action_search) {
-            // Toggle search view visibility (same behavior as FAB)
+            // Toggle search view visibility with smooth animations
             if (mSearchView.getVisibility() == View.VISIBLE) {
-                mSearchView.setQuery("", false);
-                mSearchView.setVisibility(View.GONE);
+                // Animate search view out with smooth slide and fade
+                mSearchView.animate()
+                        .translationY(-mSearchView.getHeight())
+                        .alpha(0f)
+                        .setDuration(300)
+                        .setInterpolator(new android.view.animation.AccelerateInterpolator())
+                        .withEndAction(() -> {
+                            mSearchView.setVisibility(View.GONE);
+                            mSearchView.setQuery("", false);
+                            mSearchView.setAlpha(1f);
+                            mSearchView.setTranslationY(0f);
+                        })
+                        .start();
                 UiUtils.hideKeyboard(mSearchView);
                 mOnBackPressedCallback.setEnabled(false);
             } else {
+                mSearchView.setAlpha(0f);
+                mSearchView.setTranslationY(-mSearchView.getHeight());
                 mSearchView.setVisibility(View.VISIBLE);
+                // Animate search view in with smooth slide and fade
+                mSearchView.animate()
+                        .translationY(0f)
+                        .alpha(1f)
+                        .setDuration(300)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                        .start();
                 mSearchView.requestFocus();
                 UiUtils.showKeyboard(mSearchView);
                 mOnBackPressedCallback.setEnabled(true);

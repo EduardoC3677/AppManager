@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Material You button state animations with smooth transitions -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state - scale down slightly and lift -->
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator
+                android:duration="100"
+                android:propertyName="translationZ"
+                android:valueTo="8dp"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+            <objectAnimator
+                android:duration="100"
+                android:propertyName="scaleX"
+                android:valueTo="0.95"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+            <objectAnimator
+                android:duration="100"
+                android:propertyName="scaleY"
+                android:valueTo="0.95"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+        </set>
+    </item>
+
+    <!-- Enabled state - subtle elevation -->
+    <item android:state_enabled="true">
+        <set>
+            <objectAnimator
+                android:duration="200"
+                android:propertyName="translationZ"
+                android:valueTo="2dp"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+            <objectAnimator
+                android:duration="200"
+                android:propertyName="scaleX"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+            <objectAnimator
+                android:duration="200"
+                android:propertyName="scaleY"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+        </set>
+    </item>
+
+    <!-- Default/Disabled state -->
+    <item>
+        <set>
+            <objectAnimator
+                android:duration="200"
+                android:propertyName="translationZ"
+                android:valueTo="0dp"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+            <objectAnimator
+                android:duration="200"
+                android:propertyName="scaleX"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+            <objectAnimator
+                android:duration="200"
+                android:propertyName="scaleY"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+        </set>
+    </item>
+</selector>
