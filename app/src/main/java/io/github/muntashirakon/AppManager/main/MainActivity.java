@@ -375,15 +375,9 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         // Set observer
         viewModel.getApplicationItems().observe(this, applicationItems -> {
             if (mAdapter != null) {
-                // OPTIMIZATION: Update adapter on background thread to prevent UI freezes
-                ThreadUtils.postOnBackgroundThread(() -> {
-                    mAdapter.setDefaultList(applicationItems);
-                    // Then update UI on main thread
-                    runOnUiThread(() -> showProgressIndicator(false));
-                });
-            } else {
-                showProgressIndicator(false);
+                mAdapter.setDefaultList(applicationItems);
             }
+            showProgressIndicator(false);
         });
         viewModel.getOperationStatus().observe(this, status -> {
             mProgressIndicator.hide();
@@ -467,7 +461,8 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         } else if (id == R.id.action_refresh) {
             if (viewModel != null) {
                 showProgressIndicator(true);
-                viewModel.loadApplicationItems();
+                // Force refresh bypasses cache to ensure fresh data
+                viewModel.loadApplicationItems(true);
             }
         } else if (id == R.id.action_settings) {
             Intent settingsIntent = SettingsActivity.getSettingsIntent(this);
@@ -644,7 +639,8 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
     @Override
     public void onRefresh() {
         showProgressIndicator(true);
-        if (viewModel != null) viewModel.loadApplicationItems();
+        // Force refresh bypasses cache to ensure fresh data
+        if (viewModel != null) viewModel.loadApplicationItems(true);
         mSwipeRefresh.setRefreshing(false);
     }
 

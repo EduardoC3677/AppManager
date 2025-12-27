@@ -69,6 +69,12 @@ public class MainPreferencesViewModel extends AndroidViewModel implements Ops.Ad
         super(application);
     }
 
+    @Override
+    protected void onCleared() {
+        mExecutor.shutdownNow();
+        super.onCleared();
+    }
+
     public LiveData<List<UserInfo>> selectUsers() {
         return mSelectUsers;
     }

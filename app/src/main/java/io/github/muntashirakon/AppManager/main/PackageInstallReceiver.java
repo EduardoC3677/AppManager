@@ -7,12 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import io.github.muntashirakon.AppManager.db.AppsDb;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import io.github.muntashirakon.AppManager.utils.ThreadUtils;
 
 public class PackageInstallReceiver extends BroadcastReceiver {
-
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,7 +18,7 @@ public class PackageInstallReceiver extends BroadcastReceiver {
             if (data != null) {
                 String packageName = data.getSchemeSpecificPart();
                 if (packageName != null) {
-                    executor.execute(() -> {
+                    ThreadUtils.postOnBackgroundThread(() -> {
                         AppsDb.getInstance().archivedAppDao().deleteByPackageName(packageName);
                     });
                 }

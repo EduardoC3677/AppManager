@@ -103,6 +103,7 @@ public class AppInfoViewModel extends AndroidViewModel {
         if (mAppInfoFuture != null) {
             mAppInfoFuture.cancel(true);
         }
+        mExecutor.shutdownNow();
         super.onCleared();
     }
 

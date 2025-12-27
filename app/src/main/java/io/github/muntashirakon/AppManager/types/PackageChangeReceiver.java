@@ -32,6 +32,15 @@ import io.github.muntashirakon.AppManager.batchops.BatchOpsManager;
 import io.github.muntashirakon.AppManager.batchops.BatchOpsService;
 
 public abstract class PackageChangeReceiver extends BroadcastReceiver {
+    private static final HandlerThread sHandlerThread;
+    private static final Handler sHandler;
+
+    static {
+        sHandlerThread = new HandlerThread("PackageChangeReceiver", Process.THREAD_PRIORITY_BACKGROUND);
+        sHandlerThread.start();
+        sHandler = new Handler(sHandlerThread.getLooper());
+    }
+
     /**
      * Specifies that some packages have been altered. This could be due to batch operations, database update, etc.
      * It has one extra namely {@link Intent#EXTRA_CHANGED_PACKAGE_LIST}.
@@ -95,15 +104,14 @@ public abstract class PackageChangeReceiver extends BroadcastReceiver {
     @Override
     @UiThread
     public final void onReceive(Context context, @NonNull Intent intent) {
-        HandlerThread thread = new HandlerThread("PackageChangeReceiver", Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
-        ReceiverHandler receiverHandler = new ReceiverHandler(thread.getLooper());
-        Message msg = receiverHandler.obtainMessage();
-        Bundle args = new Bundle();
-        args.putParcelable("intent", intent);
-        msg.setData(args);
-        receiverHandler.sendMessage(msg);
-        thread.quitSafely();
+        sHandler.post(() -> {
+            ReceiverHandler receiverHandler = new ReceiverHandler(sHandler.getLooper());
+            Message msg = receiverHandler.obtainMessage();
+            Bundle args = new Bundle();
+            args.putParcelable("intent", intent);
+            msg.setData(args);
+            receiverHandler.handleMessage(msg);
+        });
     }
 
     // Handler that receives messages from the thread
