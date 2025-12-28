@@ -136,19 +136,53 @@ public final class AdapterUtils {
                                                 @IntRange(from = 0) int startIndex,
                                                 @NonNull List<T> baseList,
                                                 @Nullable List<T> newList) {
-        // base list always has placeholders < startIndex, newList do not. So, it is necessary to
-        // offset the placeholders during comparison.
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new SimpleListDiffCallback<>(baseList, newList, startIndex));
-        baseList.clear();
-        // Add |startIndex| no. of null as placeholders
-        for (int i = 0; i < startIndex; ++i) {
-            baseList.add(null);
+        // OPTIMIZATION: For large lists (>100 items), use simple batch update instead of DiffUtil
+        // DiffUtil.calculateDiff() can take 200-1000ms for thousands of items, blocking UI
+        final int threshold = 100;
+
+        if (baseList.size() > threshold || (newList != null && newList.size() > threshold)) {
+            // Fast path: Just clear and re-add all items, notify range changed
+            int oldSize = baseList.size();
+            baseList.clear();
+            // Add |startIndex| no. of null as placeholders
+            for (int i = 0; i < startIndex; ++i) {
+                baseList.add(null);
+            }
+            if (newList != null) {
+                baseList.addAll(newList);
+            }
+            int newSize = baseList.size();
+
+            // Efficiently notify changes
+            if (oldSize == newSize) {
+                adapter.notifyItemRangeChanged(0, newSize, STUB);
+            } else if (oldSize > newSize) {
+                if (newSize > 0) {
+                    adapter.notifyItemRangeChanged(0, newSize, STUB);
+                }
+                adapter.notifyItemRangeRemoved(newSize, oldSize - newSize);
+            } else {
+                if (oldSize > 0) {
+                    adapter.notifyItemRangeChanged(0, oldSize, STUB);
+                }
+                adapter.notifyItemRangeInserted(oldSize, newSize - oldSize);
+            }
+        } else {
+            // Slow path: Use DiffUtil for small lists where animations are nice
+            // base list always has placeholders < startIndex, newList do not. So, it is necessary to
+            // offset the placeholders during comparison.
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new SimpleListDiffCallback<>(baseList, newList, startIndex));
+            baseList.clear();
+            // Add |startIndex| no. of null as placeholders
+            for (int i = 0; i < startIndex; ++i) {
+                baseList.add(null);
+            }
+            if (newList != null) {
+                baseList.addAll(newList);
+            }
+            // When dispatching updates, null items are never updated in partial update.
+            result.dispatchUpdatesTo(adapter);
         }
-        if (newList != null) {
-            baseList.addAll(newList);
-        }
-        // When dispatching updates, null items are never updated in partial update.
-        result.dispatchUpdatesTo(adapter);
     }
 
     public static void notifyDataSetChanged(@NonNull RecyclerView.Adapter<?> adapter, int previousCount,
