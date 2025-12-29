@@ -87,7 +87,7 @@
         <item name="listItemMarginHorizontal">2dp</item>
         <item name="listItemPaddingVertical">@dimen/padding_medium</item>
         <item name="listItemPaddingHorizontal">?android:attr/listPreferredItemPaddingStart</item>
-        <item name="listItemCornerRadius">32dp</item>
+        <item name="listItemCornerRadius">12dp</item>
         <item name="listItemIndicatorWidth">12dp</item>
 
         <!-- Dialog -->
@@ -718,7 +718,7 @@
     </style>
 
     <style name="ShapeAppearance.AppTheme.Search" parent="ShapeAppearance.Material3.SmallComponent">
-        <item name="cornerSize">32dp</item>
+        <item name="cornerSize">12dp</item>
     </style>
 
     <!-- Expressive Typography - Bolder and Larger for Visual Impact -->

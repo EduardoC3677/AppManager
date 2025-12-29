@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -680,6 +681,19 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
                         startActivity(intent);
                     })
                     .show();
+        }
+        updateSearchShape();
+    }
+
+    private void updateSearchShape() {
+        if (mSearchView != null) {
+            int radius = Prefs.Appearance.getEffectiveCornerRadius();
+            float radiusPx = UiUtils.dpToPx(this, radius);
+            ShapeAppearanceModel shapeAppearanceModel = mSearchView.getShapeAppearanceModel()
+                    .toBuilder()
+                    .setAllCornerSizes(radiusPx)
+                    .build();
+            mSearchView.setShapeAppearanceModel(shapeAppearanceModel);
         }
     }
 
