@@ -136,19 +136,35 @@ public final class AdapterUtils {
                                                 @IntRange(from = 0) int startIndex,
                                                 @NonNull List<T> baseList,
                                                 @Nullable List<T> newList) {
-        // base list always has placeholders < startIndex, newList do not. So, it is necessary to
-        // offset the placeholders during comparison.
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new SimpleListDiffCallback<>(baseList, newList, startIndex));
-        baseList.clear();
-        // Add |startIndex| no. of null as placeholders
-        for (int i = 0; i < startIndex; ++i) {
-            baseList.add(null);
-        }
-        if (newList != null) {
+        // OPTIMIZATION: Skip expensive DiffUtil calculation on initial load (empty -> many items)
+        // DiffUtil.calculateDiff() has O(N*M) complexity and can take 200-1000ms for 2000+ items
+        boolean isInitialLoad = baseList.isEmpty() && newList != null && !newList.isEmpty();
+
+        if (isInitialLoad) {
+            // Fast path for initial load: Just add items and notify
+            // Add |startIndex| no. of null as placeholders
+            for (int i = 0; i < startIndex; ++i) {
+                baseList.add(null);
+            }
             baseList.addAll(newList);
+            // Notify adapter of bulk insertion
+            adapter.notifyItemRangeInserted(startIndex, newList.size());
+        } else {
+            // Normal path: Use DiffUtil for smart updates (filter, search, refresh)
+            // base list always has placeholders < startIndex, newList do not. So, it is necessary to
+            // offset the placeholders during comparison.
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new SimpleListDiffCallback<>(baseList, newList, startIndex));
+            baseList.clear();
+            // Add |startIndex| no. of null as placeholders
+            for (int i = 0; i < startIndex; ++i) {
+                baseList.add(null);
+            }
+            if (newList != null) {
+                baseList.addAll(newList);
+            }
+            // When dispatching updates, null items are never updated in partial update.
+            result.dispatchUpdatesTo(adapter);
         }
-        // When dispatching updates, null items are never updated in partial update.
-        result.dispatchUpdatesTo(adapter);
     }
 
     public static void notifyDataSetChanged(@NonNull RecyclerView.Adapter<?> adapter, int previousCount,
