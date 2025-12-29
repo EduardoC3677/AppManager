@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
 
         mAdapter = new MainRecyclerAdapter(MainActivity.this);
         mAdapter.setHasStableIds(true);
-        recyclerView.setLayoutManager(UIUtils.getGridLayoutAt450Dp(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Enhanced Material You item animations with expressive motion
         androidx.recyclerview.widget.DefaultItemAnimator animator = new androidx.recyclerview.widget.DefaultItemAnimator();
