@@ -166,8 +166,8 @@ public class AppDb {
             for (String packageName : packageNames) {
                 appList.addAll(updateApplicationInternal(context, packageName));
             }
-            // Update usage and others
-            updateVariableData(context, appList);
+            // Update usage and others (incremental update - run full checks)
+            updateVariableData(context, appList, false);
             mAppDao.insert(appList);
             return appList;
         }
@@ -177,8 +177,8 @@ public class AppDb {
     public List<App> updateApplication(@NonNull Context context, @NonNull String packageName) {
         synchronized (sLock) {
             List<App> appList = updateApplicationInternal(context, packageName);
-            // Update usage and others
-            updateVariableData(context, appList);
+            // Update usage and others (single app update - run full checks)
+            updateVariableData(context, appList, false);
             mAppDao.insert(appList);
             return appList;
         }
@@ -300,7 +300,9 @@ public class AppDb {
             }
 
             // Update usage and others
-            updateVariableData(context, modifiedApps);
+            // OPTIMIZATION: Skip expensive operations during initial load to improve startup time
+            // ComponentsBlocker, PackageSize, and KeyStore checks add 200-2000+ seconds!
+            updateVariableData(context, modifiedApps, true);
 
             // Add rest of the backup items, i.e., items that aren't installed
             for (Backup backup : backups.values()) {
@@ -354,7 +356,7 @@ public class AppDb {
         }
     }
 
-    private static void updateVariableData(@NonNull Context context, @NonNull List<App> modifiedApps) {
+    private static void updateVariableData(@NonNull Context context, @NonNull List<App> modifiedApps, boolean skipExpensiveOps) {
         UriManager uriManager = new UriManager();
         ArrayMap<Integer, SsaidSettings> userIdSsaidSettingsMap = new ArrayMap<>();
         List<PackageUsageInfo> packageUsageInfoList = new ArrayList<>();
@@ -390,11 +392,17 @@ public class AppDb {
                 continue;
             }
             int userId = app.userId;
-            try (ComponentsBlocker cb = ComponentsBlocker.getInstance(app.packageName, userId, false)) {
-                app.rulesCount = cb.entryCount();
+            // OPTIMIZATION: Skip expensive IPC operations during initial load
+            if (!skipExpensiveOps) {
+                try (ComponentsBlocker cb = ComponentsBlocker.getInstance(app.packageName, userId, false)) {
+                    app.rulesCount = cb.entryCount();
+                }
+            } else {
+                app.rulesCount = 0;  // Default value for initial load
             }
             app.codeSize = app.dataSize = 0;
-            if (hasUsageAccess) {
+            // OPTIMIZATION: Skip expensive size info IPC during initial load
+            if (!skipExpensiveOps && hasUsageAccess) {
                 PackageSizeInfo sizeInfo = PackageUtils.getPackageSizeInfo(context, app.packageName, userId, null);
                 if (sizeInfo != null) {
                     app.codeSize = sizeInfo.codeSize + sizeInfo.obbSize;
@@ -406,7 +414,12 @@ public class AppDb {
             if (!app.isInstalled) {
                 continue;
             }
-            app.hasKeystore = KeyStoreUtils.hasKeyStore(app.uid);
+            // OPTIMIZATION: Skip expensive keystore check (su command on S+!) during initial load
+            if (!skipExpensiveOps) {
+                app.hasKeystore = KeyStoreUtils.hasKeyStore(app.uid);
+            } else {
+                app.hasKeystore = false;  // Default value for initial load
+            }
             app.usesSaf = uriManager.getGrantedUris(app.packageName) != null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 SsaidSettings ssaidSettings = userIdSsaidSettingsMap.get(userId);
