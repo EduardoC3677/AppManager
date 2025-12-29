@@ -334,15 +334,23 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         mAdapter.setHasStableIds(true);
         recyclerView.setLayoutManager(UIUtils.getGridLayoutAt450Dp(this));
 
-        // Add smooth item animations
+        // Enhanced Material You item animations with expressive motion
         recyclerView.setItemAnimator(new androidx.recyclerview.widget.DefaultItemAnimator() {
             {
-                setAddDuration(300);
-                setRemoveDuration(300);
-                setMoveDuration(300);
-                setChangeDuration(300);
+                setAddDuration(350);
+                setRemoveDuration(350);
+                setMoveDuration(350);
+                setChangeDuration(200);
+                // Use Material motion easing
+                setInterpolator(new android.view.animation.PathInterpolator(0.2f, 0f, 0f, 1f));
             }
         });
+
+        // Enable edge-to-edge Material You overscroll effect
+        recyclerView.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
+
+        // Enable nested scrolling for smooth coordinator layout behavior
+        recyclerView.setNestedScrollingEnabled(true);
 
         recyclerView.setAdapter(mAdapter);
         mMultiSelectionView = findViewById(R.id.selection_view);

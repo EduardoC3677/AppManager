@@ -232,10 +232,16 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         // OPTIMIZATION: Use cached corner radius instead of recalculating for each item
         cardView.setRadius(mCornerRadiusPx);
 
+        // Material You: Add subtle elevation animation on press for tactile feedback
+        cardView.setStateListAnimator(android.animation.AnimatorInflater.loadStateListAnimator(
+                context, android.R.animator.default_state_list_animator));
+
         // Add click listeners (only set once if not already set)
         if (cardView.getTag() == null) {
             cardView.setTag(true); // Mark as listeners set
             cardView.setOnClickListener(v -> {
+                // Haptic feedback for better tactile response
+                v.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP);
                 // If selection mode is on, select/deselect the current item instead of the default behaviour
                 if (isInSelectionMode()) {
                     toggleSelection(position);
@@ -245,6 +251,8 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
                 handleClick(item);
             });
             cardView.setOnLongClickListener(v -> {
+                // Stronger haptic feedback for long press
+                v.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS);
                 // Long click listener: Select/deselect an app.
                 // 1) Turn selection mode on if this is the first item in the selection list
                 // 2) Select between last selection position and this position (inclusive) if selection mode is on
@@ -262,6 +270,8 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
                 return true;
             });
             holder.icon.setOnClickListener(v -> {
+                // Haptic feedback for selection
+                v.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP);
                 toggleSelection(position);
                 AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
             });
