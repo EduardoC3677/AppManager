@@ -266,9 +266,11 @@ public class ApplicationItem extends PackageItemInfo implements IFilterableAppIn
         } else uidOrAppIds = "";
         // Cert short name
         if (sha != null) {
-            try {
-                issuerShortName = "CN=" + (sha.first).split("CN=", 2)[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
+            // OPTIMIZATION: Use indexOf() instead of split() - faster and no array allocation
+            int cnIndex = sha.first.indexOf("CN=");
+            if (cnIndex >= 0) {
+                issuerShortName = sha.first.substring(cnIndex);
+            } else {
                 issuerShortName = sha.first;
             }
             if (TextUtils.isEmpty(sha.second)) {

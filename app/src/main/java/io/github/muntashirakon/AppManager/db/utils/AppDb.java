@@ -23,6 +23,7 @@ import androidx.annotation.WorkerThread;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
@@ -377,6 +378,13 @@ public class AppDb {
                 }
             }
         }
+        // OPTIMIZATION: Convert usage list to HashMap for O(1) lookup instead of O(n)
+        // This eliminates O(n²) bottleneck when processing 2000+ apps
+        Map<String, PackageUsageInfo> usageInfoMap = new HashMap<>();
+        for (PackageUsageInfo info : packageUsageInfoList) {
+            String key = info.packageName + ":" + info.userId;
+            usageInfoMap.put(key, info);
+        }
         for (App app : modifiedApps) {
             if (!app.isInstalled && !app.isSystemApp()) {
                 continue;
@@ -409,7 +417,9 @@ public class AppDb {
                     app.ssaid = null;
                 }
             }
-            PackageUsageInfo usageInfo = findUsage(packageUsageInfoList, app.packageName, userId);
+            // OPTIMIZATION: Use HashMap for O(1) lookup instead of O(n) linear search
+            String usageKey = app.packageName + ":" + userId;
+            PackageUsageInfo usageInfo = usageInfoMap.get(usageKey);
             if (usageInfo != null) {
                 app.mobileDataUsage = usageInfo.mobileData != null ? usageInfo.mobileData.getTotal() : 0;
                 app.wifiDataUsage = usageInfo.wifiData != null ? usageInfo.wifiData.getTotal() : 0;

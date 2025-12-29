@@ -86,6 +86,9 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
     private final int mColorForceStopped;
     // OPTIMIZATION: Skip animations during initial bulk load to prevent stutter
     private boolean mIsInitialLoad = true;
+    // OPTIMIZATION: Cache DisplayMetrics and corner radius to avoid 2000+ lookups
+    private final float mDensity;
+    private final float mCornerRadiusPx;
 
     MainRecyclerAdapter(@NonNull MainActivity activity) {
         super();
@@ -99,6 +102,10 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         mColorUninstalled = ColorCodes.getAppUninstalledIndicatorColor(activity);
         mColorDisabled = ColorCodes.getAppDisabledIndicatorColor(activity);
         mColorForceStopped = ColorCodes.getAppForceStoppedIndicatorColor(activity);
+        // OPTIMIZATION: Cache density and corner radius once instead of per-item
+        mDensity = activity.getResources().getDisplayMetrics().density;
+        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
+        mCornerRadiusPx = cornerRadiusDp * mDensity;
     }
 
     @GuardedBy("mAdapterList")
@@ -222,13 +229,8 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
             cardView.setScaleY(1f);
         }
 
-        // OPTIMIZATION: Cache context resources to avoid repeated calls
-        float density = context.getResources().getDisplayMetrics().density;
-
-        // Apply dynamic corner radius based on user preference
-        int cornerRadiusDp = Prefs.Appearance.getEffectiveCornerRadius();
-        float cornerRadiusPx = cornerRadiusDp * density;
-        cardView.setRadius(cornerRadiusPx);
+        // OPTIMIZATION: Use cached corner radius instead of recalculating for each item
+        cardView.setRadius(mCornerRadiusPx);
 
         // Add click listeners (only set once if not already set)
         if (cardView.getTag() == null) {
