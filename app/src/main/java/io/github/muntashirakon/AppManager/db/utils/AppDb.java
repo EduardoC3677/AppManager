@@ -396,6 +396,10 @@ public class AppDb {
             if (!skipExpensiveOps) {
                 try (ComponentsBlocker cb = ComponentsBlocker.getInstance(app.packageName, userId, false)) {
                     app.rulesCount = cb.entryCount();
+                } catch (Exception e) {
+                    // Fallback: If ComponentsBlocker fails, continue with default value
+                    Log.w(TAG, "Failed to get rules count for " + app.packageName + ": " + e.getMessage());
+                    app.rulesCount = 0;
                 }
             } else {
                 app.rulesCount = 0;  // Default value for initial load
@@ -403,10 +407,15 @@ public class AppDb {
             app.codeSize = app.dataSize = 0;
             // OPTIMIZATION: Skip expensive size info IPC during initial load
             if (!skipExpensiveOps && hasUsageAccess) {
-                PackageSizeInfo sizeInfo = PackageUtils.getPackageSizeInfo(context, app.packageName, userId, null);
-                if (sizeInfo != null) {
-                    app.codeSize = sizeInfo.codeSize + sizeInfo.obbSize;
-                    app.dataSize = sizeInfo.dataSize + sizeInfo.mediaSize + sizeInfo.cacheSize;
+                try {
+                    PackageSizeInfo sizeInfo = PackageUtils.getPackageSizeInfo(context, app.packageName, userId, null);
+                    if (sizeInfo != null) {
+                        app.codeSize = sizeInfo.codeSize + sizeInfo.obbSize;
+                        app.dataSize = sizeInfo.dataSize + sizeInfo.mediaSize + sizeInfo.cacheSize;
+                    }
+                } catch (Exception e) {
+                    // Fallback: If size info fails, continue with 0 values
+                    Log.w(TAG, "Failed to get size info for " + app.packageName + ": " + e.getMessage());
                 }
             }
             // Interrupt thread on request
@@ -416,7 +425,13 @@ public class AppDb {
             }
             // OPTIMIZATION: Skip expensive keystore check (su command on S+!) during initial load
             if (!skipExpensiveOps) {
-                app.hasKeystore = KeyStoreUtils.hasKeyStore(app.uid);
+                try {
+                    app.hasKeystore = KeyStoreUtils.hasKeyStore(app.uid);
+                } catch (Exception e) {
+                    // Fallback: If keystore check fails, continue with false
+                    Log.w(TAG, "Failed to check keystore for " + app.packageName + ": " + e.getMessage());
+                    app.hasKeystore = false;
+                }
             } else {
                 app.hasKeystore = false;  // Default value for initial load
             }
