@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:elevation="8dp"
-        android:layout_marginBottom="@dimen/padding_medium"
+        android:layout_marginBottom="100dp"
         android:visibility="gone"
         tools:visibility="visible" />
 

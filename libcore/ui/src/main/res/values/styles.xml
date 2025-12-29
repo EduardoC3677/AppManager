@@ -396,9 +396,9 @@
         <item name="searchIcon">@drawable/ic_search</item>
         <item name="queryHint">@android:string/search_go</item>
         <item name="frameMarginHorizontal">8dp</item>
-        <item name="android:backgroundTint">?attr/colorSurfaceVariant</item>
+        <item name="android:backgroundTint">?attr/colorPrimaryContainer</item>
         <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.AppTheme.CircleComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.AppTheme.Search</item>
         <item name="android:popupBackground">?attr/popupMenuBackground</item>
         <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
     </style>
@@ -715,6 +715,10 @@
 
     <style name="ShapeAppearance.AppTheme.LargeComponent.Expressive" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerSize">36dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AppTheme.Search" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">32dp</item>
     </style>
 
     <!-- Expressive Typography - Bolder and Larger for Visual Impact -->
