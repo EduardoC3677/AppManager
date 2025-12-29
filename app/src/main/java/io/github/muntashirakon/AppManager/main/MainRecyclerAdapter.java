@@ -232,9 +232,7 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         // OPTIMIZATION: Use cached corner radius instead of recalculating for each item
         cardView.setRadius(mCornerRadiusPx);
 
-        // Material You: Add subtle elevation animation on press for tactile feedback
-        cardView.setStateListAnimator(android.animation.AnimatorInflater.loadStateListAnimator(
-                context, android.R.animator.default_state_list_animator));
+        // Material You: MaterialCardView already provides elevation/ripple feedback
 
         // Add click listeners (only set once if not already set)
         if (cardView.getTag() == null) {

@@ -335,16 +335,13 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         recyclerView.setLayoutManager(UIUtils.getGridLayoutAt450Dp(this));
 
         // Enhanced Material You item animations with expressive motion
-        recyclerView.setItemAnimator(new androidx.recyclerview.widget.DefaultItemAnimator() {
-            {
-                setAddDuration(350);
-                setRemoveDuration(350);
-                setMoveDuration(350);
-                setChangeDuration(200);
-                // Use Material motion easing
-                setInterpolator(new android.view.animation.PathInterpolator(0.2f, 0f, 0f, 1f));
-            }
-        });
+        androidx.recyclerview.widget.DefaultItemAnimator animator = new androidx.recyclerview.widget.DefaultItemAnimator();
+        animator.setAddDuration(350);
+        animator.setRemoveDuration(350);
+        animator.setMoveDuration(350);
+        animator.setChangeDuration(200);
+        // Material motion: Slightly longer durations for expressive animations
+        recyclerView.setItemAnimator(animator);
 
         // Enable edge-to-edge Material You overscroll effect
         recyclerView.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
