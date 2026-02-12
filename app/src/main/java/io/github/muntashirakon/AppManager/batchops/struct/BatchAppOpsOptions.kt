@@ -17,7 +17,7 @@ data class BatchAppOpsOptions(
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
-        appOps = JSONUtils.getIntArray(jsonObject.getJSONArray("app_ops"))!!,
+        appOps = JSONUtils.getIntArray(jsonObject.getJSONArray("app_ops")),
         mode = jsonObject.getInt("mode")
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }

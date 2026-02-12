@@ -47,8 +47,11 @@ object JSONUtils {
 
     @JvmStatic
     @Throws(JSONException::class)
-    fun <T> getArray(clazz: Class<T>, jsonArray: JSONArray?): Array<T>? {
-        if (jsonArray == null) return null
+    fun <T> getArray(clazz: Class<T>, jsonArray: JSONArray?): Array<T> {
+        if (jsonArray == null) {
+            @Suppress("UNCHECKED_CAST")
+            return JavaArray.newInstance(clazz, 0) as Array<T>
+        }
         @Suppress("UNCHECKED_CAST")
         val typicalArray = JavaArray.newInstance(clazz, jsonArray.length()) as Array<T>
         for (i in 0 until jsonArray.length()) {
@@ -59,8 +62,8 @@ object JSONUtils {
 
     @JvmStatic
     @Throws(JSONException::class)
-    fun getIntArray(jsonArray: JSONArray?): IntArray? {
-        if (jsonArray == null) return null
+    fun getIntArray(jsonArray: JSONArray?): IntArray {
+        if (jsonArray == null) return IntArray(0)
         val typicalArray = IntArray(jsonArray.length())
         for (i in 0 until jsonArray.length()) {
             typicalArray[i] = jsonArray.getInt(i)
@@ -70,8 +73,8 @@ object JSONUtils {
 
     @JvmStatic
     @Throws(JSONException::class)
-    fun <T> getArray(jsonArray: JSONArray?): ArrayList<T>? {
-        if (jsonArray == null) return null
+    fun <T> getArray(jsonArray: JSONArray?): ArrayList<T> {
+        if (jsonArray == null) return ArrayList(0)
         val arrayList = ArrayList<T>(jsonArray.length())
         for (i in 0 until jsonArray.length()) {
             @Suppress("UNCHECKED_CAST")

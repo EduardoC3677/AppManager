@@ -166,7 +166,7 @@ data class App(
             app.isOnlyDataInstalled = ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)
             app.flags = applicationInfo.flags
             app.isEnabled = !FreezeUtils.isFrozen(applicationInfo)
-            app.packageLabel = ApplicationInfoCompat.loadLabelSafe(applicationInfo, context.getPackageManager()).toString()
+            app.packageLabel = ApplicationInfoCompat.loadLabelSafe(applicationInfo, context.packageManager).toString()
             app.sdk = applicationInfo.targetSdkVersion
             app.versionName = packageInfo.versionName
             app.versionCode = PackageInfoCompat.getLongVersionCode(packageInfo)
