@@ -5,6 +5,7 @@ on:
     branches:
       - 'master'
       - 'AppManager-*'
+      - 'refactor/kotlin-conversion'
     paths-ignore:
       - 'fastlane/**'
       - 'scripts/**'

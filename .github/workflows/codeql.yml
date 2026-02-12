@@ -2,9 +2,9 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "master", "AppManager-*" ]
+    branches: [ "master", "AppManager-*", "refactor/kotlin-conversion" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "refactor/kotlin-conversion" ]
   schedule:
     - cron: '43 14 * * 4'
 
