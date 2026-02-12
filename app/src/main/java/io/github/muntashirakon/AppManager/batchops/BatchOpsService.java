@@ -137,8 +137,9 @@ public class BatchOpsService extends ForegroundService {
         if (mProgressHandler != null) {
             mProgressHandler.postUpdate(item.getPackages().size(), 0);
         }
+        String extra = intent.getStringExtra("extra");
         BatchOpsManager batchOpsManager = new BatchOpsManager();
-        BatchOpsManager.Result result = batchOpsManager.performOp(BatchOpsInfo.fromQueue(item), mProgressHandler);
+        BatchOpsManager.Result result = batchOpsManager.performOp(BatchOpsInfo.fromQueue(item), mProgressHandler, extra);
         batchOpsManager.conclude();
         OpHistoryManager.addHistoryItem(HISTORY_TYPE_BATCH_OPS, item, result.isSuccessful());
         if (result.isSuccessful()) {

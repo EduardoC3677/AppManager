@@ -18,25 +18,30 @@ object ContextUtils {
     var rootContext: Context? = null
 
     @SuppressLint("StaticFieldLeak")
-    private var sContext: Context? = null
+    private lateinit var sContext: Context
+
+    @JvmStatic
+    fun setContext(context: Context) {
+        sContext = getContextImpl(context)!!
+    }
 
     @SuppressLint("PrivateApi", "RestrictedApi")
     @JvmStatic
     fun getContext(): Context {
-        if (sContext == null) {
+        if (!::sContext.isInitialized) {
             // Fetching ActivityThread on the main thread is no longer required on API 18+
             // See: https://cs.android.com/android/platform/frameworks/base/+/66a017b63461a22842b3678c9520f803d5ddadfc
             try {
                 val c = Class.forName("android.app.ActivityThread")
                     .getMethod("currentApplication")
                     .invoke(null) as Context
-                sContext = getContextImpl(Objects.requireNonNull(c))
+                sContext = getContextImpl(Objects.requireNonNull(c))!!
             } catch (e: Exception) {
                 // Shall never happen
                 throw RuntimeException(e)
             }
         }
-        return sContext!!
+        return sContext
     }
 
     @JvmStatic

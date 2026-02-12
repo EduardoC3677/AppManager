@@ -24,6 +24,12 @@ interface AppDao {
     @Query("SELECT * FROM app WHERE package_name = :packageName AND user_id = :userId")
     suspend fun getAll(packageName: String, userId: Int): List<App>
 
+    @Query("SELECT * FROM app WHERE tags LIKE '%' || :tag || '%'")
+    suspend fun getByTag(tag: String): List<App>
+
+    @Query("UPDATE app SET tags = :tags WHERE package_name = :packageName AND user_id = :userId")
+    suspend fun updateTags(packageName: String, userId: Int, tags: String?)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(apps: List<App>)
 

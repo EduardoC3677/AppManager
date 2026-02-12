@@ -34,7 +34,7 @@ import kotlinx.coroutines.runBlocking
         FreezeType::class,
         ArchivedApp::class
     ],
-    version = 10
+    version = 11
 )
 abstract class AppsDb : RoomDatabase() {
 
@@ -59,7 +59,7 @@ abstract class AppsDb : RoomDatabase() {
 
         private fun buildDatabase(): AppsDb {
             return Room.databaseBuilder(ContextUtils.getContext(), AppsDb::class.java, "apps.db")
-                .addMigrations(M_2_3, M_3_4, M_4_5, M_5_6, M_6_7, M_7_8, M_8_9, M_9_10)
+                .addMigrations(M_2_3, M_3_4, M_4_5, M_5_6, M_6_7, M_7_8, M_8_9, M_9_10, M_10_11)
                 .fallbackToDestructiveMigrationOnDowngrade()
                 .build()
                 .also {
@@ -137,6 +137,14 @@ abstract class AppsDb : RoomDatabase() {
                 // Composite indices for common combined filters
                 db.execSQL("CREATE INDEX IF NOT EXISTS `index_app_is_installed_user_id` ON `app` (`is_installed`, `user_id`)")
                 db.execSQL("CREATE INDEX IF NOT EXISTS `index_app_flags_is_installed` ON `app` (`flags`, `is_installed`)")
+            }
+        }
+
+        @JvmField
+        val M_10_11 = object : Migration(10, 11) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `app` ADD COLUMN `tags` TEXT DEFAULT ''")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_app_tags` ON `app` (`tags`)")
             }
         }
     }

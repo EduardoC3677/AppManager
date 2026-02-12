@@ -101,6 +101,8 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
     MainViewModel viewModel;
 
     private MainRecyclerAdapter mAdapter;
+    private SuggestionsAdapter mSuggestionsAdapter;
+    private android.view.ViewStub mSuggestionsStub;
     private AdvancedSearchView mSearchView;
     private LinearProgressIndicator mProgressIndicator;
     private SwipeRefreshLayout mSwipeRefresh;
@@ -270,6 +272,25 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             if (mAdapter != null) mAdapter.setDefaultList(applicationItems);
             showProgressIndicator(false);
         });
+        viewModel.getSuggestions().observe(this, items -> {
+            if (items == null || items.isEmpty()) {
+                if (mSuggestionsStub != null) mSuggestionsStub.setVisibility(View.GONE);
+                return;
+            }
+            if (mSuggestionsAdapter == null) {
+                if (mSuggestionsStub == null) mSuggestionsStub = findViewById(R.id.suggestions_stub);
+                View suggestionsView = mSuggestionsStub.inflate();
+                RecyclerView suggestionsList = suggestionsView.findViewById(R.id.suggestions_list);
+                mSuggestionsAdapter = new SuggestionsAdapter(items, item -> {
+                    // Logic for suggestion click (Archive)
+                    showArchiveDialog(java.util.Collections.singletonList(new UserPackagePair(item.packageName, item.userIds[0])));
+                });
+                suggestionsList.setAdapter(mSuggestionsAdapter);
+            } else {
+                mSuggestionsAdapter.updateItems(items);
+                mSuggestionsStub.setVisibility(View.VISIBLE);
+            }
+        });
         viewModel.getOperationStatus().observe(this, status -> {
             mProgressIndicator.hide();
             if (status) {
@@ -407,6 +428,10 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
                     .setNeutralButton(R.string.clear_data, (dialog, which) ->
                             handleBatchOp(BatchOpsManager.OP_CLEAR_DATA))
                     .show();
+        } else if (id == R.id.action_archive) {
+            showArchiveDialog(new ArrayList<>(viewModel.getSelectedPackageUserPairs()));
+        } else if (id == R.id.action_edit_tags) {
+            showEditTagsDialog(new ArrayList<>(viewModel.getSelectedPackageUserPairs()));
         } else if (id == R.id.action_freeze_unfreeze) {
             showFreezeUnfreezeDialog(Prefs.Blocking.getDefaultFreezingMethod());
         } else if (id == R.id.action_disable_background) {
@@ -606,16 +631,63 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
                 .show();
     }
 
+    private void showArchiveDialog(List<UserPackagePair> pairs) {
+        String[] methods = {
+                getString(R.string.archive_method_system),
+                getString(R.string.archive_method_shizuku),
+                getString(R.string.archive_method_root),
+                getString(R.string.archive_method_standard)
+        };
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.choose_archive_method)
+                .setItems(methods, (dialog, which) -> {
+                    io.github.muntashirakon.AppManager.batchops.struct.BatchArchiveOptions options = 
+                        new io.github.muntashirakon.AppManager.batchops.struct.BatchArchiveOptions(which);
+                    handleBatchOp(BatchOpsManager.OP_ARCHIVE, options, pairs);
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
+    private void showEditTagsDialog(List<UserPackagePair> pairs) {
+        View view = View.inflate(this, R.layout.dialog_edit_tags, null);
+        com.google.android.material.textfield.TextInputEditText input = view.findViewById(R.id.tags_input);
+        
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.group)
+                .setView(view)
+                .setPositiveButton(R.string.apply, (dialog, which) -> {
+                    String tags = input.getText().toString();
+                    // Custom options not needed for tagging as it uses a simple string
+                    // But we'll pass it as extra data or refactor TagHandler to use options
+                    handleBatchOp(BatchOpsManager.OP_EDIT_TAGS, null, pairs, tags);
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
     private void handleBatchOp(@BatchOpsManager.OpType int op) {
         handleBatchOp(op, null);
     }
 
     private void handleBatchOp(@BatchOpsManager.OpType int op, @Nullable IBatchOpOptions options) {
+        handleBatchOp(op, options, null);
+    }
+
+    private void handleBatchOp(@BatchOpsManager.OpType int op, @Nullable IBatchOpOptions options, @Nullable List<UserPackagePair> pairs) {
+        handleBatchOp(op, options, pairs, null);
+    }
+
+    private void handleBatchOp(@BatchOpsManager.OpType int op, @Nullable IBatchOpOptions options, @Nullable List<UserPackagePair> pairs, @Nullable String extra) {
         if (viewModel == null) return;
         showProgressIndicator(true);
-        BatchOpsManager.Result input = new BatchOpsManager.Result(viewModel.getSelectedPackagesWithUsers());
+        List<UserPackagePair> targets = pairs != null ? pairs : new ArrayList<>(viewModel.getSelectedPackageUserPairs());
+        BatchOpsManager.Result input = new BatchOpsManager.Result(targets);
         BatchQueueItem item = BatchQueueItem.getBatchOpQueue(op, input.getFailedPackages(), input.getAssociatedUsers(), options);
         Intent intent = BatchOpsService.getServiceIntent(this, item);
+        if (extra != null) {
+            intent.putExtra("extra", extra);
+        }
         ContextCompat.startForegroundService(this, intent);
     }
 

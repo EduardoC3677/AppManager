@@ -34,6 +34,8 @@ import java.io.Serializable
         Index(value = ["target_sdk"]),
         // Speeds up filtering by tracker count
         Index(value = ["tracker_count"]),
+        // Speeds up filtering by tags
+        Index(value = ["tags"]),
         // Composite index for common combined filters
         Index(value = ["is_installed", "user_id"]),
         Index(value = ["flags", "is_installed"])
@@ -131,7 +133,10 @@ data class App(
     var lastUsageTime: Long = 0,
 
     @ColumnInfo(name = "last_action_time", defaultValue = "0")
-    var lastActionTime: Long = 0
+    var lastActionTime: Long = 0,
+
+    @ColumnInfo(name = "tags", defaultValue = "''")
+    var tags: String? = ""
 ) : Serializable {
 
     fun isSystemApp(): Boolean {

@@ -117,6 +117,8 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
     private final MutableLiveData<Boolean> mOperationStatus = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<List<ApplicationItem>> mApplicationItemsLiveData = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<List<ApplicationItem>> mSuggestionsLiveData = new MutableLiveData<>();
     private final List<ApplicationItem> mApplicationItems = new ArrayList<>();
 
     // OPTIMIZATION: Cache Collator to avoid recreation overhead
@@ -145,6 +147,11 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
 
     public LiveData<Boolean> getOperationStatus() {
         return mOperationStatus;
+    }
+
+    @NonNull
+    public LiveData<List<ApplicationItem>> getSuggestions() {
+        return mSuggestionsLiveData;
     }
 
     @GuardedBy("applicationItems")
@@ -580,6 +587,8 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                     mApplicationItemsLiveData.postValue(filteredApplicationItems);
                 }
             }
+            // ENHANCEMENT: Populate suggestions for infrequent app use
+            mSuggestionsLiveData.postValue(io.github.muntashirakon.AppManager.batchops.SuggestionHandler.getApplicationItemSuggestions(candidateApplicationItems));
         }
     }
 

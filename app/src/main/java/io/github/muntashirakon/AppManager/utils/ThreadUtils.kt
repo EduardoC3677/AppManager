@@ -11,23 +11,17 @@ import java.util.concurrent.Future
 
 // Copyright 2016 The Android Open Source Project
 object ThreadUtils {
-    @Volatile
-    private var sMainThread: Thread? = null
+    private val sMainThread: Thread by lazy { Looper.getMainLooper().thread }
 
-    @Volatile
-    private var sMainThreadHandler: Handler? = null
+    private val sMainThreadHandler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
-    @Volatile
-    private var sThreadExecutor: ExecutorService? = null
+    private val sThreadExecutor: ExecutorService by lazy { AppExecutor.getExecutor() }
 
     /**
      * Returns true if the current thread is the UI thread.
      */
     @JvmStatic
     fun isMainThread(): Boolean {
-        if (sMainThread == null) {
-            sMainThread = Looper.getMainLooper().thread
-        }
         return Thread.currentThread() == sMainThread
     }
 
@@ -36,10 +30,7 @@ object ThreadUtils {
      */
     @JvmStatic
     fun getUiThreadHandler(): Handler {
-        if (sMainThreadHandler == null) {
-            sMainThreadHandler = Handler(Looper.getMainLooper())
-        }
-        return sMainThreadHandler!!
+        return sMainThreadHandler
     }
 
     /**
@@ -117,11 +108,7 @@ object ThreadUtils {
     }
 
     @JvmStatic
-    @Synchronized
     fun getBackgroundThreadExecutor(): ExecutorService {
-        if (sThreadExecutor == null) {
-            sThreadExecutor = AppExecutor.getExecutor()
-        }
-        return sThreadExecutor!!
+        return sThreadExecutor
     }
 }
