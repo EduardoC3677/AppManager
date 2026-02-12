@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.app.UiModeManager
-import android.content.ComponentCallbacks
 import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.ContextWrapper
@@ -102,7 +101,7 @@ object AppearanceUtils {
     @JvmStatic
     fun init(application: Application) {
         application.registerActivityLifecycleCallbacks(ActivityAppearanceCallback())
-        application.registerComponentCallbacks(object : ComponentCallbacks2, ComponentCallbacks {
+        application.registerComponentCallbacks(object : ComponentCallbacks2 {
             override fun onConfigurationChanged(newConfig: Configuration) {
                 applyOnlyLocale(application)
             }

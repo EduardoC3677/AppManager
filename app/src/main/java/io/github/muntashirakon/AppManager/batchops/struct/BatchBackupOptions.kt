@@ -54,6 +54,7 @@ data class BatchBackupOptions(
     fun getDeleteOpOptions(packageName: String, @UserIdInt userId: Int): DeleteOpOptions {
         // For delete operation, backup names (v4) and relative dirs are only set for single
         // package backups. In all other cases, it only uses base backups.
+        val backupNames = this.backupNames
         val relativeDirs = when {
             this.relativeDirs != null -> this.relativeDirs
             backupNames == null || backupNames.isEmpty() -> null // Base backup

@@ -44,6 +44,7 @@ import androidx.annotation.StringRes
 import androidx.annotation.UiThread
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView as AppCompatSearchView
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -318,7 +319,7 @@ object UIUtils {
     @JvmStatic
     fun setupSearchView(
         actionBar: ActionBar,
-        queryTextListener: SearchView.OnQueryTextListener?
+        queryTextListener: AppCompatSearchView.OnQueryTextListener?
     ): SearchView {
         val searchView = SearchView(actionBar.themedContext)
         searchView.id = R.id.action_search
