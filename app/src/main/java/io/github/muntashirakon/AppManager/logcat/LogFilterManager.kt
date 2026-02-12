@@ -22,12 +22,6 @@ object LogFilterManager {
 
     @JvmStatic
     @WorkerThread
-    fun deleteFilter(logFilter: LogFilter) {
-        runBlocking { AppsDb.getInstance().logFilterDao().delete(logFilter) }
-    }
-
-    @JvmStatic
-    @WorkerThread
     fun insertFilter(filterName: String): Long {
         return runBlocking { AppsDb.getInstance().logFilterDao().insert(filterName) }
     }

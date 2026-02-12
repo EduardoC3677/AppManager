@@ -220,7 +220,7 @@ class AppDb {
     @WorkerThread
     fun updateApplications(context: Context) {
         synchronized(sLock) {
-            val backups = getBackups(false).toMutableMap()
+            val backups = getBackups(false)
             val oldApps = ArrayList(runBlocking { mAppDao.getAll() })
             val modifiedApps = ArrayList<App>()
             val newApps = HashSet<String>()
@@ -315,12 +315,12 @@ class AppDb {
     }
 
     @WorkerThread
-    fun getBackups(loadBackups: Boolean): Map<String, Backup> {
+    fun getBackups(loadBackups: Boolean): MutableMap<String, Backup> {
         return if (loadBackups) {
             // Very long operation
-            BackupUtils.storeAllAndGetLatestBackupMetadata()
+            BackupUtils.storeAllAndGetLatestBackupMetadata().toMutableMap()
         } else {
-            BackupUtils.getAllLatestBackupMetadataFromDb()
+            BackupUtils.getAllLatestBackupMetadataFromDb().toMutableMap()
         }
     }
 
@@ -357,7 +357,7 @@ class AppDb {
                 }
             }
             for (app in modifiedApps) {
-                if (!app.isInstalled && !app.isSystemApp) {
+                if (!app.isInstalled && !app.isSystemApp()) {
                     continue
                 }
                 val userId = app.userId
@@ -391,8 +391,10 @@ class AppDb {
                 }
                 val usageInfo = findUsage(packageUsageInfoList, app.packageName, userId)
                 if (usageInfo != null) {
-                    app.mobileDataUsage = if (usageInfo.mobileData != null) usageInfo.mobileData.total else 0
-                    app.wifiDataUsage = if (usageInfo.wifiData != null) usageInfo.wifiData.total else 0
+                    val mobileData = usageInfo.mobileData
+                    app.mobileDataUsage = if (mobileData != null) mobileData.total else 0
+                    val wifiData = usageInfo.wifiData
+                    app.wifiDataUsage = if (wifiData != null) wifiData.total else 0
                     app.openCount = usageInfo.timesOpened
                     app.screenTime = usageInfo.screenTime
                     app.lastUsageTime = usageInfo.lastUsageTime
