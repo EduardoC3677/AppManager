@@ -21,7 +21,7 @@ object CpuUtils {
 
     @JvmStatic
     fun getPartialWakeLock(tagPostfix: String): PowerManager.WakeLock {
-        val pm = ContextUtils.getContext().getSystemService(Context.POWER_SERVICE) as PowerManager
+        val pm = ContextUtils.getContext().getSystemService(PowerManager::class.java)!!
         return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AppManager::$tagPostfix")
     }
 

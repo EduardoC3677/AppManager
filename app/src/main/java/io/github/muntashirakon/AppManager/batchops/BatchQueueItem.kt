@@ -56,8 +56,8 @@ data class BatchQueueItem(
     constructor(jsonObject: JSONObject) : this(
         titleRes = jsonObject.getInt("title_res"),
         op = jsonObject.getInt("op"),
-        packages = JSONUtils.getArray<String>(jsonObject.getJSONArray("packages")),
-        _users = if (jsonObject.has("users")) JSONUtils.getArray<Int>(jsonObject.getJSONArray("users")) else null,
+        packages = JSONUtils.getArray<String>(jsonObject.optJSONArray("packages")),
+        _users = if (jsonObject.has("users")) JSONUtils.getArray<Int>(jsonObject.optJSONArray("users")) else null,
         options = jsonObject.optJSONObject("options")?.let {
             IBatchOpOptions.DESERIALIZER.deserialize(it)
         }
