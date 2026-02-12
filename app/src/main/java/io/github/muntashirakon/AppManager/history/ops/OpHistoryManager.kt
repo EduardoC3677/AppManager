@@ -68,7 +68,7 @@ object OpHistoryManager {
             sHistoryAddedLiveData.postValue(opHistory)
             id
         } catch (e: JSONException) {
-            Log.e(TAG, "Could not serialize " + item.javaClass, e as Throwable)
+            Log.e(TAG, "Could not serialize " + item.javaClass, e as Throwable?, *emptyArray<Any?>())
             -1
         }
     }
