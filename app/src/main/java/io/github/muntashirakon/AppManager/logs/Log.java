@@ -124,6 +124,10 @@ public class Log extends Logger {
         android.util.Log.e(tag, null, e);
     }
 
+    public static void e(@Nullable String tag, @NonNull String message, @Nullable Throwable tr) {
+        e(tag, message, tr, new Object[0]);
+    }
+
     public static void e(@Nullable String tag, @Nullable String format, @Nullable Throwable tr, Object... args) {
         String msg = format != null ? String.format(Locale.ROOT, format, args) : null;
         println(ERROR, tag, msg, tr);
