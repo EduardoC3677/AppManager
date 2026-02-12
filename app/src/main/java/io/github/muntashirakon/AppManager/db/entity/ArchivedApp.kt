@@ -9,16 +9,20 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "archived_apps")
 data class ArchivedApp(
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "package_name")
     var packageName: String,
 
+    @JvmField
     @ColumnInfo(name = "app_name")
     var appName: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "archive_timestamp")
     var archiveTimestamp: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "apk_path")
     var apkPath: String? = null
 ) {
