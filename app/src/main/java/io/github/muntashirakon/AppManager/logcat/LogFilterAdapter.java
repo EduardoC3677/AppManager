@@ -60,7 +60,7 @@ public class LogFilterAdapter extends RecyclerView.Adapter<LogFilterAdapter.View
             }
         });
         holder.actionButton.setOnClickListener(v -> {
-            ThreadUtils.postOnBackgroundThread(() -> AppsDb.getInstance().logFilterDao().delete(logFilter));
+            ThreadUtils.postOnBackgroundThread(() -> LogFilterManager.deleteFilter(logFilter));
             mItems.remove(position);
             notifyItemRemoved(position);
         });

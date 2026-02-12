@@ -291,7 +291,7 @@ public class LogViewerViewModel extends AndroidViewModel {
     @AnyThread
     public void loadFilters() {
         mExecutor.submit(() -> {
-            final List<LogFilter> filters = AppsDb.getInstance().logFilterDao().getAll();
+            final List<LogFilter> filters = LogFilterManager.getAllFilters();
             Collections.sort(filters);
             mLogFiltersLiveData.postValue(filters);
         });

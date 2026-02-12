@@ -11,12 +11,12 @@ import io.github.muntashirakon.AppManager.misc.OsEnvironment
 import io.github.muntashirakon.io.Paths
 
 data class PackageSizeInfo(
-    val packageName: String,
-    val codeSize: Long,
-    val dataSize: Long,
-    val cacheSize: Long,
-    val mediaSize: Long,
-    val obbSize: Long
+    @JvmField val packageName: String,
+    @JvmField val codeSize: Long,
+    @JvmField val dataSize: Long,
+    @JvmField val cacheSize: Long,
+    @JvmField val mediaSize: Long,
+    @JvmField val obbSize: Long
 ) {
     @Suppress("DEPRECATION")
     constructor(packageStats: android.content.pm.PackageStats) : this(

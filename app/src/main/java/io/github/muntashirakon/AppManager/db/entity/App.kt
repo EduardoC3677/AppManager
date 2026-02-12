@@ -42,99 +42,131 @@ import java.io.Serializable
     ]
 )
 data class App(
+    @JvmField
     @ColumnInfo(name = "package_name")
     var packageName: String = "",
 
+    @JvmField
     @ColumnInfo(name = "user_id", defaultValue = "" + UserHandleHidden.USER_NULL)
     var userId: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "label")
     var packageLabel: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "version_name")
     var versionName: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "version_code")
     var versionCode: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "flags", defaultValue = "0")
     var flags: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "uid", defaultValue = "0")
     var uid: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "shared_uid", defaultValue = "NULL")
     var sharedUserId: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "first_install_time", defaultValue = "0")
     var firstInstallTime: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "last_update_time", defaultValue = "0")
     var lastUpdateTime: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "target_sdk", defaultValue = "0")
     var sdk: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "cert_name", defaultValue = "''")
     var certName: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "cert_algo", defaultValue = "''")
     var certAlgo: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "is_installed", defaultValue = "true")
     var isInstalled: Boolean = true,
 
+    @JvmField
     @ColumnInfo(name = "is_only_data_installed", defaultValue = "0")
     var isOnlyDataInstalled: Boolean = false,
 
+    @JvmField
     @ColumnInfo(name = "is_enabled", defaultValue = "false")
     var isEnabled: Boolean = false,
 
+    @JvmField
     @ColumnInfo(name = "has_activities", defaultValue = "false")
     var hasActivities: Boolean = false,
 
+    @JvmField
     @ColumnInfo(name = "has_splits", defaultValue = "false")
     var hasSplits: Boolean = false,
 
+    @JvmField
     @ColumnInfo(name = "has_keystore", defaultValue = "false")
     var hasKeystore: Boolean = false,
 
+    @JvmField
     @ColumnInfo(name = "uses_saf", defaultValue = "false")
     var usesSaf: Boolean = false,
 
+    @JvmField
     @ColumnInfo(name = "ssaid", defaultValue = "")
     var ssaid: String? = null,
 
+    @JvmField
     @ColumnInfo(name = "code_size", defaultValue = "0")
     var codeSize: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "data_size", defaultValue = "0")
     var dataSize: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "mobile_data", defaultValue = "0")
     var mobileDataUsage: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "wifi_data", defaultValue = "0")
     var wifiDataUsage: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "rules_count", defaultValue = "0")
     var rulesCount: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "tracker_count", defaultValue = "0")
     var trackerCount: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "open_count", defaultValue = "0")
     var openCount: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "screen_time", defaultValue = "0")
     var screenTime: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "last_usage_time", defaultValue = "0")
     var lastUsageTime: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "last_action_time", defaultValue = "0")
     var lastActionTime: Long = 0,
 
+    @JvmField
     @ColumnInfo(name = "tags", defaultValue = "''")
     var tags: String? = ""
 ) : Serializable {

@@ -250,7 +250,7 @@ public class LogViewerActivity extends BaseActivity implements SearchView.OnQuer
 
     @WorkerThread
     private void addFiltersToSuggestions() {
-        for (LogFilter logFilter : AppsDb.getInstance().logFilterDao().getAll()) {
+        for (LogFilter logFilter : LogFilterManager.getAllFilters()) {
             addToAutocompleteSuggestions(logFilter.name);
         }
     }
@@ -547,9 +547,8 @@ public class LogViewerActivity extends BaseActivity implements SearchView.OnQuer
         final String trimmed = text.trim();
         if (!TextUtils.isEmpty(trimmed)) {
             mExecutor.submit(() -> {
-                LogFilterDao dao = AppsDb.getInstance().logFilterDao();
-                long id = dao.insert(trimmed);
-                LogFilter logFilter = dao.get(id);
+                long id = LogFilterManager.insertFilter(trimmed);
+                LogFilter logFilter = LogFilterManager.getFilter(id);
                 if (logFilter == null) {
                     return;
                 }

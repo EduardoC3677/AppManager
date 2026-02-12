@@ -14,14 +14,14 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 
 @Parcelize
 data class DexOptOptions(
-    var packages: Array<String>? = null,
-    var compilerFiler: String? = null,
-    var compileLayouts: Boolean = false,
-    var clearProfileData: Boolean = false,
-    var checkProfiles: Boolean = false,
-    var bootComplete: Boolean = false,
-    var forceCompilation: Boolean = false,
-    var forceDexOpt: Boolean = false
+    @JvmField var packages: Array<String>? = null,
+    @JvmField var compilerFiler: String? = null,
+    @JvmField var compileLayouts: Boolean = false,
+    @JvmField var clearProfileData: Boolean = false,
+    @JvmField var checkProfiles: Boolean = false,
+    @JvmField var bootComplete: Boolean = false,
+    @JvmField var forceCompilation: Boolean = false,
+    @JvmField var forceDexOpt: Boolean = false
 ) : Parcelable, IJsonSerializer {
 
     @Throws(JSONException::class)
