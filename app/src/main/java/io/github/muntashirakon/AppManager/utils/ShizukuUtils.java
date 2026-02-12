@@ -171,4 +171,82 @@ public class ShizukuUtils {
             onDenied.run();
         }
     }
+
+    public static class ShizukuShell implements AutoCloseable {
+        private final Context mContext;
+        private IRemoteCommandService mService;
+        private final ServiceConnection mConnection;
+        private final Shizuku.UserServiceArgs mArgs;
+        private final CountDownLatch mConnectionLatch = new CountDownLatch(1);
+        private boolean mIsClosed = false;
+
+        private ShizukuShell(@NonNull Context context) {
+            mContext = context;
+            mArgs = new Shizuku.UserServiceArgs(
+                    new ComponentName(context.getPackageName(), RemoteCommandService.class.getName()))
+                    .daemon(false)
+                    .processNameSuffix("command")
+                    .tag("RemoteCommandService");
+
+            mConnection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    mService = IRemoteCommandService.Stub.asInterface(service);
+                    mConnectionLatch.countDown();
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    mService = null;
+                }
+            };
+
+            Shizuku.bindUserService(mArgs, mConnection);
+            try {
+                if (!mConnectionLatch.await(10, TimeUnit.SECONDS)) {
+                    io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "Timeout waiting for Shizuku service connection");
+                }
+            } catch (InterruptedException e) {
+                io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "Interrupted waiting for Shizuku service connection", e);
+            }
+        }
+
+        @Nullable
+        public CommandResult runCommand(@NonNull String command) {
+            if (mIsClosed) {
+                return new CommandResult(-1, "", "Shell is closed");
+            }
+            if (mService == null) {
+                return new CommandResult(-1, "", "Service not connected");
+            }
+            try {
+                android.os.Bundle bundle = mService.runCommand(command);
+                int exitCode = bundle.getInt("exitCode", -1);
+                String stdout = bundle.getString("stdout", "");
+                String stderr = bundle.getString("stderr", "");
+                return new CommandResult(exitCode, stdout, stderr);
+            } catch (RemoteException e) {
+                io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "RemoteException during shell command: " + command, e);
+                return new CommandResult(-1, "", "RemoteException: " + e.getMessage());
+            }
+        }
+
+        @Override
+        public void close() {
+            if (!mIsClosed) {
+                try {
+                    Shizuku.unbindUserService(mArgs, mConnection, true);
+                } catch (Exception e) {
+                    // Ignore
+                }
+                mIsClosed = true;
+            }
+        }
+    }
+
+    @Nullable
+    public static ShizukuShell newShell(@NonNull Context context) {
+        if (!isShizukuAvailable()) return null;
+        return new ShizukuShell(context);
+    }
 }

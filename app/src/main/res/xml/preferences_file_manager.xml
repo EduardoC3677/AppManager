@@ -1,20 +1,32 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="fm_display_in_launcher"
-        app:title="@string/pref_files_display_in_launcher"
-        app:iconSpaceReserved="false" />
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/preview">
 
-    <SwitchPreferenceCompat
-        app:key="fm_remember_last_path"
-        app:title="@string/pref_files_remember_last_path"
-        app:summary="@string/pref_files_remember_last_path_msg"
-        app:iconSpaceReserved="false" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_eye"
+            app:key="fm_display_in_launcher"
+            app:title="@string/pref_files_display_in_launcher" />
 
-    <Preference
-        app:key="fm_home"
-        app:title="@string/pref_set_home"
-        app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/paths_and_directories">
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_autorenew"
+            app:key="fm_remember_last_path"
+            app:title="@string/pref_files_remember_last_path"
+            app:summary="@string/pref_files_remember_last_path_msg" />
+
+        <Preference
+            app:icon="@drawable/ic_database"
+            app:key="fm_home"
+            app:title="@string/pref_set_home" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

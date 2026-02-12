@@ -1591,4 +1591,16 @@
     <string name="app_size_cache_only">Cache Size Only</string>
     <string name="app_size_hidden">Hidden</string>
 
+    <string name="suggested_for_archiving">Suggested for archiving</string>
+    <string name="infrequent_use">Infrequent use</string>
+    <string name="archived_successfully">Archived successfully</string>
+    <string name="general">General</string>
+    <string name="security_and_privacy">Security and Privacy</string>
+    <string name="management">Management</string>
+    <string name="tools">Tools</string>
+    <string name="archive_method_system">System Archiving (Android 14+)</string>
+    <string name="archive_method_shizuku">Shizuku (Privileged Shell)</string>
+    <string name="archive_method_root">Root (Privileged Shell)</string>
+    <string name="archive_method_standard">Standard (May prompt system dialog)</string>
+    <string name="choose_archive_method">Choose archiving method</string>
 </resources>

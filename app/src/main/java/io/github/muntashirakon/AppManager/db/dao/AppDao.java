@@ -27,6 +27,9 @@ public interface AppDao {
     @Query("SELECT * FROM app WHERE package_name = :packageName AND user_id = :userId")
     List<App> getAll(String packageName, int userId);
 
+    @Query("SELECT * FROM app WHERE tags LIKE '%' || :tag || '%'")
+    List<App> getByTag(String tag);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<App> apps);
 

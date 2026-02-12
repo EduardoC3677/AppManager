@@ -877,75 +877,11 @@ public class BatchOpsManager {
 
     @NonNull
     private Result opArchive(@NonNull BatchOpsInfo info) {
-        List<UserPackagePair> failedPackages = new ArrayList<>();
-        float lastProgress = mProgressHandler != null ? mProgressHandler.getLastProgress() : 0;
-        ArchivedAppDao archivedAppDao = AppsDb.getInstance().archivedAppDao();
-        PackageManager pm = ContextUtils.getContext().getPackageManager();
-        Context context = ContextUtils.getContext();
-
-        int max = info.size();
-        UserPackagePair pair;
-        for (int i = 0; i < max; ++i) {
-            updateProgress(lastProgress, i + 1);
-            pair = info.getPair(i);
-
-            if (BuildConfig.APPLICATION_ID.equals(pair.getPackageName())) {
-                log("====> op=ARCHIVE, cannot archive the app itself");
-                failedPackages.add(pair);
-                continue;
-            }
-
-            try {
-                ApplicationInfo appInfo = pm.getApplicationInfo(pair.getPackageName(), 0);
-                String appName = appInfo.loadLabel(pm).toString();
-                String apkPath = appInfo.sourceDir;
-
-                boolean success = false;
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    PackageInstaller packageInstaller = context.getPackageManager().getPackageInstaller();
-                    Intent intent = new Intent(ArchiveResultReceiver.ACTION_ARCHIVE_RESULT);
-                    intent.setPackage(context.getPackageName());
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                            context,
-                            pair.getPackageName().hashCode(),
-                            intent,
-                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE
-                    );
-
-                    packageInstaller.requestArchive(pair.getPackageName(), pendingIntent.getIntentSender());
-                    success = true; // Assume success for now, actual result handled by broadcast receiver
-                } else if (ShizukuUtils.isShizukuAvailable()) {
-                    ShizukuUtils.CommandResult result = ShizukuUtils.runCommand(context, "pm uninstall -k " + pair.getPackageName());
-                    if (result != null && result.exitCode == 0) {
-                        success = true;
-                    } else {
-                        log("====> op=ARCHIVE, pkg=" + pair + ", exitCode=" + (result != null ? result.exitCode : "null") +
-                                ", stderr=" + (result != null ? result.stderr : "null"));
-                    }
-                } else {
-                    // Fallback to the old method if Shizuku is not available and archiving API is not present
-                    PackageInstallerCompat installer = PackageInstallerCompat.getNewInstance();
-                    success = installer.uninstall(pair.getPackageName(), pair.getUserId(), true);
-                }
-
-                if (success) {
-                    ArchivedApp archivedApp = new ArchivedApp(pair.getPackageName(), appName, System.currentTimeMillis(), apkPath);
-                    archivedAppDao.insert(archivedApp);
-                } else {
-                    failedPackages.add(pair);
-                    log("====> op=ARCHIVE, pkg=" + pair + " failed");
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                failedPackages.add(pair);
-                log("====> op=ARCHIVE, pkg=" + pair + " not found", e);
-            } catch (Exception e) {
-                failedPackages.add(pair);
-                log("====> op=ARCHIVE, pkg=" + pair, e);
-            }
+        int mode = io.github.muntashirakon.AppManager.batchops.ArchiveHandler.MODE_AUTO;
+        if (info.options instanceof io.github.muntashirakon.AppManager.batchops.struct.BatchArchiveOptions) {
+            mode = ((io.github.muntashirakon.AppManager.batchops.struct.BatchArchiveOptions) info.options).getMode();
         }
-        return new Result(failedPackages);
+        return ArchiveHandler.opArchive(info, mProgressHandler, mLogger, mode);
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

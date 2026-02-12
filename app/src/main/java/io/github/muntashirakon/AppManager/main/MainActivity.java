@@ -115,6 +115,8 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
     MainBatchOpsHandler mBatchOpsHandler;
     private MenuItem mAppUsageMenu;
     private MainRecyclerAdapter mAdapter;
+    private SuggestionsAdapter mSuggestionsAdapter;
+    private View mSuggestionsView;
 
     private final StoragePermission mStoragePermission = StoragePermission.init(this);
 
@@ -208,38 +210,24 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
     };
 
         @SuppressLint("RestrictedApi")
+    @Override
+    protected void onAuthenticated(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_main);
 
-        @Override
+        getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
 
-        protected void onAuthenticated(Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-            setContentView(R.layout.activity_main);
+        // Read preference for bottom bar
+        boolean useBottomBar = AppPref.getBoolean(AppPref.PrefKey.PREF_USE_BOTTOM_BAR_BOOL);
 
-            getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
-
-            viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
-    
-
-            // Read preference for bottom bar
-
-            boolean useBottomBar = AppPref.getBoolean(AppPref.PrefKey.PREF_USE_BOTTOM_BAR_BOOL);
-
-    
-
-            // Initialize all UI components
-
-            mTopAppBarLayout = findViewById(R.id.top_app_bar_layout);
-
-            mTopToolbar = findViewById(R.id.top_toolbar);
-
-            mBottomAppBar = findViewById(R.id.bottom_app_bar);
-
-            mFab = findViewById(R.id.fab);
-
-            mProgressIndicator = findViewById(R.id.progress_linear);
-
-            mSearchView = findViewById(R.id.search_view);
+        // Initialize all UI components
+        mTopAppBarLayout = findViewById(R.id.top_app_bar_layout);
+        mTopToolbar = findViewById(R.id.top_toolbar);
+        mBottomAppBar = findViewById(R.id.bottom_app_bar);
+        mFab = findViewById(R.id.fab);
+        mProgressIndicator = findViewById(R.id.progress_linear);
+        mSearchView = findViewById(R.id.search_view);
 
         // Conditional visibility and action bar setup
         if (useBottomBar) {
@@ -391,6 +379,57 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
                 UIUtils.displayShortToast(R.string.done);
             } else {
                 UIUtils.displayLongToast(R.string.failed);
+            }
+        });
+
+        // Setup Suggestions
+        mSuggestionsAdapter = new SuggestionsAdapter(item -> {
+            String[] methods = {
+                    getString(R.string.archive_method_system),
+                    getString(R.string.archive_method_shizuku),
+                    getString(R.string.archive_method_root),
+                    getString(R.string.archive_method_standard)
+            };
+            
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.choose_archive_method)
+                    .setItems(methods, (dialog, which) -> {
+                        int mode;
+                        switch (which) {
+                            case 0: mode = io.github.muntashirakon.AppManager.batchops.ArchiveHandler.MODE_AUTO; break;
+                            case 1: mode = io.github.muntashirakon.AppManager.batchops.ArchiveHandler.MODE_SHIZUKU; break;
+                            case 2: mode = io.github.muntashirakon.AppManager.batchops.ArchiveHandler.MODE_ROOT; break;
+                            case 3: mode = io.github.muntashirakon.AppManager.batchops.ArchiveHandler.MODE_STANDARD; break;
+                            default: mode = io.github.muntashirakon.AppManager.batchops.ArchiveHandler.MODE_AUTO;
+                        }
+                        
+                        viewModel.select(item);
+                        // We need a way to pass 'mode' to the background service.
+                        // I will pass it as an option.
+                        handleBatchOp(BatchOpsManager.OP_ARCHIVE, new io.github.muntashirakon.AppManager.batchops.struct.BatchArchiveOptions(mode));
+                        viewModel.deselect(item);
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        });
+
+        viewModel.getSuggestions().observe(this, suggestions -> {
+            if (suggestions != null && !suggestions.isEmpty()) {
+                if (mSuggestionsView == null) {
+                    View stub = findViewById(R.id.suggestions_stub);
+                    if (stub instanceof android.view.ViewStub) {
+                        mSuggestionsView = ((android.view.ViewStub) stub).inflate();
+                        RecyclerView suggestionsRecycler = mSuggestionsView.findViewById(R.id.suggestions_recycler);
+                        suggestionsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                        suggestionsRecycler.setAdapter(mSuggestionsAdapter);
+                    }
+                }
+                if (mSuggestionsView != null) {
+                    mSuggestionsView.setVisibility(View.VISIBLE);
+                    mSuggestionsAdapter.setItems(suggestions);
+                }
+            } else if (mSuggestionsView != null) {
+                mSuggestionsView.setVisibility(View.GONE);
             }
         });
     }
@@ -636,10 +675,51 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
             dialog.show(getSupportFragmentManager(), AddToProfileDialogFragment.TAG);
         } else if (id == R.id.action_archive) {
             handleBatchOpWithWarning(BatchOpsManager.OP_ARCHIVE);
+        } else if (id == R.id.action_edit_tags) {
+            showEditTagsDialog();
         } else {
             return false;
         }
         return true;
+    }
+
+    private void showEditTagsDialog() {
+        Collection<ApplicationItem> selectedItems = viewModel.getSelectedApplicationItems();
+        if (selectedItems.isEmpty()) return;
+
+        View view = View.inflate(this, R.layout.dialog_edit_tags, null);
+        com.google.android.material.textfield.TextInputEditText editText = view.findViewById(R.id.edit_tags);
+
+        // If only one item is selected, show its current tags
+        if (selectedItems.size() == 1) {
+            ApplicationItem item = selectedItems.iterator().next();
+            // We need to fetch the app from DB to get the tags, as ApplicationItem might not have it yet
+            // For now, let's assume we want to set new tags for all selected.
+        }
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.group)
+                .setView(view)
+                .setPositiveButton(R.string.save, (dialog, which) -> {
+                    String tags = editText.getText().toString();
+                    ThreadUtils.postOnBackgroundThread(() -> {
+                        io.github.muntashirakon.AppManager.db.dao.AppDao dao = io.github.muntashirakon.AppManager.db.AppsDb.getInstance().appDao();
+                        for (ApplicationItem item : selectedItems) {
+                            List<App> apps = dao.getAll(item.packageName);
+                            for (App app : apps) {
+                                app.tags = tags;
+                                dao.update(app);
+                            }
+                        }
+                        ThreadUtils.postOnMainThread(() -> {
+                            UIUtils.displayShortToast(R.string.saved_successfully);
+                            mMultiSelectionView.cancel();
+                            viewModel.loadApplicationItems(true);
+                        });
+                    });
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
     }
 
     @Override

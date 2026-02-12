@@ -117,6 +117,8 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
     private final MutableLiveData<Boolean> mOperationStatus = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<List<ApplicationItem>> mApplicationItemsLiveData = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<List<ApplicationItem>> mSuggestionsLiveData = new MutableLiveData<>();
     private final List<ApplicationItem> mApplicationItems = new ArrayList<>();
 
     // OPTIMIZATION: Cache Collator to avoid recreation overhead
@@ -141,6 +143,11 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
             loadApplicationItems();
         }
         return mApplicationItemsLiveData;
+    }
+
+    @NonNull
+    public LiveData<List<ApplicationItem>> getSuggestions() {
+        return mSuggestionsLiveData;
     }
 
     public LiveData<Boolean> getOperationStatus() {
@@ -487,6 +494,7 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                         }};
                     }, AdvancedSearchView.SEARCH_TYPE_REGEX);
             mApplicationItemsLiveData.postValue(filteredApplicationItems);
+            mSuggestionsLiveData.postValue(SuggestionHandler.getApplicationItemSuggestions(filteredApplicationItems));
             return;
         }
         // OPTIMIZATION: Lowercase query once instead of per-item (saves 100-200ms)
@@ -511,6 +519,7 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
             }
         }
         mApplicationItemsLiveData.postValue(filteredApplicationItems);
+        mSuggestionsLiveData.postValue(SuggestionHandler.getApplicationItemSuggestions(filteredApplicationItems));
     }
 
     @WorkerThread
@@ -554,6 +563,7 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                     filterItemsByQuery(candidateApplicationItems);
                 } else {
                     mApplicationItemsLiveData.postValue(candidateApplicationItems);
+                    mSuggestionsLiveData.postValue(SuggestionHandler.getApplicationItemSuggestions(candidateApplicationItems));
                 }
             } else {
                 List<ApplicationItem> filteredApplicationItems = new ArrayList<>();
@@ -617,6 +627,7 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
                     filterItemsByQuery(filteredApplicationItems);
                 } else {
                     mApplicationItemsLiveData.postValue(filteredApplicationItems);
+                    mSuggestionsLiveData.postValue(SuggestionHandler.getApplicationItemSuggestions(filteredApplicationItems));
                 }
             }
         }

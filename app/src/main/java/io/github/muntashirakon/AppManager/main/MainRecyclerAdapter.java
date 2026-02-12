@@ -89,6 +89,8 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
     // OPTIMIZATION: Cache DisplayMetrics and corner radius to avoid 2000+ lookups
     private final float mDensity;
     private final float mCornerRadiusPx;
+    // OPTIMIZATION: Track animated positions to prevent re-triggering during fast scrolling
+    private final java.util.Set<Integer> mAnimatedPositions = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
 
     MainRecyclerAdapter(@NonNull MainActivity activity) {
         super();
@@ -114,6 +116,7 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         if (mActivity.viewModel == null) return;
         synchronized (mAdapterList) {
             mSearchQuery = mActivity.viewModel.getSearchQuery();
+            mAnimatedPositions.clear(); // Reset animations on list refresh
             AdapterUtils.notifyDataSetChanged(this, mAdapterList, list);
             notifySelectionChange();
             // After first load completes, enable animations for subsequent updates
@@ -210,21 +213,29 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
 
         // OPTIMIZATION: Skip expensive animations during initial bulk load (>1000 items)
         // This prevents stutter and improves load time by ~500-1000ms
-        if (!mIsInitialLoad) {
+        if (!mIsInitialLoad && !mAnimatedPositions.contains(position)) {
+            mAnimatedPositions.add(position);
             // Add smooth entrance animation for newly visible items (only after initial load)
+            // M3E Staggered Waterfall Effect
             cardView.setAlpha(0f);
-            cardView.setScaleX(0.9f);
-            cardView.setScaleY(0.9f);
+            cardView.setTranslationY(50f); // Slight slide-up
+            cardView.setScaleX(0.95f);
+            cardView.setScaleY(0.95f);
+            
             cardView.animate()
                     .alpha(1f)
+                    .translationY(0f)
                     .scaleX(1f)
                     .scaleY(1f)
-                    .setDuration(200)
-                    .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                    .setDuration(400) // Longer M3 duration
+                    // Emphasized Decelerate Interpolator (approximate)
+                    .setInterpolator(new android.view.animation.PathInterpolator(0.05f, 0.7f, 0.1f, 1.0f))
+                    .setStartDelay((position % 10) * 20L) // Staggered delay
                     .start();
         } else {
             // Fast path: Set final state immediately without animation
             cardView.setAlpha(1f);
+            cardView.setTranslationY(0f);
             cardView.setScaleX(1f);
             cardView.setScaleY(1f);
         }
@@ -238,8 +249,13 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
         if (cardView.getTag() == null) {
             cardView.setTag(true); // Mark as listeners set
             cardView.setOnClickListener(v -> {
-                // Haptic feedback for better tactile response
-                v.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP);
+                // Haptic feedback: M3 Confirm or standard tap
+                int feedbackConstant = android.view.HapticFeedbackConstants.KEYBOARD_TAP;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                    feedbackConstant = android.view.HapticFeedbackConstants.CONFIRM;
+                }
+                v.performHapticFeedback(feedbackConstant);
+                
                 // If selection mode is on, select/deselect the current item instead of the default behaviour
                 if (isInSelectionMode()) {
                     toggleSelection(position);
@@ -249,8 +265,13 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
                 handleClick(item);
             });
             cardView.setOnLongClickListener(v -> {
-                // Stronger haptic feedback for long press
-                v.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS);
+                // Stronger haptic feedback for long press (Gesture Start if available)
+                int feedbackConstant = android.view.HapticFeedbackConstants.LONG_PRESS;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                    feedbackConstant = android.view.HapticFeedbackConstants.GESTURE_START;
+                }
+                v.performHapticFeedback(feedbackConstant);
+                
                 // Long click listener: Select/deselect an app.
                 // 1) Turn selection mode on if this is the first item in the selection list
                 // 2) Select between last selection position and this position (inclusive) if selection mode is on
@@ -269,7 +290,12 @@ public class MainRecyclerAdapter extends MultiSelectionView.Adapter<MainRecycler
             });
             holder.icon.setOnClickListener(v -> {
                 // Haptic feedback for selection
-                v.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP);
+                int feedbackConstant = android.view.HapticFeedbackConstants.KEYBOARD_TAP;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                    feedbackConstant = android.view.HapticFeedbackConstants.CONFIRM;
+                }
+                v.performHapticFeedback(feedbackConstant);
+                
                 toggleSelection(position);
                 AccessibilityUtils.requestAccessibilityFocus(holder.itemView);
             });

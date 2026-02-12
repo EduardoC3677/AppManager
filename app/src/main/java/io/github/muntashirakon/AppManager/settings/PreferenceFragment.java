@@ -30,6 +30,10 @@ public abstract class PreferenceFragment extends PreferenceFragmentCompat {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+        // ENHANCEMENT: Add haptic feedback to all preferences
+        setupHaptics(getPreferenceScreen());
+
         boolean secondary = false;
         if (getArguments() != null) {
             mPrefKey = requireArguments().getString(PREF_KEY);
@@ -76,6 +80,40 @@ public abstract class PreferenceFragment extends PreferenceFragmentCompat {
         }
         for (Preference pref : prefs) {
             pref.setEnabled(enable);
+        }
+    }
+
+    private void setupHaptics(androidx.preference.PreferenceGroup group) {
+        if (group == null) return;
+        for (int i = 0; i < group.getPreferenceCount(); i++) {
+            androidx.preference.Preference pref = group.getPreference(i);
+            if (pref instanceof androidx.preference.PreferenceGroup) {
+                setupHaptics((androidx.preference.PreferenceGroup) pref);
+            } else {
+                // Haptics for change
+                androidx.preference.Preference.OnPreferenceChangeListener originalChangeListener = pref.getOnPreferenceChangeListener();
+                pref.setOnPreferenceChangeListener((preference, newValue) -> {
+                    triggerHaptics();
+                    return originalChangeListener == null || originalChangeListener.onPreferenceChange(preference, newValue);
+                });
+                
+                // Haptics for click
+                androidx.preference.Preference.OnPreferenceClickListener originalClickListener = pref.getOnPreferenceClickListener();
+                pref.setOnPreferenceClickListener(preference -> {
+                    triggerHaptics();
+                    return originalClickListener != null && originalClickListener.onPreferenceClick(preference);
+                });
+            }
+        }
+    }
+
+    private void triggerHaptics() {
+        if (getView() != null) {
+            int feedbackConstant = android.view.HapticFeedbackConstants.KEYBOARD_TAP;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                feedbackConstant = android.view.HapticFeedbackConstants.CONFIRM;
+            }
+            getView().performHapticFeedback(feedbackConstant);
         }
     }
 
