@@ -224,7 +224,7 @@ object TarUtils {
                             ExUtils.exceptionAsIgnored {
                                 Paths.setPermissions(
                                     file, finalEntry!!.mode,
-                                    finalEntry.longUserId, finalEntry.longGroupId
+                                    finalEntry.longUserId.toInt(), finalEntry.longGroupId.toInt()
                                 )
                             }
                             // Restore timestamp

@@ -101,7 +101,15 @@ object AppearanceUtils {
     @JvmStatic
     fun init(application: Application) {
         application.registerActivityLifecycleCallbacks(ActivityAppearanceCallback())
-        application.registerComponentCallbacks(ComponentAppearanceCallback(application))
+        application.registerComponentCallbacks(object : ComponentCallbacks2 {
+            override fun onConfigurationChanged(newConfig: Configuration) {
+                applyOnlyLocale(application)
+            }
+
+            override fun onLowMemory() {}
+
+            override fun onTrimMemory(level: Int) {}
+        })
         applyOnlyLocale(application)
         if (Prefs.Appearance.useSystemFont()) {
             TypefaceUtil.replaceFontsWithSystem(application)
@@ -179,18 +187,6 @@ object AppearanceUtils {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 onActivityPreDestroyed(activity)
             }
-        }
-    }
-
-    private class ComponentAppearanceCallback(private val mApplication: Application) : ComponentCallbacks2 {
-        override fun onConfigurationChanged(newConfig: Configuration) {
-            applyOnlyLocale(mApplication)
-        }
-
-        override fun onLowMemory() {
-        }
-
-        override fun onTrimMemory(level: Int) {
         }
     }
 

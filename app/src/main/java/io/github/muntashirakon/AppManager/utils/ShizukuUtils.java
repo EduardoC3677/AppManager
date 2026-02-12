@@ -19,13 +19,27 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class ShizukuUtils {
+    // Cache Shizuku status to avoid repeated slow binder calls
+    private static Boolean sIsInstalled = null;
+    private static Long sLastInstalledCheck = null;
+    private static final long CACHE_VALIDITY_MS = 5000; // 5 seconds
 
     public static boolean isShizukuInstalled() {
+        long now = System.currentTimeMillis();
+        if (sIsInstalled != null && sLastInstalledCheck != null &&
+            (now - sLastInstalledCheck) < CACHE_VALIDITY_MS) {
+            return sIsInstalled;
+        }
+
         try {
             Shizuku.pingBinder();
-            return !Shizuku.isPreV11();
+            sIsInstalled = !Shizuku.isPreV11();
+            sLastInstalledCheck = now;
+            return sIsInstalled;
         } catch (Exception e) {
             io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "isShizukuInstalled check failed: " + e.getMessage());
+            sIsInstalled = false;
+            sLastInstalledCheck = now;
             return false;
         }
     }
@@ -40,6 +54,12 @@ public class ShizukuUtils {
             io.github.muntashirakon.AppManager.logs.Log.w("ShizukuUtils", "isShizukuAvailable check failed: " + e.getMessage());
             return false;
         }
+    }
+
+    // Clear cache when permission changes
+    public static void clearCache() {
+        sIsInstalled = null;
+        sLastInstalledCheck = null;
     }
 
     public static boolean needsPermission() {
@@ -150,5 +170,83 @@ public class ShizukuUtils {
             io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "Exception during requestPermission", e);
             onDenied.run();
         }
+    }
+
+    public static class ShizukuShell implements AutoCloseable {
+        private final Context mContext;
+        private IRemoteCommandService mService;
+        private final ServiceConnection mConnection;
+        private final Shizuku.UserServiceArgs mArgs;
+        private final CountDownLatch mConnectionLatch = new CountDownLatch(1);
+        private boolean mIsClosed = false;
+
+        private ShizukuShell(@NonNull Context context) {
+            mContext = context;
+            mArgs = new Shizuku.UserServiceArgs(
+                    new ComponentName(context.getPackageName(), RemoteCommandService.class.getName()))
+                    .daemon(false)
+                    .processNameSuffix("command")
+                    .tag("RemoteCommandService");
+
+            mConnection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    mService = IRemoteCommandService.Stub.asInterface(service);
+                    mConnectionLatch.countDown();
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    mService = null;
+                }
+            };
+
+            Shizuku.bindUserService(mArgs, mConnection);
+            try {
+                if (!mConnectionLatch.await(10, TimeUnit.SECONDS)) {
+                    io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "Timeout waiting for Shizuku service connection");
+                }
+            } catch (InterruptedException e) {
+                io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "Interrupted waiting for Shizuku service connection", e);
+            }
+        }
+
+        @Nullable
+        public CommandResult runCommand(@NonNull String command) {
+            if (mIsClosed) {
+                return new CommandResult(-1, "", "Shell is closed");
+            }
+            if (mService == null) {
+                return new CommandResult(-1, "", "Service not connected");
+            }
+            try {
+                android.os.Bundle bundle = mService.runCommand(command);
+                int exitCode = bundle.getInt("exitCode", -1);
+                String stdout = bundle.getString("stdout", "");
+                String stderr = bundle.getString("stderr", "");
+                return new CommandResult(exitCode, stdout, stderr);
+            } catch (RemoteException e) {
+                io.github.muntashirakon.AppManager.logs.Log.e("ShizukuUtils", "RemoteException during shell command: " + command, e);
+                return new CommandResult(-1, "", "RemoteException: " + e.getMessage());
+            }
+        }
+
+        @Override
+        public void close() {
+            if (!mIsClosed) {
+                try {
+                    Shizuku.unbindUserService(mArgs, mConnection, true);
+                } catch (Exception e) {
+                    // Ignore
+                }
+                mIsClosed = true;
+            }
+        }
+    }
+
+    @Nullable
+    public static ShizukuShell newShell(@NonNull Context context) {
+        if (!isShizukuAvailable()) return null;
+        return new ShizukuShell(context);
     }
 }

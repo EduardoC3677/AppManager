@@ -44,10 +44,12 @@ import androidx.annotation.StringRes
 import androidx.annotation.UiThread
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.muntashirakon.AppManager.R
+import io.github.muntashirakon.AppManager.misc.AdvancedSearchView
 import io.github.muntashirakon.AppManager.misc.AdvancedSearchView
 import io.github.muntashirakon.dialog.DialogTitleBuilder
 import io.github.muntashirakon.util.UiUtils

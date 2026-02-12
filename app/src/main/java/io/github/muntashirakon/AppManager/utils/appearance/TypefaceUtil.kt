@@ -25,7 +25,7 @@ object TypefaceUtil {
         try {
             overrideFonts(normalFont)
         } catch (e: Exception) {
-            Log.w(TAG, "Could not override fonts", e)
+            Log.w(TAG, e)
         }
     }
 
@@ -57,7 +57,7 @@ object TypefaceUtil {
             field.set(null, mutableFonts)
             field.isAccessible = false
         } catch (e: Exception) {
-            Log.w(TAG, "Could not restore fonts", e)
+            Log.w(TAG, e)
         }
     }
 

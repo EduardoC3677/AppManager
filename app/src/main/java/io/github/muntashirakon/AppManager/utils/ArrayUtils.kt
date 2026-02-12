@@ -670,7 +670,8 @@ object ArrayUtils {
         } else if (array.size == size) {
             return array
         } else {
-            return array.copyOf(size)
+            @Suppress("UNCHECKED_CAST")
+            return array.copyOf(size) as Array<T>?
         }
     }
 

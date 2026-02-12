@@ -73,7 +73,7 @@ object ExUtils {
         return try {
             r.run()
         } catch (th: Throwable) {
-            Log.w("ExUtils", th, "(Suppressed error)")
+            Log.w("ExUtils", th)
             null
         }
     }
@@ -97,7 +97,7 @@ object ExUtils {
         try {
             r.run()
         } catch (th: Throwable) {
-            Log.w("ExUtils", th, "(Suppressed error)")
+            Log.w("ExUtils", th)
         }
     }
 }

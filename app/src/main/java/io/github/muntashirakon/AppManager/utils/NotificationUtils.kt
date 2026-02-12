@@ -54,7 +54,7 @@ object NotificationUtils {
     @Retention(RetentionPolicy.SOURCE)
     annotation class NotificationPriority
 
-    interface NotificationBuilder {
+    fun interface NotificationBuilder {
         fun build(builder: NotificationCompat.Builder): Notification
     }
 

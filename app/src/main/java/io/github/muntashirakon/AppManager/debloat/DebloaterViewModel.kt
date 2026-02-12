@@ -163,7 +163,7 @@ class DebloaterViewModel(application: Application) : AndroidViewModel(applicatio
 
             // Apply searching
             val searchResult = AdvancedSearchView.matches(
-                queryString,
+                queryString!!,
                 filtered,
                 AdvancedSearchView.ChoicesGenerator { item ->
                     val label = item.getLabel()

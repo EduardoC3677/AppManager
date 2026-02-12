@@ -7,7 +7,7 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
-final class AudioMetadata {
+public final class AudioMetadata {
     public Uri uri;
     @Nullable
     public Bitmap cover;

@@ -84,6 +84,41 @@ object JSONUtils {
     }
 
     @JvmStatic
+    @Throws(JSONException::class)
+    fun <T> getArrayOrNull(clazz: Class<T>, jsonArray: JSONArray?): Array<T>? {
+        if (jsonArray == null) return null
+        @Suppress("UNCHECKED_CAST")
+        val typicalArray = JavaArray.newInstance(clazz, jsonArray.length()) as Array<T>
+        for (i in 0 until jsonArray.length()) {
+            typicalArray[i] = clazz.cast(jsonArray.get(i))
+        }
+        return typicalArray
+    }
+
+    @JvmStatic
+    @Throws(JSONException::class)
+    fun getIntArrayOrNull(jsonArray: JSONArray?): IntArray? {
+        if (jsonArray == null) return null
+        val typicalArray = IntArray(jsonArray.length())
+        for (i in 0 until jsonArray.length()) {
+            typicalArray[i] = jsonArray.getInt(i)
+        }
+        return typicalArray
+    }
+
+    @JvmStatic
+    @Throws(JSONException::class)
+    fun <T> getArrayOrNull(jsonArray: JSONArray?): ArrayList<T>? {
+        if (jsonArray == null) return null
+        val arrayList = ArrayList<T>(jsonArray.length())
+        for (i in 0 until jsonArray.length()) {
+            @Suppress("UNCHECKED_CAST")
+            arrayList.add(jsonArray.get(i) as T)
+        }
+        return arrayList
+    }
+
+    @JvmStatic
     fun getString(jsonObject: JSONObject, key: String, defaultValue: String?): String? {
         return try {
             jsonObject.getString(key)

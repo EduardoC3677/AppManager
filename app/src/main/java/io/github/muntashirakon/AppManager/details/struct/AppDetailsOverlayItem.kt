@@ -17,8 +17,9 @@ class AppDetailsOverlayItem(
 ) : AppDetailsItem<OverlayInfoHidden>(Refine.unsafeCast(overlayInfo)) {
 
     init {
-        name = if (item.overlayName != null) {
-            item.overlayName
+        val overlayName = item.overlayName
+        name = if (overlayName != null) {
+            overlayName
         } else {
             // overlayIdentifier is not available in OverlayInfoHidden stub, fallback to packageName
             item.packageName

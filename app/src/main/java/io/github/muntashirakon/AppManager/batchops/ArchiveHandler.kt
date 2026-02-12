@@ -19,6 +19,7 @@ import io.github.muntashirakon.AppManager.types.UserPackagePair
 import io.github.muntashirakon.AppManager.utils.ContextUtils
 import io.github.muntashirakon.AppManager.utils.ShizukuUtils
 import io.github.muntashirakon.AppManager.settings.Ops
+import kotlinx.coroutines.runBlocking
 import java.io.File
 
 object ArchiveHandler {
@@ -43,7 +44,7 @@ object ArchiveHandler {
         val max = info.size()
         
         // Optimized Shizuku Shell
-        val shell = if (mode == MODE_AUTO || mode == MODE_SHIZUKU) ShizukuUtils.newShell(context) else null
+        val shell: ShizukuUtils.ShizukuShell? = if (mode == MODE_AUTO || mode == MODE_SHIZUKU) ShizukuUtils.newShell(context) else null
 
         try {
             for (i in 0 until max) {
@@ -104,7 +105,7 @@ object ArchiveHandler {
 
                     if (success) {
                         val archivedApp = ArchivedApp(pair.packageName, appName, System.currentTimeMillis(), apkPath)
-                        archivedAppDao.insert(archivedApp)
+                        runBlocking { archivedAppDao.insert(archivedApp) }
                     } else {
                         failedPackages.add(pair)
                         log(logger, "====> op=ARCHIVE, pkg=$pair failed")

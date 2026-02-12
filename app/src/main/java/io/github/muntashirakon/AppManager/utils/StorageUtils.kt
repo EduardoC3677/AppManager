@@ -48,7 +48,7 @@ object StorageUtils {
             val time = grantedUrisAndDate.valueAt(i)
             if (Paths.get(uri).isDirectory()) {
                 // Only directories are locations
-                val readableName = Paths.getLastPathSegment(uri.path) + " " + DateUtils.formatDate(context, time)
+                val readableName = Paths.getLastPathSegment(uri.path ?: "") + " " + DateUtils.formatDate(context, time)
                 storageLocations[readableName] = getFixedTreeUri(uri)
             }
         }
