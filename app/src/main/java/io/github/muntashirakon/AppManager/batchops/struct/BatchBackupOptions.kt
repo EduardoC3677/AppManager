@@ -63,7 +63,7 @@ data class BatchBackupOptions(
                     val backup = BackupUtils.retrieveLatestBackupFromDb(userId, backupName, packageName)
                         ?: throw IllegalArgumentException("Backup with name $backupName doesn't exist.")
                     backup.relativeDir
-                }.toTypedArray()
+                }.filterNotNull().toTypedArray()
             }
         }
         return DeleteOpOptions(packageName, userId, relativeDirs)
