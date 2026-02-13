@@ -133,8 +133,7 @@ abstract class AppsDb : RoomDatabase() {
         @JvmField
         val M_10_11 = object : Migration(10, 11) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE `app` ADD COLUMN `tags` TEXT DEFAULT ''")
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_app_tags` ON `app` (`tags`)")
+                db.execSQL("ALTER TABLE `app` ADD COLUMN `tags` TEXT")
             }
         }
     }
