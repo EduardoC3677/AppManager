@@ -5,9 +5,10 @@ package io.github.muntashirakon.AppManager.details.struct
 import android.content.pm.PermissionInfo
 
 class AppDetailsDefinedPermissionItem(
-    permissionInfo: PermissionInfo,
-    val isExternal: Boolean
+    @JvmField val permissionInfo: PermissionInfo,
+    @JvmField val isExternal: Boolean
 ) : AppDetailsItem<PermissionInfo>(permissionInfo) {
+    @JvmField val permission: PermissionInfo = item
 
     init {
         name = permissionInfo.name

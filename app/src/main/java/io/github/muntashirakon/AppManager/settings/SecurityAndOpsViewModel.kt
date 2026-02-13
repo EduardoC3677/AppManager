@@ -22,6 +22,7 @@ class SecurityAndOpsViewModel(application: Application) : AndroidViewModel(appli
     var isAuthenticating = false
 
     private val _authenticationStatus = MutableLiveData<Int>()
+    @get:JvmName("authenticationStatus")
     val authenticationStatus: LiveData<Int> = _authenticationStatus
 
     fun setModeOfOps() {

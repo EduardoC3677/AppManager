@@ -6,9 +6,9 @@ import io.github.muntashirakon.AppManager.rules.RuleType
 import java.util.StringTokenizer
 
 abstract class RuleEntry(
-    val packageName: String,
-    val name: String,
-    val type: RuleType
+    @JvmField val packageName: String,
+    @JvmField val name: String,
+    @JvmField val type: RuleType
 ) {
     override fun toString(): String {
         return "Entry{name='$name', type=$type}"

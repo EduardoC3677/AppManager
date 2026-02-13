@@ -7,7 +7,7 @@ import java.io.File
 class AppDetailsLibraryItem<T>(
     item: T
 ) : AppDetailsItem<T>(item) {
-    var size: Long = 0
-    var type: String? = null
-    var path: File? = null
+    @JvmField var size: Long = 0
+    @JvmField var type: String? = null
+    @JvmField var path: File? = null
 }

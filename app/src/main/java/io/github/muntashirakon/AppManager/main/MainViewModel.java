@@ -210,7 +210,7 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
     }
 
     @NonNull
-    public ArrayList<UserPackagePair> getSelectedPackagesWithUsers() {
+    public ArrayList<UserPackagePair> getSelectedPackageUserPairs() {
         ArrayList<UserPackagePair> userPackagePairs = new ArrayList<>();
         int myUserId = UserHandleHidden.myUserId();
         int[] userIds = Users.getUsersIds();

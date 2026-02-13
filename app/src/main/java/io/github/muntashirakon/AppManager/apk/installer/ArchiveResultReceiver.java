@@ -50,11 +50,11 @@ public class ArchiveResultReceiver extends BroadcastReceiver {
                 case PackageInstaller.STATUS_FAILURE_STORAGE:
                     Log.e(TAG, "App archiving failed for " + packageName + ": " + intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE));
                     // Remove from archived list if it was added prematurely
-                    archivedAppDao.deleteByPackageName(packageName);
+                    archivedAppDao.deleteByPackageNameSync(packageName);
                     break;
                 default:
                     Log.e(TAG, "Unknown archiving status for " + packageName + ": " + status);
-                    archivedAppDao.deleteByPackageName(packageName);
+                    archivedAppDao.deleteByPackageNameSync(packageName);
             }
         }
     }

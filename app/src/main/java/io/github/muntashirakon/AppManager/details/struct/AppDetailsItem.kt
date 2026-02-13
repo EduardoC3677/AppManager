@@ -6,8 +6,8 @@ package io.github.muntashirakon.AppManager.details.struct
  * Stores individual app details item
  */
 open class AppDetailsItem<T>(
-    val item: T,
-    var name: String = ""
+    @JvmField val item: T,
+    @JvmField var name: String = ""
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -164,6 +164,34 @@ public final class Prefs {
         public static boolean useSystemFont() {
             return AppPref.getBoolean(AppPref.PrefKey.PREF_USE_SYSTEM_FONT_BOOL);
         }
+
+        @NonNull
+        public static String getCornerRadiusPreset() {
+            return AppPref.getString(AppPref.PrefKey.PREF_CORNER_RADIUS_PRESET_STR);
+        }
+
+        /**
+         * Get the effective corner radius to use based on preset or custom value
+         * @return corner radius in dp
+         */
+        public static int getEffectiveCornerRadius() {
+            String preset = getCornerRadiusPreset();
+            switch (preset) {
+                case "squared":
+                    return 0;
+                case "subtle":
+                    return 4;
+                case "rounded":
+                    return 8;
+                case "full":
+                    return 16;
+                case "custom":
+                    return AppPref.getInt(AppPref.PrefKey.PREF_CORNER_RADIUS_CUSTOM_INT);
+                default:
+                    // default to subtle
+                    return 4;
+            }
+        }
     }
 
     public static final class BackupRestore {

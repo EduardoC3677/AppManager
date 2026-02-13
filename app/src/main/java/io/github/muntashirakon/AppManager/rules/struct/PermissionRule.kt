@@ -17,14 +17,12 @@ import io.github.muntashirakon.AppManager.rules.RuleType
 import java.util.StringTokenizer
 
 class PermissionRule : RuleEntry {
-    val appOp: Int
+    @JvmField val appOp: Int
 
-    var isGranted: Boolean
-        private set
+    @JvmField var isGranted: Boolean
 
     @PermissionFlags
-    var flags: Int
-        private set
+    @JvmField var flags: Int
 
     constructor(
         packageName: String,

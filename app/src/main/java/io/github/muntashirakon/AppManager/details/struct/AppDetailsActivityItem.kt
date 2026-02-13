@@ -7,5 +7,5 @@ import android.content.pm.ActivityInfo
 class AppDetailsActivityItem(
     componentInfo: ActivityInfo
 ) : AppDetailsComponentItem(componentInfo) {
-    var canLaunchAssist: Boolean = false
+    @JvmField var canLaunchAssist: Boolean = false
 }

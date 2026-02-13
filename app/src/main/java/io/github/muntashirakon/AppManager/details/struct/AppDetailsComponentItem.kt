@@ -12,11 +12,11 @@ open class AppDetailsComponentItem(
     componentInfo: ComponentInfo
 ) : AppDetailsItem<ComponentInfo>(componentInfo) {
 
-    var label: CharSequence? = null
-    var canLaunch: Boolean = false
+    @JvmField var label: CharSequence? = null
+    @JvmField var canLaunch: Boolean = false
 
-    var isTracker: Boolean = false
-    var rule: ComponentRule? = null
+    @JvmField var isTracker: Boolean = false
+    @JvmField var rule: ComponentRule? = null
     var isDisabled: Boolean = false
         private set
 
