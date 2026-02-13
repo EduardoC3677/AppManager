@@ -15,8 +15,8 @@ open class AppDetailsComponentItem(
     @JvmField var label: CharSequence? = null
     @JvmField var canLaunch: Boolean = false
 
-    @JvmField var isTracker: Boolean = false
-    @JvmField var rule: ComponentRule? = null
+    var isTracker: Boolean = false
+    var rule: ComponentRule? = null
     var isDisabled: Boolean = false
         private set
 

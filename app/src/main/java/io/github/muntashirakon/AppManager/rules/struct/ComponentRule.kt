@@ -24,10 +24,10 @@ class ComponentRule : RuleEntry {
     annotation class ComponentStatus
 
     @ComponentStatus
-    @JvmField val componentStatus: String
+    val componentStatus: String
 
     @ComponentStatus
-    @JvmField var lastComponentStatus: String? = null
+    var lastComponentStatus: String? = null
 
     constructor(
         packageName: String,

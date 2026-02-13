@@ -8,9 +8,9 @@ import io.github.muntashirakon.AppManager.rules.RuleType
 import java.util.StringTokenizer
 
 class AppOpRule : RuleEntry {
-    @JvmField val op: Int
+    val op: Int
     @Mode
-    @JvmField var mode: Int
+    var mode: Int
 
     constructor(
         packageName: String,

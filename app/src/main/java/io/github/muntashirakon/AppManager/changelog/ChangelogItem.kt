@@ -20,19 +20,19 @@ open class ChangelogItem {
     @ChangelogType
     @JvmField val type: Int
 
-    @JvmField val changeText: CharSequence
+    val changeText: CharSequence
 
-    @JvmField var isBulletedList: Boolean = false
-    @JvmField var isSubtext: Boolean = false
+    var isBulletedList: Boolean = false
+    var isSubtext: Boolean = false
         set(value) {
             field = value
             changeTextType = if (value) TEXT_SMALL else TEXT_MEDIUM
         }
 
-    @JvmField var changeTitle: String? = null
+    var changeTitle: String? = null
 
     @ChangeTextType
-    @JvmField var changeTextType: Int = TEXT_MEDIUM
+    var changeTextType: Int = TEXT_MEDIUM
 
     constructor(@ChangelogType type: Int) {
         this.changeText = ""
