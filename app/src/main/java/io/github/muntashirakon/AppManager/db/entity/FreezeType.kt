@@ -9,12 +9,10 @@ import io.github.muntashirakon.AppManager.utils.FreezeUtils.FreezeMethod
 
 @Entity(tableName = "freeze_type")
 data class FreezeType(
-    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "package_name")
     var packageName: String = "",
 
-    @JvmField
     @ColumnInfo(name = "type")
     @FreezeMethod
     var type: Int = 0

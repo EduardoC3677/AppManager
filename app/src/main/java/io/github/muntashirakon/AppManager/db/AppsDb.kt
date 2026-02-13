@@ -62,16 +62,6 @@ abstract class AppsDb : RoomDatabase() {
                 .addMigrations(M_2_3, M_3_4, M_4_5, M_5_6, M_6_7, M_7_8, M_8_9, M_9_10, M_10_11)
                 .fallbackToDestructiveMigrationOnDowngrade()
                 .build()
-                .also {
-                    // Initial test query
-                    try {
-                        runBlocking {
-                            it.appDao().getAll()
-                        }
-                    } catch (th: Throwable) {
-                        th.printStackTrace()
-                    }
-                }
         }
 
         @JvmField

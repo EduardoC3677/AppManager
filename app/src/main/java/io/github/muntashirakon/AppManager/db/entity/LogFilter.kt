@@ -13,12 +13,10 @@ import io.github.muntashirakon.AppManager.utils.AlphanumComparator
     indices = [Index(name = "index_name", value = ["name"], unique = true)]
 )
 data class LogFilter(
-    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0,
 
-    @JvmField
     @ColumnInfo(name = "name")
     var name: String = ""
 ) : Comparable<LogFilter> {

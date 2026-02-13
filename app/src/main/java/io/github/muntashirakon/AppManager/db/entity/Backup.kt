@@ -17,73 +17,56 @@ import java.io.IOException
 @Suppress("NotNullFieldNotInitialized")
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
 data class Backup(
-    @JvmField
     @ColumnInfo(name = "package_name")
     var packageName: String = "",
 
-    @JvmField
     @ColumnInfo(name = "backup_name")
     var backupName: String = "",
 
-    @JvmField
     @ColumnInfo(name = "label")
     var label: String? = null,
 
-    @JvmField
     @ColumnInfo(name = "version_name")
     var versionName: String? = null,
 
-    @JvmField
     @ColumnInfo(name = "version_code")
     var versionCode: Long = 0,
 
-    @JvmField
     @ColumnInfo(name = "is_system")
     var isSystem: Boolean = false,
 
-    @JvmField
     @ColumnInfo(name = "has_splits")
     var hasSplits: Boolean = false,
 
-    @JvmField
     @ColumnInfo(name = "has_rules")
     var hasRules: Boolean = false,
 
-    @JvmField
     @ColumnInfo(name = "backup_time")
     var backupTime: Long = 0,
 
-    @JvmField
     @ColumnInfo(name = "crypto")
     @CryptoUtils.Mode
     var crypto: String? = null,
 
-    @JvmField
     @ColumnInfo(name = "meta_version")
     var version: Int = 0,
 
-    @JvmField
     @ColumnInfo(name = "flags")
     var flags: Int = 0,
 
-    @JvmField
     @ColumnInfo(name = "user_id")
     var userId: Int = 0,
 
-    @JvmField
     @ColumnInfo(name = "tar_type")
     @TarUtils.TarType
     var tarType: String? = null,
 
-    @JvmField
     @ColumnInfo(name = "has_key_store")
     var hasKeyStore: Boolean = false,
 
-    @JvmField
     @ColumnInfo(name = "installer_app")
     var installer: String? = null,
 
-    @JvmField
     @ColumnInfo(name = "info_hash")
     var relativeDir: String? = null
 ) {
