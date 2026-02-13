@@ -23,22 +23,22 @@ import java.io.Serializable
     indices = [
         // OPTIMIZATION: Add indices for common filter queries
         // Speeds up filtering by flags (system/user apps, disabled apps, etc.)
-        Index(value = ["flags"]),
+        Index(name = "index_app_flags", value = ["flags"]),
         // Speeds up filtering by installed status
-        Index(value = ["is_installed"]),
+        Index(name = "index_app_is_installed", value = ["is_installed"]),
         // Speeds up filtering by enabled/disabled status
-        Index(value = ["is_enabled"]),
+        Index(name = "index_app_is_enabled", value = ["is_enabled"]),
         // Speeds up filtering and sorting by last update time
-        Index(value = ["last_update_time"]),
+        Index(name = "index_app_last_update_time", value = ["last_update_time"]),
         // Speeds up filtering by target SDK
-        Index(value = ["target_sdk"]),
+        Index(name = "index_app_target_sdk", value = ["target_sdk"]),
         // Speeds up filtering by tracker count
-        Index(value = ["tracker_count"]),
+        Index(name = "index_app_tracker_count", value = ["tracker_count"]),
         // Speeds up filtering by tags
-        Index(value = ["tags"]),
+        Index(name = "index_app_tags", value = ["tags"]),
         // Composite index for common combined filters
-        Index(value = ["is_installed", "user_id"]),
-        Index(value = ["flags", "is_installed"])
+        Index(name = "index_app_is_installed_user_id", value = ["is_installed", "user_id"]),
+        Index(name = "index_app_flags_is_installed", value = ["flags", "is_installed"])
     ]
 )
 data class App(
