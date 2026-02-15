@@ -3,6 +3,8 @@
 package io.github.muntashirakon.AppManager.profiles.struct
 
 class ProfileApplierResult {
+    @get:JvmName("requiresRestart")
+    @set:JvmName("setRequiresRestart")
     var requiresRestart: Boolean = false
 
     companion object {

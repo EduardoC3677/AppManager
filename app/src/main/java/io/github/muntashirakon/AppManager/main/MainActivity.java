@@ -43,6 +43,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import kotlin.Unit;
+
 import io.github.muntashirakon.AppManager.BaseActivity;
 import io.github.muntashirakon.AppManager.BuildConfig;
 import io.github.muntashirakon.AppManager.R;
@@ -285,6 +287,7 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
                 mSuggestionsAdapter = new SuggestionsAdapter(items, item -> {
                     // Logic for suggestion click (Archive)
                     showArchiveDialog(java.util.Collections.singletonList(new UserPackagePair(item.packageName, item.userIds[0])));
+                    return Unit.INSTANCE;
                 });
                 suggestionsList.setAdapter(mSuggestionsAdapter);
             } else {
@@ -400,7 +403,7 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
         int id = item.getItemId();
         if (id == R.id.action_backup) {
             if (viewModel != null) {
-                BackupRestoreDialogFragment fragment = BackupRestoreDialogFragment.getInstance(viewModel.getSelectedPackagesWithUsers());
+                BackupRestoreDialogFragment fragment = BackupRestoreDialogFragment.getInstance(viewModel.getSelectedPackageUserPairs());
                 fragment.setOnActionBeginListener(mode -> showProgressIndicator(true));
                 fragment.setOnActionCompleteListener((mode, failedPackages) -> showProgressIndicator(false));
                 fragment.show(getSupportFragmentManager(), BackupRestoreDialogFragment.TAG);

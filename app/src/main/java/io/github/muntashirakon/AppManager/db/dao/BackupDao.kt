@@ -37,5 +37,5 @@ interface BackupDao {
     suspend fun delete(packageName: String, backupName: String)
 
     @Query("DELETE FROM backup WHERE 1")
-    suspend fun deleteAll()
+    fun deleteAll()
 }

@@ -57,6 +57,7 @@ class BetterActivityResult<Input, Result> private constructor(
          * the default approach. You can still customise callback using [launch].
          */
         @JvmStatic
+        @JvmOverloads
         fun <Input, Result> registerForActivityResult(
             caller: ActivityResultCaller,
             contract: ActivityResultContract<Input, Result>,

@@ -5,7 +5,7 @@ package io.github.muntashirakon.AppManager.details.struct
 /**
  * Stores individual app details item
  */
-open class AppDetailsItem<T>(
+open class AppDetailsItem<T> @JvmOverloads constructor(
     @JvmField val item: T,
     @JvmField var name: String = ""
 ) {

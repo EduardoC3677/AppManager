@@ -81,6 +81,9 @@ class AppPref {
         PREF_FM_SORT_ORDER_INT,
         PREF_FM_SORT_REVERSE_BOOL,
 
+        PREF_CORNER_RADIUS_PRESET_STR,
+        PREF_CORNER_RADIUS_CUSTOM_INT,
+
         PREF_GLOBAL_BLOCKING_ENABLED_BOOL,
         PREF_DEFAULT_BLOCKING_METHOD_STR,
 
@@ -429,6 +432,7 @@ class AppPref {
                 true
             PrefKey.PREF_CONCURRENCY_THREAD_COUNT_INT,
             PrefKey.PREF_APP_THEME_CUSTOM_INT,
+            PrefKey.PREF_CORNER_RADIUS_CUSTOM_INT,
             PrefKey.PREF_TIPS_PREFS_INT ->
                 0
             PrefKey.PREF_LAST_VERSION_CODE_LONG,
@@ -444,6 +448,8 @@ class AppPref {
                 MainListOptions.SORT_BY_APP_LABEL
             PrefKey.PREF_CUSTOM_LOCALE_STR ->
                 LangUtils.LANG_AUTO
+            PrefKey.PREF_CORNER_RADIUS_PRESET_STR ->
+                "subtle"
             PrefKey.PREF_APP_OP_SORT_ORDER_INT,
             PrefKey.PREF_COMPONENTS_SORT_ORDER_INT,
             PrefKey.PREF_PERMISSIONS_SORT_ORDER_INT ->

@@ -13,15 +13,15 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 
 @Parcelize
 data class BackupOpOptions(
-    val packageName: String,
-    @UserIdInt val userId: Int,
-    val flagsValue: Int,
-    val backupName: String?,
-    val override: Boolean
+    @JvmField val packageName: String,
+    @UserIdInt @JvmField val userId: Int,
+    @JvmField val flagsValue: Int,
+    @JvmField val backupName: String?,
+    @JvmField val override: Boolean
 ) : Parcelable, IJsonSerializer {
 
-    val flags: BackupFlags
-        get() = BackupFlags(flagsValue)
+    @JvmField
+    val flags: BackupFlags = BackupFlags(flagsValue)
 
     constructor(
         packageName: String,
