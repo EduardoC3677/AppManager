@@ -15,7 +15,7 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 data class RestoreOpOptions(
     val packageName: String,
     @UserIdInt val userId: Int,
-    val mUuid: String?,
+    val uuid: String?,
     val flagsValue: Int
 ) : Parcelable, IJsonSerializer {
 
@@ -25,15 +25,15 @@ data class RestoreOpOptions(
     constructor(
         packageName: String,
         userId: Int,
-        mUuid: String?,
+        uuid: String?,
         flags: BackupFlags
-    ) : this(packageName, userId, mUuid, flags.flags)
+    ) : this(packageName, userId, uuid, flags.flags)
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         packageName = jsonObject.getString("package_name"),
         userId = jsonObject.getInt("user_id"),
-        mUuid = JSONUtils.optString(jsonObject, "relative_dir"),
+        uuid = JSONUtils.optString(jsonObject, "relative_dir"),
         flagsValue = jsonObject.getInt("flags")
     )
 
@@ -42,7 +42,7 @@ data class RestoreOpOptions(
         return JSONObject().apply {
             put("package_name", packageName)
             put("user_id", userId)
-            put("relative_dir", mUuid)
+            put("relative_dir", uuid)
             put("flags", flagsValue)
         }
     }

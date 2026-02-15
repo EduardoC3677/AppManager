@@ -101,8 +101,8 @@ public class BackupManager {
         }
         BackupItems.BackupItem backupItem;
         try {
-            if (options.getMUuid() != null) {
-                backupItem = BackupItems.findBackupItem(options.getMUuid());
+            if (options.getUuid() != null) {
+                backupItem = BackupItems.findBackupItem(options.getUuid());
             } else {
                 // Use base backup
                 Backup baseBackup = BackupUtils.retrieveBaseBackupFromDb(options.getUserId(), options.getPackageName());
@@ -128,7 +128,7 @@ public class BackupManager {
 
     public void deleteBackup(@NonNull DeleteOpOptions options) throws BackupException {
         List<BackupItems.BackupItem> backupItemList;
-        if (options.getMUuids() == null) {
+        if (options.getUuids() == null) {
             // Delete base backup
             Backup baseBackup = BackupUtils.retrieveBaseBackupFromDb(options.getUserId(), options.getPackageName());
             if (baseBackup != null) {
@@ -139,8 +139,8 @@ public class BackupManager {
                 }
             } else backupItemList = Collections.emptyList();
         } else {
-            backupItemList = new ArrayList<>(options.getMUuids().length);
-            for (String relativeDir : options.getMUuids()) {
+            backupItemList = new ArrayList<>(options.getUuids().length);
+            for (String relativeDir : options.getUuids()) {
                 try {
                     backupItemList.add(BackupItems.findBackupItem(relativeDir));
                 } catch (IOException e) {

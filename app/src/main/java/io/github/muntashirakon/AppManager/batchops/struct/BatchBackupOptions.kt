@@ -22,7 +22,7 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 data class BatchBackupOptions(
     @BackupFlag private val flags: Int,
     private val backupNames: Array<String>?,
-    private val mUuids: Array<String>?
+    private val uuids: Array<String>?
 ) : IBatchOpOptions, Parcelable {
 
     fun getBackupOpOptions(packageName: String, @UserIdInt userId: Int): BackupOpOptions {
@@ -38,43 +38,43 @@ data class BatchBackupOptions(
     fun getRestoreOpOptions(packageName: String, @UserIdInt userId: Int): RestoreOpOptions {
         // For restore operation, backup names (v4) and relative dirs are only set for single
         // package backups. In all other cases, it only uses base backups.
-        val mUuid = when {
-            mUuids != null && mUuids.isNotEmpty() -> mUuids[0]
+        val uuid = when {
+            uuids != null && uuids.isNotEmpty() -> uuids[0]
             backupNames == null || backupNames.isEmpty() -> null // Base backup
             else -> {
                 // Generate relative directories
                 val backup = BackupUtils.retrieveLatestBackupFromDb(userId, backupNames[0], packageName)
                     ?: throw IllegalArgumentException("Backup with name ${backupNames[0]} doesn't exist.")
-                backup.mUuid
+                backup.uuid
             }
         }
-        return RestoreOpOptions(packageName, userId, mUuid, flags)
+        return RestoreOpOptions(packageName, userId, uuid, flags)
     }
 
     fun getDeleteOpOptions(packageName: String, @UserIdInt userId: Int): DeleteOpOptions {
         // For delete operation, backup names (v4) and relative dirs are only set for single
         // package backups. In all other cases, it only uses base backups.
         val backupNames = this.backupNames
-        val mUuids = when {
-            this.mUuids != null -> this.mUuids
+        val uuids = when {
+            this.uuids != null -> this.uuids
             backupNames == null || backupNames.isEmpty() -> null // Base backup
             else -> {
                 // Generate relative directories
                 backupNames.map { backupName ->
                     val backup = BackupUtils.retrieveLatestBackupFromDb(userId, backupName, packageName)
                         ?: throw IllegalArgumentException("Backup with name $backupName doesn't exist.")
-                    backup.mUuid
+                    backup.uuid
                 }.filterNotNull().toTypedArray() as Array<String>?
             }
         }
-        return DeleteOpOptions(packageName, userId, mUuids)
+        return DeleteOpOptions(packageName, userId, uuids)
     }
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         flags = jsonObject.getInt("flags"),
         backupNames = JSONUtils.getArrayOrNull(String::class.java, jsonObject.optJSONArray("backup_names")),
-        mUuids = JSONUtils.getArrayOrNull(String::class.java, jsonObject.optJSONArray("relative_dirs"))
+        uuids = JSONUtils.getArrayOrNull(String::class.java, jsonObject.optJSONArray("relative_dirs"))
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }
@@ -85,7 +85,7 @@ data class BatchBackupOptions(
             put("tag", TAG)
             put("flags", flags)
             put("backup_names", JSONUtils.getJSONArray(backupNames))
-            put("relative_dirs", JSONUtils.getJSONArray(mUuids))
+            put("relative_dirs", JSONUtils.getJSONArray(uuids))
         }
     }
 
@@ -101,10 +101,10 @@ data class BatchBackupOptions(
             if (other.backupNames == null) return false
             if (!backupNames.contentEquals(other.backupNames)) return false
         } else if (other.backupNames != null) return false
-        if (mUuids != null) {
-            if (other.mUuids == null) return false
-            if (!mUuids.contentEquals(other.mUuids)) return false
-        } else if (other.mUuids != null) return false
+        if (uuids != null) {
+            if (other.uuids == null) return false
+            if (!uuids.contentEquals(other.uuids)) return false
+        } else if (other.uuids != null) return false
 
         return true
     }
@@ -112,7 +112,7 @@ data class BatchBackupOptions(
     override fun hashCode(): Int {
         var result = flags
         result = 31 * result + (backupNames?.contentHashCode() ?: 0)
-        result = 31 * result + (mUuids?.contentHashCode() ?: 0)
+        result = 31 * result + (uuids?.contentHashCode() ?: 0)
         return result
     }
 
