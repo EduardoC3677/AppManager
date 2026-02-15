@@ -14,15 +14,18 @@ import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV2
 import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5
 import io.github.muntashirakon.AppManager.utils.TarUtils
 import java.io.IOException
+import java.util.Objects
 
-@Suppress("NotNullFieldNotInitialized")
+@Suppress("UNUSED_PARAMETER", "unused")
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
-data class Backup(
+data class Backup @JvmOverloads constructor(
+    @PrimaryKey
     @ColumnInfo(name = "package_name")
-    var packageName: String = "" @JvmField@JvmField,
+    public var packageName: String = "",
 
+    @PrimaryKey
     @ColumnInfo(name = "backup_name")
-    var backupName: String = "" @JvmField@JvmField,
+    public var backupName: String = "",
 
     @JvmField
     @ColumnInfo(name = "label")
@@ -65,9 +68,9 @@ data class Backup(
     @ColumnInfo(name = "flags")
     var flags: Int = 0,
 
-    @JvmField
+    @PrimaryKey
     @ColumnInfo(name = "user_id")
-    var userId: Int = 0 @JvmField@JvmField,
+    public var userId: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "tar_type")
