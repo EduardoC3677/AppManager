@@ -17,20 +17,20 @@ public class BatchDexOptOptionsTest {
     @Test
     public void testParcelable() {
         DexOptOptions dexOptOptions = DexOptOptions.getDefault();
-        dexOptOptions.packages = new String[]{"android.package"};
+        dexOptOptions.setPackages(new String[]{"android.package"});
         BatchDexOptOptions options = new BatchDexOptOptions(dexOptOptions);
         Parcel parcel = Parcel.obtain();
         options.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
         BatchDexOptOptions options2 = BatchDexOptOptions.CREATOR.createFromParcel(parcel);
         DexOptOptions dexOptOptions2 = options2.getDexOptOptions();
-        assertArrayEquals(dexOptOptions.packages, dexOptOptions2.packages);
-        assertEquals(dexOptOptions.compilerFiler, dexOptOptions2.compilerFiler);
-        assertEquals(dexOptOptions.compileLayouts, dexOptOptions2.compileLayouts);
-        assertEquals(dexOptOptions.clearProfileData, dexOptOptions2.clearProfileData);
-        assertEquals(dexOptOptions.checkProfiles, dexOptOptions2.checkProfiles);
-        assertEquals(dexOptOptions.bootComplete, dexOptOptions2.bootComplete);
-        assertEquals(dexOptOptions.forceCompilation, dexOptOptions2.forceCompilation);
-        assertEquals(dexOptOptions.forceDexOpt, dexOptOptions2.forceDexOpt);
+        assertArrayEquals(dexOptOptions.getPackages(), dexOptOptions2.getPackages());
+        assertEquals(dexOptOptions.getCompilerFilter(), dexOptOptions2.getCompilerFilter());
+        assertEquals(dexOptOptions.getCompileLayouts(), dexOptOptions2.getCompileLayouts());
+        assertEquals(dexOptOptions.getClearProfileData(), dexOptOptions2.getClearProfileData());
+        assertEquals(dexOptOptions.getCheckProfiles(), dexOptOptions2.getCheckProfiles());
+        assertEquals(dexOptOptions.getBootComplete(), dexOptOptions2.getBootComplete());
+        assertEquals(dexOptOptions.getForceCompilation(), dexOptOptions2.getForceCompilation());
+        assertEquals(dexOptOptions.getForceDexOpt(), dexOptOptions2.getForceDexOpt());
     }
 }

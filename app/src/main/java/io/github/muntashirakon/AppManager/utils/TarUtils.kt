@@ -271,7 +271,8 @@ object TarUtils {
 
     @JvmStatic
     @VisibleForTesting
-    internal fun getAbsolutePathToDataApp(brokenPath: String, realPath: String?): String {
+    @JvmStatic
+    fun getAbsolutePathToDataApp(brokenPath: String, realPath: String?): String {
         val normalizedPath = if (brokenPath.endsWith(File.separator)) {
             brokenPath.substring(0, brokenPath.length - 1)
         } else {
