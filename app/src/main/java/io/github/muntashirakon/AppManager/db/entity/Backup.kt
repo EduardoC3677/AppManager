@@ -146,7 +146,7 @@ data class Backup(
                 tarType = metadata.tarType
                 hasKeyStore = metadata.keyStore
                 installer = metadata.installer
-                uuid = metadata.backupItem.relativeDir
+                uuid = metadata.backupItem.getRelativeDir()
             }
         }
 
@@ -174,7 +174,7 @@ data class Backup(
                 tarType = info.tarType
                 hasKeyStore = metadata.keyStore
                 installer = metadata.installer
-                uuid = info.relativeDir
+                uuid = info.getRelativeDir()
             }
         }
     }
