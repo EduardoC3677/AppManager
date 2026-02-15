@@ -22,7 +22,7 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 data class BatchBackupOptions(
     @BackupFlag private val flags: Int,
     private val backupNames: Array<String>?,
-    private val relativeDirs: Array<String>?
+    private val uuids: Array<String>?
 ) : IBatchOpOptions, Parcelable {
 
     fun getBackupOpOptions(packageName: String, @UserIdInt userId: Int): BackupOpOptions {
@@ -38,8 +38,8 @@ data class BatchBackupOptions(
     fun getRestoreOpOptions(packageName: String, @UserIdInt userId: Int): RestoreOpOptions {
         // For restore operation, backup names (v4) and relative dirs are only set for single
         // package backups. In all other cases, it only uses base backups.
-        val relativeDir = when {
-            relativeDirs != null && relativeDirs.isNotEmpty() -> relativeDirs[0]
+        val uuid = when {
+            uuids != null && uuids.isNotEmpty() -> uuids[0]
             backupNames == null || backupNames.isEmpty() -> null // Base backup
             else -> {
                 // Generate relative directories
@@ -48,15 +48,15 @@ data class BatchBackupOptions(
                 backup.uuid
             }
         }
-        return RestoreOpOptions(packageName, userId, relativeDir, flags)
+        return RestoreOpOptions(packageName, userId, uuid, flags)
     }
 
     fun getDeleteOpOptions(packageName: String, @UserIdInt userId: Int): DeleteOpOptions {
         // For delete operation, backup names (v4) and relative dirs are only set for single
         // package backups. In all other cases, it only uses base backups.
         val backupNames = this.backupNames
-        val relativeDirs = when {
-            this.relativeDirs != null -> this.relativeDirs
+        val uuids = when {
+            this.uuids != null -> this.uuids
             backupNames == null || backupNames.isEmpty() -> null // Base backup
             else -> {
                 // Generate relative directories
@@ -67,14 +67,14 @@ data class BatchBackupOptions(
                 }.filterNotNull().toTypedArray() as Array<String>?
             }
         }
-        return DeleteOpOptions(packageName, userId, relativeDirs)
+        return DeleteOpOptions(packageName, userId, uuids)
     }
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         flags = jsonObject.getInt("flags"),
         backupNames = JSONUtils.getArrayOrNull(String::class.java, jsonObject.optJSONArray("backup_names")),
-        relativeDirs = JSONUtils.getArrayOrNull(String::class.java, jsonObject.optJSONArray("relative_dirs"))
+        uuids = JSONUtils.getArrayOrNull(String::class.java, jsonObject.optJSONArray("relative_dirs"))
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }
@@ -85,7 +85,7 @@ data class BatchBackupOptions(
             put("tag", TAG)
             put("flags", flags)
             put("backup_names", JSONUtils.getJSONArray(backupNames))
-            put("relative_dirs", JSONUtils.getJSONArray(relativeDirs))
+            put("relative_dirs", JSONUtils.getJSONArray(uuids))
         }
     }
 
@@ -101,10 +101,10 @@ data class BatchBackupOptions(
             if (other.backupNames == null) return false
             if (!backupNames.contentEquals(other.backupNames)) return false
         } else if (other.backupNames != null) return false
-        if (relativeDirs != null) {
-            if (other.relativeDirs == null) return false
-            if (!relativeDirs.contentEquals(other.relativeDirs)) return false
-        } else if (other.relativeDirs != null) return false
+        if (uuids != null) {
+            if (other.uuids == null) return false
+            if (!uuids.contentEquals(other.uuids)) return false
+        } else if (other.uuids != null) return false
 
         return true
     }
@@ -112,7 +112,7 @@ data class BatchBackupOptions(
     override fun hashCode(): Int {
         var result = flags
         result = 31 * result + (backupNames?.contentHashCode() ?: 0)
-        result = 31 * result + (relativeDirs?.contentHashCode() ?: 0)
+        result = 31 * result + (uuids?.contentHashCode() ?: 0)
         return result
     }
 

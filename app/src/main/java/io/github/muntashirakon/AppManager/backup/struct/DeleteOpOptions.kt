@@ -14,14 +14,14 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 data class DeleteOpOptions(
     val packageName: String,
     @UserIdInt val userId: Int,
-    val relativeDirs: Array<String>?
+    val uuids: Array<String>?
 ) : Parcelable, IJsonSerializer {
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         packageName = jsonObject.getString("package_name"),
         userId = jsonObject.getInt("user_id"),
-        relativeDirs = JSONUtils.getArray(String::class.java, jsonObject.optJSONArray("relative_dirs"))
+        uuids = JSONUtils.getArray(String::class.java, jsonObject.optJSONArray("relative_dirs"))
     )
 
     @Throws(JSONException::class)
@@ -29,7 +29,7 @@ data class DeleteOpOptions(
         return JSONObject().apply {
             put("package_name", packageName)
             put("user_id", userId)
-            put("relative_dirs", JSONUtils.getJSONArray(relativeDirs))
+            put("relative_dirs", JSONUtils.getJSONArray(uuids))
         }
     }
 
@@ -42,10 +42,10 @@ data class DeleteOpOptions(
 
         if (packageName != other.packageName) return false
         if (userId != other.userId) return false
-        if (relativeDirs != null) {
-            if (other.relativeDirs == null) return false
-            if (!relativeDirs.contentEquals(other.relativeDirs)) return false
-        } else if (other.relativeDirs != null) return false
+        if (uuids != null) {
+            if (other.uuids == null) return false
+            if (!uuids.contentEquals(other.uuids)) return false
+        } else if (other.uuids != null) return false
 
         return true
     }
@@ -53,7 +53,7 @@ data class DeleteOpOptions(
     override fun hashCode(): Int {
         var result = packageName.hashCode()
         result = 31 * result + userId
-        result = 31 * result + (relativeDirs?.contentHashCode() ?: 0)
+        result = 31 * result + (uuids?.contentHashCode() ?: 0)
         return result
     }
 }

@@ -53,7 +53,7 @@ public class BackupMetadataV5 implements LocalizedString {
         /**
          * Relative location of the backup from the AppManager directory, internal use only.
          */
-        private String mRelativeDir;
+        private String mUuid;
         public BackupItems.BackupItem mBackupItem; // This isn't part of the json file and for internal use only
 
         /**
@@ -132,7 +132,7 @@ public class BackupMetadataV5 implements LocalizedString {
 
         public void setBackupItem(@NonNull BackupItems.BackupItem backupItem) {
             mBackupItem = backupItem;
-            mRelativeDir = backupItem.getRelativeDir();
+            mUuid = backupItem.getRelativeDir();
         }
 
         public BackupItems.BackupItem getBackupItem() {
@@ -140,7 +140,7 @@ public class BackupMetadataV5 implements LocalizedString {
         }
 
         public String getRelativeDir() {
-            return mRelativeDir;
+            return mUuid;
         }
 
         // Get crypto only works when crypto is already setup.
