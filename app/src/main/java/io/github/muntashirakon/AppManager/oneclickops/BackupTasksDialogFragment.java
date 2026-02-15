@@ -160,7 +160,7 @@ public class BackupTasksDialogFragment extends DialogFragment {
                         backup = item.backup;
                         if (backup == null || !item.isInstalled) continue;
                         try {
-                            backupManager.verify(backup.uuid);
+                            backupManager.verify(backup.mUuid);
                         } catch (Throwable e) {
                             applicationItems.add(item);
                             applicationLabels.add(new SpannableStringBuilder(backup.label)
@@ -271,7 +271,7 @@ public class BackupTasksDialogFragment extends DialogFragment {
 
     private boolean isVerified(@NonNull BackupManager backupManager, @NonNull Backup backup) {
         try {
-            backupManager.verify(backup.uuid);
+            backupManager.verify(backup.mUuid);
             return true;
         } catch (Throwable ignore) {
             return false;

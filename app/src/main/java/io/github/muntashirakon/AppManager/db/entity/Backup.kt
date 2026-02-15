@@ -85,10 +85,10 @@ data class Backup(
 
     @JvmField
     @ColumnInfo(name = "info_hash")
-    var uuid: String? = null
+    var mUuid: String? = null
 ) {
     fun getRelativeDir(): String? {
-        return uuid
+        return mUuid
     }
 
     fun getFlags(): BackupFlags {
@@ -98,7 +98,7 @@ data class Backup(
     @Throws(IOException::class)
     fun getItem(): BackupItems.BackupItem {
         val relativeDir = when {
-            TextUtils.isEmpty(this.uuid) -> {
+            TextUtils.isEmpty(this.mUuid) -> {
                 if (version >= 5) {
                     // In backup v5 onwards, relativeDir must be set
                     throw IOException("relativeDir not set.")
@@ -106,7 +106,7 @@ data class Backup(
                 // Relative directory needs to be inferred.
                 BackupUtils.getV4RelativeDir(userId, backupName, packageName)
             }
-            else -> this.uuid!!
+            else -> this.mUuid!!
         }
         return BackupItems.findBackupItem(relativeDir)
     }
@@ -146,7 +146,7 @@ data class Backup(
                 tarType = metadata.tarType
                 hasKeyStore = metadata.keyStore
                 installer = metadata.installer
-                uuid = metadata.backupItem.getRelativeDir()
+                mUuid = metadata.backupItem.getRelativeDir()
             }
         }
 
@@ -174,7 +174,7 @@ data class Backup(
                 tarType = info.tarType
                 hasKeyStore = metadata.keyStore
                 installer = metadata.installer
-                uuid = info.getRelativeDir()
+                mUuid = info.getRelativeDir()
             }
         }
     }
