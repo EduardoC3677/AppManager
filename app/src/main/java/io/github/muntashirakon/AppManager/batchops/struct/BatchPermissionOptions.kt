@@ -46,7 +46,7 @@ data class BatchPermissionOptions(
     companion object {
         const val TAG = "BatchPermissionOptions"
 
-        @get:JvmStatic
+        @JvmField
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchPermissionOptions(jsonObject)
         }

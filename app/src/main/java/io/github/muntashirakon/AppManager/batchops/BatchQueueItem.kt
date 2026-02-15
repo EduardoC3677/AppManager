@@ -107,7 +107,7 @@ data class BatchQueueItem(
             )
         }
 
-        @get:JvmStatic
+        @JvmField
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchQueueItem(jsonObject)
         }

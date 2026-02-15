@@ -34,7 +34,7 @@ data class BatchDexOptOptions(
     companion object {
         const val TAG = "BatchDexOptOptions"
 
-        @get:JvmStatic
+        @JvmField
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchDexOptOptions(jsonObject)
         }

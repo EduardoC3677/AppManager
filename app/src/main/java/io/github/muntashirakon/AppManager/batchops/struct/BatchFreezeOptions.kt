@@ -35,7 +35,7 @@ data class BatchFreezeOptions(
     companion object {
         const val TAG = "BatchFreezeOptions"
 
-        @get:JvmStatic
+        @JvmField
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchFreezeOptions(jsonObject)
         }

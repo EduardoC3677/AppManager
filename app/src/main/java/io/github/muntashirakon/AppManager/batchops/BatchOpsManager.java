@@ -898,42 +898,42 @@ public class BatchOpsManager {
             // Override options.packages with this list
             Set<String> packages = new HashSet<>(info.size());
             packages.addAll(info.packages);
-            options.packages = packages.toArray(new String[0]);
-        } else if (options.packages == null) {
+            options.setPackages(packages.toArray(new String[0]));
+        } else if (options.getPackages() == null) {
             // Include all packages
             try {
-                options.packages = pm.getAllPackages().toArray(new String[0]);
+                options.setPackages(pm.getAllPackages().toArray(new String[0]));
             } catch (RemoteException e) {
                 log("====> op=DEXOPT", e);
                 return new Result(failedPackages, false);
             }
         }
-        fixProgress(options.packages.length);
+        fixProgress(options.getPackages().length);
         float lastProgress = mProgressHandler != null ? mProgressHandler.getLastProgress() : 0;
         int i = 0;
-        for (String packageName : options.packages) {
+        for (String packageName : options.getPackages()) {
             updateProgress(lastProgress, ++i);
             if (packageName.equals(BuildConfig.APPLICATION_ID)) {
                 // Ignore App Manager
                 continue;
             }
             DexOptimizer dexOptimizer = new DexOptimizer(pm, packageName);
-            if (options.compilerFiler != null) {
+            if (options.getCompilerFilter() != null) {
                 boolean result = true;
-                if (options.clearProfileData) {
+                if (options.getClearProfileData()) {
                     result &= dexOptimizer.clearApplicationProfileData();
                 }
-                result &= dexOptimizer.performDexOptMode(options.checkProfiles, options.compilerFiler,
-                        options.forceCompilation, options.bootComplete, null);
+                result &= dexOptimizer.performDexOptMode(options.getCheckProfiles(), options.getCompilerFilter(),
+                        options.getForceCompilation(), options.getBootComplete(), null);
                 if (!result) {
                     log("====> op=DEXOPT, pkg=" + packageName + ", failed=dexopt-mode", dexOptimizer.getLastError());
                     failedPackages.add(new UserPackagePair(packageName, 0));
                     continue;
                 }
             }
-            if (options.compileLayouts && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (options.getCompileLayouts() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 boolean result = true;
-                if (options.clearProfileData) {
+                if (options.getClearProfileData()) {
                     result &= dexOptimizer.clearApplicationProfileData();
                 }
                 result &= dexOptimizer.compileLayouts();
@@ -943,7 +943,7 @@ public class BatchOpsManager {
                     continue;
                 }
             }
-            if (options.forceDexOpt) {
+            if (options.getForceDexOpt()) {
                 if (!dexOptimizer.forceDexOpt()) {
                     log("====> op=DEXOPT, pkg=" + packageName + ", failed=force-dexopt", dexOptimizer.getLastError());
                     failedPackages.add(new UserPackagePair(packageName, 0));

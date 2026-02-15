@@ -9,6 +9,7 @@ import androidx.annotation.WorkerThread;
 import java.io.File;
 
 import io.github.muntashirakon.AppManager.db.AppsDb;
+import io.github.muntashirakon.AppManager.db.utils.AppDb;
 import io.github.muntashirakon.AppManager.logs.Log;
 import io.github.muntashirakon.AppManager.servermanager.ServerConfig;
 import io.github.muntashirakon.AppManager.settings.FeatureController;

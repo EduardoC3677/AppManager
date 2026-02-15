@@ -54,7 +54,7 @@ data class BatchAppOpsOptions(
     companion object {
         const val TAG = "BatchAppOpsOptions"
 
-        @get:JvmStatic
+        @JvmField
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchAppOpsOptions(jsonObject)
         }

@@ -32,7 +32,7 @@ data class BatchNetPolicyOptions(
     companion object {
         const val TAG = "BatchNetPolicyOptions"
 
-        @get:JvmStatic
+        @JvmField
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchNetPolicyOptions(jsonObject)
         }

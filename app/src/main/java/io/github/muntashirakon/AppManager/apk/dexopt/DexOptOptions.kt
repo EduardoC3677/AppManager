@@ -95,7 +95,6 @@ data class DexOptOptions(
         }
 
         @JvmField
-        @get:JvmStatic
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             DexOptOptions(jsonObject)
         }
