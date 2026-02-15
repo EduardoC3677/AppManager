@@ -34,7 +34,7 @@ class SuggestionsAdapter(
         val item = items[position]
         holder.label.text = item.label
         ImageLoader.getInstance().displayImage(item.packageName, item, holder.icon)
-        holder.itemView.setOnClickListener { listener(item) }
+        holder.itemView.setOnClickListener { listener.onSuggestionClick(item) }
     }
 
     override fun getItemCount() = items.size

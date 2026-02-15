@@ -24,15 +24,15 @@ class BetterActivityResult<I, O> @JvmOverloads constructor(
         fun onActivityResult(result: O)
     }
 
-    private val mLauncher: ActivityResultLauncher<Input>
-    private var mOnActivityResult: OnActivityResult<Result>? = null
+    private val mLauncher: ActivityResultLauncher<I>
+    private var mOnActivityResult: OnActivityResult<O>? = null
 
     init {
         mOnActivityResult = onActivityResult
         mLauncher = caller.registerForActivityResult(contract, ::callOnActivityResult)
     }
 
-    fun setOnActivityResult(onActivityResult: OnActivityResult<Result>?) {
+    fun setOnActivityResult(onActivityResult: OnActivityResult<O>?) {
         mOnActivityResult = onActivityResult
     }
 
@@ -40,14 +40,14 @@ class BetterActivityResult<I, O> @JvmOverloads constructor(
      * Launch activity, same as [ActivityResultLauncher.launch] except that it allows a callback
      * executed after receiving a result from the target activity.
      */
-    fun launch(input: Input, onActivityResult: OnActivityResult<Result>? = null) {
+    fun launch(input: I, onActivityResult: OnActivityResult<O>? = null) {
         if (onActivityResult != null) {
             mOnActivityResult = onActivityResult
         }
         mLauncher.launch(input)
     }
 
-    private fun callOnActivityResult(result: Result) {
+    private fun callOnActivityResult(result: O) {
         mOnActivityResult?.onActivityResult(result)
     }
 
