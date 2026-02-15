@@ -21,10 +21,10 @@ import java.util.Objects
 data class Backup @JvmOverloads constructor(
 
     @ColumnInfo(name = "package_name")
-    public var packageName: String = "",
+    var packageName: String = "",
 
     @ColumnInfo(name = "backup_name")
-    public var backupName: String = "",
+    var backupName: String = "",
 
     @JvmField
     @ColumnInfo(name = "label")
@@ -68,7 +68,7 @@ data class Backup @JvmOverloads constructor(
     var flags: Int = 0,
 
     @ColumnInfo(name = "user_id")
-    public var userId: Int = 0,
+    var userId: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "tar_type")
