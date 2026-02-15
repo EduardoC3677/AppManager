@@ -169,7 +169,7 @@ data class Backup(
                 backupTime = info.backupTime
                 crypto = info.crypto
                 version = metadata.version
-                flags = info.flags.getFlags()
+                flags = info.flags.flags
                 userId = info.userId
                 tarType = info.tarType
                 hasKeyStore = metadata.keyStore
