@@ -45,11 +45,11 @@ class StoragePermission private constructor(caller: ActivityResultCaller) {
             return
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            mStoragePermApi30?.launch(Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)) { _ ->
+            mStoragePermApi30?.launch(Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)) { _: ActivityResult ->
                 callback?.onResult(Environment.isExternalStorageManager())
             }
         } else {
-            mStoragePerm?.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE) { _ ->
+            mStoragePerm?.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE) { _: Boolean ->
                 callback?.onResult(SelfPermissions.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
             }
         }
