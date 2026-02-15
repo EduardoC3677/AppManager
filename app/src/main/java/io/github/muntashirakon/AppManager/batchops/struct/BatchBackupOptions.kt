@@ -45,7 +45,7 @@ data class BatchBackupOptions(
                 // Generate relative directories
                 val backup = BackupUtils.retrieveLatestBackupFromDb(userId, backupNames[0], packageName)
                     ?: throw IllegalArgumentException("Backup with name ${backupNames[0]} doesn't exist.")
-                backup.relativeDir
+                backup.uuid
             }
         }
         return RestoreOpOptions(packageName, userId, relativeDir, flags)
@@ -63,8 +63,8 @@ data class BatchBackupOptions(
                 backupNames.map { backupName ->
                     val backup = BackupUtils.retrieveLatestBackupFromDb(userId, backupName, packageName)
                         ?: throw IllegalArgumentException("Backup with name $backupName doesn't exist.")
-                    backup.relativeDir
-                }.filterNotNull().toTypedArray()
+                    backup.uuid
+                }.filterNotNull().toTypedArray() as Array<String>?
             }
         }
         return DeleteOpOptions(packageName, userId, relativeDirs)
