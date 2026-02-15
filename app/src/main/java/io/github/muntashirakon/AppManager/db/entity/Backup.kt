@@ -19,10 +19,10 @@ import java.io.IOException
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
 data class Backup(
     @ColumnInfo(name = "package_name")
-    var packageName: String = "",
+    var packageName: String = "" @JvmField@JvmField,
 
     @ColumnInfo(name = "backup_name")
-    var backupName: String = "",
+    var backupName: String = "" @JvmField@JvmField,
 
     @JvmField
     @ColumnInfo(name = "label")
@@ -67,7 +67,7 @@ data class Backup(
 
     @JvmField
     @ColumnInfo(name = "user_id")
-    var userId: Int = 0,
+    var userId: Int = 0 @JvmField@JvmField,
 
     @JvmField
     @ColumnInfo(name = "tar_type")
