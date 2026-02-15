@@ -5,6 +5,7 @@ package io.github.muntashirakon.AppManager.db.entity
 import android.text.TextUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import io.github.muntashirakon.AppManager.backup.BackupFlags
 import io.github.muntashirakon.AppManager.backup.BackupItems
 import io.github.muntashirakon.AppManager.backup.BackupUtils
@@ -17,11 +18,11 @@ import java.io.IOException
 @Suppress("NotNullFieldNotInitialized")
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
 data class Backup(
-    @JvmField
+    @PrimaryKey
     @ColumnInfo(name = "package_name")
     var packageName: String = "",
 
-    @JvmField
+    @PrimaryKey
     @ColumnInfo(name = "backup_name")
     var backupName: String = "",
 
