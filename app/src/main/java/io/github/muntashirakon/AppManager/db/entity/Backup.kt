@@ -20,9 +20,11 @@ import java.util.Objects
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
 data class Backup @JvmOverloads constructor(
 
+    @JvmField
     @ColumnInfo(name = "package_name")
     var packageName: String = "",
 
+    @JvmField
     @ColumnInfo(name = "backup_name")
     var backupName: String = "",
 
@@ -67,6 +69,7 @@ data class Backup @JvmOverloads constructor(
     @ColumnInfo(name = "flags")
     var flags: Int = 0,
 
+    @JvmField
     @ColumnInfo(name = "user_id")
     var userId: Int = 0,
 
