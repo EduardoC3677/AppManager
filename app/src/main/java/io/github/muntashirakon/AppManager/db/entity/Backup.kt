@@ -19,11 +19,10 @@ import java.util.Objects
 @Suppress("UNUSED_PARAMETER", "unused")
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
 data class Backup @JvmOverloads constructor(
-    @PrimaryKey
+
     @ColumnInfo(name = "package_name")
     public var packageName: String = "",
 
-    @PrimaryKey
     @ColumnInfo(name = "backup_name")
     public var backupName: String = "",
 
@@ -68,7 +67,6 @@ data class Backup @JvmOverloads constructor(
     @ColumnInfo(name = "flags")
     var flags: Int = 0,
 
-    @PrimaryKey
     @ColumnInfo(name = "user_id")
     public var userId: Int = 0,
 
