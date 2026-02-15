@@ -18,7 +18,6 @@ open class AppDetailsComponentItem(
     var isTracker: Boolean = false
     var rule: ComponentRule? = null
     var isDisabled: Boolean = false
-        private set
 
     init {
         name = componentInfo.name
@@ -28,9 +27,5 @@ open class AppDetailsComponentItem(
     fun isBlocked(): Boolean {
         val rule = this.rule ?: return false
         return rule.isBlocked() && (rule.isIfw() || isDisabled)
-    }
-
-    fun setDisabled(disabled: Boolean) {
-        isDisabled = disabled
     }
 }

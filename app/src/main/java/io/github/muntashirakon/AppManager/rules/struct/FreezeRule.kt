@@ -9,7 +9,6 @@ import java.util.StringTokenizer
 class FreezeRule : RuleEntry {
     @FreezeMethod
     var freezeType: Int
-        private set
 
     constructor(
         packageName: String,
@@ -27,10 +26,6 @@ class FreezeRule : RuleEntry {
         } else {
             throw IllegalArgumentException("Invalid format: freeze_type not found")
         }
-    }
-
-    fun setFreezeType(@FreezeMethod freezeType: Int) {
-        this.freezeType = freezeType
     }
 
     override fun toString(): String {

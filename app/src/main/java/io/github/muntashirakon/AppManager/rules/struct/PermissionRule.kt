@@ -55,14 +55,6 @@ class PermissionRule : RuleEntry {
         this.appOp = AppOpsManagerCompat.permissionToOpCode(name)
     }
 
-    fun setGranted(granted: Boolean) {
-        this.isGranted = granted
-    }
-
-    fun setFlags(@PermissionFlags flags: Int) {
-        this.flags = flags
-    }
-
     fun getPermission(appOpAllowed: Boolean): Permission {
         var permissionInfo: PermissionInfo? = null
         try {

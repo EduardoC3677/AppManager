@@ -7,7 +7,6 @@ import java.util.StringTokenizer
 
 class BatteryOptimizationRule : RuleEntry {
     var isEnabled: Boolean
-        private set
 
     constructor(
         packageName: String,
@@ -25,10 +24,6 @@ class BatteryOptimizationRule : RuleEntry {
         } else {
             throw IllegalArgumentException("Invalid format: enabled not found")
         }
-    }
-
-    fun setEnabled(enabled: Boolean) {
-        this.isEnabled = enabled
     }
 
     override fun toString(): String {

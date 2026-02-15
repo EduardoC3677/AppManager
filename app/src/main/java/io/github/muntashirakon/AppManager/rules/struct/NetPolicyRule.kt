@@ -10,7 +10,6 @@ import java.util.StringTokenizer
 class NetPolicyRule : RuleEntry {
     @NetPolicy
     var policies: Int
-        private set
 
     constructor(
         packageName: String,
@@ -28,10 +27,6 @@ class NetPolicyRule : RuleEntry {
         } else {
             throw IllegalArgumentException("Invalid format: netPolicies not found")
         }
-    }
-
-    fun setPolicies(@NetPolicy netPolicies: Int) {
-        this.policies = netPolicies
     }
 
     override fun toString(): String {

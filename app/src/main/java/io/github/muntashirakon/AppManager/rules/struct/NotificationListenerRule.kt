@@ -7,7 +7,6 @@ import java.util.StringTokenizer
 
 class NotificationListenerRule : RuleEntry {
     var isGranted: Boolean
-        private set
 
     constructor(
         packageName: String,
@@ -27,10 +26,6 @@ class NotificationListenerRule : RuleEntry {
         } else {
             throw IllegalArgumentException("Invalid format: isGranted not found")
         }
-    }
-
-    fun setGranted(granted: Boolean) {
-        this.isGranted = granted
     }
 
     override fun toString(): String {

@@ -35,10 +35,6 @@ class AppOpRule : RuleEntry {
         }
     }
 
-    fun setMode(@Mode mode: Int) {
-        this.mode = mode
-    }
-
     override fun toString(): String {
         return "AppOpRule{packageName='$packageName', op=$op, mode=$mode}"
     }

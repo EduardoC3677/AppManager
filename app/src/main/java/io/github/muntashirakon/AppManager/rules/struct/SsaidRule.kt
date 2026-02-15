@@ -7,7 +7,6 @@ import java.util.StringTokenizer
 
 class SsaidRule : RuleEntry {
     var ssaid: String
-        private set
 
     constructor(
         packageName: String,
@@ -25,10 +24,6 @@ class SsaidRule : RuleEntry {
         } else {
             throw IllegalArgumentException("Invalid format: ssaid not found")
         }
-    }
-
-    fun setSsaid(ssaid: String) {
-        this.ssaid = ssaid
     }
 
     override fun toString(): String {
