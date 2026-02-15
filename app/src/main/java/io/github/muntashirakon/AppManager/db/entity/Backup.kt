@@ -18,11 +18,9 @@ import java.io.IOException
 @Suppress("NotNullFieldNotInitialized")
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
 data class Backup(
-    @PrimaryKey
     @ColumnInfo(name = "package_name")
     var packageName: String = "",
 
-    @PrimaryKey
     @ColumnInfo(name = "backup_name")
     var backupName: String = "",
 
