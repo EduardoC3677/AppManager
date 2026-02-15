@@ -32,7 +32,7 @@ data class BatchArchiveOptions(
     companion object {
         const val TAG = "BatchArchiveOptions"
 
-        @JvmField
+        @get:JvmStatic
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchArchiveOptions(jsonObject)
         }

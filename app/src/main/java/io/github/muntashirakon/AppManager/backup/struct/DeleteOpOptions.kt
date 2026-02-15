@@ -12,9 +12,9 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 
 @Parcelize
 data class DeleteOpOptions(
-    @JvmField val packageName: String,
-    @UserIdInt @JvmField val userId: Int,
-    @JvmField val relativeDirs: Array<String>?
+    val packageName: String,
+    @UserIdInt val userId: Int,
+    val relativeDirs: Array<String>?
 ) : Parcelable, IJsonSerializer {
 
     @Throws(JSONException::class)

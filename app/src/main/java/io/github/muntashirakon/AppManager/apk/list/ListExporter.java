@@ -81,7 +81,7 @@ public final class ListExporter {
         xmlSerializer.attribute("", "version", String.valueOf(1));
         for (AppListItem appListItem : appListItems) {
             xmlSerializer.startTag("", "package");
-            xmlSerializer.attribute("", "name", appListItem.packageName);
+            xmlSerializer.attribute("", "name", appListItem.getPackageName());
             xmlSerializer.attribute("", "label", appListItem.getPackageLabel());
             xmlSerializer.attribute("", "versionCode", String.valueOf(appListItem.getVersionCode()));
             xmlSerializer.attribute("", "versionName", appListItem.getVersionName());
@@ -122,14 +122,14 @@ public final class ListExporter {
             String installerPackage = item.getInstallerPackageName() != null ? item.getInstallerPackageName() : "";
             String installerLabel = item.getInstallerPackageLabel() != null ? item.getInstallerPackageLabel() : "";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                csvWriter.addLine(new String[]{item.packageName, item.getPackageLabel(),
+                csvWriter.addLine(new String[]{item.getPackageName(), item.getPackageLabel(),
                         String.valueOf(item.getVersionCode()), item.getVersionName(),
                         String.valueOf(item.getMinSdk()), String.valueOf(item.getTargetSdk()),
                         item.getSignatureSha256(), String.valueOf(item.getFirstInstallTime()),
                         String.valueOf(item.getLastUpdateTime()),
                         installerPackage, installerLabel});
             } else {
-                csvWriter.addLine(new String[]{item.packageName, item.getPackageLabel(),
+                csvWriter.addLine(new String[]{item.getPackageName(), item.getPackageLabel(),
                         String.valueOf(item.getVersionCode()), item.getVersionName(),
                         String.valueOf(item.getTargetSdk()), item.getSignatureSha256(),
                         String.valueOf(item.getFirstInstallTime()),
@@ -146,7 +146,7 @@ public final class ListExporter {
         JSONArray array = new JSONArray();
         for (AppListItem item : appListItems) {
             JSONObject object = new JSONObject();
-            object.put("name", item.packageName);
+            object.put("name", item.getPackageName());
             object.put("label", item.getPackageLabel());
             object.put("versionCode", item.getVersionCode());
             object.put("versionName", item.getVersionName());
@@ -173,7 +173,7 @@ public final class ListExporter {
         writer.write("# Package Info\n\n");
         for (AppListItem appListItem : appListItems) {
             writer.append("## ").append(appListItem.getPackageLabel()).append("\n\n")
-                    .append("**Package name:** ").append(appListItem.packageName).append("\n")
+                    .append("**Package name:** ").append(appListItem.getPackageName()).append("\n")
                     .append("**Version:** ").append(appListItem.getVersionName()).append(" (")
                     .append(String.valueOf(appListItem.getVersionCode())).append(")\n");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

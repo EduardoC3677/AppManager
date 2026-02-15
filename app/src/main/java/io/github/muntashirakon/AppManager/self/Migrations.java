@@ -50,7 +50,7 @@ public class Migrations {
         public void run() {
             Log.d(TAG, "Running MIGRATE_FROM_3_0_0_RC01_RC04_TO_3_0_0 from %d to %d", fromVersion, toVersion);
             // Clear DB
-            AppsDb.getInstance().backupDao().deleteAll();
+            new AppDb().deleteAllBackups();
         }
     };
 

@@ -37,8 +37,8 @@ public class ArchivedAppsAdapter extends RecyclerView.Adapter<ArchivedAppsAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ArchivedApp archivedApp = archivedApps.get(position);
-        holder.appName.setText(archivedApp.appName);
-        holder.packageName.setText(archivedApp.packageName);
+        holder.appName.setText(archivedApp.getAppName());
+        holder.packageName.setText(archivedApp.getPackageName());
         holder.restoreButton.setOnClickListener(v -> listener.onRestoreClicked(archivedApp));
     }
 

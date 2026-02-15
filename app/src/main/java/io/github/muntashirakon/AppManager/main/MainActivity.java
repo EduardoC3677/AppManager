@@ -287,7 +287,6 @@ public class MainActivity extends BaseActivity implements AdvancedSearchView.OnQ
                 mSuggestionsAdapter = new SuggestionsAdapter(items, item -> {
                     // Logic for suggestion click (Archive)
                     showArchiveDialog(java.util.Collections.singletonList(new UserPackagePair(item.packageName, item.userIds[0])));
-                    return Unit.INSTANCE;
                 });
                 suggestionsList.setAdapter(mSuggestionsAdapter);
             } else {

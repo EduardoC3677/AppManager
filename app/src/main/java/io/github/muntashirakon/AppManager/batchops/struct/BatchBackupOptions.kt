@@ -119,7 +119,7 @@ data class BatchBackupOptions(
     companion object {
         const val TAG = "BatchBackupOptions"
 
-        @JvmField
+        @get:JvmStatic
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             BatchBackupOptions(jsonObject)
         }

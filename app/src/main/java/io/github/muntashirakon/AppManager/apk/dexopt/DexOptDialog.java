@@ -72,7 +72,7 @@ public class DexOptDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        mOptions.packages = requireArguments().getStringArray(ARG_PACKAGES);
+        mOptions.setPackages(requireArguments().getStringArray(ARG_PACKAGES));
         int uid = Users.getSelfOrRemoteUid();
         boolean isRootOrSystem = uid == Ops.SYSTEM_UID || uid == Ops.ROOT_UID;
         // Inflate view
@@ -83,8 +83,8 @@ public class DexOptDialog extends DialogFragment {
         MaterialCheckBox checkProfilesCheck = view.findViewById(R.id.check_profiles);
         MaterialCheckBox forceCompilationCheck = view.findViewById(R.id.force_compilation);
         MaterialCheckBox forceDexOptCheck = view.findViewById(R.id.force_dexopt);
-        compilerFilterSelectionView.setText(mOptions.compilerFiler);
-        checkProfilesCheck.setChecked(mOptions.checkProfiles);
+        compilerFilterSelectionView.setText(mOptions.getCompilerFilter());
+        checkProfilesCheck.setChecked(mOptions.getCheckProfiles());
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // Compile layout options was introduced in Android 10 and removed in Android 12
             compileLayoutsCheck.setVisibility(View.GONE);
@@ -98,11 +98,11 @@ public class DexOptDialog extends DialogFragment {
         // Set listeners
         compilerFilterSelectionView.setAdapter(new AnyFilterArrayAdapter<>(requireContext(), io.github.muntashirakon.ui.R.layout.auto_complete_dropdown_item,
                 COMPILER_FILTERS));
-        compileLayoutsCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.compileLayouts = isChecked);
-        clearProfileDataCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.clearProfileData = isChecked);
-        checkProfilesCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.checkProfiles = isChecked);
-        forceCompilationCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.forceCompilation = isChecked);
-        forceDexOptCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.forceDexOpt = isChecked);
+        compileLayoutsCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.setCompileLayouts(isChecked));
+        clearProfileDataCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.setClearProfileData(isChecked));
+        checkProfilesCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.setCheckProfiles(isChecked));
+        forceCompilationCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.setForceCompilation(isChecked));
+        forceDexOptCheck.setOnCheckedChangeListener((buttonView, isChecked) -> mOptions.setForceDexOpt(isChecked));
         if (isRootOrSystem) {
             forceDexOptCheck.setChecked(true);
         }
@@ -115,19 +115,19 @@ public class DexOptDialog extends DialogFragment {
                     if (TextUtils.isEmpty(compilerFilterRaw)) {
                         return;
                     }
-                    String compilerFiler = compilerFilterRaw.toString().trim();
-                    if (!COMPILER_FILTERS.contains(compilerFiler)) {
+                    String compilerFilter = compilerFilterRaw.toString().trim();
+                    if (!COMPILER_FILTERS.contains(compilerFilter)) {
                         // Invalid compiler filter
                         return;
                     }
-                    mOptions.compilerFiler = compilerFiler;
+                    mOptions.setCompilerFilter(compilerFilter);
                     launchOp();
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .setNeutralButton(R.string.reset_to_default, (dialog, which) -> {
-                    mOptions.compilerFiler = DexOptOptions.getDefaultCompilerFilterForInstallation();
-                    mOptions.forceCompilation = true;
-                    mOptions.clearProfileData = true;
+                    mOptions.setCompilerFilter(DexOptOptions.getDefaultCompilerFilterForInstallation());
+                    mOptions.setForceCompilation(true);
+                    mOptions.setClearProfileData(true);
                     launchOp();
                 })
                 .create();

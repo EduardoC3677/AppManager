@@ -1203,7 +1203,7 @@ public class AppDetailsViewModel extends AndroidViewModel {
             mAppInfo.postValue(null);
             return;
         }
-        AppDetailsItem<PackageInfo> appDetailsItem = new AppDetailsItem<>(packageInfo);
+        AppDetailsItem<PackageInfo> appDetailsItem = new AppDetailsItem<>(packageInfo, "");
         appDetailsItem.name = packageInfo.packageName;
         List<AppDetailsItem<PackageInfo>> appDetailsItems = Collections.singletonList(appDetailsItem);
         mAppInfo.postValue(appDetailsItems);
@@ -1814,7 +1814,7 @@ public class AppDetailsViewModel extends AndroidViewModel {
         PackageInfo packageInfo = getPackageInfoInternal();
         if (packageInfo != null && packageInfo.configPreferences != null) {
             for (ConfigurationInfo configurationInfo : packageInfo.configPreferences) {
-                AppDetailsItem<ConfigurationInfo> appDetailsItem = new AppDetailsItem<>(configurationInfo);
+                AppDetailsItem<ConfigurationInfo> appDetailsItem = new AppDetailsItem<>(configurationInfo, "");
                 appDetailsItems.add(appDetailsItem);
             }
         }
@@ -1852,19 +1852,19 @@ public class AppDetailsViewModel extends AndroidViewModel {
             X509Certificate[] certificates = signerInfo.getCurrentSignerCerts();
             if (certificates != null) {
                 for (X509Certificate certificate : certificates) {
-                    AppDetailsItem<X509Certificate> item = new AppDetailsItem<>(certificate);
+                    AppDetailsItem<X509Certificate> item = new AppDetailsItem<>(certificate, "");
                     item.name = "Signer Certificate";
                     appDetailsItems.add(item);
                 }
             } else {
                 //noinspection ConstantConditions Null is deliberately set here to get at least one row
-                appDetailsItems.add(new AppDetailsItem<>(null));
+                appDetailsItems.add(new AppDetailsItem<>(null, ""));
             }
             // Get source stamp certificate
             if (mApkVerifierResult.isSourceStampVerified()) {
                 X509Certificate certificate = signerInfo.getSourceStampCert();
                 if (certificate != null) {
-                    AppDetailsItem<X509Certificate> item = new AppDetailsItem<>(certificate);
+                    AppDetailsItem<X509Certificate> item = new AppDetailsItem<>(certificate, "");
                     item.name = "SourceStamp Certificate";
                     appDetailsItems.add(item);
                 }
@@ -1873,7 +1873,7 @@ public class AppDetailsViewModel extends AndroidViewModel {
             certificates = signerInfo.getSignerCertsInLineage();
             if (certificates != null) {
                 for (X509Certificate certificate : certificates) {
-                    AppDetailsItem<X509Certificate> item = new AppDetailsItem<>(certificate);
+                    AppDetailsItem<X509Certificate> item = new AppDetailsItem<>(certificate, "");
                     item.name = "Certificate for Lineage";
                     appDetailsItems.add(item);
                 }

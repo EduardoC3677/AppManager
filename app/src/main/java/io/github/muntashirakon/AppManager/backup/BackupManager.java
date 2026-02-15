@@ -61,28 +61,28 @@ public class BackupManager {
 
     public void backup(@NonNull BackupOpOptions options, @Nullable ProgressHandler progressHandler)
             throws BackupException {
-        if (options.packageName.equals("android")) {
+        if (options.getPackageName().equals("android")) {
             throw new BackupException("Android System (android) cannot be backed up.");
         }
-        if (options.flags.isEmpty()) {
+        if (options.getFlags().isEmpty()) {
             throw new BackupException("Backup is requested without any flags.");
         }
         BackupItems.BackupItem backupItem;
         try {
-            if (options.override) {
-                backupItem = BackupItems.findOrCreateBackupItem(options.userId, options.backupName, options.packageName);
+            if (options.getOverride()) {
+                backupItem = BackupItems.findOrCreateBackupItem(options.getUserId(), options.getBackupName(), options.getPackageName());
             } else {
-                backupItem = BackupItems.createBackupItemGracefully(options.userId, options.backupName, options.packageName);
+                backupItem = BackupItems.createBackupItemGracefully(options.getUserId(), options.getBackupName(), options.getPackageName());
             }
         } catch (IOException e) {
             throw new BackupException("Could not create BackupItem.", e);
         }
         if (progressHandler != null) {
-            int max = calculateMaxProgress(options.flags);
+            int max = calculateMaxProgress(options.getFlags());
             progressHandler.setProgressTextInterface(ProgressHandler.PROGRESS_PERCENT);
             progressHandler.postUpdate(max, 0f);
         }
-        try (BackupOp backupOp = new BackupOp(options.packageName, options.flags, backupItem, options.userId)) {
+        try (BackupOp backupOp = new BackupOp(options.getPackageName(), options.getFlags(), backupItem, options.getUserId())) {
             backupOp.runBackup(progressHandler);
             BackupUtils.putBackupToDbAndBroadcast(ContextUtils.getContext(), backupOp.getMetadata());
         }
@@ -93,19 +93,19 @@ public class BackupManager {
      */
     public void restore(@NonNull RestoreOpOptions options, @Nullable ProgressHandler progressHandler)
             throws BackupException {
-        if (options.packageName.equals("android")) {
+        if (options.getPackageName().equals("android")) {
             throw new BackupException("Android System (android) cannot be restored.");
         }
-        if (options.flags.isEmpty()) {
+        if (options.getFlags().isEmpty()) {
             throw new BackupException("Restore is requested without any flags.");
         }
         BackupItems.BackupItem backupItem;
         try {
-            if (options.relativeDir != null) {
-                backupItem = BackupItems.findBackupItem(options.relativeDir);
+            if (options.getRelativeDir() != null) {
+                backupItem = BackupItems.findBackupItem(options.getRelativeDir());
             } else {
                 // Use base backup
-                Backup baseBackup = BackupUtils.retrieveBaseBackupFromDb(options.userId, options.packageName);
+                Backup baseBackup = BackupUtils.retrieveBaseBackupFromDb(options.getUserId(), options.getPackageName());
                 if (baseBackup != null) {
                     backupItem = baseBackup.getItem();
                 } else {
@@ -116,11 +116,11 @@ public class BackupManager {
             throw new BackupException("Could not get backup files.", e);
         }
         if (progressHandler != null) {
-            int max = calculateMaxProgress(options.flags);
+            int max = calculateMaxProgress(options.getFlags());
             progressHandler.setProgressTextInterface(ProgressHandler.PROGRESS_PERCENT);
             progressHandler.postUpdate(max, 0f);
         }
-        try (RestoreOp restoreOp = new RestoreOp(options.packageName, options.flags, backupItem, options.userId)) {
+        try (RestoreOp restoreOp = new RestoreOp(options.getPackageName(), options.getFlags(), backupItem, options.getUserId())) {
             restoreOp.runRestore(progressHandler);
             mRequiresRestart |= restoreOp.requiresRestart();
         }
@@ -128,9 +128,9 @@ public class BackupManager {
 
     public void deleteBackup(@NonNull DeleteOpOptions options) throws BackupException {
         List<BackupItems.BackupItem> backupItemList;
-        if (options.relativeDirs == null) {
+        if (options.getRelativeDirs() == null) {
             // Delete base backup
-            Backup baseBackup = BackupUtils.retrieveBaseBackupFromDb(options.userId, options.packageName);
+            Backup baseBackup = BackupUtils.retrieveBaseBackupFromDb(options.getUserId(), options.getPackageName());
             if (baseBackup != null) {
                 try {
                     backupItemList = Collections.singletonList(baseBackup.getItem());
@@ -139,8 +139,8 @@ public class BackupManager {
                 }
             } else backupItemList = Collections.emptyList();
         } else {
-            backupItemList = new ArrayList<>(options.relativeDirs.length);
-            for (String relativeDir : options.relativeDirs) {
+            backupItemList = new ArrayList<>(options.getRelativeDirs().length);
+            for (String relativeDir : options.getRelativeDirs()) {
                 try {
                     backupItemList.add(BackupItems.findBackupItem(relativeDir));
                 } catch (IOException e) {

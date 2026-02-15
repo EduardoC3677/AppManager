@@ -36,10 +36,10 @@ public class ArchivedAppsActivity extends BaseActivity {
 
     private void onRestoreClicked(ArchivedApp archivedApp) {
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + archivedApp.packageName));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + archivedApp.getPackageName()));
             startActivity(intent);
         } catch (android.content.ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + archivedApp.packageName)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + archivedApp.getPackageName())));
         }
     }
 }

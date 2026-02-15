@@ -21,8 +21,7 @@ import io.github.muntashirakon.AppManager.profiles.ProfileApplierService
 import io.github.muntashirakon.AppManager.profiles.ProfileQueueItem
 import kotlinx.coroutines.runBlocking
 import org.json.JSONException
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
+import java.io.IOException
 
 object OpHistoryManager {
     @JvmField
@@ -32,14 +31,14 @@ object OpHistoryManager {
     const val HISTORY_TYPE_INSTALLER = "installer"
     const val HISTORY_TYPE_PROFILE = "profile"
 
-    @Retention(RetentionPolicy.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     @StringDef(HISTORY_TYPE_BATCH_OPS, HISTORY_TYPE_INSTALLER, HISTORY_TYPE_PROFILE)
     annotation class HistoryType
 
     const val STATUS_SUCCESS = "success"
     const val STATUS_FAILURE = "failure"
 
-    @Retention(RetentionPolicy.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     @StringDef(STATUS_SUCCESS, STATUS_FAILURE)
     annotation class Status
 

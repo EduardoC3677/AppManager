@@ -30,7 +30,7 @@ public class AppDetailsPermissionItem extends AppDetailsItem<PermissionInfo> {
     public final PermUtils.SettingItem settingItem;
 
     public AppDetailsPermissionItem(@NonNull PermissionInfo permissionInfo, @NonNull Permission permission, int flags) {
-        super(permissionInfo);
+        super(permissionInfo, "");
         this.permission = permission;
         this.isDangerous = PermissionInfoCompat.getProtection(permissionInfo) == PermissionInfo.PROTECTION_DANGEROUS;
         this.protectionFlags = PermissionInfoCompat.getProtectionFlags(permissionInfo);

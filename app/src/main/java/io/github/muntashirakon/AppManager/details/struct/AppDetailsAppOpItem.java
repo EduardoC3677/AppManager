@@ -47,7 +47,7 @@ public class AppDetailsAppOpItem extends AppDetailsItem<Integer> {
     }
 
     public AppDetailsAppOpItem(int op) {
-        super(op);
+        super(op, "");
         name = AppOpsManagerCompat.opToName(op);
         mOpEntry = null;
         permissionInfo = null;
@@ -59,7 +59,7 @@ public class AppDetailsAppOpItem extends AppDetailsItem<Integer> {
 
     public AppDetailsAppOpItem(@NonNull AppOpsManagerCompat.OpEntry opEntry, @NonNull PermissionInfo permissionInfo,
                                boolean isGranted, int permissionFlags, boolean appContainsPermission) {
-        super(opEntry.getOp());
+        super(opEntry.getOp(), "");
         name = opEntry.getName();
         mOpEntry = opEntry;
         this.permissionInfo = permissionInfo;
@@ -78,7 +78,7 @@ public class AppDetailsAppOpItem extends AppDetailsItem<Integer> {
 
     public AppDetailsAppOpItem(int op, @NonNull PermissionInfo permissionInfo,
                                boolean isGranted, int permissionFlags, boolean appContainsPermission) {
-        super(op);
+        super(op, "");
         name = AppOpsManagerCompat.opToName(op);
         mOpEntry = null;
         this.permissionInfo = permissionInfo;

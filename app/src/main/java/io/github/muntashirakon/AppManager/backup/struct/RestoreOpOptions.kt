@@ -13,13 +13,13 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 
 @Parcelize
 data class RestoreOpOptions(
-    @JvmField val packageName: String,
-    @UserIdInt @JvmField val userId: Int,
-    @JvmField val relativeDir: String?,
-    @JvmField val flagsValue: Int
+    val packageName: String,
+    @UserIdInt val userId: Int,
+    val relativeDir: String?,
+    val flagsValue: Int
 ) : Parcelable, IJsonSerializer {
 
-    @JvmField
+    @kotlinx.parcelize.IgnoredOnParcel
     val flags: BackupFlags = BackupFlags(flagsValue)
 
     constructor(

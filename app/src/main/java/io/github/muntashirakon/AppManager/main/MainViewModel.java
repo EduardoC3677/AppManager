@@ -230,6 +230,11 @@ public class MainViewModel extends AndroidViewModel implements ListOptions.ListO
         return userPackagePairs;
     }
 
+    @NonNull
+    public ArrayList<UserPackagePair> getSelectedPackagesWithUsers() {
+        return getSelectedPackageUserPairs();
+    }
+
     public Collection<ApplicationItem> getSelectedApplicationItems() {
         return mSelectedPackageApplicationItemMap.values();
     }

@@ -14,20 +14,20 @@ import io.github.muntashirakon.AppManager.utils.JSONUtils
 
 @Parcelize
 data class DexOptOptions(
-    @JvmField var packages: Array<String>? = null,
-    @JvmField var compilerFiler: String? = null,
-    @JvmField var compileLayouts: Boolean = false,
-    @JvmField var clearProfileData: Boolean = false,
-    @JvmField var checkProfiles: Boolean = false,
-    @JvmField var bootComplete: Boolean = false,
-    @JvmField var forceCompilation: Boolean = false,
-    @JvmField var forceDexOpt: Boolean = false
+    var packages: Array<String>? = null,
+    var compilerFilter: String? = null,
+    var compileLayouts: Boolean = false,
+    var clearProfileData: Boolean = false,
+    var checkProfiles: Boolean = false,
+    var bootComplete: Boolean = false,
+    var forceCompilation: Boolean = false,
+    var forceDexOpt: Boolean = false
 ) : Parcelable, IJsonSerializer {
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
         packages = JSONUtils.getArray(String::class.java, jsonObject.optJSONArray("packages")),
-        compilerFiler = jsonObject.getString("compiler_filter"),
+        compilerFilter = jsonObject.getString("compiler_filter"),
         compileLayouts = jsonObject.getBoolean("compile_layouts"),
         clearProfileData = jsonObject.getBoolean("clear_profile_data"),
         checkProfiles = jsonObject.getBoolean("check_profiles"),
@@ -40,7 +40,7 @@ data class DexOptOptions(
     override fun serializeToJson(): JSONObject {
         return JSONObject().apply {
             put("packages", JSONUtils.getJSONArray(packages))
-            put("compiler_filer", compilerFiler)
+            put("compiler_filter", compilerFilter)
             put("compile_layouts", compileLayouts)
             put("clear_profile_data", clearProfileData)
             put("check_profiles", checkProfiles)
@@ -61,7 +61,7 @@ data class DexOptOptions(
             if (other.packages == null) return false
             if (!packages.contentEquals(other.packages)) return false
         } else if (other.packages != null) return false
-        if (compilerFiler != other.compilerFiler) return false
+        if (compilerFilter != other.compilerFilter) return false
         if (compileLayouts != other.compileLayouts) return false
         if (clearProfileData != other.clearProfileData) return false
         if (checkProfiles != other.checkProfiles) return false
@@ -74,7 +74,7 @@ data class DexOptOptions(
 
     override fun hashCode(): Int {
         var result = packages?.contentHashCode() ?: 0
-        result = 31 * result + (compilerFiler?.hashCode() ?: 0)
+        result = 31 * result + (compilerFilter?.hashCode() ?: 0)
         result = 31 * result + compileLayouts.hashCode()
         result = 31 * result + clearProfileData.hashCode()
         result = 31 * result + checkProfiles.hashCode()
@@ -88,13 +88,14 @@ data class DexOptOptions(
         @JvmStatic
         fun getDefault(): DexOptOptions {
             return DexOptOptions().apply {
-                compilerFiler = getDefaultCompilerFilterForInstallation()
+                compilerFilter = getDefaultCompilerFilterForInstallation()
                 checkProfiles = SystemProperties.getBoolean("dalvik.vm.usejitprofiles", false)
                 bootComplete = true
             }
         }
 
         @JvmField
+        @get:JvmStatic
         val DESERIALIZER = JsonDeserializer.Creator { jsonObject: JSONObject ->
             DexOptOptions(jsonObject)
         }

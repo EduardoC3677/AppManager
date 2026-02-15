@@ -9,10 +9,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 
-class BetterActivityResult<Input, Result> private constructor(
+class BetterActivityResult<I, O> @JvmOverloads constructor(
     caller: ActivityResultCaller,
-    contract: ActivityResultContract<Input, Result>,
-    onActivityResult: OnActivityResult<Result>?
+    contract: ActivityResultContract<I, O>,
+    onActivityResult: OnActivityResult<O>? = null
 ) {
     /**
      * Callback interface
@@ -58,11 +58,11 @@ class BetterActivityResult<Input, Result> private constructor(
          */
         @JvmStatic
         @JvmOverloads
-        fun <Input, Result> registerForActivityResult(
+        fun <I, O> registerForActivityResult(
             caller: ActivityResultCaller,
-            contract: ActivityResultContract<Input, Result>,
-            onActivityResult: OnActivityResult<Result>? = null
-        ): BetterActivityResult<Input, Result> {
+            contract: ActivityResultContract<I, O>,
+            onActivityResult: OnActivityResult<O>? = null
+        ): BetterActivityResult<I, O> {
             return BetterActivityResult(caller, contract, onActivityResult)
         }
 
@@ -73,7 +73,7 @@ class BetterActivityResult<Input, Result> private constructor(
         fun registerActivityForResult(
             caller: ActivityResultCaller
         ): BetterActivityResult<Intent, ActivityResult> {
-            return registerForActivityResult(caller, ActivityResultContracts.StartActivityForResult())
+            return registerForActivityResult(caller, ActivityResultContracts.StartActivityForResult(), null)
         }
     }
 }

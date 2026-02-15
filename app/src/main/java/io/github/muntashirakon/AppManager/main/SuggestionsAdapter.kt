@@ -13,8 +13,12 @@ import io.github.muntashirakon.AppManager.self.imagecache.ImageLoader
 
 class SuggestionsAdapter(
     private var items: List<ApplicationItem>,
-    private val listener: (ApplicationItem) -> Unit
+    private val listener: OnSuggestionClickListener
 ) : RecyclerView.Adapter<SuggestionsAdapter.ViewHolder>() {
+
+    fun interface OnSuggestionClickListener {
+        fun onSuggestionClick(item: ApplicationItem)
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.app_icon)
