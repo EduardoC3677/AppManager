@@ -9,11 +9,11 @@ import android.text.TextUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import io.github.muntashirakon.AppManager.compat.ApplicationInfoCompat
-import io.github.muntashirakon.AppManager.compat.PackageInfoCompat
+import androidx.core.content.pm.PackageInfoCompat
 import io.github.muntashirakon.AppManager.rules.compontents.ComponentUtils
 import io.github.muntashirakon.AppManager.utils.FreezeUtils
 import io.github.muntashirakon.AppManager.utils.Utils
-import io.github.muntashirakon.AppManager.utils.UserHandleHidden
+import android.os.UserHandleHidden
 import java.io.Serializable
 
 @Entity(tableName = "app", primaryKeys = ["package_name", "user_id"])

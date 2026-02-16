@@ -18,4 +18,11 @@ class FreezeType {
     @ColumnInfo(name = "type")
     @FreezeMethod
     var type: Int = 0
+
+    constructor()
+
+    constructor(packageName: String, @FreezeMethod type: Int) {
+        this.packageName = packageName
+        this.type = type
+    }
 }
