@@ -126,7 +126,7 @@ public class App implements Serializable {
         app.versionName = packageInfo.versionName;
         app.versionCode = PackageInfoCompat.getLongVersionCode(packageInfo);
         app.sharedUserId = packageInfo.sharedUserId;
-        androidx.core.util.Pair<String, String> issuerAndAlgoPair = Utils.getIssuerAndAlg(packageInfo);
+        android.util.Pair<String, String> issuerAndAlgoPair = Utils.getIssuerAndAlg(packageInfo);
         app.certName = issuerAndAlgoPair.first;
         app.certAlgo = issuerAndAlgoPair.second;
         app.firstInstallTime = packageInfo.firstInstallTime;
