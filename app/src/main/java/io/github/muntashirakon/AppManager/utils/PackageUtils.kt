@@ -144,7 +144,7 @@ object PackageUtils {
         for (app in apps) {
             val item: ApplicationItem
             val oldItem = applicationItems[app.packageName]
-            if (app.isInstalled != 0) {
+            if (app.isInstalled) {
                 val newItem = oldItem == null || !oldItem.isInstalled
                 if (oldItem != null) {
                     // Item already exists
@@ -165,8 +165,8 @@ object PackageUtils {
                 if (item.lastUsageTime == 0L || item.lastUsageTime < app.lastUsageTime) {
                     item.lastUsageTime = app.lastUsageTime
                 }
-                item.hasKeystore = item.hasKeystore || (app.hasKeystore != 0)
-                item.usesSaf = item.usesSaf || (app.usesSaf != 0)
+                item.hasKeystore = item.hasKeystore || app.hasKeystore
+                item.usesSaf = item.usesSaf || app.usesSaf
                 if (app.ssaid != null) {
                     item.ssaid = app.ssaid
                 }
@@ -189,8 +189,8 @@ object PackageUtils {
                     item.packageNameLowerCase = item.packageName.lowercase(Locale.ROOT)
                     applicationItems[app.packageName] = item
                     item.isInstalled = false
-                    item.isOnlyDataInstalled = app.isOnlyDataInstalled != 0
-                    item.hasKeystore = item.hasKeystore || (app.hasKeystore != 0)
+                    item.isOnlyDataInstalled = app.isOnlyDataInstalled
+                    item.hasKeystore = item.hasKeystore || app.hasKeystore
                 }
             }
             item.backup = backups.remove(item.packageName)
@@ -198,7 +198,7 @@ object PackageUtils {
             item.uid = app.uid
             item.debuggable = app.isDebuggable()
             item.isUser = !app.isSystemApp()
-            item.isDisabled = app.isEnabled == 0
+            item.isDisabled = !app.isEnabled
             item.label = app.packageLabel
             // OPTIMIZATION: Pre-compute lowercase for search performance
             item.labelLowerCase = item.label?.lowercase(Locale.ROOT) ?: ""
@@ -209,8 +209,8 @@ object PackageUtils {
             item.sha = Pair(app.certName, app.certAlgo)
             item.firstInstallTime = app.firstInstallTime
             item.lastUpdateTime = app.lastUpdateTime
-            item.hasActivities = app.hasActivities != 0
-            item.hasSplits = app.hasSplits != 0
+            item.hasActivities = app.hasActivities
+            item.hasSplits = app.hasSplits
             item.blockedCount = app.rulesCount
             item.trackerCount = app.trackerCount
             item.lastActionTime = app.lastActionTime
@@ -232,12 +232,12 @@ object PackageUtils {
             item.labelLowerCase = item.label?.lowercase(Locale.ROOT) ?: ""
             item.firstInstallTime = backup.backupTime
             item.lastUpdateTime = backup.backupTime
-            item.isUser = backup.isSystem == 0
+            item.isUser = !backup.isSystem
             item.isDisabled = false
             item.isInstalled = false
             item.isOnlyDataInstalled = false
-            item.hasSplits = backup.hasSplits != 0
-            item.hasKeystore = backup.hasKeyStore != 0
+            item.hasSplits = backup.hasSplits
+            item.hasKeystore = backup.hasKeyStore
             item.generateOtherInfo()
         }
         if (loadInBackgroundVar) {

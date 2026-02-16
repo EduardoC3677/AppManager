@@ -3,171 +3,148 @@
 package io.github.muntashirakon.AppManager.db.entity
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
-import android.os.UserHandleHidden
-import androidx.core.content.pm.PackageInfoCompat
+import android.content.pm.ApplicationInfo
+import android.text.TextUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import io.github.muntashirakon.AppManager.compat.ApplicationInfoCompat
+import io.github.muntashirakon.AppManager.compat.PackageInfoCompat
 import io.github.muntashirakon.AppManager.rules.compontents.ComponentUtils
 import io.github.muntashirakon.AppManager.utils.FreezeUtils
 import io.github.muntashirakon.AppManager.utils.Utils
+import io.github.muntashirakon.AppManager.utils.UserHandleHidden
 import java.io.Serializable
 
-@Suppress("NotNullFieldNotInitialized")
-@Entity(
-    tableName = "app",
-    primaryKeys = ["package_name", "user_id"],
-    indices = [
-        // OPTIMIZATION: Add indices for common filter queries
-        // Speeds up filtering by flags (system/user apps, disabled apps, etc.)
-        Index(name = "index_app_flags", value = ["flags"]),
-        // Speeds up filtering by installed status
-        Index(name = "index_app_is_installed", value = ["is_installed"]),
-        // Speeds up filtering by enabled/disabled status
-        Index(name = "index_app_is_enabled", value = ["is_enabled"]),
-        // Speeds up filtering and sorting by last update time
-        Index(name = "index_app_last_update_time", value = ["last_update_time"]),
-        // Speeds up filtering by target SDK
-        Index(name = "index_app_target_sdk", value = ["target_sdk"]),
-        // Speeds up filtering by tracker count
-        Index(name = "index_app_tracker_count", value = ["tracker_count"]),
-        // Composite index for common combined filters
-        Index(name = "index_app_is_installed_user_id", value = ["is_installed", "user_id"]),
-        Index(name = "index_app_flags_is_installed", value = ["flags", "is_installed"])
-    ]
-)
-data class App(
+@Entity(tableName = "app", primaryKeys = ["package_name", "user_id"])
+class App : Serializable {
     @JvmField
     @ColumnInfo(name = "package_name")
-    var packageName: String = "",
+    var packageName: String = ""
 
     @JvmField
     @ColumnInfo(name = "user_id", defaultValue = "" + UserHandleHidden.USER_NULL)
-    var userId: Int = 0,
+    var userId: Int = 0
 
     @JvmField
-    @ColumnInfo(name = "label")
-    var packageLabel: String? = null,
+    @ColumnInfo(name = "package_label")
+    var packageLabel: String? = null
 
     @JvmField
     @ColumnInfo(name = "version_name")
-    var versionName: String? = null,
+    var versionName: String? = null
 
     @JvmField
-    @ColumnInfo(name = "version_code")
-    var versionCode: Long = 0,
+    @ColumnInfo(name = "version_code", defaultValue = "0")
+    var versionCode: Long = 0
+
+    @JvmField
+    @ColumnInfo(name = "shared_user_id")
+    var sharedUserId: String? = null
 
     @JvmField
     @ColumnInfo(name = "flags", defaultValue = "0")
-    var flags: Int = 0,
+    var flags: Int = 0
 
     @JvmField
     @ColumnInfo(name = "uid", defaultValue = "0")
-    var uid: Int = 0,
-
-    @JvmField
-    @ColumnInfo(name = "shared_uid", defaultValue = "NULL")
-    var sharedUserId: String? = null,
+    var uid: Int = 0
 
     @JvmField
     @ColumnInfo(name = "first_install_time", defaultValue = "0")
-    var firstInstallTime: Long = 0,
+    var firstInstallTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "last_update_time", defaultValue = "0")
-    var lastUpdateTime: Long = 0,
+    var lastUpdateTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "target_sdk", defaultValue = "0")
-    var sdk: Int = 0,
+    var sdk: Int = 0
 
     @JvmField
     @ColumnInfo(name = "cert_name", defaultValue = "''")
-    var certName: String? = null,
+    var certName: String? = null
 
     @JvmField
     @ColumnInfo(name = "cert_algo", defaultValue = "''")
-    var certAlgo: String? = null,
+    var certAlgo: String? = null
 
     @JvmField
-    @ColumnInfo(name = "is_installed", defaultValue = "1")
-    var isInstalled: Int = 1,
+    @ColumnInfo(name = "is_installed", defaultValue = "true")
+    var isInstalled: Boolean = true
 
     @JvmField
     @ColumnInfo(name = "is_only_data_installed", defaultValue = "0")
-    var isOnlyDataInstalled: Int = 0,
+    var isOnlyDataInstalled: Boolean = false
 
     @JvmField
-    @ColumnInfo(name = "is_enabled", defaultValue = "1")
-    var isEnabled: Int = 1,
+    @ColumnInfo(name = "is_enabled", defaultValue = "false")
+    var isEnabled: Boolean = false
 
     @JvmField
-    @ColumnInfo(name = "has_activities", defaultValue = "0")
-    var hasActivities: Int = 0,
+    @ColumnInfo(name = "has_activities", defaultValue = "false")
+    var hasActivities: Boolean = false
 
     @JvmField
-    @ColumnInfo(name = "has_splits", defaultValue = "0")
-    var hasSplits: Int = 0,
+    @ColumnInfo(name = "has_splits", defaultValue = "false")
+    var hasSplits: Boolean = false
 
     @JvmField
-    @ColumnInfo(name = "has_keystore", defaultValue = "0")
-    var hasKeystore: Int = 0,
+    @ColumnInfo(name = "has_keystore", defaultValue = "false")
+    var hasKeystore: Boolean = false
 
     @JvmField
-    @ColumnInfo(name = "uses_saf", defaultValue = "0")
-    var usesSaf: Int = 0,
+    @ColumnInfo(name = "uses_saf", defaultValue = "false")
+    var usesSaf: Boolean = false
 
     @JvmField
     @ColumnInfo(name = "ssaid", defaultValue = "")
-    var ssaid: String? = null,
+    var ssaid: String? = null
 
     @JvmField
     @ColumnInfo(name = "code_size", defaultValue = "0")
-    var codeSize: Long = 0,
+    var codeSize: Long = 0
 
     @JvmField
     @ColumnInfo(name = "data_size", defaultValue = "0")
-    var dataSize: Long = 0,
+    var dataSize: Long = 0
 
     @JvmField
     @ColumnInfo(name = "mobile_data", defaultValue = "0")
-    var mobileDataUsage: Long = 0,
+    var mobileDataUsage: Long = 0
 
     @JvmField
     @ColumnInfo(name = "wifi_data", defaultValue = "0")
-    var wifiDataUsage: Long = 0,
+    var wifiDataUsage: Long = 0
 
     @JvmField
     @ColumnInfo(name = "rules_count", defaultValue = "0")
-    var rulesCount: Int = 0,
+    var rulesCount: Int = 0
 
     @JvmField
     @ColumnInfo(name = "tracker_count", defaultValue = "0")
-    var trackerCount: Int = 0,
+    var trackerCount: Int = 0
 
     @JvmField
     @ColumnInfo(name = "open_count", defaultValue = "0")
-    var openCount: Int = 0,
+    var openCount: Int = 0
 
     @JvmField
     @ColumnInfo(name = "screen_time", defaultValue = "0")
-    var screenTime: Long = 0,
+    var screenTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "last_usage_time", defaultValue = "0")
-    var lastUsageTime: Long = 0,
+    var lastUsageTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "last_action_time", defaultValue = "0")
-    var lastActionTime: Long = 0,
+    var lastActionTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "tags")
     var tags: String? = null
-) : Serializable {
 
     fun isSystemApp(): Boolean {
         return (flags and ApplicationInfo.FLAG_SYSTEM) != 0
@@ -197,10 +174,10 @@ data class App(
             app.packageName = applicationInfo.packageName
             app.uid = applicationInfo.uid
             app.userId = UserHandleHidden.getUserId(app.uid)
-            app.isInstalled = if (ApplicationInfoCompat.isInstalled(applicationInfo)) 1 else 0
-            app.isOnlyDataInstalled = if (ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)) 1 else 0
+            app.isInstalled = ApplicationInfoCompat.isInstalled(applicationInfo)
+            app.isOnlyDataInstalled = ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)
             app.flags = applicationInfo.flags
-            app.isEnabled = if (!FreezeUtils.isFrozen(applicationInfo)) 1 else 0
+            app.isEnabled = !FreezeUtils.isFrozen(applicationInfo)
             app.packageLabel = ApplicationInfoCompat.loadLabelSafe(applicationInfo, context.packageManager).toString()
             app.sdk = applicationInfo.targetSdkVersion
             app.versionName = packageInfo.versionName
@@ -211,8 +188,8 @@ data class App(
             app.certAlgo = issuerAndAlgoPair.second
             app.firstInstallTime = packageInfo.firstInstallTime
             app.lastUpdateTime = packageInfo.lastUpdateTime
-            app.hasActivities = if (packageInfo.activities != null) 1 else 0
-            app.hasSplits = if (applicationInfo.splitSourceDirs != null) 1 else 0
+            app.hasActivities = packageInfo.activities != null
+            app.hasSplits = applicationInfo.splitSourceDirs != null
             app.rulesCount = 0
             app.trackerCount = ComponentUtils.getTrackerComponentsCountForPackage(packageInfo)
             app.lastActionTime = System.currentTimeMillis()
@@ -225,12 +202,12 @@ data class App(
             app.packageName = backup.packageName
             app.uid = 0
             app.userId = backup.userId
-            app.isInstalled = 0
-            app.isOnlyDataInstalled = 0
-            if (backup.isSystem != 0) {
+            app.isInstalled = false
+            app.isOnlyDataInstalled = false
+            if (backup.isSystem) {
                 app.flags = app.flags or ApplicationInfo.FLAG_SYSTEM
             }
-            app.isEnabled = 1
+            app.isEnabled = true
             app.packageLabel = backup.label
             app.sdk = 0
             app.versionName = backup.versionName
@@ -240,7 +217,7 @@ data class App(
             app.certAlgo = ""
             app.firstInstallTime = backup.backupTime
             app.lastUpdateTime = backup.backupTime
-            app.hasActivities = 0
+            app.hasActivities = false
             app.hasSplits = backup.hasSplits
             app.rulesCount = 0
             app.trackerCount = 0

@@ -8,25 +8,34 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "archived_apps")
-data class ArchivedApp(
+class ArchivedApp {
     @PrimaryKey
     @ColumnInfo(name = "package_name")
-    var packageName: String,
+    var packageName: String = ""
 
     @ColumnInfo(name = "app_name")
-    var appName: String? = null,
+    var appName: String? = null
 
     @ColumnInfo(name = "archive_timestamp")
-    var archiveTimestamp: Long = 0,
+    var archiveTimestamp: Long = 0
 
     @ColumnInfo(name = "apk_path")
     var apkPath: String? = null
-) {
+
+    constructor()
+
     @Ignore
-    constructor(packageName: String, appName: String?, archiveTimestamp: Long) : this(
-        packageName,
-        appName,
-        archiveTimestamp,
-        null
-    )
+    constructor(packageName: String, appName: String?, archiveTimestamp: Long) {
+        this.packageName = packageName
+        this.appName = appName
+        this.archiveTimestamp = archiveTimestamp
+    }
+
+    @Ignore
+    constructor(packageName: String, appName: String?, archiveTimestamp: Long, apkPath: String?) {
+        this.packageName = packageName
+        this.appName = appName
+        this.archiveTimestamp = archiveTimestamp
+        this.apkPath = apkPath
+    }
 }

@@ -1,95 +1,91 @@
-//SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 package io.github.muntashirakon.AppManager.db.entity
 
 import android.text.TextUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import io.github.muntashirakon.AppManager.backup.BackupFlags
 import io.github.muntashirakon.AppManager.backup.BackupItems
 import io.github.muntashirakon.AppManager.backup.BackupUtils
-import io.github.muntashirakon.AppManager.backup.CryptoUtils
 import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV2
 import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5
-import io.github.muntashirakon.AppManager.utils.TarUtils
+import io.github.muntashirakon.AppManager.utils.CryptoUtils
+import io.github.muntashirakon.io.TarUtils
 import java.io.IOException
-import java.util.Objects
 
-@Suppress("UNUSED_PARAMETER", "unused")
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
-data class Backup @JvmOverloads constructor(
-
+class Backup {
     @JvmField
     @ColumnInfo(name = "package_name")
-    var packageName: String = "",
+    var packageName: String = ""
 
     @JvmField
     @ColumnInfo(name = "backup_name")
-    var backupName: String = "",
+    var backupName: String = ""
 
     @JvmField
-    @ColumnInfo(name = "label")
-    var label: String? = null,
+    @ColumnInfo(name = "package_label")
+    var label: String? = null
 
     @JvmField
     @ColumnInfo(name = "version_name")
-    var versionName: String? = null,
+    var versionName: String? = null
 
     @JvmField
     @ColumnInfo(name = "version_code")
-    var versionCode: Long = 0,
+    var versionCode: Long = 0
 
     @JvmField
     @ColumnInfo(name = "is_system")
-    var isSystem: Int = 0,
+    var isSystem: Boolean = false
 
     @JvmField
     @ColumnInfo(name = "has_splits")
-    var hasSplits: Int = 0,
+    var hasSplits: Boolean = false
 
     @JvmField
     @ColumnInfo(name = "has_rules")
-    var hasRules: Int = 0,
+    var hasRules: Boolean = false
 
     @JvmField
     @ColumnInfo(name = "backup_time")
-    var backupTime: Long = 0,
+    var backupTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "crypto")
     @CryptoUtils.Mode
-    var crypto: String? = null,
+    var crypto: String? = null
 
     @JvmField
     @ColumnInfo(name = "meta_version")
-    var version: Int = 0,
+    var version: Int = 0
 
     @JvmField
     @ColumnInfo(name = "flags")
-    var flags: Int = 0,
+    var flags: Int = 0
 
     @JvmField
     @ColumnInfo(name = "user_id")
-    var userId: Int = 0,
+    var userId: Int = 0
 
     @JvmField
     @ColumnInfo(name = "tar_type")
     @TarUtils.TarType
-    var tarType: String? = null,
+    var tarType: String? = null
 
     @JvmField
     @ColumnInfo(name = "has_key_store")
-    var hasKeyStore: Int = 0,
+    var hasKeyStore: Boolean = false
 
     @JvmField
     @ColumnInfo(name = "installer_app")
-    var installer: String? = null,
+    var installer: String? = null
 
     @JvmField
     @ColumnInfo(name = "info_hash")
     var uuid: String? = null
-) {
+
     fun getRelativeDir(): String? {
         return uuid
     }
@@ -132,25 +128,25 @@ data class Backup @JvmOverloads constructor(
     companion object {
         @JvmStatic
         fun fromBackupMetadata(metadata: BackupMetadataV2): Backup {
-            return Backup().apply {
-                packageName = metadata.packageName
-                backupName = metadata.backupName ?: ""
-                label = metadata.label
-                versionName = metadata.versionName
-                versionCode = metadata.versionCode
-                isSystem = if (metadata.isSystem) 1 else 0
-                hasSplits = if (metadata.isSplitApk) 1 else 0
-                hasRules = if (metadata.hasRules) 1 else 0
-                backupTime = metadata.backupTime
-                crypto = metadata.crypto
-                version = metadata.version
-                flags = metadata.flags.flags
-                userId = metadata.userId
-                tarType = metadata.tarType
-                hasKeyStore = if (metadata.keyStore) 1 else 0
-                installer = metadata.installer
-                uuid = metadata.backupItem.getRelativeDir()
-            }
+            val backup = Backup()
+            backup.packageName = metadata.packageName
+            backup.backupName = metadata.backupName ?: ""
+            backup.label = metadata.label
+            backup.versionName = metadata.versionName
+            backup.versionCode = metadata.versionCode
+            backup.isSystem = metadata.isSystem
+            backup.hasSplits = metadata.isSplitApk
+            backup.hasRules = metadata.hasRules
+            backup.backupTime = metadata.backupTime
+            backup.crypto = metadata.crypto
+            backup.version = metadata.version
+            backup.flags = metadata.flags.flags
+            backup.userId = metadata.userId
+            backup.tarType = metadata.tarType
+            backup.hasKeyStore = metadata.keyStore
+            backup.installer = metadata.installer
+            backup.uuid = metadata.backupItem.getRelativeDir()
+            return backup
         }
 
         @JvmStatic
@@ -160,25 +156,25 @@ data class Backup @JvmOverloads constructor(
 
         @JvmStatic
         fun fromBackupInfoAndMeta(info: BackupMetadataV5.Info, metadata: BackupMetadataV5.Metadata): Backup {
-            return Backup().apply {
-                packageName = metadata.packageName
-                backupName = metadata.backupName ?: ""
-                label = metadata.label
-                versionName = metadata.versionName
-                versionCode = metadata.versionCode
-                isSystem = if (metadata.isSystem) 1 else 0
-                hasSplits = if (metadata.isSplitApk) 1 else 0
-                hasRules = if (metadata.hasRules) 1 else 0
-                backupTime = info.backupTime
-                crypto = info.crypto
-                version = metadata.version
-                flags = info.flags.flags
-                userId = info.userId
-                tarType = info.tarType
-                hasKeyStore = if (metadata.keyStore) 1 else 0
-                installer = metadata.installer
-                uuid = info.getRelativeDir()
-            }
+            val backup = Backup()
+            backup.packageName = metadata.packageName
+            backup.backupName = metadata.backupName ?: ""
+            backup.label = metadata.label
+            backup.versionName = metadata.versionName
+            backup.versionCode = metadata.versionCode
+            backup.isSystem = metadata.isSystem
+            backup.hasSplits = metadata.isSplitApk
+            backup.hasRules = metadata.hasRules
+            backup.backupTime = info.backupTime
+            backup.crypto = info.crypto
+            backup.version = metadata.version
+            backup.flags = info.flags.flags
+            backup.userId = info.userId
+            backup.tarType = info.tarType
+            backup.hasKeyStore = metadata.keyStore
+            backup.installer = metadata.installer
+            backup.uuid = info.getRelativeDir()
+            return backup
         }
     }
 }

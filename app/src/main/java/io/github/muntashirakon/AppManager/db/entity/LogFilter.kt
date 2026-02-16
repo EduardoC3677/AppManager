@@ -12,16 +12,15 @@ import io.github.muntashirakon.AppManager.utils.AlphanumComparator
     tableName = "log_filter",
     indices = [Index(name = "index_name", value = ["name"], unique = true)]
 )
-data class LogFilter(
+class LogFilter : Comparable<LogFilter> {
     @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Long = 0,
+    var id: Long = 0
 
     @JvmField
     @ColumnInfo(name = "name")
     var name: String = ""
-) : Comparable<LogFilter> {
 
     override fun compareTo(other: LogFilter): Int {
         return COMPARATOR.compare(this, other)

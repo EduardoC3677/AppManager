@@ -356,7 +356,7 @@ class AppDb {
                 }
             }
             for (app in modifiedApps) {
-                if (app.isInstalled == 0 && !app.isSystemApp()) {
+                if (!app.isInstalled && !app.isSystemApp()) {
                     continue
                 }
                 val userId = app.userId
@@ -374,11 +374,11 @@ class AppDb {
                 }
                 // Interrupt thread on request
                 if (ThreadUtils.isInterrupted()) return
-                if (app.isInstalled == 0) {
+                if (!app.isInstalled) {
                     continue
                 }
-                app.hasKeystore = if (KeyStoreUtils.hasKeyStore(app.uid)) 1 else 0
-                app.usesSaf = if (uriManager.getGrantedUris(app.packageName) != null) 1 else 0
+                app.hasKeystore = KeyStoreUtils.hasKeyStore(app.uid)
+                app.usesSaf = uriManager.getGrantedUris(app.packageName) != null
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     val ssaidSettings = userIdSsaidSettingsMap[userId]
                     if (ssaidSettings != null) {
@@ -427,7 +427,7 @@ class AppDb {
         }
 
         private fun isUpToDate(currentApp: App, installedPackageInfo: android.content.pm.PackageInfo): Boolean {
-            if (currentApp.isInstalled == 0) {
+            if (!currentApp.isInstalled) {
                 // The app was not installed earlier
                 return false
             }
@@ -436,7 +436,7 @@ class AppDb {
         }
 
         private fun isUpToDate(currentApp: App, backup: Backup): Boolean {
-            if (currentApp.isInstalled != 0) {
+            if (currentApp.isInstalled) {
                 // The app was installed earlier
                 return false
             }
