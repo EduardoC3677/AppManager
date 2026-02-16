@@ -288,7 +288,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
             if (!mAdbConnectionWatcher.await(1, TimeUnit.MINUTES) || !mAdbServerStarted) {
                 throw Exception("Server wasn't stopped.")
             }
-            Log.d(TAG, "useAdbStartServer: Server has stopped.")
+            Log.d(TAG, "stopServer (ADB): Server has stopped.")
         } else if (Ops.isDirectRoot()) {
             if (!Ops.hasRoot()) {
                 throw Exception("Root access denied")
@@ -297,10 +297,10 @@ internal class LocalServerManager private constructor(private val mContext: Cont
             val result = Runner.runCommand(command)
             Log.d(TAG, "stopServer (root): %s", result.output)
             if (!result.isSuccessful) {
-                throw Exception("Could not start server.")
+                throw Exception("Could not stop server.")
             }
             SystemClock.sleep(3000)
-            Log.e(TAG, "useRootStartServer: Server has started.")
+            Log.d(TAG, "stopServer (root): Server has stopped.")
         } else throw Exception("Neither root nor ADB mode is enabled.")
     }
 
