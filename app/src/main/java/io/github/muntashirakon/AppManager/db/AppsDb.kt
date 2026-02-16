@@ -22,6 +22,7 @@ import io.github.muntashirakon.AppManager.db.entity.FreezeType
 import io.github.muntashirakon.AppManager.db.entity.LogFilter
 import io.github.muntashirakon.AppManager.db.entity.OpHistory
 import io.github.muntashirakon.AppManager.utils.ContextUtils
+import androidx.room.TypeConverters
 import kotlinx.coroutines.runBlocking
 
 @Database(
@@ -36,6 +37,7 @@ import kotlinx.coroutines.runBlocking
     ],
     version = 11
 )
+@TypeConverters(Converters::class)
 abstract class AppsDb : RoomDatabase() {
 
     abstract fun appDao(): AppDao
