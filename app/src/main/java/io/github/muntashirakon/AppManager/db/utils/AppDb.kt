@@ -374,11 +374,11 @@ class AppDb {
                 }
                 // Interrupt thread on request
                 if (ThreadUtils.isInterrupted()) return
-                if (!app.isInstalled) {
+                if (app.isInstalled == 0) {
                     continue
                 }
-                app.hasKeystore = KeyStoreUtils.hasKeyStore(app.uid)
-                app.usesSaf = uriManager.getGrantedUris(app.packageName) != null
+                app.hasKeystore = if (KeyStoreUtils.hasKeyStore(app.uid)) 1 else 0
+                app.usesSaf = if (uriManager.getGrantedUris(app.packageName) != null) 1 else 0
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     val ssaidSettings = userIdSsaidSettingsMap[userId]
                     if (ssaidSettings != null) {

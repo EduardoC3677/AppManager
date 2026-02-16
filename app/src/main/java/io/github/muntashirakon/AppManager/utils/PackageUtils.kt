@@ -165,8 +165,8 @@ object PackageUtils {
                 if (item.lastUsageTime == 0L || item.lastUsageTime < app.lastUsageTime) {
                     item.lastUsageTime = app.lastUsageTime
                 }
-                item.hasKeystore = item.hasKeystore or (app.hasKeystore != 0)
-                item.usesSaf = item.usesSaf or (app.usesSaf != 0)
+                item.hasKeystore = item.hasKeystore || (app.hasKeystore != 0)
+                item.usesSaf = item.usesSaf || (app.usesSaf != 0)
                 if (app.ssaid != null) {
                     item.ssaid = app.ssaid
                 }
@@ -190,7 +190,7 @@ object PackageUtils {
                     applicationItems[app.packageName] = item
                     item.isInstalled = false
                     item.isOnlyDataInstalled = app.isOnlyDataInstalled != 0
-                    item.hasKeystore = item.hasKeystore or (app.hasKeystore != 0)
+                    item.hasKeystore = item.hasKeystore || (app.hasKeystore != 0)
                 }
             }
             item.backup = backups.remove(item.packageName)
