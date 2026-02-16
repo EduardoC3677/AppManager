@@ -51,7 +51,7 @@ object ServerConfig {
 
         // Setup paths
         val externalCachePath = FileUtils.getExternalCachePath(context)
-        val deStorage = ContextUtils.getDeContext(context).cacheDir
+        val deStorage = ContextUtils.getDeContext(context)!!.cacheDir
         SERVER_RUNNER_EXEC[0] = File(externalCachePath, SERVER_RUNNER_EXEC_NAME)
         SERVER_RUNNER_EXEC[1] = File(deStorage, SERVER_RUNNER_EXEC_NAME)
         SERVER_RUNNER_JAR[0] = File(externalCachePath, Constants.JAR_NAME)
@@ -64,7 +64,7 @@ object ServerConfig {
         AssetsUtils.writeServerExecScript(context, SERVER_RUNNER_EXEC[0]!!, SERVER_RUNNER_JAR[0]!!.absolutePath)
         AssetsUtils.writeServerExecScript(context, SERVER_RUNNER_EXEC[1]!!, SERVER_RUNNER_JAR[1]!!.absolutePath)
         // Update permission
-        FileUtils.chmod711(deStorage)
+        FileUtils.chmod711(deStorage!!)
         FileUtils.chmod644(SERVER_RUNNER_JAR[1]!!)
         FileUtils.chmod644(SERVER_RUNNER_EXEC[1]!!)
 
