@@ -8,12 +8,6 @@ import android.content.pm.ApplicationInfo
 import android.text.TextUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import io.github.muntashirakon.AppManager.compat.ApplicationInfoCompat
-import androidx.core.content.pm.PackageInfoCompat
-import io.github.muntashirakon.AppManager.rules.compontents.ComponentUtils
-import io.github.muntashirakon.AppManager.utils.FreezeUtils
-import io.github.muntashirakon.AppManager.utils.Utils
-import android.os.UserHandleHidden
 import java.io.Serializable
 
 @Entity(tableName = "app", primaryKeys = ["package_name", "user_id"])
@@ -173,17 +167,17 @@ class App : Serializable {
             val applicationInfo = packageInfo.applicationInfo!!
             app.packageName = applicationInfo.packageName
             app.uid = applicationInfo.uid
-            app.userId = UserHandleHidden.getUserId(app.uid)
-            app.isInstalled = ApplicationInfoCompat.isInstalled(applicationInfo)
-            app.isOnlyDataInstalled = ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)
+            app.userId = android.os.UserHandleHidden.getUserId(app.uid)
+            app.isInstalled = io.github.muntashirakon.AppManager.compat.ApplicationInfoCompat.isInstalled(applicationInfo)
+            app.isOnlyDataInstalled = io.github.muntashirakon.AppManager.compat.ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)
             app.flags = applicationInfo.flags
-            app.isEnabled = !FreezeUtils.isFrozen(applicationInfo)
-            app.packageLabel = ApplicationInfoCompat.loadLabelSafe(applicationInfo, context.packageManager).toString()
+            app.isEnabled = !io.github.muntashirakon.AppManager.utils.FreezeUtils.isFrozen(applicationInfo)
+            app.packageLabel = io.github.muntashirakon.AppManager.compat.ApplicationInfoCompat.loadLabelSafe(applicationInfo, context.packageManager).toString()
             app.sdk = applicationInfo.targetSdkVersion
             app.versionName = packageInfo.versionName
-            app.versionCode = PackageInfoCompat.getLongVersionCode(packageInfo)
+            app.versionCode = androidx.core.content.pm.PackageInfoCompat.getLongVersionCode(packageInfo)
             app.sharedUserId = packageInfo.sharedUserId
-            val issuerAndAlgoPair = Utils.getIssuerAndAlg(packageInfo)
+            val issuerAndAlgoPair = io.github.muntashirakon.AppManager.utils.Utils.getIssuerAndAlg(packageInfo)
             app.certName = issuerAndAlgoPair.first
             app.certAlgo = issuerAndAlgoPair.second
             app.firstInstallTime = packageInfo.firstInstallTime
@@ -191,7 +185,7 @@ class App : Serializable {
             app.hasActivities = packageInfo.activities != null
             app.hasSplits = applicationInfo.splitSourceDirs != null
             app.rulesCount = 0
-            app.trackerCount = ComponentUtils.getTrackerComponentsCountForPackage(packageInfo)
+            app.trackerCount = io.github.muntashirakon.AppManager.rules.compontents.ComponentUtils.getTrackerComponentsCountForPackage(packageInfo)
             app.lastActionTime = System.currentTimeMillis()
             return app
         }

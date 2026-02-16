@@ -5,13 +5,6 @@ package io.github.muntashirakon.AppManager.db.entity
 import android.text.TextUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import io.github.muntashirakon.AppManager.backup.BackupFlags
-import io.github.muntashirakon.AppManager.backup.BackupItems
-import io.github.muntashirakon.AppManager.backup.BackupUtils
-import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV2
-import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5
-import io.github.muntashirakon.AppManager.backup.CryptoUtils
-import io.github.muntashirakon.AppManager.utils.TarUtils
 import java.io.IOException
 
 @Entity(tableName = "backup", primaryKeys = ["backup_name", "package_name"])
@@ -88,12 +81,12 @@ class Backup {
         return uuid
     }
 
-    fun getFlags(): BackupFlags {
-        return BackupFlags(flags)
+    fun getFlags(): io.github.muntashirakon.AppManager.backup.BackupFlags {
+        return io.github.muntashirakon.AppManager.backup.BackupFlags(flags)
     }
 
     @Throws(IOException::class)
-    fun getItem(): BackupItems.BackupItem {
+    fun getItem(): io.github.muntashirakon.AppManager.backup.BackupItems.BackupItem {
         val relativeDir = when {
             TextUtils.isEmpty(this.uuid) -> {
                 if (version >= 5) {
@@ -101,11 +94,11 @@ class Backup {
                     throw IOException("relativeDir not set.")
                 }
                 // Relative directory needs to be inferred.
-                BackupUtils.getV4RelativeDir(userId, backupName, packageName)
+                io.github.muntashirakon.AppManager.backup.BackupUtils.getV4RelativeDir(userId, backupName, packageName)
             }
             else -> this.uuid!!
         }
-        return BackupItems.findBackupItem(relativeDir)
+        return io.github.muntashirakon.AppManager.backup.BackupItems.findBackupItem(relativeDir)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -125,7 +118,7 @@ class Backup {
 
     companion object {
         @JvmStatic
-        fun fromBackupMetadata(metadata: BackupMetadataV2): Backup {
+        fun fromBackupMetadata(metadata: io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV2): Backup {
             val backup = Backup()
             backup.packageName = metadata.packageName
             backup.backupName = metadata.backupName ?: ""
@@ -148,12 +141,12 @@ class Backup {
         }
 
         @JvmStatic
-        fun fromBackupMetadataV5(metadata: BackupMetadataV5): Backup {
+        fun fromBackupMetadataV5(metadata: io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5): Backup {
             return fromBackupInfoAndMeta(metadata.info, metadata.metadata)
         }
 
         @JvmStatic
-        fun fromBackupInfoAndMeta(info: BackupMetadataV5.Info, metadata: BackupMetadataV5.Metadata): Backup {
+        fun fromBackupInfoAndMeta(info: io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5.Info, metadata: io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5.Metadata): Backup {
             val backup = Backup()
             backup.packageName = metadata.packageName
             backup.backupName = metadata.backupName ?: ""
