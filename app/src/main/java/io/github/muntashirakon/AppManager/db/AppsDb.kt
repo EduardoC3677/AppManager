@@ -49,13 +49,19 @@ abstract class AppsDb : RoomDatabase() {
     abstract fun archivedAppDao(): ArchivedAppDao
 
     companion object {
-        @Volatile
         private var sAppsDb: AppsDb? = null
 
         @JvmStatic
         fun getInstance(): AppsDb {
             return sAppsDb ?: synchronized(this) {
-                sAppsDb ?: buildDatabase().also { sAppsDb = it }
+                sAppsDb ?: buildDatabase().also {
+                    sAppsDb = it
+                    try {
+                        runBlocking { it.appDao().getAll() }
+                    } catch (th: Throwable) {
+                        th.printStackTrace()
+                    }
+                }
             }
         }
 
