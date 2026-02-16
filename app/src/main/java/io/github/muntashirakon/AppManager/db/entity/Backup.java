@@ -4,6 +4,7 @@ package io.github.muntashirakon.AppManager.db.entity;
 
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
