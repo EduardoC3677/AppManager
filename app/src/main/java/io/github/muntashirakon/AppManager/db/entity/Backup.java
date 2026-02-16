@@ -21,8 +21,10 @@ import io.github.muntashirakon.AppManager.utils.TarUtils;
 @Entity(tableName = "backup", primaryKeys = {"backup_name", "package_name"})
 public class Backup {
     @ColumnInfo(name = "package_name")
+    @NonNull
     public String packageName = "";
     @ColumnInfo(name = "backup_name")
+    @NonNull
     public String backupName = "";
     @ColumnInfo(name = "package_label")
     public String label;
