@@ -21,6 +21,7 @@ class FreezeType {
 
     constructor()
 
+    @androidx.room.Ignore
     constructor(packageName: String, @FreezeMethod type: Int) {
         this.packageName = packageName
         this.type = type
