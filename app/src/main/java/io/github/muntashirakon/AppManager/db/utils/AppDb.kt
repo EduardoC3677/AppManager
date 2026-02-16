@@ -37,39 +37,39 @@ import java.util.ArrayList
 import java.util.HashSet
 
 class AppDb {
-    private val mAppDao = AppsDb.getInstance().appDao()
-    private val mBackupDao = AppsDb.getInstance().backupDao()
+    private val mAppDao by lazy { AppsDb.getInstance().appDao() }
+    private val mBackupDao by lazy { AppsDb.getInstance().backupDao() }
 
     val allApplications: List<App>
         get() = synchronized(sLock) {
-            runBlocking { mAppDao.getAll() }
+            mAppDao.getAllSync()
         }
 
     val allInstalledApplications: List<App>
         get() = synchronized(sLock) {
-            runBlocking { mAppDao.getAllInstalled() }
+            mAppDao.getAllInstalledSync()
         }
 
     val allBackups: List<Backup>
         get() = synchronized(sLock) {
-            runBlocking { mBackupDao.getAll() }
+            mBackupDao.getAllSync()
         }
 
     fun getAllApplications(packageName: String): List<App> {
         return synchronized(sLock) {
-            runBlocking { mAppDao.getAll(packageName) }
+            mAppDao.getAllSync(packageName)
         }
     }
 
     fun getAllApplications(packageName: String, @UserIdInt userId: Int): List<App> {
         return synchronized(sLock) {
-            runBlocking { mAppDao.getAll(packageName, userId) }
+            mAppDao.getAllSync(packageName, userId)
         }
     }
 
     fun getAllBackups(packageName: String): List<Backup> {
         return synchronized(sLock) {
-            runBlocking { mBackupDao.get(packageName) }
+            mBackupDao.getSync(packageName)
         }
     }
 
@@ -77,48 +77,48 @@ class AppDb {
      * Fetch backups without a lock file. Necessary checks must be done to ensure that the backups actually exist.
      */
     fun getAllBackupsNoLock(packageName: String): List<Backup> {
-        return runBlocking { mBackupDao.get(packageName) }
+        return mBackupDao.getSync(packageName)
     }
 
     fun insert(app: App) {
         synchronized(sLock) {
-            runBlocking { mAppDao.insert(app) }
+            mAppDao.insertSync(app)
         }
     }
 
     fun insert(backup: Backup) {
         synchronized(sLock) {
-            runBlocking { mBackupDao.insert(backup) }
+            mBackupDao.insertSync(backup)
         }
     }
 
     fun insertBackups(backups: List<Backup>) {
         synchronized(sLock) {
-            runBlocking { mBackupDao.insert(backups) }
+            mBackupDao.insertSync(backups)
         }
     }
 
     fun deleteApplication(packageName: String, userId: Int) {
         synchronized(sLock) {
-            runBlocking { mAppDao.delete(packageName, userId) }
+            mAppDao.deleteSync(packageName, userId)
         }
     }
 
     fun deleteAllApplications() {
         synchronized(sLock) {
-            runBlocking { mAppDao.deleteAll() }
+            mAppDao.deleteAllSync()
         }
     }
 
     fun deleteAllBackups() {
         synchronized(sLock) {
-            runBlocking { mBackupDao.deleteAll() }
+            mBackupDao.deleteAllSync()
         }
     }
 
     fun deleteBackup(backup: Backup) {
         synchronized(sLock) {
-            runBlocking { mBackupDao.delete(backup) }
+            mBackupDao.deleteSync(backup)
         }
     }
 
@@ -137,7 +137,7 @@ class AppDb {
             }
             // Update usage and others
             updateVariableData(context, appList)
-            runBlocking { mAppDao.insert(appList) }
+            mAppDao.insertSync(appList)
             appList
         }
     }
@@ -148,7 +148,7 @@ class AppDb {
             val appList = updateApplicationInternal(context, packageName)
             // Update usage and others
             updateVariableData(context, appList)
-            runBlocking { mAppDao.insert(appList) }
+            mAppDao.insertSync(appList)
             appList
         }
     }
@@ -156,9 +156,9 @@ class AppDb {
     @WorkerThread
     private fun updateApplicationInternal(context: Context, packageName: String): List<App> {
         val userIds = Users.getUsersIds()
-        val oldApps = ArrayList(runBlocking { mAppDao.getAll(packageName) })
+        val oldApps = ArrayList(mAppDao.getAllSync(packageName))
         val appList = ArrayList<App>(userIds.size)
-        val backups = ArrayList(runBlocking { mBackupDao.get(packageName) })
+        val backups = ArrayList(mBackupDao.getSync(packageName))
         for (userId in userIds) {
             val oldAppIndex = findIndexOfApp(oldApps, packageName, userId)
             var packageInfo: android.content.pm.PackageInfo? = null
@@ -187,14 +187,14 @@ class AppDb {
                 // Neither backup nor package exist
                 if (oldAppIndex >= 0) {
                     // Delete existing backup
-                    runBlocking { mAppDao.delete(oldApps[oldAppIndex]) }
+                    mAppDao.deleteSync(oldApps[oldAppIndex])
                 }
                 continue
             }
             if (oldAppIndex >= 0) {
                 // There's already existing app
                 val oldApp = oldApps[oldAppIndex]
-                runBlocking { mAppDao.delete(oldApp) }
+                mAppDao.deleteSync(oldApp)
                 if ((packageInfo != null && isUpToDate(oldApp, packageInfo))
                     || (backup != null && isUpToDate(oldApp, backup))) {
                     // Up-to-date app
@@ -221,7 +221,7 @@ class AppDb {
     fun updateApplications(context: Context) {
         synchronized(sLock) {
             val backups = getBackups(false)
-            val oldApps = ArrayList(runBlocking { mAppDao.getAll() })
+            val oldApps = ArrayList(mAppDao.getAllSync())
             val modifiedApps = ArrayList<App>()
             val newApps = HashSet<String>()
             val updatedApps = HashSet<String>()
@@ -294,10 +294,8 @@ class AppDb {
                 modifiedApps.add(app)
             }
             // Add new data
-            runBlocking {
-                mAppDao.delete(oldApps)
-                mAppDao.insert(modifiedApps)
-            }
+            mAppDao.deleteSync(oldApps)
+            mAppDao.insertSync(modifiedApps)
             if (!oldApps.isEmpty()) {
                 // Delete broadcast
                 BroadcastUtils.sendDbPackageRemoved(context, getPackageNamesFromApps(oldApps))
