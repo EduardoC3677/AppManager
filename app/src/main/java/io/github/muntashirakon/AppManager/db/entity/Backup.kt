@@ -42,15 +42,15 @@ data class Backup @JvmOverloads constructor(
 
     @JvmField
     @ColumnInfo(name = "is_system")
-    var isSystem: Boolean = false,
+    var isSystem: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "has_splits")
-    var hasSplits: Boolean = false,
+    var hasSplits: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "has_rules")
-    var hasRules: Boolean = false,
+    var hasRules: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "backup_time")
@@ -80,7 +80,7 @@ data class Backup @JvmOverloads constructor(
 
     @JvmField
     @ColumnInfo(name = "has_key_store")
-    var hasKeyStore: Boolean = false,
+    var hasKeyStore: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "installer_app")
@@ -138,16 +138,16 @@ data class Backup @JvmOverloads constructor(
                 label = metadata.label
                 versionName = metadata.versionName
                 versionCode = metadata.versionCode
-                isSystem = metadata.isSystem
-                hasSplits = metadata.isSplitApk
-                hasRules = metadata.hasRules
+                isSystem = if (metadata.isSystem) 1 else 0
+                hasSplits = if (metadata.isSplitApk) 1 else 0
+                hasRules = if (metadata.hasRules) 1 else 0
                 backupTime = metadata.backupTime
                 crypto = metadata.crypto
                 version = metadata.version
                 flags = metadata.flags.flags
                 userId = metadata.userId
                 tarType = metadata.tarType
-                hasKeyStore = metadata.keyStore
+                hasKeyStore = if (metadata.keyStore) 1 else 0
                 installer = metadata.installer
                 uuid = metadata.backupItem.getRelativeDir()
             }
@@ -166,16 +166,16 @@ data class Backup @JvmOverloads constructor(
                 label = metadata.label
                 versionName = metadata.versionName
                 versionCode = metadata.versionCode
-                isSystem = metadata.isSystem
-                hasSplits = metadata.isSplitApk
-                hasRules = metadata.hasRules
+                isSystem = if (metadata.isSystem) 1 else 0
+                hasSplits = if (metadata.isSplitApk) 1 else 0
+                hasRules = if (metadata.hasRules) 1 else 0
                 backupTime = info.backupTime
                 crypto = info.crypto
                 version = metadata.version
                 flags = info.flags.flags
                 userId = info.userId
                 tarType = info.tarType
-                hasKeyStore = metadata.keyStore
+                hasKeyStore = if (metadata.keyStore) 1 else 0
                 installer = metadata.installer
                 uuid = info.getRelativeDir()
             }

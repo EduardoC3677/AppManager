@@ -93,32 +93,32 @@ data class App(
     var certAlgo: String? = null,
 
     @JvmField
-    @ColumnInfo(name = "is_installed", defaultValue = "true")
-    var isInstalled: Boolean = true,
+    @ColumnInfo(name = "is_installed", defaultValue = "1")
+    var isInstalled: Int = 1,
 
     @JvmField
     @ColumnInfo(name = "is_only_data_installed", defaultValue = "0")
-    var isOnlyDataInstalled: Boolean = false,
+    var isOnlyDataInstalled: Int = 0,
 
     @JvmField
-    @ColumnInfo(name = "is_enabled", defaultValue = "false")
-    var isEnabled: Boolean = false,
+    @ColumnInfo(name = "is_enabled", defaultValue = "1")
+    var isEnabled: Int = 1,
 
     @JvmField
-    @ColumnInfo(name = "has_activities", defaultValue = "false")
-    var hasActivities: Boolean = false,
+    @ColumnInfo(name = "has_activities", defaultValue = "0")
+    var hasActivities: Int = 0,
 
     @JvmField
-    @ColumnInfo(name = "has_splits", defaultValue = "false")
-    var hasSplits: Boolean = false,
+    @ColumnInfo(name = "has_splits", defaultValue = "0")
+    var hasSplits: Int = 0,
 
     @JvmField
-    @ColumnInfo(name = "has_keystore", defaultValue = "false")
-    var hasKeystore: Boolean = false,
+    @ColumnInfo(name = "has_keystore", defaultValue = "0")
+    var hasKeystore: Int = 0,
 
     @JvmField
-    @ColumnInfo(name = "uses_saf", defaultValue = "false")
-    var usesSaf: Boolean = false,
+    @ColumnInfo(name = "uses_saf", defaultValue = "0")
+    var usesSaf: Int = 0,
 
     @JvmField
     @ColumnInfo(name = "ssaid", defaultValue = "")
@@ -197,10 +197,10 @@ data class App(
             app.packageName = applicationInfo.packageName
             app.uid = applicationInfo.uid
             app.userId = UserHandleHidden.getUserId(app.uid)
-            app.isInstalled = ApplicationInfoCompat.isInstalled(applicationInfo)
-            app.isOnlyDataInstalled = ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)
+            app.isInstalled = if (ApplicationInfoCompat.isInstalled(applicationInfo)) 1 else 0
+            app.isOnlyDataInstalled = if (ApplicationInfoCompat.isOnlyDataInstalled(applicationInfo)) 1 else 0
             app.flags = applicationInfo.flags
-            app.isEnabled = !FreezeUtils.isFrozen(applicationInfo)
+            app.isEnabled = if (!FreezeUtils.isFrozen(applicationInfo)) 1 else 0
             app.packageLabel = ApplicationInfoCompat.loadLabelSafe(applicationInfo, context.packageManager).toString()
             app.sdk = applicationInfo.targetSdkVersion
             app.versionName = packageInfo.versionName
@@ -211,8 +211,8 @@ data class App(
             app.certAlgo = issuerAndAlgoPair.second
             app.firstInstallTime = packageInfo.firstInstallTime
             app.lastUpdateTime = packageInfo.lastUpdateTime
-            app.hasActivities = packageInfo.activities != null
-            app.hasSplits = applicationInfo.splitSourceDirs != null
+            app.hasActivities = if (packageInfo.activities != null) 1 else 0
+            app.hasSplits = if (applicationInfo.splitSourceDirs != null) 1 else 0
             app.rulesCount = 0
             app.trackerCount = ComponentUtils.getTrackerComponentsCountForPackage(packageInfo)
             app.lastActionTime = System.currentTimeMillis()
@@ -225,12 +225,12 @@ data class App(
             app.packageName = backup.packageName
             app.uid = 0
             app.userId = backup.userId
-            app.isInstalled = false
-            app.isOnlyDataInstalled = false
-            if (backup.isSystem) {
+            app.isInstalled = 0
+            app.isOnlyDataInstalled = 0
+            if (backup.isSystem != 0) {
                 app.flags = app.flags or ApplicationInfo.FLAG_SYSTEM
             }
-            app.isEnabled = true
+            app.isEnabled = 1
             app.packageLabel = backup.label
             app.sdk = 0
             app.versionName = backup.versionName
@@ -240,7 +240,7 @@ data class App(
             app.certAlgo = ""
             app.firstInstallTime = backup.backupTime
             app.lastUpdateTime = backup.backupTime
-            app.hasActivities = false
+            app.hasActivities = 0
             app.hasSplits = backup.hasSplits
             app.rulesCount = 0
             app.trackerCount = 0

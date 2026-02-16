@@ -274,7 +274,6 @@ class AppDb {
 
             // Add rest of the backup items, i.e., items that aren't installed
             for (backup in backups.values) {
-                if (backup == null) continue
                 // Interrupt thread on request
                 if (ThreadUtils.isInterrupted()) return
 
@@ -357,7 +356,7 @@ class AppDb {
                 }
             }
             for (app in modifiedApps) {
-                if (!app.isInstalled && !app.isSystemApp()) {
+                if (app.isInstalled == 0 && !app.isSystemApp()) {
                     continue
                 }
                 val userId = app.userId
@@ -428,7 +427,7 @@ class AppDb {
         }
 
         private fun isUpToDate(currentApp: App, installedPackageInfo: android.content.pm.PackageInfo): Boolean {
-            if (!currentApp.isInstalled) {
+            if (currentApp.isInstalled == 0) {
                 // The app was not installed earlier
                 return false
             }
@@ -437,7 +436,7 @@ class AppDb {
         }
 
         private fun isUpToDate(currentApp: App, backup: Backup): Boolean {
-            if (currentApp.isInstalled) {
+            if (currentApp.isInstalled != 0) {
                 // The app was installed earlier
                 return false
             }
