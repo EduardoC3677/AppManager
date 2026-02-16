@@ -23,7 +23,7 @@ class App : Serializable {
     var packageName: String = ""
 
     @JvmField
-    @ColumnInfo(name = "user_id", defaultValue = "" + UserHandleHidden.USER_NULL)
+    @ColumnInfo(name = "user_id", defaultValue = "-10000")
     var userId: Int = 0
 
     @JvmField

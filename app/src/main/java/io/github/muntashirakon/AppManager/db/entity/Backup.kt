@@ -54,7 +54,6 @@ class Backup {
 
     @JvmField
     @ColumnInfo(name = "crypto")
-    @CryptoUtils.Mode
     var crypto: String? = null
 
     @JvmField
@@ -71,7 +70,6 @@ class Backup {
 
     @JvmField
     @ColumnInfo(name = "tar_type")
-    @TarUtils.TarType
     var tarType: String? = null
 
     @JvmField
