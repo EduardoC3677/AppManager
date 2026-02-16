@@ -39,7 +39,6 @@ public class Backup {
     @ColumnInfo(name = "backup_time")
     public long backupTime;
     @ColumnInfo(name = "crypto")
-    @CryptoUtils.Mode
     public String crypto;
     @ColumnInfo(name = "meta_version")
     public int version;
@@ -48,7 +47,6 @@ public class Backup {
     @ColumnInfo(name = "user_id")
     public int userId;
     @ColumnInfo(name = "tar_type")
-    @TarUtils.TarType
     public String tarType;
     @ColumnInfo(name = "has_key_store")
     public boolean hasKeyStore;
