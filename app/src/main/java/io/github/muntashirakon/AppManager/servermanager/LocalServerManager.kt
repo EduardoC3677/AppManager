@@ -205,13 +205,11 @@ internal class LocalServerManager private constructor(private val mContext: Cont
         Log.d(TAG, "useAdbStartServer: Shell opened.")
 
         mAdbStream!!.openOutputStream().use { os ->
-            os.write("id
-".toByteArray())
+            os.write("id\n".toByteArray())
             // ADB may require a fallback method
             val command = ServerConfig.getServerRunnerAdbCommand()
             Log.d(TAG, "useAdbStartServer: %s", command)
-            os.write("$command
-".toByteArray())
+            os.write("$command\n".toByteArray())
         }
 
         if (!mAdbConnectionWatcher.await(1, TimeUnit.MINUTES) || !mAdbServerStarted) {
@@ -227,8 +225,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
             throw Exception("Root access denied")
         }
         val command = ServerConfig.getServerRunnerCommand(0)
-        // + "
-" + "supolicy --live 'allow qti_init_shell zygote_exec file execute'";
+        // + "\n" + "supolicy --live 'allow qti_init_shell zygote_exec file execute'";
         Log.d(TAG, "useRootStartServer: %s", command)
         val result = Runner.runCommand(command)
 
@@ -283,11 +280,9 @@ internal class LocalServerManager private constructor(private val mContext: Cont
             Log.d(TAG, "stopServer (ADB): Shell opened.")
 
             mAdbStream!!.openOutputStream().use { os ->
-                os.write("id
-".toByteArray())
+                os.write("id\n".toByteArray())
                 Log.d(TAG, "stopServer (ADB): %s", command)
-                os.write("$command
-".toByteArray())
+                os.write("$command\n".toByteArray())
             }
 
             if (!mAdbConnectionWatcher.await(1, TimeUnit.MINUTES) || !mAdbServerStarted) {

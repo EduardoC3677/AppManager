@@ -61,14 +61,10 @@ internal object AssetsUtils {
                 BufferedWriter(FileWriter(destFile, false)).use { bw ->
                     // Set variables
                     val script = StringBuilder()
-                    script.append("SERVER_NAME=").append(Constants.SERVER_NAME).append("
-")
-                        .append("JAR_NAME=").append(Constants.JAR_NAME).append("
-")
-                        .append("JAR_PATH=").append(classPath).append("
-")
-                        .append("ARGS=").append(serverArgs).append("
-")
+                    script.append("SERVER_NAME=").append(Constants.SERVER_NAME).append("\n")
+                        .append("JAR_NAME=").append(Constants.JAR_NAME).append("\n")
+                        .append("JAR_PATH=").append(classPath).append("\n")
+                        .append("ARGS=").append(serverArgs).append("\n")
                     var line: String?
                     while (bufferedReader.readLine().also { line = it } != null) {
                         val wl: String = if ("%ENV_VARS%" == line?.trim()) {

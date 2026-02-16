@@ -26,8 +26,7 @@ class RemoteCommandService : IRemoteCommandService.Stub() {
             BufferedReader(InputStreamReader(process.inputStream)).use { stdoutReader ->
                 var line: String?
                 while (stdoutReader.readLine().also { line = it } != null) {
-                    if (stdout.isNotEmpty()) stdout.append("
-")
+                    if (stdout.isNotEmpty()) stdout.append("\n")
                     stdout.append(line)
                 }
             }
@@ -37,8 +36,7 @@ class RemoteCommandService : IRemoteCommandService.Stub() {
             BufferedReader(InputStreamReader(process.errorStream)).use { stderrReader ->
                 var line: String?
                 while (stderrReader.readLine().also { line = it } != null) {
-                    if (stderr.isNotEmpty()) stderr.append("
-")
+                    if (stderr.isNotEmpty()) stderr.append("\n")
                     stderr.append(line)
                 }
             }
@@ -51,8 +49,7 @@ class RemoteCommandService : IRemoteCommandService.Stub() {
                 process.destroy()
                 result.putInt("exitCode", -1)
                 result.putString("stdout", stdout.toString())
-                result.putString("stderr", stderr.toString() + "
-Command timed out after 30 seconds")
+                result.putString("stderr", stderr.toString() + "\nCommand timed out after 30 seconds")
                 Log.w(TAG, "Command timed out: $command")
             } else {
                 result.putInt("exitCode", exitCode)
