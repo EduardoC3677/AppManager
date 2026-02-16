@@ -34,7 +34,7 @@ object ServerConfig {
     private const val LOCAL_TOKEN = "l_token"
     private val SERVER_RUNNER_EXEC = arrayOfNulls<File>(2)
     private val SERVER_RUNNER_JAR = arrayOfNulls<File>(2)
-    private val sPreferences: SharedPreferences = ContextUtils.getContext()
+    private val sPreferences: SharedPreferences = ContextUtils.getContext()!!
         .getSharedPreferences("server_config", Context.MODE_PRIVATE)
 
     @Volatile
@@ -65,8 +65,8 @@ object ServerConfig {
         AssetsUtils.writeServerExecScript(context, SERVER_RUNNER_EXEC[1]!!, SERVER_RUNNER_JAR[1]!!.absolutePath)
         // Update permission
         FileUtils.chmod711(deStorage)
-        FileUtils.chmod644(SERVER_RUNNER_JAR[1])
-        FileUtils.chmod644(SERVER_RUNNER_EXEC[1])
+        FileUtils.chmod644(SERVER_RUNNER_JAR[1]!!)
+        FileUtils.chmod644(SERVER_RUNNER_EXEC[1]!!)
 
         sInitialised = true
     }

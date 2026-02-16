@@ -71,11 +71,11 @@ class ServerStatusChangeReceiver : BroadcastReceiver() {
                 LocalServer.getInstance()
                 LocalServices.bindServicesIfNotAlready()
             } catch (e: IOException) {
-                Log.w(TAG, "Failed to start server", e)
+                Log.w(TAG, "Failed to start server: %s", e.message, e)
             } catch (e: AdbPairingRequiredException) {
-                Log.w(TAG, "Failed to start server", e)
+                Log.w(TAG, "Failed to start server: %s", e.message, e)
             } catch (e: RemoteException) {
-                Log.w(TAG, "Failed to start services", e)
+                Log.w(TAG, "Failed to start services: %s", e.message, e)
             }
         }
     }

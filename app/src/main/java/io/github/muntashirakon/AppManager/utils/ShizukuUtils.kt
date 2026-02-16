@@ -34,7 +34,7 @@ object ShizukuUtils {
             sLastInstalledCheck = now
             sIsInstalled!!
         } catch (e: Exception) {
-            Log.w("ShizukuUtils", "isShizukuInstalled check failed: " + e.message)
+            Log.w("ShizukuUtils", "isShizukuInstalled check failed: %s", e.message, e)
             sIsInstalled = false
             sLastInstalledCheck = now
             false
@@ -49,7 +49,7 @@ object ShizukuUtils {
             }
             Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
         } catch (e: Exception) {
-            Log.w("ShizukuUtils", "isShizukuAvailable check failed: " + e.message)
+            Log.w("ShizukuUtils", "isShizukuAvailable check failed: %s", e.message, e)
             false
         }
     }

@@ -22,7 +22,7 @@ import java.net.SocketTimeoutException
 
 // Copyright 2016 Zheng Li
 class LocalServer @WorkerThread @NoOps(used = true) @Throws(IOException::class, AdbPairingRequiredException::class) private constructor() {
-    private val mContext: Context = ContextUtils.getDeContext(ContextUtils.getContext())
+    private val mContext: Context = ContextUtils.getDeContext(ContextUtils.getContext()!!)
     private val mLocalServerManager: LocalServerManager = LocalServerManager.getInstance(mContext)
     private val mConnectLock = Any()
     private var mConnectStarted = false

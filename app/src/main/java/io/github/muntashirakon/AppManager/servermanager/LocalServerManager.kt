@@ -55,7 +55,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
                     try {
                         mSession = createSession()
                     } catch (e: Exception) {
-                        if (!Ops.isDirectRoot && !Ops.isAdb) {
+                        if (!Ops.isDirectRoot() && !Ops.isAdb()) {
                             // Do not bother attempting to create a new session
                             throw IOException("Could not create session", e)
                         }
@@ -128,7 +128,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
     @Throws(IOException::class)
     fun execNew(caller: Caller): CallerResult {
         val result = execPre(ParcelableUtil.marshall(BaseCaller(caller.wrapParameters())))
-        return ParcelableUtil.unmarshall(result, CallerResult.CREATOR)
+        return ParcelableUtil.unmarshall(result, CallerResult.CREATOR)!!
     }
 
     @WorkerThread
@@ -139,7 +139,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
             sessionDataTransmission.sendAndReceiveMessage(ParcelableUtil.marshall(baseCaller))
         } catch (e: Exception) {
             // Since the server is closed abruptly, this should always produce error
-            Log.w(TAG, "closeBgServer: Error", e)
+            Log.w(TAG, "closeBgServer: Error: %s", e.message, e)
         }
         // Check if the server is still active
         if (LocalServer.alive(mContext)) {
@@ -244,9 +244,9 @@ internal class LocalServerManager private constructor(private val mContext: Cont
     @NoOps(used = true)
     @Throws(Exception::class)
     private fun startServer() {
-        if (Ops.isAdb) {
+        if (Ops.isAdb()) {
             useAdbStartServer()
-        } else if (Ops.isDirectRoot) {
+        } else if (Ops.isDirectRoot()) {
             useRootStartServer()
         } else throw Exception("Neither root nor ADB mode is enabled.")
     }
@@ -259,7 +259,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
     @Throws(Exception::class)
     private fun stopServer() {
         val command = "killall " + Constants.SERVER_NAME
-        if (Ops.isAdb) {
+        if (Ops.isAdb()) {
             if (mAdbStream == null || mAdbStream!!.isClosed) {
                 // ADB shell not running
                 val adbHost = ServerConfig.getAdbHost(mContext)
@@ -289,7 +289,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
                 throw Exception("Server wasn't stopped.")
             }
             Log.d(TAG, "useAdbStartServer: Server has stopped.")
-        } else if (Ops.isDirectRoot) {
+        } else if (Ops.isDirectRoot()) {
             if (!Ops.hasRoot()) {
                 throw Exception("Root access denied")
             }
