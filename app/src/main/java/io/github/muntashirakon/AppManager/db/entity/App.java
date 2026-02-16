@@ -27,7 +27,7 @@ public class App implements Serializable {
     @ColumnInfo(name = "package_name")
     @NonNull
     public String packageName = "";
-    @ColumnInfo(name = "user_id", defaultValue = "" + UserHandleHidden.USER_NULL)
+    @ColumnInfo(name = "user_id", defaultValue = "-10000")
     public int userId;
     @ColumnInfo(name = "package_label")
     public String packageLabel;

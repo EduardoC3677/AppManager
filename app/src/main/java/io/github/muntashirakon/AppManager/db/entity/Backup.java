@@ -15,8 +15,8 @@ import io.github.muntashirakon.AppManager.backup.BackupItems;
 import io.github.muntashirakon.AppManager.backup.BackupUtils;
 import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV2;
 import io.github.muntashirakon.AppManager.backup.struct.BackupMetadataV5;
-import io.github.muntashirakon.AppManager.utils.CryptoUtils;
-import io.github.muntashirakon.io.TarUtils;
+import io.github.muntashirakon.AppManager.backup.CryptoUtils;
+import io.github.muntashirakon.AppManager.utils.TarUtils;
 
 @Entity(tableName = "backup", primaryKeys = {"backup_name", "package_name"})
 public class Backup {
