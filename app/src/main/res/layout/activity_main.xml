@@ -53,6 +53,13 @@
                 android:layout_marginRight="16dp"
                 android:layout="@layout/layout_suggestions" />
 
+            <ViewStub
+                android:id="@+id/filter_chips_stub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout="@layout/layout_filter_chips" />
+
             <io.github.muntashirakon.widget.RecyclerView
                 android:id="@+id/item_list"
                 android:layout_width="match_parent"

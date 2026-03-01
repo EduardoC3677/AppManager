@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'master'
+      - 'main'
+      - 'develop'
       - 'AppManager-*'
       - 'refactor/kotlin-conversion'
     paths-ignore:
@@ -11,75 +13,114 @@ on:
       - 'scripts/**'
       - '*.md'
   pull_request:
-    branches: [ master ]
+    branches: [ master, main, develop ]
     paths-ignore:
       - 'fastlane/**'
       - 'scripts/**'
       - '*.md'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    
     steps:
       - name: Clone the repository
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
+          fetch-depth: 0
+      
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
+      
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 9.0
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+      
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      
       - name: Get app version
-        run: echo "APP_VERSION=v$(cat ./app/build.gradle | grep -m1 versionName | awk -F \" '{print $2}')" >> $GITHUB_ENV
+        run: |
+          APP_VERSION=$(cat ./app/build.gradle | grep -m1 versionName | awk -F '"' '{print $2}')
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
+          echo "App Version: $APP_VERSION"
+      
       - name: Get app name
         run: echo "APP_NAME=AppManager_${{ env.APP_VERSION }}-DEBUG#${{ github.run_number }}" >> $GITHUB_ENV
+      
       - name: Inject run number
         run: sed -i -e 's|versionName "\([0-9\.]\+\)"|versionName "\1-${{ github.run_number }}"|' ./app/build.gradle
+      
       - name: Build with Gradle
-        run: ./gradlew clean packageDebugUniversalApk
+        run: ./gradlew clean packageDebugUniversalApk --no-daemon --stacktrace
+      
       - name: Rename the APK file
         run: mv ./app/build/outputs/apk_from_bundle/debug/app-debug-universal.apk ./${{ env.APP_NAME }}.apk
+      
       - name: Store generated APK file
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.APP_NAME }}
           path: ./${{ env.APP_NAME }}.apk
+          retention-days: 30
+      
       - name: Upload APK to telegram
         uses: appleboy/telegram-action@master
+        if: github.event_name == 'push'
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           document: ./${{ env.APP_NAME }}.apk
           format: markdown
           message: |
-            *AM Debug ${{ env.APP_VERSION }} Run#${{ github.run_number }}*
+            *🤖 AppManager Debug Build*
 
+            *Version:* ${{ env.APP_VERSION }}
+            *Build:* #${{ github.run_number }}
+            *Branch:* ${{ github.ref_name }}
+            *Commit:* ${{ github.sha }}
+
+            *Changes:*
             ${{ github.event.head_commit.message }}
+
+            [View Build](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
         continue-on-error: true
+      
       - name: Create GitHub Release
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: softprops/action-gh-release@v1
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.APP_VERSION }}-debug-${{ github.run_number }}
           name: ${{ env.APP_NAME }}
           body: |
-            ### Debug Build #${{ github.run_number }}
+            ### 🔧 Debug Build #${{ github.run_number }}
 
-            **Version:** ${{ env.APP_VERSION }}
-            **Commit:** ${{ github.sha }}
+            **Version:** ${{ env.APP_VERSION }}  
+            **Branch:** ${{ github.ref_name }}  
+            **Commit:** ${{ github.sha }}  
+            **Build Date:** ${{ github.event.head_commit.timestamp }}
 
-            #### Changes:
+            #### Latest Changes:
             ${{ github.event.head_commit.message }}
 
             ---
-            🤖 Automatically generated debug build
+            🤖 Automatically generated debug build  
+            ⚠️ For testing purposes only
           files: ./${{ env.APP_NAME }}.apk
           draft: false
           prerelease: true
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: Checkout AMInsecureDebugBuilds

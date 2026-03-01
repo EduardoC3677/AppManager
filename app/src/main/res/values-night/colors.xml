@@ -1,0 +1,6 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<resources>
+    <!-- Filter chips colors (dark mode) -->
+    <color name="filter_chip_background">@color/m3_sys_color_dark_secondary_container</color>
+    <color name="filter_chip_text">@color/m3_sys_color_dark_on_secondary_container</color>
+</resources>

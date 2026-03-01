@@ -38,6 +38,18 @@ android {
             keyPassword 'kJCp!Bda#PBdN2RLK%yMK@hatq&69E'
             keyAlias 'key0'
         }
+        release {
+            // Load signing configuration from keystore.properties if it exists
+            def keystorePropertiesFile = file('keystore.properties')
+            if (keystorePropertiesFile.exists()) {
+                def keystoreProperties = new Properties()
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyPassword keystoreProperties['keyPassword']
+                keyAlias keystoreProperties['keyAlias']
+            }
+        }
     }
 
     buildTypes {
@@ -45,6 +57,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "app_name", "App Manager"
+            // Use release signing config if available
+            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix '.debug'
@@ -193,6 +207,9 @@ dependencies {
     implementation "io.github.Rosemoe.sora-editor:editor:${sora_editor_version}"
     implementation "io.github.Rosemoe.sora-editor:language-textmate:${sora_editor_version}"
     implementation "com.github.MuntashirAkon:time-duration-picker:${duration_picker}"
+    
+    // Paging 3 (for large app lists)
+    implementation "androidx.paging:paging-runtime-ktx:3.2.1"
 
     // Utility
     implementation "com.google.code.gson:gson:${gson_version}"

@@ -2,4 +2,8 @@
 <resources>
     <color name="fm_icon_background">@color/m3_sys_color_light_on_surface_variant</color>
     <color name="fm_symbolic_link">#f37785</color>
+    
+    <!-- Filter chips colors -->
+    <color name="filter_chip_background">@color/m3_sys_color_light_secondary_container</color>
+    <color name="filter_chip_text">@color/m3_sys_color_light_on_secondary_container</color>
 </resources>

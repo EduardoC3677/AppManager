@@ -7,12 +7,15 @@ build/
 app/preRelease/
 app/release/
 app/debug/
+app/keystore/
+app/keystore.properties
 app/libs/am-common.jar
 toybox/src/main/jniLibs
 app/src/main/assets/am.jar
 app/src/main/assets/main.jar
 pids
 logs
+logs/
 node_modules
 npm-debug.log
 coverage/
@@ -25,5 +28,7 @@ basement_dist
 *.apk
 *.iml
 *.jks
+*.keystore
+*.bks
 *~
 scripts/KeyStore.sh

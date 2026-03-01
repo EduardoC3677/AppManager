@@ -1,0 +1,227 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version name (e.g., 4.0.5)'
+        required: true
+        type: string
+      create_release:
+        description: 'Create GitHub Release'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+      
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 9.0
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+      
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      
+      - name: Get version from tag or input
+        id: version
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=${{ github.event.inputs.version }}
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+      
+      - name: Update version in build.gradle
+        run: |
+          sed -i -e "s|versionName \"[0-9\.]\+\"|versionName \"${{ steps.version.outputs.VERSION }}\"|" ./app/build.gradle
+      
+      - name: Create keystore directory
+        run: mkdir -p app/keystore
+      
+      - name: Create Keystore
+        if: ${{ secrets.RELEASE_KEYSTORE_B64 != '' }}
+        env:
+          KEYSTORE_B64: ${{ secrets.RELEASE_KEYSTORE_B64 }}
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > app/keystore/release.keystore
+          ls -la app/keystore/
+      
+      - name: Create keystore.properties
+        if: ${{ secrets.RELEASE_KEYSTORE_B64 != '' }}
+        run: |
+          cat > app/keystore.properties << EOF
+          storePassword=${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          keyPassword=${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEYSTORE_KEY_ALIAS }}
+          storeFile=../keystore/release.keystore
+          EOF
+          cat app/keystore.properties
+      
+      - name: Build Release APKs
+        run: |
+          if [ -f "app/keystore/release.keystore" ]; then
+            echo "Building signed release APKs..."
+            ./gradlew clean assembleRelease assembleDebug --no-daemon --stacktrace
+          else
+            echo "No keystore found, building unsigned debug APK..."
+            ./gradlew clean assembleDebug --no-daemon --stacktrace
+          fi
+      
+      - name: Build Universal APK (Debug)
+        run: ./gradlew packageDebugUniversalApk --no-daemon
+      
+      - name: List build outputs
+        run: |
+          echo "=== Debug APK ==="
+          find app/build/outputs -name "*.apk" -type f
+          echo "=== Release APK (if exists) ==="
+          find app/build/outputs -name "*release*.apk" -type f 2>/dev/null || echo "No release APK found"
+      
+      - name: Prepare artifacts
+        run: |
+          mkdir -p artifacts
+          # Copy debug universal APK
+          if [ -f "app/build/outputs/apk_from_bundle/debug/app-debug-universal.apk" ]; then
+            cp app/build/outputs/apk_from_bundle/debug/app-debug-universal.apk artifacts/AppManager_${{ steps.version.outputs.VERSION }}-debug-universal.apk
+          fi
+          # Copy debug APKs
+          if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
+            cp app/build/outputs/apk/debug/app-debug.apk artifacts/AppManager_${{ steps.version.outputs.VERSION }}-debug.apk
+          fi
+          # Copy release APKs if they exist
+          for apk in app/build/outputs/apk/release/*.apk; do
+            if [ -f "$apk" ]; then
+              cp "$apk" artifacts/
+            fi
+          done
+          # Copy mapping files if they exist
+          if [ -f "app/build/outputs/mapping/release/mapping.txt" ]; then
+            cp app/build/outputs/mapping/release/mapping.txt artifacts/mapping.txt
+          fi
+          ls -la artifacts/
+      
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: AppManager-${{ steps.version.outputs.VERSION }}-artifacts
+          path: artifacts/*.apk
+          retention-days: 90
+      
+      - name: Upload mapping file
+        if: ${{ hashFiles('artifacts/mapping.txt') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapping-file
+          path: artifacts/mapping.txt
+          retention-days: 90
+      
+      - name: Generate checksums
+        run: |
+          cd artifacts
+          sha256sum *.apk > SHA256SUMS.txt 2>/dev/null || echo "No APKs to checksum"
+          cat SHA256SUMS.txt
+      
+      - name: Create GitHub Release
+        if: ${{ github.event.inputs.create_release == 'true' || github.event_name == 'push' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: AppManager v${{ steps.version.outputs.VERSION }}
+          body: |
+            ## 📱 AppManager v${{ steps.version.outputs.VERSION }}
+            
+            ### ✨ New Features
+            - **Smart Launcher Import**: Import your Smart Launcher backup to automatically create app organization profiles
+            - **Quick Filter Chips**: One-tap filtering for common app categories (User/System, Frozen, Running, etc.)
+            - **Paging 3 Support**: Infrastructure added for better performance with large app lists
+            
+            ### 🔧 Improvements
+            - Enhanced app list filtering with visual filter chips
+            - Better organization options for apps with 1000+ installations
+            - Improved backup import system
+            
+            ### 📋 What's New in This Version
+            $(git log --oneline --no-merges $(git describe --tags --abbrev=0 HEAD^)..HEAD --pretty=format:"- %s" 2>/dev/null || echo "- See CHANGELOG.md for details")
+            
+            ---
+            
+            ### 📥 Installation
+            1. Download the APK that matches your device architecture:
+               - `arm64-v8a` - Most modern Android devices
+               - `armeabi-v7a` - Older 32-bit ARM devices
+               - `x86_64` - Android emulators and some tablets
+               - `x86` - Older emulators
+               - `universal` - All architectures (larger file size)
+            
+            2. Install the APK on your device
+            
+            ### 🔍 Checksums
+            \`\`\`
+            $(cat artifacts/SHA256SUMS.txt 2>/dev/null || echo "Checksums not available")
+            \`\`\`
+            
+            ---
+            **Build:** ${{ github.run_number }}  
+            **Commit:** ${{ github.sha }}  
+            **Date:** ${{ github.event.head_commit.timestamp || github.event.inputs.version }}
+          files: artifacts/*
+          draft: true
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload to F-Droid (via repo)
+        if: ${{ secrets.FDROID_REPO_TOKEN != '' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: artifacts
+          publish_branch: f-droid-repo
+          force_orphan: false
+      
+      - name: Notify Telegram Channel
+        if: ${{ secrets.TELEGRAM_TO != '' && (github.event.inputs.create_release == 'true' || github.event_name == 'push') }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            *🎉 AppManager v${{ steps.version.outputs.VERSION }} Released!*
+            
+            *✨ What's New:*
+            • Smart Launcher backup import
+            • Quick filter chips for app lists
+            • Performance improvements for large app collections
+            
+            *📥 Download:* [GitHub Releases](https://github.com/${{ github.repository }}/releases/tag/v${{ steps.version.outputs.VERSION }})
+            
+            *🔧 Build:* #${{ github.run_number }}
+          document: artifacts/AppManager_${{ steps.version.outputs.VERSION }}-debug-universal.apk
+        continue-on-error: true

@@ -66,8 +66,8 @@ object ArchiveHandler {
 
                     var success = false
 
-                    // Modern Archiving API (Android 14+)
-                    if (mode == MODE_AUTO && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    // Modern Archiving API (Android 15+)
+                    if (mode == MODE_AUTO && Build.VERSION.SDK_INT >= 35) {
                         val packageInstaller = context.packageManager.packageInstaller
                         val intent = Intent(ArchiveResultReceiver.ACTION_ARCHIVE_RESULT).apply {
                             setPackage(context.packageName)
