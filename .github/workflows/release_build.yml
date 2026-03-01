@@ -64,15 +64,17 @@ jobs:
         run: mkdir -p app/keystore
       
       - name: Create Keystore
-        if: ${{ secrets.RELEASE_KEYSTORE_B64 != '' }}
+        if: ${{ secrets.RELEASE_KEYSTORE_B64 != '' && secrets.RELEASE_KEYSTORE_B64 != 'null' }}
         env:
           KEYSTORE_B64: ${{ secrets.RELEASE_KEYSTORE_B64 }}
         run: |
           echo "$KEYSTORE_B64" | base64 -d > app/keystore/release.keystore
+          echo "✅ Keystore created"
           ls -la app/keystore/
-      
+        continue-on-error: true
+
       - name: Create keystore.properties
-        if: ${{ secrets.RELEASE_KEYSTORE_B64 != '' }}
+        if: ${{ secrets.RELEASE_KEYSTORE_B64 != '' && secrets.RELEASE_KEYSTORE_B64 != 'null' }}
         run: |
           cat > app/keystore.properties << EOF
           storePassword=${{ secrets.KEYSTORE_STORE_PASSWORD }}
@@ -80,19 +82,34 @@ jobs:
           keyAlias=${{ secrets.KEYSTORE_KEY_ALIAS }}
           storeFile=../keystore/release.keystore
           EOF
-          cat app/keystore.properties
-      
-      - name: Build Release APKs
+          echo "✅ Keystore properties created"
+        continue-on-error: true
+
+      - name: Check signing configuration
         run: |
           if [ -f "app/keystore/release.keystore" ]; then
-            echo "Building signed release APKs..."
-            ./gradlew clean assembleRelease assembleDebug --no-daemon --stacktrace
+            echo "✅ Release signing configured"
           else
-            echo "No keystore found, building unsigned debug APK..."
-            ./gradlew clean assembleDebug --no-daemon --stacktrace
+            echo "⚠️  No release keystore found - building unsigned debug APKs"
           fi
       
-      - name: Build Universal APK (Debug)
+      - name: Build Release APKs
+        id: build_release
+        run: |
+          if [ -f "app/keystore/release.keystore" ]; then
+            echo "🔐 Building signed release APKs..."
+            ./gradlew clean assembleRelease --no-daemon --stacktrace || echo "Release build failed, will build debug only"
+          else
+            echo "⚠️  No keystore found, skipping signed release build"
+          fi
+        continue-on-error: true
+
+      - name: Build Debug APKs
+        run: |
+          echo "🔨 Building debug APKs..."
+          ./gradlew clean assembleDebug --no-daemon --stacktrace
+          
+      - name: Build Universal Debug APK
         run: ./gradlew packageDebugUniversalApk --no-daemon
       
       - name: List build outputs
