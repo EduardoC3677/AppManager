@@ -202,6 +202,10 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
         mAdapter!!.setHasStableIds(true)
         recyclerView.layoutManager = UIUtils.getGridLayoutAt450Dp(this)
         recyclerView.adapter = mAdapter
+        
+        // Initialize Material You 2026 Expressive Haptics
+        ExpressiveHaptics.initialize(this)
+        
         mMultiSelectionView = findViewById(R.id.selection_view)
         mMultiSelectionView!!.setOnItemSelectedListener(this)
         mMultiSelectionView!!.setOnSelectionModeChangeListener(this)

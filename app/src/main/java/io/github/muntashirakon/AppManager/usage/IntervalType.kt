@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+package io.github.muntashirakon.AppManager.usage
+
+import androidx.annotation.IntDef
+
+@IntDef(IntervalType.INTERVAL_DAILY, IntervalType.INTERVAL_WEEKLY)
+@Retention(AnnotationRetention.SOURCE)
+annotation class IntervalType {
+    companion object {
+        // These numbers are tied to "usage_interval_dropdown_list" array.
+        // DO NOT MODIFY!
+        const val INTERVAL_DAILY = 0
+        const val INTERVAL_WEEKLY = 1
+    }
+}
