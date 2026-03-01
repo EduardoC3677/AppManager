@@ -11,12 +11,18 @@ import org.json.JSONObject
 
 @Parcelize
 data class BatchArchiveOptions(
-    val mode: Int
+    val mode: Int,
+    val archiveOptions: Int = 0,  // Bitmask of ARCHIVE_* flags
+    val includeCacheClean: Boolean = false,
+    val includeDataClean: Boolean = false
 ) : IBatchOpOptions, Parcelable {
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
-        mode = jsonObject.getInt("mode")
+        mode = jsonObject.getInt("mode"),
+        archiveOptions = jsonObject.optInt("archiveOptions", 0),
+        includeCacheClean = jsonObject.optBoolean("includeCacheClean", false),
+        includeDataClean = jsonObject.optBoolean("includeDataClean", false)
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }
@@ -26,6 +32,9 @@ data class BatchArchiveOptions(
         return JSONObject().apply {
             put("tag", TAG)
             put("mode", mode)
+            put("archiveOptions", archiveOptions)
+            put("includeCacheClean", includeCacheClean)
+            put("includeDataClean", includeDataClean)
         }
     }
 
