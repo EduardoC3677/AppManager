@@ -1600,17 +1600,4 @@
     <string name="archive_method_root">Root (Privileged Shell)</string>
     <string name="archive_method_standard">Standard (May prompt system dialog)</string>
     <string name="choose_archive_method">Choose archiving method</string>
-    
-    <!-- Archive Options -->
-    <string name="archive_options">Archive Options</string>
-    <string name="clear_cache_before_archive">Clear cache before archiving</string>
-    <string name="clear_data_before_archive">Clear data before archiving</string>
-    <string name="archive_storage_estimate">📦 Archive %1$d apps • Free up %2$s</string>
-    <string name="archive_warning">⚠️ Archiving will remove apps but keep APK files. Cache and data clearing is permanent.</string>
-    <string name="archive_games">Archive Games</string>
-    <string name="archive_food_apps">Archive Food &amp; Drink Apps</string>
-    <string name="archive_social_apps">Archive Social Media Apps</string>
-    <string name="archive_by_category">Archive by Category</string>
-    <string name="storage_saved">Storage Saved</string>
-    <string name="cache_cleared">Cache Cleared</string>
 </resources>

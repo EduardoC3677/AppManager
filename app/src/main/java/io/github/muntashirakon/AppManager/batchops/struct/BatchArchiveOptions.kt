@@ -9,20 +9,18 @@ import kotlinx.parcelize.Parcelize
 import org.json.JSONException
 import org.json.JSONObject
 
+/**
+ * Archive options - simple and focused on archiving only
+ * Cache and data cleaning are separate operations
+ */
 @Parcelize
 data class BatchArchiveOptions(
-    val mode: Int,
-    val archiveOptions: Int = 0,  // Bitmask of ARCHIVE_* flags
-    val includeCacheClean: Boolean = false,
-    val includeDataClean: Boolean = false
+    val mode: Int
 ) : IBatchOpOptions, Parcelable {
 
     @Throws(JSONException::class)
     constructor(jsonObject: JSONObject) : this(
-        mode = jsonObject.getInt("mode"),
-        archiveOptions = jsonObject.optInt("archiveOptions", 0),
-        includeCacheClean = jsonObject.optBoolean("includeCacheClean", false),
-        includeDataClean = jsonObject.optBoolean("includeDataClean", false)
+        mode = jsonObject.getInt("mode")
     ) {
         require(jsonObject.getString("tag") == TAG) { "Invalid tag" }
     }
@@ -32,9 +30,6 @@ data class BatchArchiveOptions(
         return JSONObject().apply {
             put("tag", TAG)
             put("mode", mode)
-            put("archiveOptions", archiveOptions)
-            put("includeCacheClean", includeCacheClean)
-            put("includeDataClean", includeDataClean)
         }
     }
 

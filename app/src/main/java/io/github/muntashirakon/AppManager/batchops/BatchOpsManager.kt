@@ -62,20 +62,6 @@ class BatchOpsManager(private val mLogger: Logger?, private val mProgressHandler
         @Retention(AnnotationRetention.SOURCE)
         annotation class OpType
 
-        @IntDef(
-            ARCHIVE_OPTION_NONE,
-            ARCHIVE_WITH_CACHE_CLEAN,
-            ARCHIVE_WITH_DATA_CLEAN,
-            ARCHIVE_ESTIMATE_ONLY
-        )
-        @Retention(AnnotationRetention.SOURCE)
-        annotation class ArchiveOptions
-        
-        const val ARCHIVE_OPTION_NONE = 0
-        const val ARCHIVE_WITH_CACHE_CLEAN = 1 shl 0
-        const val ARCHIVE_WITH_DATA_CLEAN = 1 shl 1
-        const val ARCHIVE_ESTIMATE_ONLY = 1 shl 2
-
         const val OP_NONE = -1
         const val OP_BACKUP_APK = 0
         const val OP_BACKUP = 1
@@ -170,10 +156,7 @@ class BatchOpsManager(private val mLogger: Logger?, private val mProgressHandler
             OP_UNBLOCK_TRACKERS -> opUnblockTrackers(info)
             OP_UNINSTALL -> opUninstall(info)
             OP_DEXOPT -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) opPerformDexOpt(info) else Result(info.pairList, false)
-            OP_ARCHIVE -> {
-                val options = (info.options as? BatchArchiveOptions)?.archiveOptions ?: ARCHIVE_OPTION_NONE
-                ArchiveHandler.opArchiveWithOptions(info, mProgressHandler, mLogger, ArchiveHandler.MODE_AUTO, options)
-            }
+            OP_ARCHIVE -> ArchiveHandler.opArchive(info, mProgressHandler, mLogger, ArchiveHandler.MODE_AUTO)
             else -> Result(info.pairList, false)
         }
     }
