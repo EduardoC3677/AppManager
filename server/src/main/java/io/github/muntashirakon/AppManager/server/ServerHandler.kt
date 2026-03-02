@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
+import android.os.Parcel
 import android.os.Parcelable
 import io.github.muntashirakon.AppManager.server.common.*
 import java.io.Closeable
@@ -113,7 +114,7 @@ class ServerHandler(
                     BaseCaller.TYPE_SHELL -> {
                         val shellCaller = ParcelableUtil.unmarshall(baseCaller.rawBytes, ShellCaller.CREATOR)
                         val shell = Shell.getShell("")
-                        val shellResult = shell.exec(shellCaller?.command)
+                        val shellResult = shell.exec(shellCaller?.getCommand())
                         result = CallerResult()
                         val parcel = Parcel.obtain()
                         try {

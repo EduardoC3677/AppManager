@@ -14,7 +14,7 @@ import static io.github.muntashirakon.AppManager.server.common.ConfigParams.PARA
 import static io.github.muntashirakon.AppManager.server.common.ConfigParams.PARAM_UID;
 
 // Copyright 2017 Zheng Li
-final class LifecycleAgent {
+public final class LifecycleAgent {
     static final ServerInfo sServerInfo = new ServerInfo();
 
     @NonNull

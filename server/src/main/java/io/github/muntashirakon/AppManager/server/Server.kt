@@ -76,8 +76,8 @@ class Server : Closeable {
                 mServer.accept()
                 // Prepare input and output streams for data interchange
                 mDataTransmission = DataTransmission(
-                    mServer.outputStream,
-                    mServer.inputStream,
+                    mServer.getOutputStream(),
+                    mServer.getInputStream(),
                     mOnReceiveCallback
                 )
                 // Handshake: check if tokens matched
@@ -144,13 +144,15 @@ class Server : Closeable {
         private val mServerSocket: LocalServerSocket = LocalServerSocket(name)
         private var mLocalSocket: LocalSocket? = null
 
-        @get:Throws(IOException::class)
-        override val inputStream: InputStream
-            get() = mLocalSocket!!.inputStream
+        @Throws(IOException::class)
+        override fun getInputStream(): InputStream {
+            return mLocalSocket!!.inputStream
+        }
 
-        @get:Throws(IOException::class)
-        override val outputStream: OutputStream
-            get() = mLocalSocket!!.outputStream
+        @Throws(IOException::class)
+        override fun getOutputStream(): OutputStream {
+            return mLocalSocket!!.outputStream
+        }
 
         @Throws(IOException::class)
         override fun accept() {
@@ -168,13 +170,15 @@ class Server : Closeable {
         private val mServerSocket: ServerSocket = ServerSocket(port)
         private var mSocket: Socket? = null
 
-        @get:Throws(IOException::class)
-        override val inputStream: InputStream
-            get() = mSocket!!.getInputStream()
+        @Throws(IOException::class)
+        override fun getInputStream(): InputStream {
+            return mSocket!!.getInputStream()
+        }
 
-        @get:Throws(IOException::class)
-        override val outputStream: OutputStream
-            get() = mSocket!!.outputStream
+        @Throws(IOException::class)
+        override fun getOutputStream(): OutputStream {
+            return mSocket!!.outputStream
+        }
 
         @Throws(IOException::class)
         override fun accept() {
