@@ -31,14 +31,6 @@ class DataTransmission @JvmOverloads constructor(
     }
 
     /**
-     * Create a new asynchronous data transfer object
-     *
-     * @param outputStream Stream where new messages will be written
-     * @param inputStream  Stream where new messages will be read from
-     */
-    constructor(outputStream: OutputStream, inputStream: InputStream) : this(outputStream, inputStream, null, true)
-
-    /**
      * Create a new data transfer object
      *
      * @param outputStream Stream where new messages will be written
