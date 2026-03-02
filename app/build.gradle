@@ -34,8 +34,9 @@ android {
     signingConfigs {
         debug {
             storeFile file('dev_keystore.jks')
-            storePassword 'kJCp!Bda#PBdN2RLK%yMK@hatq&69E'
-            keyPassword 'kJCp!Bda#PBdN2RLK%yMK@hatq&69E'
+            // Use environment variables for credentials (set in CI/CD or local environment)
+            storePassword System.getenv('DEBUG_STORE_PASSWORD') ?: ''
+            keyPassword System.getenv('DEBUG_KEY_PASSWORD') ?: ''
             keyAlias 'key0'
         }
         release {
@@ -215,16 +216,24 @@ dependencies {
     implementation "com.google.code.gson:gson:${gson_version}"
     implementation "com.github.luben:zstd-jni:${zstd_version}@aar"
 
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+    // LeakCanary for memory leak detection (debug builds only)
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.14"
 
-    // Espresso UI Testing
-//    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
-    // Optional if you need to detect intents.
-//    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
-
-    // Unit Testing
+    // Unit Testing - Kotlin support
     testImplementation "junit:junit:${junit_version}"
     testImplementation "org.robolectric:robolectric:${robolectric_version}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${kotlinx_coroutines_version}"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "io.mockk:mockk:1.13.9"
+    
+    // Android Instrumented Tests
+    androidTestImplementation "androidx.test:core:1.5.0"
+    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation "androidx.test:rules:1.5.0"
+    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.5.1"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${kotlinx_coroutines_version}"
 
     // Shizuku
     def shizuku_version = "13.1.5"

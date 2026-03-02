@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.Button
 import androidx.activity.OnBackPressedCallback
@@ -62,7 +63,20 @@ class HelpActivity : BaseActivity(), SearchView.OnQueryTextListener {
         AppearanceUtils.applyOnlyLocale(this)
         mWebView.webViewClient = WebViewClientImpl()
         mWebView.setNetworkAvailable(false)
-        mWebView.settings.allowContentAccess = false
+        
+        // Security hardening for WebView
+        mWebView.settings.apply {
+            javaScriptEnabled = false  // Explicitly disable JavaScript
+            allowFileAccess = false    // Explicitly disable file access
+            allowContentAccess = false // Disable content provider access
+            allowUniversalAccessFromFileURLs = false // Prevent file:// URL attacks
+            setGeolocationEnabled(false) // Disable geolocation
+            databaseEnabled = false    // Disable database access
+            domStorageEnabled = false  // Disable DOM storage
+            cacheMode = WebSettings.LOAD_NO_CACHE // Don't cache content
+            mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW // Block mixed content
+        }
+        
         mWebView.loadUrl("file:///android_res/raw/index.html")
         mSearchContainer = findViewById(R.id.search_container)
         val nextButton: Button = findViewById(R.id.next_button)

@@ -1,0 +1,27 @@
+---
+name: 🔴 CRITICAL Security Fix
+about: Critical security improvements for AppManager
+title: '[SECURITY] '
+labels: ['security', 'critical', 'bug']
+assignees: ''
+---
+
+## Security Issue Summary
+
+<!-- Describe the security issue -->
+
+## Impact
+
+<!-- What could happen if this is exploited -->
+
+## Reproduction Steps
+
+<!-- How to reproduce the issue -->
+
+## Proposed Fix
+
+<!-- Describe the proposed fix -->
+
+## References
+
+<!-- Any relevant security advisories or documentation -->

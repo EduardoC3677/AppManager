@@ -9,6 +9,7 @@ app/release/
 app/debug/
 app/keystore/
 app/keystore.properties
+.env
 app/libs/am-common.jar
 toybox/src/main/jniLibs
 app/src/main/assets/am.jar
