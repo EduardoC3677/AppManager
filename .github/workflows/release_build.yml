@@ -60,14 +60,27 @@ jobs:
         id: build_apk
         run: |
           echo "🔨 Building debug APKs..."
-          ./gradlew clean assembleDebug --no-daemon --stacktrace
-          echo "build_status=success" >> $GITHUB_OUTPUT
+          if ./gradlew clean assembleDebug --no-daemon --stacktrace; then
+            echo "✅ Build successful"
+            echo "build_status=success" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Build failed"
+            echo "build_status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
 
       - name: Build Universal Debug APK
         id: build_universal
         run: |
-          ./gradlew packageDebugUniversalApk --no-daemon
-          echo "build_status=success" >> $GITHUB_OUTPUT
+          echo "📦 Building universal APK..."
+          if ./gradlew packageDebugUniversalApk --no-daemon; then
+            echo "✅ Universal build successful"
+            echo "build_status=success" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Universal build failed"
+            echo "build_status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
 
       - name: List build outputs
         run: |
