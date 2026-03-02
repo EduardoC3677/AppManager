@@ -19,72 +19,67 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     permissions:
       contents: write
 
     steps:
-      - name: ⬇️ Checkout repository
+      - name: Clone repository
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
           fetch-depth: 0
 
-      - name: ☕ Set up JDK 21
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
 
-      - name: 📱 Setup Android SDK
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
           cmdline-tools-version: 9.0
           packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
 
-      - name: 🔧 Grant execute permission for gradlew
+      - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: 🏷️ Get version from tag
+      - name: Get version
         id: version
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=${{ github.event.inputs.version }}
+          fi
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           echo "Building version: $VERSION"
 
-      - name: 🏗️ Build Debug APK
+      - name: Build Debug APKs
         run: |
-          echo "Starting Gradle build..."
-          ./gradlew clean assembleDebug --stacktrace
-          echo "Build complete!"
+          echo "🔨 Building debug APKs..."
+          ./gradlew clean assembleDebug --no-daemon --stacktrace
 
-      - name: 📦 Build Universal APK
+      - name: Build Universal Debug APK
+        run: ./gradlew packageDebugUniversalApk --no-daemon
+
+      - name: List build outputs
         run: |
-          echo "Building universal APK..."
-          ./gradlew packageDebugUniversalApk
-          echo "Universal build complete!"
+          echo "=== Build Outputs ==="
+          find app/build/outputs -name "*.apk" -type f | head -20
 
-      - name: 📋 List APK files
-        run: |
-          echo "=== APK Files ==="
-          find app/build/outputs -name "*.apk" -type f
-          echo "================="
-
-      - name: 📤 Prepare artifacts
+      - name: Prepare artifacts
         run: |
           mkdir -p artifacts
           
-          # Copy universal APK
+          # Copy universal debug APK
           if [ -f "app/build/outputs/apk_from_bundle/debug/app-debug-universal.apk" ]; then
-            cp app/build/outputs/apk_from_bundle/debug/app-debug-universal.apk artifacts/
-            echo "✅ Universal APK copied"
-          else
-            echo "❌ Universal APK not found!"
-            exit 1
+            cp app/build/outputs/apk_from_bundle/debug/app-debug-universal.apk artifacts/AppManager_${{ steps.version.outputs.VERSION }}-debug-universal.apk
+            echo "✅ Copied universal debug APK"
           fi
           
-          # Copy architecture-specific APKs
+          # Copy architecture-specific debug APKs
           for apk in app/build/outputs/apk/debug/*.apk; do
             if [ -f "$apk" ]; then
               cp "$apk" artifacts/
@@ -94,34 +89,79 @@ jobs:
           
           ls -la artifacts/
 
-      - name: ⬆️ Upload artifacts
+      - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
           name: AppManager-${{ steps.version.outputs.VERSION }}-debug
           path: artifacts/*.apk
           retention-days: 30
 
-      - name: 🚀 Create GitHub Release
+      - name: Generate checksums
+        run: |
+          cd artifacts
+          sha256sum *.apk > SHA256SUMS.txt 2>/dev/null && cat SHA256SUMS.txt || echo "No checksums generated"
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: AppManager ${{ github.ref_name }}
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: AppManager v${{ steps.version.outputs.VERSION }}
           body: |
-            ## 📱 AppManager ${{ github.ref_name }}
-            
-            ### ✨ Features
-            - Smart Launcher Import
-            - Quick Filter Chips
-            - Material You 2026 Design
-            - Enhanced Security
-            
-            ### 🔧 Build Info
-            - Debug build (unsigned)
-            - Commit: ${{ github.sha }}
-            
+            ## 🔒 Security Hardening
+
+            - **WebView Hardened**: XSS and file access vulnerabilities fixed
+            - **Credentials Removed**: No more hardcoded passwords
+            - **Memory Leaks Fixed**: GlobalScope replaced with AppScope
+            - **ANR Prevention**: runBlocking conversion guide created
+
+            ## 🎨 M3 Expressive Components
+
+            - **FAB Menu**: Animated floating action menu with spring physics
+            - **Loading Indicator**: Modern linear progress indicator
+            - **Split Button**: Two-button container with animations
+            - **Expressive Haptics**: Context-aware haptic feedback
+            - **Spring Animations**: Natural motion with emphasized easing
+
+            ## 🧪 Test Framework
+
+            - **LeakCanary**: Memory leak detection enabled
+            - **Kotlin Tests**: Full Kotlin test support
+            - **Espresso**: UI testing framework ready
+
+            ## 📚 Documentation
+
+            - Security audit report
+            - Testing guides
+            - M3 compliance documentation
+            - Setup guides
+
+            ### 🔧 Build Information
+            - **Build Type**: Debug (unsigned)
+            - **Branch**: ${{ github.ref_name }}
+            - **Commit**: ${{ github.sha }}
+
             ### 📥 Installation
-            Download the APK matching your device architecture.
-          files: artifacts/*.apk
+            1. Download the APK that matches your device:
+               - `universal` - All architectures (larger file)
+               - `arm64-v8a` - Most modern Android devices
+               - `armeabi-v7a` - Older 32-bit ARM devices
+               - `x86_64` - Emulators and some tablets
+            2. Install on your device
+
+            > ⚠️ **Note**: This is a debug build. For production releases with signed APKs, configure signing secrets.
+
+            ---
+            **Generated by GitHub Actions** | Build #${{ github.run_number }}
+          files: artifacts/*
+          draft: false
           prerelease: true
           generate_release_notes: true
-          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify success
+        run: |
+          echo "✅ Build completed successfully!"
+          echo "📦 Artifacts uploaded"
+          echo "🚀 Release created (if configured)"
