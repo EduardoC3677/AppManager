@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "mcpServers": {
+    "google-dev-docs": {
+      "command": "npx",
+      "args": ["-y", "@google-devs/mcp-server"],
+      "env": {
+        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}"
+      },
+      "description": "Google Developer Documentation MCP - Access to Android, Material Design, and Firebase docs"
+    },
+    "material-design-3": {
+      "command": "npx",
+      "args": ["-y", "@lobehub/mcp-material-design-3"],
+      "description": "Material Design 3 MCP - Generate MD3 components with tokens and guidelines"
+    }
+  }
+}
