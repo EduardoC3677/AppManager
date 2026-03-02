@@ -1,14 +1,43 @@
-# 📦 App Archiving & Storage Management
+# 📦 App Archiving & Cache Management
 
 ## Overview
 
 AppManager provides **separate, modular operations** for storage management:
 
 1. **App Archiving** - Preserve APKs while removing apps
-2. **Cache Cleaning** - Clear temporary files to free space
+2. **Cache Cleaner** - Standalone feature to clear temporary files
 3. **Data Cleaning** - Clear app data for maximum space savings
 
-Each operation is **independent** and can be used separately or together based on your needs.
+Each operation is **independent** with its own dedicated UI and workflow.
+
+---
+
+## 🧹 Cache Cleaner (NEW!)
+
+### What It Does
+- **Standalone feature** accessible from main menu
+- Shows cache size for each app
+- Displays total cache across all apps
+- One-tap "Clean All" for bulk cleaning
+- Individual clean buttons per app
+- Sorted by cache size (largest first)
+
+### How to Access
+1. Open AppManager
+2. Tap menu (⋮)
+3. Select **"Cache Cleaner"**
+4. View cache usage and clean!
+
+### Use Cases
+- Free up space without removing apps
+- Clean up accumulated temporary files
+- Identify cache-heavy apps
+- Regular maintenance
+
+### Storage Impact
+- **Saves**: Cache size (50-500 MB per app)
+- **Preserves**: App data, APK, and settings
+- **Safe**: Apps rebuild cache as needed
 
 ---
 
