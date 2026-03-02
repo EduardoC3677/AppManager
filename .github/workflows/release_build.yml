@@ -102,11 +102,11 @@ jobs:
           sha256sum *.apk > SHA256SUMS.txt 2>/dev/null && cat SHA256SUMS.txt || echo "No checksums generated"
 
       - name: Create GitHub Release
-        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true')
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.version.outputs.VERSION }}
-          name: AppManager v${{ steps.version.outputs.VERSION }}
+          tag_name: ${{ github.ref_name }}
+          name: AppManager ${{ github.ref_name }}
           body: |
             ## 📱 AppManager v${{ steps.version.outputs.VERSION }}
 
