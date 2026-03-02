@@ -47,9 +47,7 @@ class Shell @Throws(IOException::class) private constructor(cmd: String) {
     private fun writeCommand(command: Command) {
         val out = this.mOut
         command.writeCommand(out)
-        val line = "
-echo $TOKEN ${command.getID()} $?
-"
+        val line = "\necho $TOKEN ${command.getID()} $?\n"
         out.write(line.toByteArray())
         out.flush()
     }
@@ -93,8 +91,7 @@ echo $TOKEN ${command.getID()} $?
 
     fun destroyShell() {
         try {
-            writeCommand(object : Command("exit 33
-") {
+            writeCommand(object : Command("exit 33\n") {
                 override fun onUpdate(id: Int, message: String) {}
                 override fun onFinished(id: Int) {}
             })

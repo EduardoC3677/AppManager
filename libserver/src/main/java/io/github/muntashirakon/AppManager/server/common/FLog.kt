@@ -64,8 +64,7 @@ object FLog {
                 openFile()
                 fos?.let {
                     it.write(log.toByteArray())
-                    it.write("
-".toByteArray())
+                    it.write("\n".toByteArray())
                     if (sBufferSize.incrementAndGet() > 10) {
                         it.fd.sync()
                         it.flush()
