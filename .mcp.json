@@ -3,16 +3,16 @@
   "mcpServers": {
     "google-dev-docs": {
       "command": "npx",
-      "args": ["-y", "@google-devs/mcp-server"],
+      "args": ["-y", "@google/genai"],
       "env": {
-        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}"
+        "GOOGLE_API_KEY": "${GEMINI_API_KEY}"
       },
-      "description": "Google Developer Documentation MCP - Access to Android, Material Design, and Firebase docs"
+      "description": "Google Developer Documentation MCP"
     },
     "material-design-3": {
       "command": "npx",
       "args": ["-y", "@lobehub/mcp-material-design-3"],
-      "description": "Material Design 3 MCP - Generate MD3 components with tokens and guidelines"
+      "description": "Material Design 3 MCP"
     }
   }
 }
