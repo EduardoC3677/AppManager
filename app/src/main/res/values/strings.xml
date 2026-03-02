@@ -1610,4 +1610,13 @@
     <string name="clean_cache">Clean Cache</string>
     <string name="cache_cleared_successfully">Cache cleared! Freed %s</string>
     <string name="app_icon">App icon</string>
+    
+    <!-- FAB Menu -->
+    <string name="open_menu">Open menu</string>
+    <string name="close_menu">Close menu</string>
+    <string name="fab_menu_archive">Archive Apps</string>
+    <string name="fab_menu_clean_cache">Clean Cache</string>
+    <string name="fab_menu_backup">Backup</string>
+    <string name="fab_menu_freeze">Freeze</string>
+    <string name="fab_menu_settings">Settings</string>
 </resources>
