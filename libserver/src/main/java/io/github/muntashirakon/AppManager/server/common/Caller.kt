@@ -48,11 +48,4 @@ abstract class Caller : Parcelable {
     }
 
     abstract fun getType(): Int
-
-    // Property accessors for Java compatibility (if needed)
-    val parameterTypes: Array<Class<*>?>?
-        get() = getParameterTypes()
-
-    val parameters: Array<Any?>?
-        get() = getParameters()
 }

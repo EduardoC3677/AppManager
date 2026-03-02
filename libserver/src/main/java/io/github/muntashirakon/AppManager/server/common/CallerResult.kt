@@ -53,8 +53,4 @@ class CallerResult : Parcelable {
             }
         }
     }
-
-    // Property accessors for Java compatibility (if needed)
-    val replyObj: Any?
-        get() = getReplyObj()
 }
