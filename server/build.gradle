@@ -8,6 +8,7 @@ import java.util.stream.Collectors
 
 plugins {
     id('com.android.library')
+    id('org.jetbrains.kotlin.android')
 }
 
 android {
@@ -48,23 +49,37 @@ android.libraryVariants.configureEach { variant ->
         doLast {
             println("Build type: ${buildType}")
 
+            def getClassFiles = { dirPath, filter ->
+                def dir = new File(dirPath)
+                if (dir.exists() && dir.isDirectory()) {
+                    return Files.list(dir.toPath())
+                            .filter { filter(it.fileName.toString()) }
+                            .map { it.toString() }
+                            .collect(Collectors.toList())
+                }
+                return []
+            }
+
             String rootDir = project.rootDir.absolutePath
             String serverPkg = "io/github/muntashirakon/AppManager/server"
             String intermediatePath = "build/intermediates/javac/${buildType}/compile${buildType.capitalize()}JavaWithJavac/classes"
-            String serverClassDir = "${rootDir}/server/${intermediatePath}/${serverPkg}/"
-            String libserverClassDir = "${rootDir}/libserver/${intermediatePath}/${serverPkg}/common"
+            String kotlinIntermediatePath = "build/tmp/kotlin-classes/${buildType}"
+
+            String serverJavaClassDir = "${rootDir}/server/${intermediatePath}/${serverPkg}/"
+            String serverKotlinClassDir = "${rootDir}/server/${kotlinIntermediatePath}/${serverPkg}/"
+            String libserverJavaClassDir = "${rootDir}/libserver/${intermediatePath}/${serverPkg}/common"
+            String libserverKotlinClassDir = "${rootDir}/libserver/${kotlinIntermediatePath}/${serverPkg}/common"
+
             String androidJar = "${android.sdkDirectory.path}/platforms/android-${target_sdk}/android.jar"
             String amJar = "${rootDir}/app/src/main/assets/am.jar"
             String mainJar = "${rootDir}/app/src/main/assets/main.jar"
 
             println("Creating am.jar...")
             def buildArgs = ['--release', '--output', amJar, '--classpath', androidJar]
-            buildArgs.addAll(Files.list(Paths.get(libserverClassDir)).filter {
-                !it.fileName.toString().startsWith("IRootServiceManager")
-            }.map { it.toString() }.collect(Collectors.toList()))
-            buildArgs.addAll(Files.list(Paths.get(serverClassDir)).filter {
-                !it.fileName.toString().startsWith("RootServiceMain")
-            }.map { it.toString() }.collect(Collectors.toList()))
+            buildArgs.addAll(getClassFiles(libserverJavaClassDir, { !it.startsWith("IRootServiceManager") }))
+            buildArgs.addAll(getClassFiles(libserverKotlinClassDir, { !it.startsWith("IRootServiceManager") }))
+            buildArgs.addAll(getClassFiles(serverJavaClassDir, { !it.startsWith("RootServiceMain") }))
+            buildArgs.addAll(getClassFiles(serverKotlinClassDir, { !it.startsWith("RootServiceMain") }))
             injected.execOps.exec {
                 workingDir = project.rootDir
                 executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
@@ -74,12 +89,10 @@ android.libraryVariants.configureEach { variant ->
 
             println("Creating main.jar...")
             buildArgs = ['--release', '--output', mainJar, '--classpath', androidJar]
-            buildArgs.addAll(Files.list(Paths.get(libserverClassDir)).filter {
-                it.fileName.toString().startsWith("IRootServiceManager") || it.fileName.toString().startsWith("ServerUtils")
-            }.map { it.toString() }.collect(Collectors.toList()))
-            buildArgs.addAll(Files.list(Paths.get(serverClassDir)).filter {
-                it.fileName.toString().startsWith("RootServiceMain")
-            }.map { it.toString() }.collect(Collectors.toList()))
+            buildArgs.addAll(getClassFiles(libserverJavaClassDir, { it.startsWith("IRootServiceManager") || it.startsWith("ServerUtils") }))
+            buildArgs.addAll(getClassFiles(libserverKotlinClassDir, { it.startsWith("IRootServiceManager") || it.startsWith("ServerUtils") }))
+            buildArgs.addAll(getClassFiles(serverJavaClassDir, { it.startsWith("RootServiceMain") }))
+            buildArgs.addAll(getClassFiles(serverKotlinClassDir, { it.startsWith("RootServiceMain") }))
             injected.execOps.exec {
                 workingDir = project.rootDir
                 executable = file("${android.sdkDirectory.path}/build-tools/${android.buildToolsVersion}/d8")
