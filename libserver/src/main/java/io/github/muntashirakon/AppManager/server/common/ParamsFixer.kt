@@ -10,8 +10,8 @@ import java.io.IOException
 object ParamsFixer {
     @JvmStatic
     fun wrap(caller: Caller): Caller {
-        val params = caller.parameters
-        val paramsType = caller.parameterTypes
+        val params = caller.getParameters()
+        val paramsType = caller.getParameterTypes()
         if (paramsType != null && params != null) {
             for (i in params.indices) {
                 params[i] = marshall(paramsType[i], params[i])
@@ -22,8 +22,8 @@ object ParamsFixer {
 
     @JvmStatic
     fun unwrap(caller: Caller): Caller {
-        val params = caller.parameters
-        val paramsType = caller.parameterTypes
+        val params = caller.getParameters()
+        val paramsType = caller.getParameterTypes()
         if (paramsType != null && params != null) {
             for (i in params.indices) {
                 params[i] = unmarshall(paramsType[i], params[i])
