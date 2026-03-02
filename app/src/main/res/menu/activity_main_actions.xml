@@ -26,6 +26,11 @@
         android:title="@string/one_click_ops" />
 
     <item
+        android:id="@+id/action_cache_cleaner"
+        android:icon="@drawable/ic_clean"
+        android:title="@string/cache_cleaner" />
+
+    <item
         android:id="@+id/action_finder"
         android:icon="@drawable/ic_search"
         android:title="@string/finder_title" />

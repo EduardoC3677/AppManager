@@ -1600,4 +1600,14 @@
     <string name="archive_method_root">Root (Privileged Shell)</string>
     <string name="archive_method_standard">Standard (May prompt system dialog)</string>
     <string name="choose_archive_method">Choose archiving method</string>
+    
+    <!-- Cache Cleaner -->
+    <string name="cache_cleaner">Cache Cleaner</string>
+    <string name="cache_cleaner_description">Clear temporary files to free up storage space</string>
+    <string name="total_cache_size">📊 Total Cache: %s</string>
+    <string name="clean_all_cache">Clean All Cache</string>
+    <string name="clean_all_cache_message">Clear cache for all apps? This will free up %s of storage space.</string>
+    <string name="clean_cache">Clean Cache</string>
+    <string name="cache_cleared_successfully">Cache cleared! Freed %s</string>
+    <string name="app_icon">App icon</string>
 </resources>

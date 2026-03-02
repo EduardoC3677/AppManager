@@ -46,6 +46,7 @@ import io.github.muntashirakon.AppManager.changelog.ChangelogParser
 import io.github.muntashirakon.AppManager.changelog.ChangelogRecyclerAdapter
 import io.github.muntashirakon.AppManager.compat.NetworkPolicyManagerCompat
 import io.github.muntashirakon.AppManager.debloat.DebloaterActivity
+import io.github.muntashirakon.AppManager.cache.CacheCleanerActivity
 import io.github.muntashirakon.AppManager.filters.FinderActivity
 import io.github.muntashirakon.AppManager.misc.AdvancedSearchView
 import io.github.muntashirakon.AppManager.misc.HelpActivity
@@ -317,6 +318,9 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
         } else if (id == R.id.action_one_click_ops) {
             val onClickOpsIntent = Intent(this, OneClickOpsActivity::class.java)
             startActivity(onClickOpsIntent)
+        } else if (id == R.id.action_cache_cleaner) {
+            val cacheCleanerIntent = Intent(this, CacheCleanerActivity::class.java)
+            startActivity(cacheCleanerIntent)
         } else if (id == R.id.action_finder) {
             val intent = Intent(this, FinderActivity::class.java)
             startActivity(intent)
