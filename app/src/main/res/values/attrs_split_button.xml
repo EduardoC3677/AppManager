@@ -1,0 +1,28 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Split Button Custom Attributes -->
+<resources>
+    <declare-styleable name="SplitButton">
+        <!-- Leading button text -->
+        <attr name="leadingText" format="string" />
+        <!-- Leading button icon -->
+        <attr name="leadingIcon" format="reference" />
+        <!-- Trailing button icon (default: chevron down) -->
+        <attr name="trailingIcon" format="reference" />
+        <!-- Split button style -->
+        <attr name="splitButtonStyle" format="enum">
+            <enum name="filled" value="0" />
+            <enum name="tonal" value="1" />
+            <enum name="outlined" value="2" />
+            <enum name="elevated" value="3" />
+            <enum name="text" value="4" />
+        </attr>
+        <!-- Split button size -->
+        <attr name="splitButtonSize" format="enum">
+            <enum name="small" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="large" value="2" />
+            <enum name="extra_large" value="3" />
+            <enum name="standard" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>

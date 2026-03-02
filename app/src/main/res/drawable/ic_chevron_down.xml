@@ -1,0 +1,8 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Animated Chevron Down for Split Button -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_chevron_down">
+    <target
+        android:name="chevron"
+        android:animation="@animator/chevron_rotate" />
+</animated-vector>

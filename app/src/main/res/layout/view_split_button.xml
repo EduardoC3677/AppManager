@@ -1,0 +1,26 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Material 3 Expressive Split Button Layout -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Leading Button (with icon and/or label) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/leading_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/archive"
+        app:icon="@drawable/ic_archive"
+        app:iconGravity="start"
+        app:cornerRadius="20dp" />
+
+    <!-- Trailing Button (with animated chevron) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trailing_button"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_chevron_down"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:cornerRadius="20dp" />
+
+</merge>
