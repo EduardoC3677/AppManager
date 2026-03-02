@@ -23,14 +23,9 @@ object FLog {
             if (writeLog && fos == null && sErrorCount.get() < 5) {
                 val file = File("/data/local/tmp/am.txt")
                 fos = FileOutputStream(file)
-                fos?.write("
-
-
---------------------".toByteArray())
+                fos?.write("\n\n\n--------------------\n".toByteArray())
                 fos?.write(Date().toString().toByteArray())
-                fos?.write("
-
-".toByteArray())
+                fos?.write("\n\n".toByteArray())
                 chown(file.absolutePath, 2000, 2000)
                 chmod(file.absolutePath, 493) // 0755 in octal is 493 in decimal
             }

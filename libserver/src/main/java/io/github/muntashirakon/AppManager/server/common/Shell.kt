@@ -157,8 +157,7 @@ echo $TOKEN ${command.getID()} $?
         try {
             result.statusCode = add(object : Command(cmd) {
                 override fun onUpdate(id: Int, message: String) {
-                    outLine.append(message).append('
-')
+                    outLine.append(message).append('\n')
                 }
 
                 override fun onFinished(id: Int) {}
@@ -171,8 +170,7 @@ echo $TOKEN ${command.getID()} $?
                 outLine.setLength(0)
                 result.statusCode = add(object : Command(cmd) {
                     override fun onUpdate(id: Int, message: String) {
-                        outLine.append(message).append('
-')
+                        outLine.append(message).append('\n')
                     }
 
                     override fun onFinished(id: Int) {}
@@ -254,8 +252,7 @@ echo $TOKEN ${command.getID()} $?
                 val sb = StringBuilder()
                 for (s in mCommands) {
                     sb.append(s)
-                    sb.append('
-')
+                    sb.append('\n')
                 }
                 return sb.toString()
             }
