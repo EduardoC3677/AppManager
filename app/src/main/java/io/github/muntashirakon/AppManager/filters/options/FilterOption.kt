@@ -144,11 +144,11 @@ abstract class FilterOption(val type: String) : LocalizedString, Parcelable {
 
     override fun toString(): String {
         return "FilterOption{" +
-                "type='" + type + ''' +
+                "type='" + type + '\'' +
                 ", id=" + id +
-                ", key='" + key + ''' +
+                ", key='" + key + '\'' +
                 ", keyType=" + keyType +
-                ", value='" + value + ''' +
+                ", value='" + value + '\'' +
                 '}'
     }
 

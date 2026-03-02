@@ -115,13 +115,12 @@ class ServerHandler(
                         val shell = Shell.getShell("")
                         val shellResult = shell.exec(shellCaller?.command)
                         result = CallerResult()
-                        Parcel.obtain().use { parcel ->
-                            try {
-                                parcel.writeValue(shellResult)
-                                result?.reply = parcel.marshall()
-                            } finally {
-                                // Parcel is recycled automatically by use
-                            }
+                        val parcel = Parcel.obtain()
+                        try {
+                            parcel.writeValue(shellResult)
+                            result.reply = parcel.marshall()
+                        } finally {
+                            parcel.recycle()
                         }
                     }
                     else -> {

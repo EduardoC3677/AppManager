@@ -61,8 +61,8 @@ class ServerInfo : Parcelable {
 
     override fun toString(): String {
         return "ServerInfo{" +
-                "protocolVersion='" + protocolVersion + ''' +
-                ", startArgs='" + startArgs + ''' +
+                "protocolVersion='" + protocolVersion + '\'' +
+                ", startArgs='" + startArgs + '\'' +
                 ", startTime=" + startTime +
                 ", startRealTime=" + startRealTime +
                 ", rxBytes=" + rxBytes +

@@ -7,31 +7,15 @@ import android.os.Parcelable
 
 // Copyright 2017 Zheng Li
 class CallerResult : Parcelable {
-    private var mReply: ByteArray? = null
-    private var mThrowable: Throwable? = null
+    var reply: ByteArray? = null
+    var throwable: Throwable? = null
     private var mReplyObj: Any? = null
 
-    fun getReply(): ByteArray? {
-        return mReply
-    }
-
-    fun getThrowable(): Throwable? {
-        return mThrowable
-    }
-
     fun getReplyObj(): Any? {
-        if (mReplyObj == null && mReply != null) {
-            mReplyObj = ParcelableUtil.readValue(mReply)
+        if (mReplyObj == null && reply != null) {
+            mReplyObj = ParcelableUtil.readValue(reply)
         }
         return mReplyObj
-    }
-
-    fun setReply(reply: ByteArray?) {
-        this.mReply = reply
-    }
-
-    fun setThrowable(throwable: Throwable?) {
-        this.mThrowable = throwable
     }
 
     override fun describeContents(): Int {
@@ -39,21 +23,21 @@ class CallerResult : Parcelable {
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeByteArray(this.mReply)
-        dest.writeSerializable(this.mThrowable)
+        dest.writeByteArray(this.reply)
+        dest.writeSerializable(this.throwable)
     }
 
     constructor()
 
     protected constructor(`in`: Parcel) {
-        this.mReply = `in`.createByteArray()
-        this.mThrowable = `in`.readSerializable() as Throwable?
+        this.reply = `in`.createByteArray()
+        this.throwable = `in`.readSerializable() as Throwable?
     }
 
     override fun toString(): String {
         return "CallerResult{" +
                 "reply=" + getReplyObj() +
-                ", throwable=" + mThrowable +
+                ", throwable=" + throwable +
                 '}'
     }
 
@@ -71,12 +55,6 @@ class CallerResult : Parcelable {
     }
 
     // Property accessors for Java compatibility (if needed)
-    val reply: ByteArray?
-        get() = getReply()
-
-    val throwable: Throwable?
-        get() = getThrowable()
-
     val replyObj: Any?
         get() = getReplyObj()
 }

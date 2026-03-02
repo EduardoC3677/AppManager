@@ -54,7 +54,7 @@ class AppOpsManagerCompat {
 
         override fun toString(): String {
             return "PackageOps{" +
-                    "mPackageName='" + mPackageName + ''' +
+                    "mPackageName='" + mPackageName + '\'' +
                     ", mUid=" + mUid +
                     ", mEntries=" + mEntries +
                     '}'

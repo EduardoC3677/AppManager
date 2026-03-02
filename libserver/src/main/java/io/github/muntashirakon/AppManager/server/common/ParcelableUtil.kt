@@ -26,7 +26,11 @@ object ParcelableUtil {
             return null
         }
         val parcel = unmarshall(bytes)
-        return creator.createFromParcel(parcel)
+        return try {
+            creator.createFromParcel(parcel)
+        } finally {
+            parcel?.recycle()
+        }
     }
 
     @JvmStatic

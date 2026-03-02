@@ -38,7 +38,7 @@ import io.github.muntashirakon.AppManager.server.common.ServerUtils.getServiceNa
  * path without changing them there.
  */
 // Copyright 2020 John "topjohnwu" Wu
-class RootServiceMain : ContextWrapper, Callable<Array<Any?>> {
+class RootServiceMain(private val args: Array<String>) : ContextWrapper(null), Callable<Array<Any?>> {
     private val uid: Int
     private val isDaemon: Boolean
 
@@ -62,32 +62,33 @@ class RootServiceMain : ContextWrapper, Callable<Array<Any?>> {
         val action = args[2]
 
         var stop = false
+        var daemon = false
         when (action) {
             CMDLINE_STOP_SERVICE -> {
                 stop = true
-                // fallthrough
             }
-            CMDLINE_START_DAEMON -> isDaemon = true
-            CMDLINE_START_SERVICE -> isDaemon = false
+            CMDLINE_START_DAEMON -> daemon = true
+            CMDLINE_START_SERVICE -> daemon = false
             else -> throw IllegalArgumentException("Unknown action: $action")
         }
+        isDaemon = daemon
 
-        if (isDaemon) daemon@{
+        if (isDaemon) {
             // Get existing daemon process
             val binder = getServiceMethod.invoke(null, getServiceName(name.packageName))
             val rootServiceManager = IRootServiceManager.Stub.asInterface(binder as IBinder?)
-            if (rootServiceManager == null) return@daemon@daemon
-
-            if (stop) {
-                rootServiceManager.stop(name, uid)
-            } else {
-                rootServiceManager.broadcast(uid)
-                // Terminate process if broadcast went through without exception
-                System.exit(0)
+            if (rootServiceManager != null) {
+                if (stop) {
+                    rootServiceManager.stop(name, uid)
+                } else {
+                    rootServiceManager.broadcast(uid)
+                    // Terminate process if broadcast went through without exception
+                    System.exit(0)
+                }
             }
-        } finally {
-            if (stop) System.exit(0)
         }
+        
+        if (stop) System.exit(0)
 
         // Calling createPackageContext crashes on LG ROM
         // Override the system resources object to prevent crashing

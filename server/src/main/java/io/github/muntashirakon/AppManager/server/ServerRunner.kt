@@ -10,11 +10,10 @@ import androidx.annotation.NonNull
 import io.github.muntashirakon.AppManager.server.common.ConfigParams
 import io.github.muntashirakon.AppManager.server.common.Constants
 import io.github.muntashirakon.AppManager.server.common.FLog
+import io.github.muntashirakon.AppManager.server.common.ConfigParams.Companion.PARAM_UID
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
-
-import static io.github.muntashirakon.AppManager.server.common.ConfigParams.PARAM_UID
 
 /**
  * ServerRunner runs the server based on the parameters given. It takes two arguments:
@@ -79,7 +78,7 @@ object ServerRunner {
             }
             // Start server
             val thread = Thread({
-                ServerRunner().runServer(configParams)
+                runServer(configParams)
                 // Exit current thread, regardless of whether the server started or not
                 FLog.close()
                 killSelfProcess()
