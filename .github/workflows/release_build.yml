@@ -105,8 +105,10 @@ jobs:
           - Kotlin test support
           
           ⚠️ Debug build - needs testing!
-        files: artifacts/*.apk
+        files: |
+          artifacts/*.apk
         prerelease: true
-        generate_release_notes: true
+        generate_release_notes: false
+        fail_on_unmatched_files: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
