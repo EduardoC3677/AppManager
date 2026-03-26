@@ -32,3 +32,4 @@ dependencies {
     api "me.zhanghai.android.fastscroll:library:${fastscroll_version}"
     api "com.leinardi.android:speed-dial:${speed_dial_version}"
 }
+dependencies { implementation project(":libcore:io") }
