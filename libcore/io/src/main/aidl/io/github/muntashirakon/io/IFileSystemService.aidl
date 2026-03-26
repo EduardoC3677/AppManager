@@ -5,6 +5,8 @@ package io.github.muntashirakon.io;
 import aosp.android.content.pm.StringParceledListSlice;
 import io.github.muntashirakon.io.IOResult;
 
+parcelable IOResult;
+
 // Copyright 2022 John "topjohnwu" Wu
 // Copyright 2022 Muntashir Al-Islam
 interface IFileSystemService {
