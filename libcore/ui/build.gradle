@@ -32,6 +32,5 @@ dependencies {
     api "androidx.preference:preference:${preferences_version}"
     api "me.zhanghai.android.fastscroll:library:${fastscroll_version}"
     api "com.leinardi.android:speed-dial:${speed_dial_version}"
+    implementation project(":libcore:io")
 }
-dependencies { implementation project(":libcore:io") }
-    implementation project(":libcore:common")
