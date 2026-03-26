@@ -34,4 +34,4 @@ dependencies {
     api "androidx.documentfile:documentfile:${documentfile_version}"
 
     implementation "androidx.annotation:annotation:${annotation_version}"
-}
+}tasks.named("compileReleaseAidl") { dependsOn("compileReleaseJavaWithJavac") }
