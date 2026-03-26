@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation project(":libcore:common")
     api "androidx.annotation:annotation:${annotation_version}"
     api "androidx.appcompat:appcompat:${appcompat_version}"
     api "com.google.android.material:material:${material_version}"
@@ -33,3 +34,4 @@ dependencies {
     api "com.leinardi.android:speed-dial:${speed_dial_version}"
 }
 dependencies { implementation project(":libcore:io") }
+    implementation project(":libcore:common")

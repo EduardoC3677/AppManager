@@ -1,0 +1,11 @@
+plugins { id('com.android.library') }
+android {
+    namespace 'io.github.muntashirakon.common'
+    compileSdk compile_sdk
+    buildToolsVersion = build_tools
+    defaultConfig { minSdk min_sdk; targetSdk target_sdk }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+}
+dependencies {
+    api "androidx.annotation:annotation:${annotation_version}"
+}

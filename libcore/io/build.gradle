@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation project(":libcore:common")
     compileOnly project(path: ':hiddenapi')
 
     implementation project(path: ':libcore:compat')
