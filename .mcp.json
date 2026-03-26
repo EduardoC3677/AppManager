@@ -1,18 +1,13 @@
 {
-  "$schema": "https://json.schemastore.org/mcp.json",
   "mcpServers": {
-    "google-dev-docs": {
+    "project-files": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@google/genai"],
-      "env": {
-        "GOOGLE_API_KEY": "${GEMINI_API_KEY}"
-      },
-      "description": "Google Developer Documentation MCP"
-    },
-    "material-design-3": {
-      "command": "npx",
-      "args": ["-y", "@lobehub/mcp-material-design-3"],
-      "description": "Material Design 3 MCP"
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/data/data/com.termux/files/home/AppManager"
+      ]
     }
   }
 }
