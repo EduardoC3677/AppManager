@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 plugins {
     id('com.android.library')
@@ -26,10 +26,6 @@ android {
                                  "$projectDir/build/generated/source/aidl/release")
         }
     }
-    // Add this task configuration for AIDL compilation dependency
-    tasks.named("compileReleaseAidl") {
-        dependsOn("compileReleaseJavaWithJavac")
-    }
 }
 
 dependencies {
@@ -41,4 +37,14 @@ dependencies {
     api "androidx.documentfile:documentfile:${documentfile_version}"
 
     implementation "androidx.annotation:annotation:${annotation_version}"
+}
+
+afterEvaluate {
+    tasks.matching { it.name.contains("Aidl") }.configureEach {
+        if (it.name.contains("Release")) {
+            dependsOn("compileReleaseJavaWithJavac")
+        } else if (it.name.contains("Debug")) {
+            dependsOn("compileDebugJavaWithJavac")
+        }
+    }
 }
