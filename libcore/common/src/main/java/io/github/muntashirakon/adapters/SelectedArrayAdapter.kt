@@ -77,7 +77,6 @@ open class SelectedArrayAdapter<T> : ArrayAdapter<T> {
     }
 
     companion object {
-        @JvmStatic
         fun createFromResource(
             context: Context,
             @ArrayRes textArrayResId: Int,
