@@ -115,8 +115,7 @@ list-item"]
         for (charSequence in list) {
             val len = charSequence.length
             val spannable = SpannableString(charSequence)
-            val finish = spannable.toString().indexOf("
-")
+            val finish = spannable.toString().indexOf("\n")
             spannable.setSpan(
                 ListSpan(40, 30, ++j, locale), 0, if (finish == -1) len else finish,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -127,8 +126,7 @@ list-item"]
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
-            spannableStringBuilder.append(spannable).append("
-")
+            spannableStringBuilder.append(spannable).append("\n")
         }
         return spannableStringBuilder
     }
@@ -337,6 +335,6 @@ list-item"]
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.TRANSPARENT
-        window.navigationColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
     }
 }
