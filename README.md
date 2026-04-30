@@ -8,9 +8,24 @@
 
 <p align=center>
   <a href="https://muntashirakon.github.io/AppManager">Docs</a> ·
-  <a href="https://github.com/MuntashirAkon/AppManager/releases">Releases</a> ·
-  
+  <a href="https://github.com/MuntashirAkon/AppManager/releases">Upstream Releases</a> ·
+  <a href="https://github.com/thejaustin/AppManager/releases">Fork Releases</a>
 </p>
+
+---
+
+## Fork Notice
+
+This is a personal fork of [App Manager](https://github.com/MuntashirAkon/AppManager) by [Muntashir Al-Islam](https://github.com/MuntashirAkon). The original project is licensed under GPL-3.0-or-later. All original copyright notices and the GPL-3.0-or-later license are preserved.
+
+**Additions in this fork:**
+- Batch app archiving with Shizuku / root / ADB support
+- Sort and filter apps by archivable status
+- Shizuku as a first-class mode of operation
+- Material 3 Expressive motion, haptics, and component updates
+- Archive timestamp display
+
+For the original project, documentation, and release APKs, visit [MuntashirAkon/AppManager](https://github.com/MuntashirAkon/AppManager).
 
 ---
 

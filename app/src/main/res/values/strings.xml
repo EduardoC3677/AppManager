@@ -89,55 +89,12 @@
     <string name="class_name">Class name</string>
     <string name="icon_picker">Icon picker</string>
     <string name="license">License</string>
-    <string name="license_message" translatable="false"><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General
-        Public License v3.0</a></string>
-    <string name="copyright_message" translatable="false">© 2020–2025 <a href="https://github.com/MuntashirAkon">Muntashir Al-Islam</a></string>
+    <string name="license_message" translatable="false">GNU General Public License, version 3 or later (GPL-3.0-or-later). <a href="https://www.gnu.org/licenses/gpl-3.0.html">View license</a></string>
+    <string name="copyright_message" translatable="false">Copyright © 2020–2025 Muntashir Al-Islam and contributors.\nFork maintained by Austin (thejaustin). <a href="https://github.com/thejaustin/AppManager">github.com/thejaustin/AppManager</a></string>
     <string name="third_party">Third-party libraries and icons</string>
-    <string name="third_party_message" translatable="false">-
-        <a href="https://github.com/zhanghai/AndroidFastScroll">AndroidFastScroll</a> (Apache 2.0)
-        \n- <a href="https://github.com/LSPosed/AndroidHiddenApiBypass">AndroidHiddenApiBypass</a> (Apache 2.0)
-        \n- <a href="https://github.com/MuntashirAkon/apk-parser">APK-parser</a> (BSD 2-Clause)
-        \n- <a href="https://github.com/MuntashirAkon/apksig-android">apksig for android</a> (Apache 2.0)
-        \n- <a href="https://github.com/REAndroid/ARSCLib">ARSCLib</a> (Apache 2.0)
-        \n- <a href="https://github.com/bcgit/bc-java">Bouncy Castle</a> (MIT)
-        \n- <a href="https://commons.apache.org/proper/commons-compress/">Commons Compress</a> (Apache 2.0)
-        \n- <a href="https://github.com/dkanada/frost">Frost</a> Icons (GPLv3.0)
-        \n- <a href="https://github.com/RikkaApps/HiddenApiRefinePlugin">HiddenApiRefinePlugin</a> (MIT)
-        \n- <a href="https://github.com/skylot/jadx">JADX</a> (Apache 2.0)
-        \n- <a href="https://github.com/MuntashirAkon/libadb-android">LibADB</a> (Apache 2.0/GPLv3.0)
-        \n- <a href="https://github.com/topjohnwu/libsu">libsu</a> (Apache 2.0)
-        \n- <a href="https://github.com/material-components/material-components-android">Material Components</a> (Apache 2.0)
-        \n- <a href="https://github.com/google/material-design-icons">Material Design Icons</a> (Apache 2.0)
-        \n- <a href="https://github.com/google/smali">smali/baksmali</a> (BSD 3-Clause and Apache 2.0)
-        \n- <a href="https://github.com/Rosemoe/sora-editor">sora-editor</a> (LGPL-2.1)
-        \n- <a href="https://github.com/MuntashirAkon/spake2-java">SPAKE2 for Java</a> (GPLv3.0)
-        \n- <a href="https://github.com/MuntashirAkon/sun-security-android">sun.security for Android</a> (GPL-2.0 \"Classpath Exception\")
-        \n- <a href="https://github.com/MuntashirAkon/unapkm-android">UnAPKM Android</a> (Apache 2.0)</string>
+    <string name="third_party_message" translatable="false">App Manager uses several third-party libraries. See the full list in the <a href="https://github.com/thejaustin/AppManager/blob/master/LICENSES/">LICENSES directory</a> on GitHub. Key libraries include: libsu (topjohnwu), Shizuku API (RikkaApps), libadb-android, BouncyCastle, Gson, sora-editor, ARSCLib, baksmali/smali, and many more.</string>
     <string name="credits">Credits</string>
-    <string name="credits_message">To the authors of
-        \n- The Android Open Source Project
-        \n- <a href="https://github.com/zhaobozhen/libraries">Absinthe\'s libraries</a>
-        \n- <a href="https://github.com/butzist/ActivityLauncher">Activity Launcher</a>
-        \n- <a href="https://bitbucket.org/oF2pks/fdroid-applications-info">Apps_packages Info</a>
-        \n- <a href="https://github.com/zhaobao/AppsMonitor">AppsMonitor</a>
-        \n- <a href="https://github.com/8enet/AppOpsX">AppOpsX</a>
-        \n- <a href="https://github.com/gabrielemariotti/changeloglib">ChangeLog Library</a>
-        \n- <a href="https://bitbucket.org/oF2pks/fdroid-classyshark3xodus">ClassySharkAndroid</a>
-        \n- <a href="https://github.com/billthefarmer/editor">Editor</a>
-        \n- <a href="https://github.com/Raival-e/File-Explorer">File Explorer</a>
-        \n- <a href="https://github.com/nex3z/FlowLayout">FlowLayout</a>
-        \n- <a href="https://github.com/k3b/intent-intercept">Intent Intercept</a>
-        \n- <a href="https://github.com/YarikSOffice/lingver">Lingver</a>
-        \n- <a href="https://github.com/topjohnwu/Magisk">Magisk</a>
-        \n- <a href="https://github.com/zhanghai/MaterialFiles">Material Files</a>
-        \n- <a href="https://github.com/pluscubed/matlog">MatLog</a>
-        \n- <a href="https://github.com/matrix-org/matrix-android-sdk">Matrix Android SDK</a>
-        \n- <a href="https://github.com/jensstein/oandbackup">OAndBackup</a>
-        \n- <a href="https://github.com/open-keychain/open-keychain">Open Keychain</a>
-        \n- <a href="https://github.com/Aefyr/SAI">SAI</a>
-        \n- <a href="https://github.com/RikkaApps/Shizuku">Shizuku</a>
-        \n- <a href="https://github.com/eclipse/tm4e">tm4e</a>
-        \n- <a href="https://github.com/tuyafeng/Watt">Watt</a></string>
+    <string name="credits_message" translatable="false">Original App Manager by <b>Muntashir Al-Islam</b> and all upstream contributors.\n\nThis fork adds: batch archiving, Shizuku mode, Material 3 Expressive UI, and archivable-first filtering.\n\nSee <a href="https://github.com/MuntashirAkon/AppManager/graphs/contributors">upstream contributors</a> for the full list of original authors.</string>
     <string name="word_wrap">Toggle word wrap</string>
     <string name="class_viewer">Class viewer</string>
     <string name="toggle_class_listing">Toggle class listing</string>
@@ -381,16 +338,9 @@
     <string name="install">Install</string>
     <string name="update">Update</string>
     <string name="source_code">Source code</string>
-    <string name="source_code_links" translatable="false"><a href="https://github.com/MuntashirAkon/AppManager">GitHub</a> •
-        <a href="https://codeberg.org/muntashir/AppManager">Codeberg</a> •
-        <a href="https://gitlab.com/muntashir/AppManager">GitLab</a> •
-        <a href="https://0xacab.org/muntashir/AppManager">Riseup</a> •
-        <a href="https://git.sr.ht/~muntashir/AppManager">sourcehut</a></string>
+    <string name="source_code_links" translatable="false">Fork: <a href="https://github.com/thejaustin/AppManager">github.com/thejaustin/AppManager</a>\nUpstream: <a href="https://github.com/MuntashirAkon/AppManager">github.com/MuntashirAkon/AppManager</a></string>
     <string name="community">Community</string>
-    <string name="community_links"><a href="https://matrix.to/#/#appmanager:matrix.org">Matrix</a> •
-        
-        <a href="https://x.com/AppManagerNews">Twitter/X</a> •
-        <a href="https://floss.social/@appmanager">Mastodon</a></string>
+    <string name="community_links" translatable="false">Issues: <a href="https://github.com/thejaustin/AppManager/issues">github.com/thejaustin/AppManager/issues</a>\nUpstream discussions: <a href="https://github.com/MuntashirAkon/AppManager/discussions">github.com/MuntashirAkon/AppManager/discussions</a></string>
     <string name="pref_import_existing">Import existing rules</string>
     <string name="pref_import_existing_msg">Add components disabled by others apps to App Manager.
         Be careful when using this tool as there can be many false positives. Choose only the apps you\'re certain about.</string>
@@ -510,8 +460,8 @@
     <string name="open_in_termux">Open in Termux</string>
     <string name="run_in_termux">Run in Termux</string>
     <string name="website">Website</string>
-    <string name="website_message" translatable="false">https://muntashirakon.github.io/AppManager</string>
-    <string name="discussions_site" translatable="false">https://github.com/MuntashirAkon/AppManager/issues</string>
+    <string name="website_message" translatable="false">https://github.com/thejaustin/AppManager</string>
+    <string name="discussions_site" translatable="false">https://github.com/thejaustin/AppManager/discussions</string>
     <string name="pref_remove_all_rules">Remove all rules</string>
     <string name="pref_remove_all_rules_msg">Permissions will be granted, app ops and components will return to their default values.</string>
     <string name="are_you_sure">Are you sure?</string>
