@@ -8,4 +8,6 @@ android {
 }
 dependencies {
     api "androidx.annotation:annotation:${annotation_version}"
+    api "androidx.appcompat:appcompat:${appcompat_version}"
+    api "com.google.android.material:material:${material_version}"
 }
