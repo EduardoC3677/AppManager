@@ -21,13 +21,25 @@ abstract class Runner {
         private var sShizukuShell: ShizukuShell? = null
         private var sNoRootShell: NormalShell? = null
 
+        /**
+         * Returns the appropriate Runner instance for the current operation mode.
+         *
+         * Shell selection priority order (MODE_AUTO):
+         *  1. Shizuku — preferred when available; no root required, uses ADB/root granted to Shizuku
+         *  2. Direct root — used when root access is granted directly to App Manager
+         *  3. Privileged (LocalServices IPC) — used when running as a privileged system service
+         *  4. ADB/rish fallback — used when no elevated access is available
+         *
+         * Note: ShizukuShell itself falls back to AdbShell if Shizuku becomes unavailable mid-session.
+         */
         @get:JvmStatic
         private val instance: Runner
             get() {
-                return if (Ops.isDirectRoot()) {
-                    getRootInstance()
-                } else if (Ops.isShizuku()) {
+                // Priority: Shizuku first, then root, then privileged IPC, then ADB/no-root fallback
+                return if (Ops.isShizuku()) {
                     getShizukuInstance()
+                } else if (Ops.isDirectRoot()) {
+                    getRootInstance()
                 } else if (LocalServices.alive()) {
                     getPrivilegedInstance()
                 } else {

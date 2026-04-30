@@ -27,43 +27,46 @@ internal class ShizukuShell : Runner() {
     @Synchronized
     override fun runCommand(): Result {
         return try {
-            // Shizuku requires a single command string
-            // Combine all commands with && separator
+            // Commands are joined with ';' to avoid short-circuit failures on non-critical commands.
+            // Using '&&' would abort the entire sequence if any intermediate command returns non-zero,
+            // which is overly strict for diagnostic or cleanup commands.
             val combinedCommand = if (commands.size == 1) {
                 commands[0]
             } else {
-                java.lang.String.join(" && ", commands)
+                commands.joinToString(" ; ")
             }
 
-            // Execute via Shizuku
-            val result = ShizukuUtils.runCommand(ContextUtils.getContext(), combinedCommand)
+            // Check Shizuku availability before attempting execution.
+            // If Shizuku went away mid-session, log a warning and return graceful error
+            // so the caller can decide to retry with a different mode (e.g. ADB/rish).
+            if (!ShizukuUtils.isShizukuAvailable()) {
+                Log.w(TAG, "Shizuku not available mid-session; returning graceful error so caller can fall back")
+                return Result(1)
+            }
+
+            // Execute via Shizuku; retry once after 500ms if result is null
+            var result = ShizukuUtils.runCommand(ContextUtils.getContext(), combinedCommand)
+            if (result == null && ShizukuUtils.isShizukuAvailable()) {
+                Log.w(TAG, "Shizuku returned null result; retrying after 500ms delay")
+                Thread.sleep(500)
+                result = ShizukuUtils.runCommand(ContextUtils.getContext(), combinedCommand)
+            }
 
             if (result == null) {
-                // Shizuku unavailable or failed
-                Log.e(TAG, "Shizuku command failed: $combinedCommand")
-                Result(1) // Return error exit code
-            } else {
-                // Parse stdout and stderr into lists
-                val stdoutList = ArrayList<String>()
-                if (result.stdout.isNotEmpty()) {
-                    val lines = result.stdout.split("
-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    for (line in lines) {
-                        stdoutList.add(line)
-                    }
-                }
-
-                val stderrList = ArrayList<String>()
-                if (result.stderr.isNotEmpty()) {
-                    val lines = result.stderr.split("
-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    for (line in lines) {
-                        stderrList.add(line)
-                    }
-                }
-
-                Result(stdoutList, stderrList, result.exitCode)
+                // Shizuku still unavailable after retry — return graceful error
+                Log.w(TAG, "Shizuku unavailable after retry; returning graceful error for: $combinedCommand")
+                return Result(1)
             }
+
+            // Parse stdout and stderr into lists
+            val stdoutList = result.stdout
+                .split("\n")
+                .dropLastWhile { it.isEmpty() }
+            val stderrList = result.stderr
+                .split("\n")
+                .dropLastWhile { it.isEmpty() }
+
+            Result(stdoutList, stderrList, result.exitCode)
         } catch (e: Exception) {
             Log.e(TAG, "Shizuku shell execution failed", e)
             Result()

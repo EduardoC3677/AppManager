@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.os.RemoteException
 import io.github.muntashirakon.AppManager.logs.Log
 import rikka.shizuku.Shizuku
+import java.lang.ref.WeakReference
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -18,6 +19,10 @@ object ShizukuUtils {
     private var sIsInstalled: Boolean? = null
     private var sLastInstalledCheck: Long? = null
     private const val CACHE_VALIDITY_MS: Long = 5000 // 5 seconds
+
+    // WeakReference cache for ShizukuShell instances, keyed by Context identity.
+    // Avoids creating a new service connection per archive operation while not preventing GC.
+    private val sShellCache = HashMap<Int, WeakReference<ShizukuShell>>()
 
     @JvmStatic
     fun isShizukuInstalled(): Boolean {
@@ -199,6 +204,8 @@ object ShizukuUtils {
             }
         }
 
+        fun isClosed(): Boolean = mIsClosed
+
         fun runCommand(command: String): CommandResult {
             if (mIsClosed) {
                 return CommandResult(-1, "", "Shell is closed")
@@ -230,9 +237,21 @@ object ShizukuUtils {
         }
     }
 
+    /**
+     * Returns a cached [ShizukuShell] for the given context if Shizuku is available,
+     * or null otherwise. Uses a [WeakReference] cache to avoid creating a new service
+     * connection per archive operation while not preventing GC of stale instances.
+     */
     @JvmStatic
     fun newShell(context: Context): ShizukuShell? {
         if (!isShizukuAvailable()) return null
-        return ShizukuShell(context)
+        val key = System.identityHashCode(context)
+        val cached = sShellCache[key]?.get()
+        if (cached != null && !cached.isClosed()) {
+            return cached
+        }
+        val shell = ShizukuShell(context)
+        sShellCache[key] = WeakReference(shell)
+        return shell
     }
 }
