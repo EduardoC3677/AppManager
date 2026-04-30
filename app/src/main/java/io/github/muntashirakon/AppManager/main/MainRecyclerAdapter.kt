@@ -161,6 +161,11 @@ class MainRecyclerAdapter(activity: MainActivity) : MultiSelectionView.Adapter<M
 
         cardView.radius = mCornerRadiusPx
 
+        // Material You: Add subtle elevation animation on press for tactile feedback
+        cardView.stateListAnimator = android.animation.AnimatorInflater.loadStateListAnimator(
+            context, android.R.animator.default_state_list_animator
+        )
+
         // Material You 2026 Expressive entrance animation with spring physics
         if (!mIsInitialLoad && !mAnimatedPositions.contains(position)) {
             mAnimatedPositions.add(position)

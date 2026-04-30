@@ -8,7 +8,10 @@ import android.os.Build
 import android.sun.security.provider.JavaKeyStoreProvider
 import androidx.annotation.Keep
 import com.topjohnwu.superuser.Shell
+import io.github.muntashirakon.AppManager.ipc.LocalServices
 import io.github.muntashirakon.AppManager.misc.AMExceptionHandler
+import io.github.muntashirakon.AppManager.utils.AppPref
+import io.github.muntashirakon.AppManager.utils.ThreadUtils
 import io.github.muntashirakon.AppManager.utils.Utils
 import io.github.muntashirakon.AppManager.utils.appearance.AppearanceUtils
 import io.github.muntashirakon.AppManager.utils.appearance.TypefaceUtil
@@ -40,6 +43,18 @@ class AppManager : Application() {
         Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
         Security.addProvider(JavaKeyStoreProvider())
         Security.addProvider(BouncyCastleProvider())
+
+        // Initialize AppPref on a background thread to prevent UI freezes on first access
+        ThreadUtils.postOnBackgroundThread { AppPref.getInstance() }
+
+        // Bind LocalServices early on a background thread to prevent UI blocking IPC calls
+        ThreadUtils.postOnBackgroundThread {
+            try {
+                LocalServices.bindServices()
+            } catch (e: Throwable) {
+                android.util.Log.e("AppManager", "Failed to bind LocalServices early", e)
+            }
+        }
     }
 
     @Keep

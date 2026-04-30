@@ -202,6 +202,19 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
         mAdapter = MainRecyclerAdapter(this)
         mAdapter!!.setHasStableIds(true)
         recyclerView.layoutManager = UIUtils.getGridLayoutAt450Dp(this)
+
+        // Enhanced Material You item animations with expressive motion
+        recyclerView.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator().apply {
+            addDuration = 350
+            removeDuration = 350
+            moveDuration = 350
+            changeDuration = 200
+        }
+        // Edge-to-edge Material You overscroll effect (stretch on Android 12+)
+        recyclerView.overScrollMode = View.OVER_SCROLL_IF_CONTENT_SCROLLS
+        // Smooth CoordinatorLayout integration
+        recyclerView.isNestedScrollingEnabled = true
+
         recyclerView.adapter = mAdapter
         
         // Initialize Material You 2026 Expressive Haptics

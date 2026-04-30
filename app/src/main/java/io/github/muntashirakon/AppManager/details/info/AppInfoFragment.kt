@@ -441,6 +441,24 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
                 }
                 true
             }
+            R.id.action_archive -> {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.are_you_sure)
+                    .setMessage(R.string.this_action_cannot_be_undone)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        showProgressIndicator(true)
+                        val packages = arrayListOf(mPackageName!!)
+                        val users = arrayListOf(mUserId)
+                        val archiveBatchQueueItem = BatchQueueItem.getBatchOpQueue(
+                            BatchOpsManager.OP_ARCHIVE, packages, users, null
+                        )
+                        val intent = BatchOpsService.getServiceIntent(requireContext(), archiveBatchQueueItem)
+                        ContextCompat.startForegroundService(requireContext(), intent)
+                    }
+                    .setNegativeButton(R.string.no, null)
+                    .show()
+                true
+            }
             R.id.action_install -> {
                 val users = Users.getUsers()
                 val userNames = Array(users.size) { users[it].toLocalizedString(requireContext()) }
