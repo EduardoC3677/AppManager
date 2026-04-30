@@ -1,10 +1,20 @@
-plugins { id('com.android.library') }
+plugins {
+    id('com.android.library')
+    id('org.jetbrains.kotlin.android')
+}
 android {
     namespace 'io.github.muntashirakon.common'
     compileSdk compile_sdk
     buildToolsVersion = build_tools
     defaultConfig { minSdk min_sdk; targetSdk target_sdk }
-    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 dependencies {
     api "androidx.annotation:annotation:${annotation_version}"
