@@ -22,8 +22,6 @@ android {
     sourceSets {
         main {
             aidl.srcDirs = ['src/main/aidl']
-            java.srcDirs += files("$projectDir/build/generated/source/aidl/debug",
-                                 "$projectDir/build/generated/source/aidl/release")
         }
     }
 }
@@ -37,14 +35,4 @@ dependencies {
     api "androidx.documentfile:documentfile:${documentfile_version}"
 
     implementation "androidx.annotation:annotation:${annotation_version}"
-}
-
-afterEvaluate {
-    tasks.matching { it.name.contains("Aidl") }.configureEach {
-        if (it.name.contains("Release")) {
-            dependsOn("compileReleaseJavaWithJavac")
-        } else if (it.name.contains("Debug")) {
-            dependsOn("compileDebugJavaWithJavac")
-        }
-    }
 }

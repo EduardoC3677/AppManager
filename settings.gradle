@@ -2,6 +2,7 @@
 include ':app'
 include ':docs'
 include ':hiddenapi'
+include ':libcore:common'
 include ':libcore:compat'
 include ':libcore:io'
 include ':libcore:ui'
