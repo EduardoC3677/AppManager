@@ -1542,6 +1542,8 @@
     <string name="adb_data">ADB data</string>
     <string name="adb_data_description">Back up data in ADB format. This option supersedes \"Internal data\" and \"External data\" options.</string>
     <string name="filter_unfrozen_apps">Unfrozen apps</string>
+    <string name="filter_archivable_apps">Archivable apps</string>
+    <string name="sort_by_archivable">Archivable first</string>
     <string name="goto_previous">Previous</string>
     <string name="usage_this_week">This week</string>
     <string name="usage_last_week">Last week</string>

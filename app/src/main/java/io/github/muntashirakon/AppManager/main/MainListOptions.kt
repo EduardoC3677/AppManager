@@ -51,6 +51,7 @@ class MainListOptions : ListOptions() {
         const val SORT_BY_OPEN_COUNT = 15
         const val SORT_BY_SCREEN_TIME = 16
         const val SORT_BY_LAST_USAGE_TIME = 17
+        const val SORT_BY_ARCHIVABLE = 18
 
         const val FILTER_NO_FILTER = 0
         const val FILTER_USER_APPS = 1
@@ -69,6 +70,7 @@ class MainListOptions : ListOptions() {
         const val FILTER_APPS_WITH_SSAID = 1 shl 13
         const val FILTER_STOPPED_APPS = 1 shl 14
         const val FILTER_UNFROZEN_APPS = 1 shl 15
+        const val FILTER_ARCHIVABLE_APPS = 1 shl 16
 
         private val SORT_ITEMS_MAP = LinkedHashMap<Int, Int>().apply {
             put(SORT_BY_DOMAIN, R.string.sort_by_domain_type)
@@ -89,6 +91,7 @@ class MainListOptions : ListOptions() {
             put(SORT_BY_OPEN_COUNT, R.string.sort_by_open_count)
             put(SORT_BY_SCREEN_TIME, R.string.sort_by_screen_time)
             put(SORT_BY_LAST_USAGE_TIME, R.string.sort_by_last_usage_time)
+            put(SORT_BY_ARCHIVABLE, R.string.sort_by_archivable)
         }
 
         private val FILTER_ITEMS_MAP = LinkedHashMap<Int, Int>().apply {
@@ -108,6 +111,7 @@ class MainListOptions : ListOptions() {
             put(FILTER_APPS_WITH_SAF, R.string.filter_apps_with_saf)
             put(FILTER_APPS_WITH_SSAID, R.string.filter_apps_with_ssaid)
             put(FILTER_STOPPED_APPS, R.string.filter_stopped_apps)
+            put(FILTER_ARCHIVABLE_APPS, R.string.filter_archivable_apps)
         }
 
         @JvmStatic
@@ -166,6 +170,14 @@ class MainListOptions : ListOptions() {
             }
             if (flags and FILTER_APPS_WITH_SSAID != 0) appTypeWithFlags = appTypeWithFlags or AppTypeOption.APP_TYPE_SSAID
             if (flags and FILTER_STOPPED_APPS != 0) appTypeWithFlags = appTypeWithFlags or AppTypeOption.APP_TYPE_STOPPED
+            if (flags and FILTER_ARCHIVABLE_APPS != 0) {
+                // TODO: Replace with ArchivableOption once implemented — should filter to user-installed,
+                //  currently installed apps that are NOT already in the ArchivedApp database.
+                //  For now, approximate with InstalledOption (installed, non-system) as a placeholder.
+                val option = InstalledOption()
+                option.setKeyValue("installed", null)
+                filterItem.addFilterOption(option)
+            }
             if (appTypeWithFlags > 0) {
                 val appTypeWithFlagsOption = AppTypeOption()
                 appTypeWithFlagsOption.setKeyValue("type", appTypeWithFlags.toString())

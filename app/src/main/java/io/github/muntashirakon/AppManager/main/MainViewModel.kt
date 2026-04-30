@@ -577,6 +577,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
                     MainListOptions.SORT_BY_BACKUP -> primaryComparison = -mode * (o1.backup != null).compareTo(o2.backup != null)
                     MainListOptions.SORT_BY_LAST_ACTION -> primaryComparison = -mode * o1.lastActionTime.compareTo(o2.lastActionTime)
                     MainListOptions.SORT_BY_TRACKERS -> primaryComparison = -mode * o1.trackerCount.compareTo(o2.trackerCount)
+                    MainListOptions.SORT_BY_ARCHIVABLE -> {
+                        // Archivable = user-installed (not FLAG_SYSTEM), currently installed
+                        // Archivable apps sort first (regardless of reverse flag) to help users find storage candidates
+                        val isArchivable1 = o1.isInstalled && (o1.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+                        val isArchivable2 = o2.isInstalled && (o2.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+                        primaryComparison = isArchivable2.compareTo(isArchivable1) // true > false puts archivable first
+                    }
                 }
                 if (primaryComparison == 0) mCollator.compare(o1.label, o2.label) else primaryComparison
             }
