@@ -1,0 +1,29 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- API 28+ specific resources -->
+<resources>
+    <style name="AppThemeOverlay" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">#99000000</item>
+        <item name="android:navigationBarColor">#99000000</item>
+
+        <!-- Material Design Expressive Shape Tokens -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AppTheme.SmallComponent.Expressive</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.AppTheme.MediumComponent.Expressive</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.AppTheme.LargeComponent.Expressive</item>
+
+        <!-- Expressive Typography - Bolder, larger text -->
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.AppTheme.DisplayLarge.Expressive</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.AppTheme.DisplayMedium.Expressive</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.AppTheme.HeadlineLarge.Expressive</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.AppTheme.TitleLarge.Expressive</item>
+
+        <!-- Expressive Motion - Longer, more dramatic animations with API 28+ interpolator -->
+        <item name="motionDurationLong1">500</item>
+        <item name="motionDurationLong2">700</item>
+        <item name="motionDurationLong3">900</item>
+        <item name="motionDurationMedium1">300</item>
+        <item name="motionDurationMedium2">400</item>
+        <item name="motionEasingEmphasizedInterpolator">@android:interpolator/fast_out_extra_slow_in</item>
+        <item name="motionEasingEmphasizedAccelerateInterpolator">@android:anim/accelerate_interpolator</item>
+        <item name="motionEasingEmphasizedDecelerateInterpolator">@android:anim/decelerate_interpolator</item>
+    </style>
+</resources>

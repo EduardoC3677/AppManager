@@ -33,3 +33,6 @@ basement_dist
 *.bks
 *~
 scripts/KeyStore.sh
+
+.qwen/
+gha-creds-*.json

@@ -25,7 +25,9 @@ android {
     }
 
     buildFeatures {
-        aidl true
+        // AIDL disabled for Termux/ARM builds (x86-64 compiler incompatible)
+        // Pre-generated IRootServiceManager.java committed to src/main/java
+        aidl false
     }
 }
 

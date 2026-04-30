@@ -2,32 +2,44 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
-        app:key="freeze_type"
-        app:title="@string/pref_default_freezing_method"
-        app:iconSpaceReserved="false" />
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/mode">
 
-    <Preference
-        app:key="default_blocking_method"
-        app:title="@string/pref_default_blocking_method"
-        app:iconSpaceReserved="false" />
+        <Preference
+            app:icon="@drawable/ic_snowflake"
+            app:key="freeze_type"
+            app:title="@string/pref_default_freezing_method" />
 
-    <SwitchPreferenceCompat
-        app:key="global_blocking_enabled"
-        app:title="@string/pref_global_blocking_enabled"
-        app:summary="@string/pref_global_blocking_enabled_msg"
-        app:iconSpaceReserved="false" />
+        <Preference
+            app:icon="@drawable/ic_block"
+            app:key="default_blocking_method"
+            app:title="@string/pref_default_blocking_method" />
 
-    <Preference
-        app:key="import_export_rules"
-        app:title="@string/pref_import_export_blocking_rules"
-        app:summary="@string/pref_import_export_blocking_rules_msg"
-        android:fragment="io.github.muntashirakon.AppManager.settings.ImportExportRulesPreferences"
-        app:iconSpaceReserved="false" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_check_circle"
+            app:key="global_blocking_enabled"
+            app:title="@string/pref_global_blocking_enabled"
+            app:summary="@string/pref_global_blocking_enabled_msg" />
 
-    <io.github.muntashirakon.preference.PrimaryButtonPreference
-        app:key="remove_all_rules"
-        app:title="@string/pref_remove_all_rules"
-        app:icon="@drawable/ic_restore"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_import_export_blocking_rules">
+
+        <Preference
+            app:icon="@drawable/ic_file_export"
+            app:key="import_export_rules"
+            app:title="@string/pref_import_export_blocking_rules"
+            app:summary="@string/pref_import_export_blocking_rules_msg"
+            android:fragment="io.github.muntashirakon.AppManager.settings.ImportExportRulesPreferences" />
+
+        <io.github.muntashirakon.preference.PrimaryButtonPreference
+            app:key="remove_all_rules"
+            app:title="@string/pref_remove_all_rules"
+            app:icon="@drawable/ic_trash_can"/>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,0 +1,60 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'gradle'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Get app version
+      run: echo "APP_VERSION=v$(cat ./app/build.gradle | grep -m1 versionName | awk -F \" '{print $2}')" >> $GITHUB_ENV
+
+    - name: Build with Gradle
+      run: ./gradlew assembleRelease
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-apk
+        path: app/build/outputs/apk/release/*.apk
+
+    - name: Create GitHub Release
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.APP_VERSION }}-ci-${{ github.run_number }}
+        name: AppManager ${{ env.APP_VERSION }} (CI Build #${{ github.run_number }})
+        body: |
+          ### CI Build #${{ github.run_number }}
+
+          **Version:** ${{ env.APP_VERSION }}
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+
+          #### Latest Changes:
+          ${{ github.event.head_commit.message }}
+
+          ---
+          Automatically generated CI build
+        files: app/build/outputs/apk/release/*.apk
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -115,6 +115,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/input_profile_name" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset_filters"
+            style="@style/Widget.AppTheme.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="@string/reset_filters" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

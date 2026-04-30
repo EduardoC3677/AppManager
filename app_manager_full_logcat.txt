@@ -1,0 +1,798 @@
+--------- beginning of main
+12-16 04:18:57.924  2486  3599 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:57.925  2486  3599 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:57.928  2486  3599 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:57.928  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:57.929  2486  3599 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:57.929  2486  3599 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:57.946  2486  3241 D NetdEventListenerService: DNS Requested by 102, 10260(com.android.chrome), 4(FAIL), isBlocked=true, 0ms
+12-16 04:18:57.952  2486  3241 D NetdEventListenerService: DNS Requested by 102, 10260(com.android.chrome), 4(FAIL), isBlocked=true, 0ms
+12-16 04:18:57.976 21343 32351 V BinderSender: Uid 10846 already starts
+--------- beginning of system
+12-16 04:18:57.990  2486  2486 D ActivityTaskManager: startActivityAsUser: callingPid=2486, callingUid=1000, caller=com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:1 android.app.ContextImpl.startActivityAsUser:1217 android.app.ContextImpl.startActivityAsUser:1184 com.android.server.logcat.LogcatManagerService$LogAccessRequestHandler.handleMessage:347 android.os.Handler.dispatchMessage:110 android.os.Looper.loopOnce:273 android.os.Looper.loop:363 
+12-16 04:18:57.996  2486  2486 W ActivityTaskManager: callingPackage for (uid=1000, pid=2486) is ambiguous: [android, com.android.providers.settings, com.android.server.telecom, com.android.location.fused, com.samsung.unifiedtp]
+12-16 04:18:57.997  2486  2486 D ActivityTaskManager: DesktopModeLaunchParamsModifier: task=null activity=null task null, skipping
+12-16 04:18:57.997  2486  2486 D ActivityTaskManager: TaskLaunchParamsModifier:task=null activity=null display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea_d0@267959883
+12-16 04:18:57.999  2486  2486 D ActivityTaskManager: Non-opaque activity is created, styleTranslucent=true, r=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity
+12-16 04:18:58.001  2486  2486 D WindowManager: Transition is created, t=TransitionRecord{ce3482d id=-1 type=OPEN flags=0x0}, caller=com.android.server.wm.Transition.<init>:182 com.android.server.wm.TransitionController.createAndStartCollecting:106 com.android.server.wm.ActivityStarter.executeRequest:3606 com.android.server.wm.ActivityStarter.execute:1752 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:95 
+12-16 04:18:58.001  2486  2486 D BLASTSyncEngine: SyncGroup is created, id=1281, name=Transition-OPEN, caller=com.android.server.wm.BLASTSyncEngine$SyncGroup.<init>:52 com.android.server.wm.TransitionController.moveToCollecting:79 com.android.server.wm.TransitionController.createAndStartCollecting:109 com.android.server.wm.ActivityStarter.executeRequest:3606 com.android.server.wm.ActivityStarter.execute:1752 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:95 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:1 
+12-16 04:18:58.001  2486  2486 W BLASTSyncEngine: setSyncMethod, id=1281, method=0, caller=com.android.server.wm.TransitionController.moveToCollecting:91 com.android.server.wm.TransitionController.createAndStartCollecting:109 com.android.server.wm.ActivityStarter.executeRequest:3606 
+12-16 04:18:58.002  2486  2486 V WindowManager: Start collecting in Transition: TransitionRecord{ce3482d id=1281 type=OPEN flags=0x0}, caller=com.android.server.wm.TransitionController.createAndStartCollecting:109 com.android.server.wm.ActivityStarter.executeRequest:3606 com.android.server.wm.ActivityStarter.execute:1752 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:95 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:1 
+12-16 04:18:58.002  2486  2486 V WindowManager: Collecting in transition 1281: ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1}, caller=com.android.server.wm.TransitionController.collect:7 com.android.server.wm.ActivityStarter.startActivityUnchecked:98 com.android.server.wm.ActivityStarter.executeRequest:3651 com.android.server.wm.ActivityStarter.execute:1752 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:95 
+12-16 04:18:58.002  2486  2486 D ActivityTaskManager: DesktopModeLaunchParamsModifier: task=null activity=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1} task null, skipping
+12-16 04:18:58.002  2486  2486 D ActivityTaskManager: TaskLaunchParamsModifier:task=null activity=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea_d0@267959883
+12-16 04:18:58.003  2486  2486 D ActivityTaskManager: DesktopModeLaunchParamsModifier: task=null activity=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1} task null, skipping
+12-16 04:18:58.003  2486  2486 D ActivityTaskManager: TaskLaunchParamsModifier:task=null activity=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea_d0@267959883 non-freeform-task-display-area display-area=DefaultTaskDisplayArea_d0@267959883 default-portrait freeform-size-mismatch=Rect(108, 822 - 1332, 2366)
+12-16 04:18:58.004  2486  4259 I SemDvfsHyPerManager: acquire hyper - AMS_APP_SWITCH/2486@28, type = -999
+12-16 04:18:58.005  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 3161383  [2486 / 28]    HINT : AMS_APP_SWITCH    list : 
+12-16 04:18:58.005  2486  4259 D ActivityManagerPerformance: AMP_acquire() APP_SWITCH
+12-16 04:18:58.005  2486  4890 D FreecessController: restrictJobsByOlaf: restrict=true, uid=10039
+12-16 04:18:58.008  1701  3293 I SurfaceFlinger: id=21458 createSurf, flag=24004, Task=14234#21458
+12-16 04:18:58.017  2486  2486 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_RESIZEABLE_ACTIVITY_OVERRIDES
+12-16 04:18:58.019  2486  2486 D ActivityTaskManager: DesktopModeLaunchParamsModifier: task=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} activity=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1} non-desktop, skipping
+12-16 04:18:58.019  2486  2486 D ActivityTaskManager: TaskLaunchParamsModifier:task=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} activity=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea_d0@267959883 inherit-from-task=fullscreen non-freeform-task-display-area display-area=DefaultTaskDisplayArea_d0@267959883 default-portrait freeform-size-mismatch=Rect(108, 822 - 1332, 2366)
+12-16 04:18:58.020  2486  2486 V WindowManager: Collecting in transition 1281: Task{c91a162 #14234 type=standard A=10039:com.android.systemui}, caller=com.android.server.wm.Transition.collectExistenceChange:40 com.android.server.wm.ActivityStarter.startActivityInner:293 com.android.server.wm.ActivityStarter.startActivityUnchecked:111 com.android.server.wm.ActivityStarter.executeRequest:3651 com.android.server.wm.ActivityStarter.execute:1752 
+12-16 04:18:58.020  2486  2486 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_MIN_ASPECT_RATIO_OVERRIDE
+12-16 04:18:58.021  2486  2486 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_ORIENTATION_OVERRIDE
+12-16 04:18:58.021  1701  3293 I SurfaceFlinger: id=21459 createSurf, flag=84004, ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459
+12-16 04:18:58.023  2486  2486 D ActivityTaskManager: scheduleTopResumedActivityChanged, onTop=false, r=ActivityRecord{33918933 u0 com.termux/.app.TermuxActivity t14194}, caller=com.android.server.wm.ActivityTaskSupervisor.scheduleTopResumedActivityStateLossIfNeeded:19 com.android.server.wm.ActivityTaskSupervisor.updateTopResumedActivityIfNeeded:20 com.android.server.wm.TaskDisplayArea.positionChildAt:252 com.android.server.wm.Task.moveToFront:40 com.android.server.wm.ActivityStarter.startActivityInner:315 com.android.server.wm.ActivityStarter.startActivityUnchecked:111 
+12-16 04:18:58.023  2486  2486 V WindowManager: Checking theme of starting window: 0x1030010
+12-16 04:18:58.023  2486  2486 V WindowManager: Translucent=true Floating=false ShowWallpaper=false Disable=false
+12-16 04:18:58.023  2486  2486 D ActivityTaskManager: addStartingWindow: type=2 typeParameter=8f
+12-16 04:18:58.028  2486  2486 V WindowManager: Collecting in transition 1281: ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}, caller=com.android.server.wm.Transition.collectExistenceChange:40 com.android.server.wm.ActivityStarter.handleStartResult:761 com.android.server.wm.ActivityStarter.startActivityUnchecked:124 com.android.server.wm.ActivityStarter.executeRequest:3651 com.android.server.wm.ActivityStarter.execute:1752 
+12-16 04:18:58.028  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.028  2486  2486 V WindowManager: Requesting StartTransition: TransitionRecord{ce3482d id=1281 type=OPEN flags=0x0 c=[
+12-16 04:18:58.028  2486  2486 V WindowManager:    ChangeInfo{6639b4f container=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234} flags=0x0}
+12-16 04:18:58.028  2486  2486 V WindowManager:    ChangeInfo{fd562dc container=Display{#0 state=ON size=1440x3088 ROTATION_0} flags=0x0}
+12-16 04:18:58.028  2486  2486 V WindowManager:    ChangeInfo{4224fe5 container=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} flags=0x0}
+12-16 04:18:58.028  2486  2486 V WindowManager:    ChangeInfo{711faba container=DefaultTaskDisplayArea_d0@267959883 flags=0x0}
+12-16 04:18:58.028  2486  2486 V WindowManager: ]
+12-16 04:18:58.028  2486  2486 V WindowManager: }, caller=com.android.server.wm.ActivityStarter.handleStartResult:982 com.android.server.wm.ActivityStarter.startActivityUnchecked:124 com.android.server.wm.ActivityStarter.executeRequest:3651 com.android.server.wm.ActivityStarter.execute:1752 com.android.server.wm.ActivityTaskManagerService.startActivityAsUser:95 
+12-16 04:18:58.032  2486  2486 I Pageboost: stop alp
+12-16 04:18:58.032  2486  2486 I ActivityTaskManager: START u0 {flg=0x10000000 xflg=0x4 cmp=com.android.systemui/.logcat.LogAccessDialogActivity (has extras)} with LAUNCH_MULTIPLE from uid 1000 (BAL_ALLOW_ALLOWLISTED_UID) result code=0
+12-16 04:18:58.032  2486  2486 I SemDvfsHyPerManager: acquire hyper - AMS_APP_LAUNCH/2486@21, type = -999
+12-16 04:18:58.032  4847  4847 E pageboostd: Received HALT command code 2
+12-16 04:18:58.033  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 3143799  [2486 / 21]    HINT : AMS_APP_LAUNCH    list : 
+12-16 04:18:58.033  2486  2486 D OlafRestriction:  olaf state update: state=true
+12-16 04:18:58.033  2486  2486 D OlafRestriction:  sending trigger onRestrictionStateChanged msg.
+12-16 04:18:58.038  4002  4074 V WindowManagerShell: Transition requested (#1281): android.os.BinderProxy@1ed6306 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=14234 effectiveUid=10039 displayId=0 isRunning=true baseIntent=Intent { flg=0x10800000 cmp=com.android.systemui/.logcat.LogAccessDialogActivity } baseActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} topActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} origActivity=null realActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} numActivities=1 lastActiveTime=27755591 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@2e32dc7} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 100 - 0, 0) topActivityInfo=ActivityInfo{1974ff4 com.android.systemui.logcat.LogAccessDialogActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=true isActivityStackTransparent=true lastNonFullscreenBounds=Rect(108, 822 - 1332, 2366) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1440, 3088) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=10039:com.android.systemui isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=false isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null safeCutoutInsets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1281 }
+12-16 04:18:58.038  4002  4074 V ShellDesktopMode: DesktopTasksController: isDesktopModeShowing: hasVisibleTasks=false hasTopTransparentFullscreenTask=false
+12-16 04:18:58.038  1701  1701 I SurfaceFlinger: [Task=14234#21458] attach to parent LayerHierarchy{RequestedLayerState{DefaultTaskDisplayArea_d0#10 parentId=9} 30 children}
+12-16 04:18:58.038  1701  1701 I SurfaceFlinger: [ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459] attach to parent LayerHierarchy{RequestedLayerState{Task=14234#21458 parentId=10} 1 children}
+12-16 04:18:58.038  4002  4074 V ShellDesktopMode: DesktopTasksController: isDesktopModeShowing: hasVisibleTasks=false hasTopTransparentFullscreenTask=false
+12-16 04:18:58.039  4002  4074 D ShellSplitScreen: logExit: no-op, mLoggerSessionId is null
+12-16 04:18:58.039  4002  4074 D ShellDesktopMode: handleRequest: TransitionRequestInfo {type=1, tid=14234, debugId=1281}
+12-16 04:18:58.047  4002  4074 V ShellDesktopMode: DesktopTasksController: handleIncompatibleTaskLaunch
+12-16 04:18:58.047  4002  4074 V ShellDesktopMode: DesktopTasksController: isDesktopModeShowing: hasVisibleTasks=false hasTopTransparentFullscreenTask=false
+12-16 04:18:58.047  4002  4074 V ShellDesktopMode: DesktopTasksController: handleRequest result=null
+12-16 04:18:58.049  2486  5099 V WindowManager: Starting Transition 1281, caller=com.android.server.wm.WindowOrganizerController.startTransition:47 com.android.server.wm.WindowOrganizerController.startTransition:1 android.window.IWindowOrganizerController$Stub.onTransact:259 
+12-16 04:18:58.050  4289  4377 I HoneySpace.TopTaskSource: onTaskMovedToFront : taskId = 14234, displayId = 0
+12-16 04:18:58.051  4289 24934 I HoneySpace.RecentTasks: onRecentTasksChanged
+12-16 04:18:58.055  4289  4380 I HoneySpace.TopTaskUseCase: topTasks 14234 ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}[displayId=0]
+12-16 04:18:58.055  1701  1701 I SurfaceFlinger: [Display 0 name="Built-in Screen"#49] setFrameRateCategory: High
+12-16 04:18:58.058  1701  1701 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+12-16 04:18:58.060  2486  2569 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=60.000004, presentationDeadlineNanos=17666666, appVsyncOffsetNanos=16666666, frameRateOverrides=[{uid=10039 frameRateHz=60.000004}, {uid=10145 frameRateHz=60.000004}, {uid=12683 frameRateHz=60.000004}]
+12-16 04:18:58.061  2486  2569 D SGM:FgCheckThread: notePauseComponent(), received pkgName: com.termux, userId: 0
+12-16 04:18:58.062  7950 11986 I Routine@Core[4.9.04.13]: ActivityWatcherListenerImpl: onPauseComponent: componentName - com.termux, userId: 0
+12-16 04:18:58.064  2486  3555 V WindowManager: Collecting in transition 1281: ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}, caller=com.android.server.wm.TransitionController.collect:7 com.android.server.wm.ActivityRecord.setVisibility:132 com.android.server.wm.ActivityRecord.makeVisibleIfNeeded:36 com.android.server.wm.EnsureActivitiesVisibleHelper.process:538 com.android.server.wm.TaskFragment.updateActivityVisibilities:12 
+12-16 04:18:58.064  2486  3555 V WindowManager: Computed rotation=ROTATION_0 (0) for display id=0 based on lastOrientation=SCREEN_ORIENTATION_UNSPECIFIED (-1) and oldRotation=ROTATION_0 (0), caller=com.android.server.wm.DisplayRotation.updateOrientation:79 com.android.server.wm.DisplayContent.updateOrientation:41 com.android.server.wm.DisplayContent.updateOrientationAndComputeConfig:48 com.android.server.wm.RootWindowContainer.ensureVisibilityAndConfig:7 com.android.server.wm.ActivityTaskSupervisor.realStartActivityLocked:182 com.android.server.wm.ActivityTaskSupervisor.startSpecificActivity:27 
+12-16 04:18:58.065  2486  3163 D BackgroundInstallControlService: Package event received: 0
+12-16 04:18:58.065  2486  3555 V WindowManager: Collecting in transition 1281: ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}, caller=com.android.server.wm.TransitionController.collect:7 com.android.server.wm.ActivityRecord.setVisibility:132 com.android.server.wm.ActivityTaskSupervisor.realStartActivityLocked:203 com.android.server.wm.ActivityTaskSupervisor.startSpecificActivity:27 com.android.server.wm.TaskFragment.resumeTopActivity:2089 
+12-16 04:18:58.067  7950 11986 I Routine@Core[4.9.04.13]: Pref: removeSharedPrefsData() key=condition_launch_app_data_resume_pkg
+12-16 04:18:58.067  2486  3555 D SGM:FgCheckThread: notifyAppCreated(), packageName: com.android.systemui, userId: 0, sendRet: true
+12-16 04:18:58.067  2486  3037 D SGM:FgCheckThread: onLooperPrepared(), msg: MSG_APP_CREATE, pkgName: com.android.systemui, userId: 0
+12-16 04:18:58.068  7950 10807 I Routine@Core[4.9.04.13]: ModeOrderObserver: ModeOrderObserver:onChange: uri content://com.samsung.android.app.routines.routineprovider/preference
+12-16 04:18:58.069  2486  3555 D SGM:FgCheckThread: TaskStackListener.onTaskFocusChanged(), taskId=14194, focused=false
+12-16 04:18:58.069  2486  3555 D SGM:FgCheckThread: TaskStackListener.onTaskFocusChanged(), taskId=14234, focused=true
+12-16 04:18:58.071  2486  4702 D ActivityManager: pendingScheduleServiceRestart: u=12727, sr=ServiceRecord{b1857dc u0 app.revanced.android.gms/org.microg.gms.gcm.McsService c:app.revanced.android.gms}
+12-16 04:18:58.071  2486  5099 D GraphicsStatsService: requestRenderEngineFor(com.android.systemui)
+12-16 04:18:58.074  4002  4002 D ActivityThread: com.android.systemui will use render engine as VK
+12-16 04:18:58.076  2486  3555 D SGM:FgCheckThread:   sendRunningComponentFocus(), pkgName: com.android.systemui, userId: 0
+12-16 04:18:58.076  2486  3037 D SGM:FgCheckThread: onLooperPrepared(), msg: MSG_TASK_FOCUSED, pkgName: com.android.systemui, userId: 0
+12-16 04:18:58.076  2486  3555 D InputDispatcher: Focused application(0): ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread: handleTaskFocused().
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread:   handleTaskFocused(), pkgName: com.android.systemui, userID:0
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread: handleResume().
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread: sendFocusOutConditionally() - mPrevNotiPkg: (unknown), userId: 0
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread:   handleResume(). pkgName: com.android.systemui, userId: 0, category: non-game
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread: notifyFocusInOut(). of pkg: com.android.systemui, type: 4, isSecGameFamily: false, userId: 0
+12-16 04:18:58.077  2486  3037 D SGM:FgCheckThread:   notifyFocusInOut(). unexpected mPrevNotiType: -1
+12-16 04:18:58.077  2486  3037 D SGM:SystemHelper: callReleaseBlock needReleaseBlock:false
+12-16 04:18:58.077  2486  3555 D WindowManager: Changing focus from Window{78f597c u0 com.termux/com.termux.app.TermuxActivity} to null displayId=0 Callers=com.android.server.wm.ActivityTaskManagerService.setLastResumedActivityUncheckLocked:264 com.android.server.wm.ActivityTaskSupervisor.updateTopResumedActivityIfNeeded:51 com.android.server.wm.TaskFragment.setResumedActivity:30 com.android.server.wm.ActivityRecord.setState:100 
+12-16 04:18:58.078  2486  3555 V SystemKeyManager: updateFocusedWindow() is called, 
+12-16 04:18:58.079  2486  3555 D ActivityTaskManager: scheduleTopResumedActivityChanged, onTop=true, r=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}, caller=com.android.server.wm.ActivityTaskSupervisor.scheduleTopResumedActivityStateIfNeeded:18 com.android.server.wm.ActivityTaskSupervisor.updateTopResumedActivityIfNeeded:54 com.android.server.wm.TaskFragment.setResumedActivity:30 com.android.server.wm.ActivityRecord.setState:100 com.android.server.wm.ActivityTaskSupervisor.realStartActivityLocked:477 com.android.server.wm.ActivityTaskSupervisor.startSpecificActivity:27 
+12-16 04:18:58.079  2486  3555 D BLASTSyncEngine: SyncGroup 1281: Set ready true, caller=com.android.server.wm.BLASTSyncEngine.setReady:32 com.android.server.wm.Transition.applyReady:54 com.android.server.wm.Transition.setReady:72 com.android.server.wm.TransitionController.setReady:6 com.android.server.wm.DisplayContent.executeAppTransition:4 com.android.server.wm.ActivityRecord.completeResumeLocked:115 
+12-16 04:18:58.080  2486  3555 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.081  2486  3555 D BLASTSyncEngine: SyncGroup 1281:  Unfinished container: Task{c91a162 #14234 type=standard A=10039:com.android.systemui} mSyncState=2
+12-16 04:18:58.083  1671  1714 E HeatmapThread: ECT Thread time in milliseconds: 1765880338
+12-16 04:18:58.083  1671  1714 D HeatmapThread: !@ batteryplugType : 0
+12-16 04:18:58.083  1671  1714 D HeatmapThread: !@ batteryLevel : 0  batteryTemperature : 0 
+12-16 04:18:58.083  1671  1714 D HeatmapThread: !@ Heatmap currtime: 29431338
+12-16 04:18:58.083  1671  1714 D HeatmapThread: !@ Heatmap prevtime: 29431327
+12-16 04:18:58.083  1671  1714 D HeatmapThread: !@ Heatmap plugstarttime: 35791394
+12-16 04:18:58.083  1671  1714 D HeatmapThread: !@ Heatmap prevv_dsoh_update_time: 29430877
+12-16 04:18:58.084  1671  1714 E HeatmapThread: !@Could not open '/efs/FactoryApp/bsoh', errno = 13
+12-16 04:18:58.084  1671  1714 E HeatmapThread: !@ CAM Could not access BSOH EFS
+12-16 04:18:58.084  1671  1714 E HeatmapThread: !@ CAM New BSOH: 0
+12-16 04:18:58.085  2486  3154 I CocktailBarManagerServiceContainer: handleMessage: entry what = 6
+12-16 04:18:58.086  2486  3123 D AS.MultiSoundManager: mForegroundUid = 10039
+12-16 04:18:58.088  1940  2268 I CameraService: onUidStateChanged: uid=10039, procState is changed. (0 -> 1)
+12-16 04:18:58.088  4002  4105 D StackScroller: onDisplayChanged for predraw skip to 2
+12-16 04:18:58.090  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.090  2486  5098 D WifiDisplayAdapter: isFitToActiveDisplayLocked : false
+12-16 04:18:58.090  2486  2570 D BLASTSyncEngine: SyncGroup 1281:  Unfinished container: Task{c91a162 #14234 type=standard A=10039:com.android.systemui} mSyncState=2
+12-16 04:18:58.093  4289  4377 I HoneySpace.TopTaskSource: onTaskFocusChanged(): taskId = 14234
+12-16 04:18:58.094  2486  4702 D ActivityManager: unpendingScheduleServiceRestart: u=11358, drop=false
+12-16 04:18:58.096  4002  4002 D ScrollView: initGoToTop
+12-16 04:18:58.099  4002  4002 I Dialog  : mIsDeviceDefault = true, mIsSamsungBasicInteraction = false, isMetaDataInActivity = false
+12-16 04:18:58.102  4002  4002 I DecorView: setWindowBackground: isPopOver=false color=ff010101 d=android.graphics.drawable.InsetDrawable@662d7db
+12-16 04:18:58.106  4002  4002 D ScrollView: initGoToTop
+12-16 04:18:58.106  4002  4002 D ScrollView: initGoToTop
+12-16 04:18:58.108  2486  4702 D ActivityManager: unpendingScheduleServiceRestart: u=10714, drop=false
+12-16 04:18:58.110  4002  4002 W Settings: Setting show_button_background has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+12-16 04:18:58.112  1701  1901 D SurfaceFlinger: [input] setFocusedWindow: <null>
+12-16 04:18:58.112  2486  5099 D InputDispatcher: Once focus requested (0): <null>
+12-16 04:18:58.112  2486  5099 D InputDispatcher: Focus request (0): <null> but waiting because NO_WINDOW
+12-16 04:18:58.112  2486  5099 D InputDispatcher: Focus left window (0): 78f597c com.termux/com.termux.app.TermuxActivity
+12-16 04:18:58.112  4002  4002 I WindowManager: WindowManagerGlobal#addView, ty=2, view=com.android.internal.policy.DecorView{4f5fe84 V.E...... R.....I. 0,0-0,0}[LogAccessDialogActivity], caller=android.view.WindowManagerImpl.addView:158 android.app.Dialog.show:540 com.android.systemui.logcat.LogAccessDialogActivity.onCreate:382 
+12-16 04:18:58.113  4002  4002 D ViewRootImpl: desktopMode is false
+12-16 04:18:58.113  4002  4002 I ViewRootImpl: dVRR is disabled
+12-16 04:18:58.114  4002  4116 D NativeCustomFrequencyManager: [NativeCFMS] BpCustomFrequencyManager::BpCustomFrequencyManager()
+12-16 04:18:58.114  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(100)
+12-16 04:18:58.116  2486  3555 D InputTransport: Input channel constructed: '9d9a4c5', fd=1113
+12-16 04:18:58.116  2486  3555 D InputTransport: Input channel constructed: '9d9a4c5', fd=1128
+12-16 04:18:58.116  2486  3555 D InputTransport: Input channel constructed: '9d9a4c5', fd=1133
+12-16 04:18:58.116  2486  3555 D InputTransport: Input channel destroyed: '9d9a4c5', fd=1128
+12-16 04:18:58.116  2486  3555 D WindowManager: prepareSync <SYNC_STATE_WAITING_FOR_DRAW>, mPrepareSyncSeqId=0, win=Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}
+12-16 04:18:58.117  1701  4250 I SurfaceFlinger: id=21460 createSurf, flag=84004, 9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21460
+12-16 04:18:58.117  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(100) -> order(999)
+12-16 04:18:58.117  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(102)
+12-16 04:18:58.117  2486  3555 D RestrictionPolicy: isScreenCaptureEnabled : ret=true userId=0
+12-16 04:18:58.118  2486  3555 D WindowManager: Changing focus from null to Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} displayId=0 Callers=com.android.server.wm.WindowManagerService.addWindowInner:565 com.android.server.wm.WindowManagerService.addWindow:1842 com.android.server.wm.Session.addToDisplayAsUser:24 android.view.IWindowSession$Stub.onTransact:757 
+12-16 04:18:58.118  2486  3555 I WindowManager: Cancelling animation restarting=true, leash=Surface(name=Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation)/@0x6fdb39d
+12-16 04:18:58.118  2486  3555 I WindowManager: Reparenting to original parent: Surface(name=WindowToken{441fe25 type=2000 android.os.BinderProxy@4a98f8f})/@0x39f58a5, destroy=false, surface=Surface(name=126abfa StatusBar)/@0x5f2169c
+12-16 04:18:58.118  2486  3555 I WindowManager: Reparenting to leash, surface=Surface(name=126abfa StatusBar)/@0x5f2169c, leashParent=Surface(name=WindowToken{441fe25 type=2000 android.os.BinderProxy@4a98f8f})/@0x39f58a5
+12-16 04:18:58.118  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(102) -> order(1002)
+12-16 04:18:58.118  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(101)
+12-16 04:18:58.119  1701  4250 I SurfaceFlinger: id=21461 createSurf, flag=24000, Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21461
+12-16 04:18:58.119  2486  3555 D WindowManager: makeSurface duration=1 leash=Surface(name=Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation)/@0x8e95417
+12-16 04:18:58.119  2486  3555 D InsetsSourceProvider: updateControlForTarget: control=InsetsSourceControl: {4b350000 mType=statusBars initiallyVisible mSurfacePosition=Point(0, 0) mInsetsHint=Insets{left=0, top=100, right=0, bottom=0}}, target=Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}, from=com.android.server.wm.InsetsStateController.onControlTargetChanged:83 com.android.server.wm.InsetsPolicy.updateBarControlTarget:212 com.android.server.wm.DisplayPolicy.updateSystemBarAttributes:262 com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:372 com.android.server.wm.WindowManagerService.addWindowInner:565 
+12-16 04:18:58.119  2486  3555 I WindowManager: Cancelling animation restarting=true, leash=Surface(name=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation)/@0x3a2e0fb
+12-16 04:18:58.119  2486  3555 I WindowManager: Reparenting to original parent: Surface(name=WindowToken{6ec579d type=2019 android.os.BinderProxy@bc23e47})/@0x4580088, destroy=false, surface=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b
+12-16 04:18:58.120  2486  3555 I WindowManager: Reparenting to leash, surface=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b, leashParent=Surface(name=WindowToken{6ec579d type=2019 android.os.BinderProxy@bc23e47})/@0x4580088
+12-16 04:18:58.120  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(101) -> order(1001)
+12-16 04:18:58.120  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(103)
+12-16 04:18:58.120  1701  3293 I SurfaceFlinger: id=21462 createSurf, flag=24000, Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21462
+12-16 04:18:58.120  2486  2569 V Configuration: Updating configuration, locales updated from [] to [en_US]
+12-16 04:18:58.120  2486  3555 D WindowManager: makeSurface duration=1 leash=Surface(name=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation)/@0x9251ab3
+12-16 04:18:58.120  2486  3555 D InsetsSourceProvider: updateControlForTarget: control=InsetsSourceControl: {1fab0001 mType=navigationBars initiallyVisible mSurfacePosition=Point(0, 2924) mInsetsHint=Insets{left=0, top=0, right=0, bottom=0}}, target=Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}, from=com.android.server.wm.InsetsStateController.onControlTargetChanged:83 com.android.server.wm.InsetsPolicy.updateBarControlTarget:225 com.android.server.wm.DisplayPolicy.updateSystemBarAttributes:262 com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:372 com.android.server.wm.WindowManagerService.addWindowInner:565 
+12-16 04:18:58.121  2486  3555 D WindowManager: updateSystemBarAttributes: displayId=0, focusedCanBeNavColorWin=false, win=Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}, navColorWin=null, caller=com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:372 com.android.server.wm.WindowManagerService.addWindowInner:565 com.android.server.wm.WindowManagerService.addWindow:1842 
+12-16 04:18:58.121  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(103) -> order(1003)
+12-16 04:18:58.121  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(6666898086446318233)
+12-16 04:18:58.121  2486  3555 D WindowManager: updateSystemBarAttributes, bhv=1, apr=0, statusBarAprRegions=[AppearanceRegion{ bounds=[0,0][1440,3088]}], requestedVisibilities=-9
+12-16 04:18:58.121  2486  3555 V SystemKeyManager: updateFocusedWindow() is called, com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.122  2486  2569 V Configuration: Updating configuration, locales updated from [] to [en_US]
+12-16 04:18:58.122  2486  3555 D InputTransport: Input channel destroyed: '9d9a4c5', fd=1133
+12-16 04:18:58.122  1701  1701 I SurfaceFlinger: [9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21460] attach to parent LayerHierarchy{RequestedLayerState{ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459 parentId=21458} 1 children}
+12-16 04:18:58.122  1701  1701 I SurfaceFlinger: [Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21461] attach to parent LayerHierarchy{RequestedLayerState{WindowToken{441fe25 type=2000 android.os.BinderProxy@4a98f8f}#98 parentId=17} 2 children}
+12-16 04:18:58.122  1701  1701 I SurfaceFlinger: [Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21462] attach to parent LayerHierarchy{RequestedLayerState{WindowToken{6ec579d type=2019 android.os.BinderProxy@bc23e47}#88 parentId=34} 2 children}
+12-16 04:18:58.122  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(6666898086446318233) -> order(9999)
+12-16 04:18:58.122  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(3353088150488040007)
+12-16 04:18:58.123  2486  2569 D EnterpriseDeviceManagerService: isMdmAdminPresentInternal() : MDM Admin Found - com.samsung.android.kgclient
+12-16 04:18:58.123  4002  4002 D InputTransport: Input channel constructed: '9d9a4c5', fd=565
+12-16 04:18:58.124  4002  4002 I InsetsController: onStateChanged: host=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1440, 3088), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(683, 0 - 758, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1440 displayHeight=3088 physicalDisplayWidth=1440 physicalDisplayHeight=3088 density={3.75} cutoutSpec={M 0,0 H -10 V 26.66666666666667 H 10 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=14, center=Point(14, 14)}, RoundedCorner{position=TopRight, radius=14, center=Point(1426, 14)}, RoundedCorner{position=BottomRight, radius=14, center=Point(1426, 3074)}, RoundedCorner{position=BottomLeft, radius=14, center=Point(14, 3074)}]}  mRoundedCornerFrame=Rect(0, 0 - 1440, 3088), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(1289, 0 - 1440, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1440 displayHeight=3088 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {27 mType=displayCutout mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {1fab0001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=NONE mBoundingRects=null}, InsetsSource: {1fab0004 mType=systemGestures mFrame=[0,0][102,3088] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {1fab0005 mType=mandatorySystemGestures mFrame=[0,3003][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {1fab0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {1fab0024 mType=systemGestures mFrame=[1338,0][1440,3088] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null}, InsetsSource: {4b350000 mType=statusBars mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {4b350005 mType=mandatorySystemGestures mFrame=[0,0][1440,141] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {4b350006 mType=tappableElement mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null} }
+12-16 04:18:58.124  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(3353088150488040007) -> order(9999)
+12-16 04:18:58.124  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(4540256173536920892)
+12-16 04:18:58.124  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: synced displayState. AttachInfo displayState=2
+12-16 04:18:58.125  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(4540256173536920892) -> order(9999)
+12-16 04:18:58.125  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(5505954964500008723)
+12-16 04:18:58.126  2486  3163 D BackgroundInstallControlService: Package event received: 0
+12-16 04:18:58.126  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(5505954964500008723) -> order(9999)
+12-16 04:18:58.126  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrderOrDefault: uuid(7353881231175205729)
+12-16 04:18:58.127  7950 10807 I Routine@Core[4.9.04.13]: ModesOrderManager: getOrder: uuid(7353881231175205729) -> order(10000)
+12-16 04:18:58.128  7950 10807 I Routine@Core[4.9.04.13]: ModeListHolder: update: size(9) updated(2025/12/16 04:18:58) [ModeMeta(id=173, uuid=100, iconResourceId=2131231140, iconStatusResourceId=2131231637, displayName=Sleep, isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=999, toggleTime=0), ModeMeta(id=174, uuid=102, iconResourceId=2131231621, iconStatusResourceId=2131231701, displayName=Exercise, isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=1002, toggleTime=0), ModeMeta(id=175, uuid=101, iconResourceId=2131231296, iconStatusResourceId=2131231647, displayName=Driving, isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=1001, toggleTime=0), ModeMeta(id=176, uuid=103, iconResourceId=2131231494, iconStatusResourceId=2131231671, displayName=Relax, isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=1003, toggleTime=0), ModeMeta(id=177, uuid=6666898086446318233, iconResourceId=2131231580, iconStatusResourceId=2131231697, displayName=Charging [Default], isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=9999, toggleTime=0), ModeMeta(id=178, uuid=3353088150488040007, iconResourceId=2131231580, iconStatusResourceId=2131231697, displayName=Charging [Fast], isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=9999, toggleTime=0), ModeMeta(id=179, uuid=4540256173536920892, iconResourceId=2131231580, iconStatusResourceId=2131231697, displayName=Charging [Super Fast], isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=9999, toggleTime=0), ModeMeta(id=180, uuid=5505954964500008723, iconResourceId=2131231147, iconStatusResourceId=2131231639, displayName=Shower Mode, isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=9999, toggleTime=0), ModeMeta(id=183, uuid=7353881231175205729, iconResourceId=2131231377, iconStatusResourceId=2131231661, displayName=Code Mode, isRunning=false, runningReason=, runningReasonCondition=, isSet=true, isDeleted=false, detailRunningReason=null, order=10000, toggleTime=0)]
+12-16 04:18:58.128  2486  4702 D ActivityManager: unpendingScheduleServiceRestart: u=10714, drop=false
+12-16 04:18:58.128  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: setView = com.android.internal.policy.DecorView@4f5fe84 IsHRR=false mFlingFrameRateChange=0 TM=true
+12-16 04:18:58.129  2486  2569 D SGM:GameManager: identifyGamePackage. com.android.systemui, mCurrentUserId: 0, callingMethodInfo: com.samsung.android.game.SemGameManager.isGamePackage(SemGameManager.java:106)
+12-16 04:18:58.129  2486  2569 D SGM:SemGameManager: isGamePackage(), pkgName=com.android.systemui, ret=false
+12-16 04:18:58.129  2486  2569 D SGM:FgCheckThread: noteResumeComponent(), received pkgName: com.android.systemui, userId: 0
+12-16 04:18:58.130  7950 11986 I Routine@Core[4.9.04.13]: ActivityWatcherListenerImpl: onResumeComponent: componentName - com.android.systemui, com.android.systemui.logcat.LogAccessDialogActivity, userId: 0
+12-16 04:18:58.130  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.130  2486  3037 D SGM:FgCheckThread: onLooperPrepared(), msg: MSG_APP_RESUME, pkgName: com.android.systemui, userid: 0
+12-16 04:18:58.130  2486  3037 D SGM:FgCheckThread: handleResume().
+12-16 04:18:58.130  2486  3037 D SGM:FgCheckThread: sendFocusOutConditionally() - mPrevNotiPkg: (unknown), userId: 0
+12-16 04:18:58.130  4002  4002 I DecorView: setWindowBackground: isPopOver=false color=0 d=android.graphics.drawable.ColorDrawable@d7c9a1c
+12-16 04:18:58.131  2486  3037 D SGM:FgCheckThread:   handleResume(). pkgName: com.android.systemui, userId: 0, category: non-game
+12-16 04:18:58.131  2486  3037 D SGM:FgCheckThread: notifyFocusInOut(). of pkg: com.android.systemui, type: 4, isSecGameFamily: false, userId: 0
+12-16 04:18:58.131  2486  3037 D SGM:FgCheckThread:   notifyFocusInOut(). unexpected mPrevNotiType: -1
+12-16 04:18:58.131  2486  3037 D SGM:SystemHelper: callReleaseBlock needReleaseBlock:false
+12-16 04:18:58.132  2486  3154 I CocktailBarManagerServiceContainer: handleMessage: entry what = 5
+12-16 04:18:58.131  6331 16650 I SDHMS:k : handleResumeComponent : put = com.android.systemui, userid = 0 instanceid =156842537
+12-16 04:18:58.132  7950 11986 I Routine@Core[4.9.04.13]: Pref: putSharedPrefsData: key=condition_launch_app_data_resume_pkg, data.size=74
+12-16 04:18:58.132  6331  6331 I SDHMS:LOAD: type: LoadsFreqs, value: 0:0:0:0:0:0:0:0:0:0:0:0
+12-16 04:18:58.133  4289  4289 I HoneySpace.EdgePanel.CocktailHostRepositoryImpl: onNoteResume
+12-16 04:18:58.133  4289  4289 I HoneySpace.EdgePanel.EdgePanelContainerViewModel: cocktailHostRepository.edgePanelOperation NoteResumeComponent(componentName=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity})
+12-16 04:18:58.134  4002  4002 D ViewRootImpl: desktopMode is false
+12-16 04:18:58.134  4002  4002 I ViewRootImpl: dVRR is disabled
+12-16 04:18:58.135  4002  4116 D NativeCustomFrequencyManager: [NativeCFMS] BpCustomFrequencyManager::BpCustomFrequencyManager()
+12-16 04:18:58.135  4289  4289 I HoneySpace.EdgePanel.ActivityUtils: HomePackage : ginlemon.flowerfree, resumePackageName : com.android.systemui, className : com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.136  2486  5099 D InputTransport: Input channel constructed: '29b8588', fd=1128
+12-16 04:18:58.136  2486  5099 D InputTransport: Input channel constructed: '29b8588', fd=1133
+12-16 04:18:58.136  2486  5099 D InputTransport: Input channel constructed: '29b8588', fd=1172
+12-16 04:18:58.136  2486  5099 D InputTransport: Input channel destroyed: '29b8588', fd=1133
+12-16 04:18:58.136  2486  5099 D WindowManager: prepareSync <SYNC_STATE_WAITING_FOR_DRAW>, mPrepareSyncSeqId=0, win=Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}
+12-16 04:18:58.137  1701  3293 I SurfaceFlinger: id=21463 createSurf, flag=84004, 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463
+12-16 04:18:58.137  1551 10996 I sensors-hal: handle_sns_client_event:550, [0][2722179] accel_sample [-0.852, -0.431,  9.886] 27755606735030
+12-16 04:18:58.138 13322 13322 I ImeFocusController: onPreWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+12-16 04:18:58.138  2486  5099 D RestrictionPolicy: isScreenCaptureEnabled : ret=true userId=0
+12-16 04:18:58.138  2486  5099 D RestrictionPolicy: isScreenCaptureEnabled : ret=true userId=0
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{5c15412 NavigationBar0#89 parentId=21462} 1 children}] reparent to LayerHierarchy{RequestedLayerState{Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21462 parentId=88} 1 children}
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{126abfa StatusBar#99 parentId=21461} 1 children}] reparent to LayerHierarchy{RequestedLayerState{Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21461 parentId=98} 1 children}
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21456} no children}] reparent to OffscreenRoot
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21456} no children}] RelativeParent to null
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21440} no children}] reparent to OffscreenRoot
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21440} no children}] RelativeParent to null
+12-16 04:18:58.138  1701  1701 I SurfaceFlinger: [29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463] attach to parent LayerHierarchy{RequestedLayerState{ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459 parentId=21458} 2 children}
+12-16 04:18:58.139  2486  5099 D InputTransport: Input channel destroyed: '29b8588', fd=1172
+12-16 04:18:58.140  4002  4002 D InputTransport: Input channel constructed: '29b8588', fd=672
+12-16 04:18:58.141  4002  4002 I InsetsController: onStateChanged: host=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1440, 3088), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(683, 0 - 758, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1440 displayHeight=3088 physicalDisplayWidth=1440 physicalDisplayHeight=3088 density={3.75} cutoutSpec={M 0,0 H -10 V 26.66666666666667 H 10 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=14, center=Point(14, 14)}, RoundedCorner{position=TopRight, radius=14, center=Point(1426, 14)}, RoundedCorner{position=BottomRight, radius=14, center=Point(1426, 3074)}, RoundedCorner{position=BottomLeft, radius=14, center=Point(14, 3074)}]}  mRoundedCornerFrame=Rect(0, 0 - 1440, 3088), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(1289, 0 - 1440, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1440 displayHeight=3088 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {27 mType=displayCutout mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {1fab0001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=NONE mBoundingRects=null}, InsetsSource: {1fab0004 mType=systemGestures mFrame=[0,0][102,3088] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {1fab0005 mType=mandatorySystemGestures mFrame=[0,3003][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {1fab0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {1fab0024 mType=systemGestures mFrame=[1338,0][1440,3088] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null}, InsetsSource: {4b350000 mType=statusBars mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {4b350005 mType=mandatorySystemGestures mFrame=[0,0][1440,141] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {4b350006 mType=tappableElement mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null} }
+12-16 04:18:58.141  4002  4002 I VRI[LogAccessDialogActivity]@2aa5625: synced displayState. AttachInfo displayState=2
+12-16 04:18:58.141 13322 13322 I ImeFocusController: onPostWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+12-16 04:18:58.145  2486  3163 D BackgroundInstallControlService: Package event received: 0
+12-16 04:18:58.145  4002  4002 I VRI[LogAccessDialogActivity]@2aa5625: setView = com.android.internal.policy.DecorView@cc085c6 IsHRR=false mFlingFrameRateChange=0 TM=true
+12-16 04:18:58.145  4002  4002 D DisplayLifecycle: updateDisplay id = 0
+12-16 04:18:58.145  4002  4002 I {OngoingActivityController}: onTaskFocusChanged but OA data is empty
+12-16 04:18:58.145  4002  4116 D HWUI    : HWUI - treat SMPTE_170M as sRGB
+12-16 04:18:58.146  2486  2622 D AnalyticsContainerHandler: handleMessage : { when=-1ms what=1 target=com.android.server.knox.KnoxAnalyticsContainer$AnalyticsHandler }
+12-16 04:18:58.146  2486  2622 D AnalyticsContainerHandler: handleMessage : { when=0 what=2 target=com.android.server.knox.KnoxAnalyticsContainer$AnalyticsHandler }
+12-16 04:18:58.147  2486  5098 D CoreBackPreview: Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@8717107, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+12-16 04:18:58.152  2486  5098 I WindowManager: Relayout Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}: viewVisibility=0 req=1301x2009 ty=2 d0
+12-16 04:18:58.152  1701  3293 I SurfaceFlinger: id=21464 createSurf, flag=44004, com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21464
+12-16 04:18:58.153  2486  5098 D WindowManager: makeSurface duration=1 name=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002
+12-16 04:18:58.153  2486  5098 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.153  2486  5098 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.154  2486  5098 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.154  2486  5098 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.154  2486  5098 D BLASTSyncEngine: SyncGroup 1281:  Unfinished container: Task{c91a162 #14234 type=standard A=10039:com.android.systemui} mSyncState=2
+12-16 04:18:58.155  2486  5098 I WindowManager: Relayout hash=9d9a4c5, pid=4002, syncId=-1: mAttrs={(0,0)(wrapxwrap) gr=BOTTOM CENTER_VERTICAL sim={adjust=pan forwardNavigation} ty=APPLICATION fmt=TRANSLUCENT wanim=0x1030309 surfaceInsets=Rect(54, 54 - 54, 54) (manual) (!preservePreviousSurfaceInsets)
+12-16 04:18:58.155  2486  5098 I WindowManager:   fl=1820002
+12-16 04:18:58.155  2486  5098 I WindowManager:   pfl=40080880
+12-16 04:18:58.155  2486  5098 I WindowManager:   bhv=1
+12-16 04:18:58.155  2486  5098 I WindowManager:   fitTypes=207
+12-16 04:18:58.155  2486  5098 I WindowManager:   frameRateBoostOnTouch=true
+12-16 04:18:58.155  2486  5098 I WindowManager:   dvrrWindowFrameRateHint=true
+12-16 04:18:58.155  2486  5098 I WindowManager:  dimAmount=0.65 dimDuration=150 naviIconColor=0}
+12-16 04:18:58.155  1701  1701 I SurfaceFlinger: [com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21464] attach to parent LayerHierarchy{RequestedLayerState{9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21460 parentId=21459} 1 children}
+12-16 04:18:58.155  4002  4002 I InsetsSourceConsumer: applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.156  4002  4002 I InsetsSourceConsumer: applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.157  4002  4002 W libc    : Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+12-16 04:18:58.157  4002  4002 I BufferQueueProducer: [](id:fa20000035b,api:0,p:0,c:4002) setDequeueTimeout:2077252342
+12-16 04:18:58.157  4002  4002 I BLASTBufferQueue_Java: new BLASTBufferQueue, mName= VRI[LogAccessDialogActivity]@e61c66d mNativeObject= 0xb4000075ab991f30 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3585 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901 android.view.Choreographer$CallbackRecord.run:1910 android.view.Choreographer.doCallbacks:1367 android.view.Choreographer.doFrame:1292 android.view.Choreographer$FrameDisplayEventReceiver.run:1870 
+12-16 04:18:58.157  4002  4002 I BLASTBufferQueue_Java: update, w= 1409 h= 2117 mName = VRI[LogAccessDialogActivity]@e61c66d mNativeObject= 0xb4000075ab991f30 sc.mNativeObject= 0xb40000753aef2190 format= -3 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3590 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901 
+12-16 04:18:58.157  4002  4002 W libc    : Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+12-16 04:18:58.158  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: Relayout returned: old=(0,100,1440,3088) new=(69,1079,1370,3088) relayoutAsync=false req=(1301,2009)0 dur=4 res=0x3 s={true 0xb40000757b5ecbb0} ch=true seqId=0
+12-16 04:18:58.158  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: performConfigurationChange setNightDimText nightDimLevel=0
+12-16 04:18:58.159  4002  4002 D VRI[LogAccessDialogActivity]@e61c66d: mThreadedRenderer.initialize() mSurface={isValid=true 0xb40000757b5ecbb0} hwInitialized=true
+12-16 04:18:58.160  4002  4002 D ScrollView:  onsize change changed 
+12-16 04:18:58.161  4002  4002 D VRI[LogAccessDialogActivity]@e61c66d: reportNextDraw android.view.ViewRootImpl.performTraversals:5443 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901 android.view.Choreographer$CallbackRecord.run:1910 
+12-16 04:18:58.161  4002  4002 D VRI[LogAccessDialogActivity]@e61c66d: Setup new sync=wmsSync-VRI[LogAccessDialogActivity]@e61c66d#79
+12-16 04:18:58.161  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: Creating new active sync group VRI[LogAccessDialogActivity]@e61c66d#80
+12-16 04:18:58.162  2486  4702 D ActivityManager: unpendingScheduleServiceRestart: u=10714, drop=false
+12-16 04:18:58.162  2486  4702 D ActivityManager: unpendingScheduleServiceRestart: u=10714, drop=false
+12-16 04:18:58.162  4002  4002 D VRI[LogAccessDialogActivity]@e61c66d: registerCallbacksForSync syncBuffer=false
+12-16 04:18:58.165  4002  4114 D VRI[LogAccessDialogActivity]@e61c66d: Received frameDrawingCallback syncResult=0 frameNum=1.
+12-16 04:18:58.165  4002  4114 I VRI[LogAccessDialogActivity]@e61c66d: mWNT: t=0xb40000758b256850 mBlastBufferQueue=0xb4000075ab991f30 fn= 1 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$12.onFrameDraw:15441 android.view.ThreadedRenderer$1.onFrameDraw:718 <bottom of call stack> 
+12-16 04:18:58.165  4002  4114 I VRI[LogAccessDialogActivity]@e61c66d: Setting up sync and frameCommitCallback
+12-16 04:18:58.168  1701  3293 I SurfaceFlinger: id=21440 Removed Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21440 (263)
+12-16 04:18:58.168  1701  4250 I SurfaceFlinger: id=21456 Removed Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21456 (263)
+12-16 04:18:58.172  1701  1701 I SurfaceFlinger: destroyed Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21456 form LifecycleManager
+12-16 04:18:58.172  1701  1701 I SurfaceFlinger: destroyed Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21440 form LifecycleManager
+12-16 04:18:58.172  1701  1701 I SurfaceFlinger: id=21456 onLayerDestroyed from LayerHierarchyBuilder(RequestedLayerState{Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21456 !handle})
+12-16 04:18:58.172  1701  1701 I SurfaceFlinger: id=21440 onLayerDestroyed from LayerHierarchyBuilder(RequestedLayerState{Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21440 !handle})
+12-16 04:18:58.175  1701  1701 I Layer   : id=21456 Destroyed Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21456
+12-16 04:18:58.175  1701  1701 I Layer   : id=21440 Destroyed Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21440
+12-16 04:18:58.176  4002  4116 I BLASTBufferQueue: [VRI[LogAccessDialogActivity]@e61c66d#801](f:0,a:0,s:0) onFrameAvailable the first frame is available
+12-16 04:18:58.177  4002  4116 I SurfaceComposerClient: apply transaction with the first frame. layerId: 21464, bufferData(ID: 17188459126038, frameNumber: 1)
+12-16 04:18:58.178  1701  4250 I SurfaceFlinger: [com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21464] setTransactionState with the first frame. bufferData(ID: 17188459126038, frameNumber: 1)
+12-16 04:18:58.178  4002  4116 I VRI[LogAccessDialogActivity]@e61c66d: Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+12-16 04:18:58.178  4002  4116 D HWUI    : CFMS:: SetUp Pid : 4002    Tid : 4116
+12-16 04:18:58.178  1701  1901 D SurfaceFlinger: [input] setFocusedWindow: 9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.179  4002  4002 D VRI[LogAccessDialogActivity]@e61c66d: reportDrawFinished seqId=0
+12-16 04:18:58.179  2486  3599 D InputDispatcher: Once focus requested (0): 9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.179  2486  3599 D InputDispatcher: Focus request (0): 9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity but waiting because NO_WINDOW
+12-16 04:18:58.179  2486  3555 D WindowManager: finishDrawingWindow: Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} mDrawState=DRAW_PENDING seqId=0
+12-16 04:18:58.180  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.180  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.180  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.181  2486  2570 D BLASTSyncEngine: SyncGroup 1281:  Unfinished container: Task{c91a162 #14234 type=standard A=10039:com.android.systemui} mSyncState=2
+12-16 04:18:58.181  6331 16650 I SDHMS:k : onTaskStackChanged
+12-16 04:18:58.181  2486  5099 D CoreBackPreview: Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b277234, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+12-16 04:18:58.181  2486  3922 I WindowManager: Relayout Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}: viewVisibility=0 req=1440x3088 ty=1 d0
+12-16 04:18:58.182  4289 24934 I HoneySpace.RecentTasks: onRecentTasksChanged
+12-16 04:18:58.182  1701  4250 I SurfaceFlinger: id=21465 createSurf, flag=44004, com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21465
+12-16 04:18:58.182  2486  3922 D WindowManager: makeSurface duration=1 name=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002
+12-16 04:18:58.183  2486  3922 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.183  2486  3922 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.183  2486  3922 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.183  2486  3922 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.183  2486  3922 D BLASTSyncEngine: SyncGroup 1281:  Unfinished container: Task{c91a162 #14234 type=standard A=10039:com.android.systemui} mSyncState=2
+12-16 04:18:58.184  2486  3922 I WindowManager: Relayout hash=29b8588, pid=4002, syncId=-1: mAttrs={(0,0)(fillxfill) sim={adjust=pan forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION fmt=TRANSPARENT wanim=0x1030000
+12-16 04:18:58.184  2486  3922 I WindowManager:   fl=1810100
+12-16 04:18:58.184  2486  3922 I WindowManager:   pfl=100088c0
+12-16 04:18:58.184  2486  3922 I WindowManager:   bhv=1
+12-16 04:18:58.184  2486  3922 I WindowManager:   fitSides=0
+12-16 04:18:58.184  2486  3922 I WindowManager:   frameRateBoostOnTouch=true
+12-16 04:18:58.184  2486  3922 I WindowManager:   dvrrWindowFrameRateHint=true naviIconColor=0}
+12-16 04:18:58.185  4002  4002 I InsetsController: onStateChanged: host=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1440, 3088), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(683, 0 - 758, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1440 displayHeight=3088 physicalDisplayWidth=1440 physicalDisplayHeight=3088 density={3.75} cutoutSpec={M 0,0 H -10 V 26.66666666666667 H 10 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=14, center=Point(14, 14)}, RoundedCorner{position=TopRight, radius=14, center=Point(1426, 14)}, RoundedCorner{position=BottomRight, radius=14, center=Point(1426, 3074)}, RoundedCorner{position=BottomLeft, radius=14, center=Point(14, 3074)}]}  mRoundedCornerFrame=Rect(0, 0 - 1440, 3088), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(1289, 0 - 1440, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1440 displayHeight=3088 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {1fab0001 mType=navigationBars mFrame=[0,0][0,0] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=NONE mBoundingRects=null}, InsetsSource: {1fab0004 mType=systemGestures mFrame=[0,0][102,3088] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {1fab0005 mType=mandatorySystemGestures mFrame=[0,3003][1440,3088] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {1fab0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {1fab0024 mType=systemGestures mFrame=[1338,0][1440,3088] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null}, InsetsSource: {4b350000 mType=statusBars mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {4b350005 mType=mandatorySystemGestures mFrame=[0,0][1440,141] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {4b350006 mType=tappableElement mFrame=[0,0][1440,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null} }
+12-16 04:18:58.186  4002  4002 W libc    : Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+12-16 04:18:58.186  4002  4002 I BufferQueueProducer: [](id:fa20000035c,api:0,p:131072,c:4002) setDequeueTimeout:2077252342
+12-16 04:18:58.186  4002  4002 I BLASTBufferQueue_Java: new BLASTBufferQueue, mName= VRI[LogAccessDialogActivity]@2aa5625 mNativeObject= 0xb4000075aba0f700 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3585 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901 android.view.Choreographer$CallbackRecord.run:1910 android.view.Choreographer.doCallbacks:1367 android.view.Choreographer.doFrame:1292 android.view.Choreographer$FrameDisplayEventReceiver.run:1870 
+12-16 04:18:58.186  4002  4002 I BLASTBufferQueue_Java: update, w= 1440 h= 3088 mName = VRI[LogAccessDialogActivity]@2aa5625 mNativeObject= 0xb4000075aba0f700 sc.mNativeObject= 0xb40000753af2c8d0 format= -2 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3590 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901 
+12-16 04:18:58.186  2486  5099 W ProcessCpusetController: Slowdown: pid 28948 is nonexistent
+12-16 04:18:58.187  4002  4002 W libc    : Access denied finding property "vendor.display.enable_optimal_refresh_rate"
+12-16 04:18:58.187  6331  6983 I SemDvfsHyPerManager: acquire hyper - BaseTABoost/6331@22, type = -999
+12-16 04:18:58.187  4002  4002 I VRI[LogAccessDialogActivity]@2aa5625: Relayout returned: old=(0,0,1440,3088) new=(0,0,1440,3088) relayoutAsync=false req=(1440,3088)0 dur=5 res=0x3 s={true 0xb40000757b5eff30} ch=true seqId=0
+12-16 04:18:58.187  4002  4002 I VRI[LogAccessDialogActivity]@2aa5625: performConfigurationChange setNightDimText nightDimLevel=0
+12-16 04:18:58.187  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 20183503  [6331 / 22]    HINT :      list : [TABoost / 1] 
+12-16 04:18:58.188  4002  4002 D VRI[LogAccessDialogActivity]@2aa5625: mThreadedRenderer.initialize() mSurface={isValid=true 0xb40000757b5eff30} hwInitialized=true
+12-16 04:18:58.188  4002  4002 D VRI[LogAccessDialogActivity]@2aa5625: reportNextDraw android.view.ViewRootImpl.performTraversals:5443 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901 android.view.Choreographer$CallbackRecord.run:1910 
+12-16 04:18:58.188  4002  4002 D VRI[LogAccessDialogActivity]@2aa5625: Setup new sync=wmsSync-VRI[LogAccessDialogActivity]@2aa5625#81
+12-16 04:18:58.188  4002  4002 I VRI[LogAccessDialogActivity]@2aa5625: Creating new active sync group VRI[LogAccessDialogActivity]@2aa5625#82
+12-16 04:18:58.188  1701  1701 I SurfaceFlinger: [com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21465] attach to parent LayerHierarchy{RequestedLayerState{29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 parentId=21459} 1 children}
+12-16 04:18:58.189  4002  4002 D VRI[LogAccessDialogActivity]@2aa5625: registerCallbacksForSync syncBuffer=false
+12-16 04:18:58.193  4002  4115 D VRI[LogAccessDialogActivity]@2aa5625: Received frameDrawingCallback syncResult=0 frameNum=1.
+12-16 04:18:58.193  4002  4115 I VRI[LogAccessDialogActivity]@2aa5625: mWNT: t=0xb40000758b254a90 mBlastBufferQueue=0xb4000075aba0f700 fn= 1 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$12.onFrameDraw:15441 android.view.ThreadedRenderer$1.onFrameDraw:718 <bottom of call stack> 
+12-16 04:18:58.193  4002  4115 I VRI[LogAccessDialogActivity]@2aa5625: Setting up sync and frameCommitCallback
+12-16 04:18:58.197  4002  4116 I BLASTBufferQueue: [VRI[LogAccessDialogActivity]@2aa5625#802](f:0,a:0,s:0) onFrameAvailable the first frame is available
+12-16 04:18:58.198  4002  4116 I SurfaceComposerClient: apply transaction with the first frame. layerId: 21465, bufferData(ID: 17188459126039, frameNumber: 1)
+12-16 04:18:58.198  4002  4116 I VRI[LogAccessDialogActivity]@2aa5625: Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+12-16 04:18:58.198  1701  4250 I SurfaceFlinger: [com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21465] setTransactionState with the first frame. bufferData(ID: 17188459126039, frameNumber: 1)
+12-16 04:18:58.199  4002  4116 D HWUI    : CFMS:: SetUp Pid : 4002    Tid : 4116
+12-16 04:18:58.199  4002  4002 D VRI[LogAccessDialogActivity]@2aa5625: reportDrawFinished seqId=0
+12-16 04:18:58.199  4002  4116 D HWUI    : HWUI - treat SMPTE_170M as sRGB
+12-16 04:18:58.199  2486  3555 D WindowManager: finishDrawingWindow: Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} mDrawState=DRAW_PENDING seqId=0
+12-16 04:18:58.200  2486  3599 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:58.200  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.200  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.200  2486  3599 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.201  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.201  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.201  2486  2570 V WindowManager: SyncGroup 1281: Finished!
+12-16 04:18:58.201  2486  2570 I SemDvfsHyPerManager: acquire hyper - AMS_RESUME_TAIL/2486@22, type = -999
+12-16 04:18:58.202  2486  2570 I SemDvfsHyPerManager: acquire hyper - AMS_ACT_LAZY/2486@23, type = -999
+12-16 04:18:58.202  2486  2570 D ActivityManagerPerformance: AMP_acquire() TAIL
+12-16 04:18:58.202  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 3146308  [2486 / 22]    HINT : AMS_RESUME_TAIL    list : 
+12-16 04:18:58.202  2486  2570 D ActivityManagerPerformance: AMP_release() APP_SWITCH
+12-16 04:18:58.202  2486  3599 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.202  2486  3599 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:58.202  2486  3599 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:58.203  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 3148818  [2486 / 23]    HINT : AMS_ACT_LAZY    list : 
+12-16 04:18:58.203  2486  2570 I WindowManager: Reparenting to leash, surface=Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff, leashParent=Surface(name=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234})/@0xc92d3cc
+12-16 04:18:58.204  1701  4250 I SurfaceFlinger: id=21466 createSurf, flag=24004, Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466
+12-16 04:18:58.205  2486  2570 D WindowManager: makeSurface duration=2 leash=Surface(name=Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation)/@0xe95ad2a
+12-16 04:18:58.205  2486  2570 V WindowManager: performShowLocked: mDrawState=HAS_DRAWN in Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}
+12-16 04:18:58.206  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{ImeContainer#15 parentId=16898 relativeParentId=16898 z=1} 1 children}] RelativeParent to null
+12-16 04:18:58.206  1701  1701 I SurfaceFlinger: [Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466] attach to parent LayerHierarchy{RequestedLayerState{ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459 parentId=21458} 3 children}
+12-16 04:18:58.206  2486  2570 V WindowManager: performShowLocked: mDrawState=HAS_DRAWN in Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController: onTransactionReady: TransitionRecord{ce3482d id=1281 type=OPEN flags=0x0 c=[
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController:    ChangeInfo{6639b4f container=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234} flags=0x0}
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController:    ChangeInfo{fd562dc container=Display{#0 state=ON size=1440x3088 ROTATION_0} flags=0x0}
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController:    ChangeInfo{4224fe5 container=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} flags=0x0}
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController:    ChangeInfo{711faba container=DefaultTaskDisplayArea_d0@267959883 flags=0x0}
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController: ]
+12-16 04:18:58.206  2486  2570 D ChangeTransitionController: }
+12-16 04:18:58.206  2486  2570 V WindowManager: Start calculating TransitionInfo based on participants: {ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}, Task{c91a162 #14234 type=standard A=10039:com.android.systemui}}
+12-16 04:18:58.207  2486  2570 V WindowManager:   Final targets: [ChangeInfo{4224fe5 container=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} flags=0x10}]
+12-16 04:18:58.207  1701  4250 I SurfaceFlinger: id=21467 createSurf, flag=84004, Transition Root: Task=14234#21467
+12-16 04:18:58.208  1559  1588 I HYPER-HAL: [RequestManager.cpp]releaseLocked(): Released ID : 3161383
+12-16 04:18:58.210  2486  2570 I SurfaceControlRegistry: show, t=StartTransaction_SyncId<1281> sc=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}, caller=android.view.SurfaceControl$Transaction.show:3557 com.android.server.wm.Transition.onTransactionReady:2048 com.android.server.wm.BLASTSyncEngine$SyncGroup.finishNow:240 com.android.server.wm.BLASTSyncEngine.onSurfacePlacement:263 com.android.server.wm.RootWindowContainer.performSurfacePlacementNoTrace:1083 com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement:166 
+12-16 04:18:58.210  2486  2570 D SurfaceComposerClient: setCornerRadius ## Task=14234#21458 cornerRadius=0.000000
+12-16 04:18:58.210  2486  2570 V WindowManager: Calling onTransitionReady: {id=1281 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+12-16 04:18:58.210  2486  2570 V WindowManager:         {WCT{RemoteToken{b218ed0 Task{c91a162 #14234 type=standard A=10039:com.android.systemui}}} m=OPEN f=TRANSLUCENT|EDGE_EXTENSION_RESTRICTION leash=Surface(name=Task=14234)/@0x382b782 sb=Rect(0, 0 - 1440, 3088) eb=Rect(0, 0 - 1440, 3088) epz=Point(1440, 3088) d=0 taskParent=-1 inset=Rect(0, 100 - 0, 0)}
+12-16 04:18:58.210  2486  2570 V WindowManager:     ]}
+12-16 04:18:58.212  2486  2570 D PowerManagerService: [api] setPowerBoost(L) boost:0, durationMs:0, caller (uid: 1000 pid: 2486) <- m() in com.android.server.display.DisplayManagerService$BinderService$$ExternalSyntheticOutline0:1
+12-16 04:18:58.212  2486  2570 I ActivityTaskManager: done cause=notifyTransitionStarting drawn timestamp=27176512788797 info=TransitionInfo{62ee0ef a=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234} d=true}
+12-16 04:18:58.213  4002  5144 V WindowManagerShell: onTransitionReady(transaction=10677288808608)
+12-16 04:18:58.214  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.214  4002  4074 V WindowManagerShell: onTransitionReady (#1281) android.os.BinderProxy@1ed6306: {id=1281 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+12-16 04:18:58.214  4002  4074 V WindowManagerShell:         {m=OPEN f=TRANSLUCENT|EDGE_EXTENSION_RESTRICTION leash=Surface(name=Task=14234)/@0x87490b9 sb=Rect(0, 0 - 1440, 3088) eb=Rect(0, 0 - 1440, 3088) epz=Point(1440, 3088) d=0 taskParent=-1 inset=Rect(0, 100 - 0, 0)}
+12-16 04:18:58.214  4002  4074 V WindowManagerShell:     ]}
+12-16 04:18:58.214  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.215  4002  4074 V ShellDesktopMode: DesktopModeLogger: taskInfo map after processing changes 0
+12-16 04:18:58.215  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.215  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.215  4002  4074 D ShellDesktopMode: DesktopTaskChangeListener: onTaskOpening for taskId=14234, displayId=0
+12-16 04:18:58.216  4002  4074 I SurfaceControlRegistry: show, t=StartTransaction_SyncId<1281> sc=Task=14234, caller=android.view.SurfaceControl$Transaction.show:3557 com.android.wm.shell.transition.Transitions.dispatchReady:1279 com.android.wm.shell.transition.Transitions.onTransitionReady:251 com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda0.run:13 android.os.Handler.handleCallback:995 android.os.Handler.dispatchMessage:103 
+12-16 04:18:58.216  4002  4074 I SurfaceControlRegistry: show, t=FinishTransaction_SyncId<1281> sc=Task=14234, caller=android.view.SurfaceControl$Transaction.show:3557 com.android.wm.shell.transition.Transitions.dispatchReady:1330 com.android.wm.shell.transition.Transitions.onTransitionReady:251 com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda0.run:13 android.os.Handler.handleCallback:995 android.os.Handler.dispatchMessage:103 
+12-16 04:18:58.216  4002  4074 V WindowManagerShell: Playing animation for (#1281) android.os.BinderProxy@1ed6306@0
+12-16 04:18:58.216  4002  4074 I SurfaceControlRegistry: show, t=StartTransaction_SyncId<1281> sc=Transition Root: Task=14234, caller=android.view.SurfaceControl$Transaction.show:3557 com.android.wm.shell.transition.Transitions.playTransition:79 com.android.wm.shell.transition.Transitions.processReadyQueue:239 com.android.wm.shell.transition.Transitions.dispatchReady:1352 com.android.wm.shell.transition.Transitions.onTransitionReady:251 com.android.wm.shell.transition.Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda0.run:13 
+12-16 04:18:58.216  4002  4074 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+12-16 04:18:58.216  4002  4074 V ShellDesktopMode: DesktopMixedTransitionHandler: No pending desktop transition
+12-16 04:18:58.216  4002  4074 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=1281 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=TRANSLUCENT|EDGE_EXTENSION_RESTRICTION leash=Surface(name=Task=14234)/@0x87490b9 sb=Rect(0, 0 - 1440, 3088) eb=Rect(0, 0 - 1440, 3088) epz=Point(1440, 3088) d=0 taskParent=-1 inset=Rect(0, 100 - 0, 0)}]}
+12-16 04:18:58.216  2486  4702 D ActivityManager: unpendingScheduleServiceRestart: u=11358, drop=false
+12-16 04:18:58.216  4002  4074 V WindowManagerShell:  Delegate animation for (#1281) to null
+12-16 04:18:58.217  4002  4074 V WindowManagerShell: start default transition animation, info = {id=1281 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=TRANSLUCENT|EDGE_EXTENSION_RESTRICTION leash=Surface(name=Task=14234)/@0x87490b9 sb=Rect(0, 0 - 1440, 3088) eb=Rect(0, 0 - 1440, 3088) epz=Point(1440, 3088) d=0 taskParent=-1 inset=Rect(0, 100 - 0, 0)}]}
+12-16 04:18:58.217  4002  4074 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@17e1b0a animAttr=0x4 type=OPEN isEntrance=true
+12-16 04:18:58.217  4002  4074 V WindowManagerShell:    wallpaperTransit=WALLPAPER_NONE translucent=true
+12-16 04:18:58.219  4002  4074 V WindowManagerShell:    change={m=OPEN f=TRANSLUCENT|EDGE_EXTENSION_RESTRICTION leash=Surface(name=Task=14234)/@0x87490b9 sb=Rect(0, 0 - 1440, 3088) eb=Rect(0, 0 - 1440, 3088) epz=Point(1440, 3088) d=0 taskParent=-1 inset=Rect(0, 100 - 0, 0)}
+12-16 04:18:58.219  2486  4700 D FreecessController: UFZ : com.catalinagroup.callrecorder.helper(11358) [8226, 8718] reason: Binder(1)-android.accessibilityservice.IAccessibili
+12-16 04:18:58.219  4002  4074 I SurfaceControlRegistry: apply, t=StartTransaction_SyncId<1281>, caller=android.view.SurfaceControl$Transaction.apply:3459 android.view.SurfaceControl$Transaction.apply:3447 android.view.SurfaceControl$Transaction.apply:3397 com.android.wm.shell.transition.DefaultTransitionHandler.startAnimation:3387 com.android.wm.shell.transition.Transitions.dispatchTransition:90 com.android.wm.shell.transition.Transitions.playTransition:774 
+12-16 04:18:58.220  1701  1802 I SurfaceFlinger: id=21468 createSurf, flag=84000, 3e96f44 ActivityRecordInputSink com.android.systemui/.logcat.LogAccessDialogActivity#21468
+12-16 04:18:58.222  4002  4074 V WindowManagerShell:  animated by com.android.wm.shell.transition.DefaultTransitionHandler@f8bdea2
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [29b8588 com.android.systemui/com.and[...]logcat.LogAccessDialogActivity#21463] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [9d9a4c5 com.android.systemui/com.and[...]logcat.LogAccessDialogActivity#21460] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [com.android.systemui/com.android.sys[...].LogAccessDialogActivity$_4002#21464] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [Surface(name=9d9a4c5 com.android.sys[...]tion-leash of window_animation#21466] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 E SurfaceFlinger: alpha changed 1.000 -> 0.000 - Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466
+12-16 04:18:58.222  1701  1802 I SurfaceFlinger: id=21469 createSurf, flag=20004, Dim Layer for - Task=14234#21469
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [com.android.systemui/com.android.sys[...].LogAccessDialogActivity$_4002#21465] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [Task=14234#21458] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 E SurfaceFlinger: alpha changed 1.000 -> 0.000 - Task=14234#21458
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [Transition Root: Task=14234#21467] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 I SurfaceFlinger: RequestedLayer [ActivityRecord{14153815 u0 com.andro[...]ogAccessDialogActivity t14234}#21459] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.222  1701  1701 E SurfaceFlinger: alpha changed 0.000 -> 0.000 - Task=14234#21458
+12-16 04:18:58.223  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Task=14234#21458 parentId=21467 z=3} 1 children}] reparent to LayerHierarchy{RequestedLayerState{Transition Root: Task=14234#21467 parentId=10 z=25} 1 children}
+12-16 04:18:58.223  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21460 parentId=21466 z=1} 1 children}] reparent to LayerHierarchy{RequestedLayerState{Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466 parentId=21459 z=1} 1 children}
+12-16 04:18:58.223  1701  1701 I SurfaceFlinger: [Transition Root: Task=14234#21467] attach to parent LayerHierarchy{RequestedLayerState{DefaultTaskDisplayArea_d0#10 parentId=9} 30 children}
+12-16 04:18:58.223  1701  1701 I SurfaceFlinger: [3e96f44 ActivityRecordInputSink com.android.systemui/.logcat.LogAccessDialogActivity#21468] attach to parent LayerHierarchy{RequestedLayerState{ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459 parentId=21458} 3 children}
+12-16 04:18:58.225  4289  7316 I HoneySpace.RecentTasks: onRunningTaskAppeared
+12-16 04:18:58.226  4289 24934 I HoneySpace.RecentTasks: onRecentTasksChanged
+12-16 04:18:58.230  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.230  2486  4890 D FreecessController: UFZ : com.tribalfs.gmh(10714) [9591] reason: Binder(1)-android.accessibilityservice.IAccessibili
+12-16 04:18:58.234  2486  3163 D BackgroundInstallControlService: Package event received: 0
+12-16 04:18:58.238  2486  4890 D FreecessController: BG freezed, skip OLAF unfreeze for (dev.imranr.obtainium, 11234)
+12-16 04:18:58.238  1701  1701 I SurfaceFlinger: RequestedLayer [Dim Layer for - Task=14234#21469] hidden!! flag  from(1) --> to(0)
+12-16 04:18:58.238  2486  4890 D FreecessController: BG freezed, skip OLAF unfreeze for (flar2.appdashboard, 12702)
+12-16 04:18:58.238  1701  1701 E SurfaceFlinger: alpha changed 1.000 -> 0.000 - Dim Layer for - Task=14234#21469
+12-16 04:18:58.239  1701  1701 I SurfaceFlinger: [Dim Layer for - Task=14234#21469] attach to parent LayerHierarchy{RequestedLayerState{Display 0 name="Built-in Screen"#49} 7 children}
+12-16 04:18:58.239  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.239  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.240  2486  4890 D FreecessController: BG freezed, skip OLAF unfreeze for (com.snapchat.android, 12730)
+12-16 04:18:58.240  2486  4890 D FreecessController: restrictJobsByOlaf: restrict=false, uid=-1
+12-16 04:18:58.241  2486  4890 I PowerManagerService: [PWL] SetWakeLockEnableDisable uid = 11358 , disable= false
+12-16 04:18:58.241  2486  4890 I PowerManagerService: [PWL] can not change uid =  11358
+12-16 04:18:58.241  2486  4890 I PowerManagerService: [PWL] SetWakeLockEnableDisable uid = 10714 , disable= false
+12-16 04:18:58.241  2486  4890 I PowerManagerService: [PWL] can not change uid =  10714
+12-16 04:18:58.249  2486  2566 D [secipm]: mSecIpmManager report to nap
+12-16 04:18:58.249  2486  2566 I PkgPredictorService-SecIpmManagerServiceImpl: reportToNAP uid:10039 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity thisTime:189
+12-16 04:18:58.249  2486  2566 D PkgPredictorService-SecIpmManagerServiceImpl: reportToNAP: mHeavyLaunchCounter is false
+12-16 04:18:58.251  2486  4890 I NSLocationMonitor: getGPSUsingApps() called
+12-16 04:18:58.251  2486  4670 D PkgPredictorService-SecIpmManagerServiceImpl: ACTION_FOREGROUND_FINISH_EVENT sCurForegroundApp :com.termux
+12-16 04:18:58.252  4712  4748 I NSLocationManager_FLP: getGPSUsingApps, No change
+12-16 04:18:58.252  2486  2566 I ActivityTaskManager: Displayed com.android.systemui/.logcat.LogAccessDialogActivity for user 0: +189ms
+12-16 04:18:58.252  2486  2566 I Pageboost: Launch time gathered : pid 4002 com.android.systemui 189
+12-16 04:18:58.252  4847  4847 E pageboostd: Received HALT command code 2
+12-16 04:18:58.253  2486  2566 V WindowManager: Sent Transition (#1281) createdAt=12-16 04:18:58.000 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=14234 effectiveUid=10039 displayId=0 isRunning=true baseIntent=Intent { flg=0x10800000 cmp=com.android.systemui/.logcat.LogAccessDialogActivity } baseActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} topActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} origActivity=null realActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} numActivities=1 lastActiveTime=27755591 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{RemoteToken{b218ed0 Task{c91a162 #14234 type=standard A=10039:com.android.systemui}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 100 - 0, 0) topActivityInfo=ActivityInfo{981472e com.android.systemui.logcat.LogAccessDialogActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=true isActivityStackTransparent=true lastNonFullscreenBounds=Rect(108, 822 - 1332, 2366) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1440, 3088) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=10039:com.android.systemui isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=false isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null safeCutoutInsets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1281 }
+12-16 04:18:58.253  2486  2566 V WindowManager:     startWCT=WindowContainerTransaction { changes= {} hops= [] errorCallbackToken=null taskFragmentOrganizer=null }
+12-16 04:18:58.253  2486  2566 V WindowManager:     info={id=1281 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+12-16 04:18:58.253  2486  2566 V WindowManager:         {WCT{RemoteToken{b218ed0 Task{c91a162 #14234 type=standard A=10039:com.android.systemui}}} m=OPEN f=TRANSLUCENT|EDGE_EXTENSION_RESTRICTION leash=Surface(name=Task=14234)/@0x382b782 sb=Rect(0, 0 - 1440, 3088) eb=Rect(0, 0 - 1440, 3088) epz=Point(1440, 3088) d=0 taskParent=-1 inset=Rect(0, 100 - 0, 0)}
+12-16 04:18:58.253  2486  2566 V WindowManager:     ]}
+12-16 04:18:58.253  2486  2486 D OlafRestriction:  olaf state update: state=false
+12-16 04:18:58.253  2486  2486 D OlafRestriction:  sending trigger onRestrictionStateChanged msg.
+12-16 04:18:58.255  1701  1701 E SurfaceFlinger: alpha changed 0.000 -> 0.492 - Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466
+12-16 04:18:58.255  1701  1701 E SurfaceFlinger: alpha changed 0.000 -> 0.259 - Task=14234#21458
+12-16 04:18:58.256  3866  3880 V BtGatt.GattService: ***** CURRENT BLE ADVERTISING APPS *****
+12-16 04:18:58.256  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.257  3866 14585 V BtGatt.GattService: ***** CURRENT BLE CONNECTED APPS *****
+12-16 04:18:58.257  3866  7655 V ScanController: ***** CURRENT BLE SCANNING APPS *****
+12-16 04:18:58.257  3866  7655 V BtGatt.GattService: loggingList: com.google.uid.shared: 10246
+12-16 04:18:58.258  3866  7655 V BtGatt.GattService: loggingList: android.uid.system: 1000
+12-16 04:18:58.258  3866  7655 V BtGatt.GattService: loggingList: android.uid.bcmgr: 5006
+12-16 04:18:58.258  3866  7655 V BtGatt.GattService: loggingList: com.samsung.android.mcfserver: 10110
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger: Display 4630947232161729154 HWC layers:
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           57217554318479 | 00002102 | RGBA_8888    |    0.0    0.0 1440.0 3088.0 |    0    0 1440 3088 | com.termux/com.termux.app.TermuxActivity$_13322#21374 (1278)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           17188459126039 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0 3088.0 |    0    0 1440 3088 | com.android.systemui/com.android.sys[...].LogAccessDialogActivity$_4002#21465 (1)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           17188459126038 | 00002100 | RGBA_8888    |    0.0    0.0 1409.0 1985.0 |   15 1103 1424 3088 | com.android.systemui/com.android.sys[...].LogAccessDialogActivity$_4002#21464 (1)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           17188459124892 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0  100.0 |    0    0 1440  100 | StatusBar$_4002#108 (23386)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           18421114736498 | 00002100 | RGBA_8888    |    0.0    0.0   67.0  566.0 | 1373  522 1440 1088 | com.sec.android.app.launcher/com.sam[...]l.app.CocktailBarService$_4289#21363 (1)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           18421114735812 | 
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger: 00002100 | RGBA_8888    |    0.0    0.0 1440.0   69.0 |    0 3019 1440 3088 | SGestureOverlayWindow$_4289#16137 (7)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger:        DEVICE |           17188459124886 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0  164.0 |    0 2924 1440 3088 | NavigationBar0$_4002#104 (1262)
+12-16 04:18:58.263  1701  1701 D SurfaceFlinger: 
+12-16 04:18:58.264  2486  3599 D InputDispatcher: Focus entered window (0): 9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:58.265  4002  4002 D VRI[LogAccessDialogActivity]@e61c66d: mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb40000757b5ecbb0}
+12-16 04:18:58.266  4002  4002 I ImeFocusController: onPreWindowFocus: skipped hasWindowFocus=true mHasImeFocus=false
+12-16 04:18:58.266  4002  4002 I ImeFocusController: onPostWindowFocus: skipped hasWindowFocus=true mHasImeFocus=false
+12-16 04:18:58.267  2486  4890 D MARs:ActiveTrafficFilter: filter : com.tribalfs.gmh(0)
+12-16 04:18:58.267  2486  4890 D FreecessHandler: freeze com.tribalfs.gmh(10714) result : 8
+12-16 04:18:58.272  1701  1701 E SurfaceFlinger: alpha changed 0.000 -> 0.069 - Dim Layer for - Task=14234#21469
+12-16 04:18:58.273  4002  4074 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#1281) android.os.BinderProxy@1ed6306@0
+12-16 04:18:58.274  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.274  4002  4074 I SurfaceControlRegistry: apply, t=FinishTransaction_SyncId<1281>, caller=android.view.SurfaceControl$Transaction.apply:3459 android.view.SurfaceControl$Transaction.apply:3447 android.view.SurfaceControl$Transaction.apply:3397 com.android.wm.shell.transition.Transitions.onFinish:315 com.android.wm.shell.transition.Transitions$$ExternalSyntheticLambda7.onTransitionFinished:12 com.android.wm.shell.transition.DefaultTransitionHandler$$ExternalSyntheticLambda2.run:36 
+12-16 04:18:58.278  2486  2569 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=60.000004, presentationDeadlineNanos=17666666, appVsyncOffsetNanos=16666666, frameRateOverrides=[{uid=1000 frameRateHz=60.000004}, {uid=10039 frameRateHz=60.000004}, {uid=10145 frameRateHz=60.000004}, {uid=12683 frameRateHz=60.000004}]
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger: Display 4630947232161729154 HWC layers:
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           57217554318479 | 00002102 | RGBA_8888    |    0.0    0.0 1440.0 3088.0 |    0    0 1440 3088 | com.termux/com.termux.app.TermuxActivity$_13322#21374 (1278)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           17188459126039 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0 3088.0 |    0    0 1440 3088 | com.android.systemui/com.android.sys[...].LogAccessDialogActivity$_4002#21465 (1)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:   SOLID_COLOR |                        0 | 00000000 | N/A          |    0.0    0.0    0.0    0.0 |    0    0 1440 3088 | Dim Layer for - Task=14234#21469 (0)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           17188459126038 | 00002100 | RGBA_8888    |    0.0    0.0 1409.0 2011.0 |   15 1077 1424 3088 | com.android.systemui/com.android.sys[...].LogAccessDialogActivity$_4002#21464 (1)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           17188459124892 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0  100.0 |    0    0 1440  100 | StatusBar$_4002#108 (23386)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           18421114736498 | 00002100 | RGBA_8888    |    0.0    0.0   67.
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger: 0  566.0 | 1373  522 1440 1088 | com.sec.android.app.launcher/com.sam[...]l.app.CocktailBarService$_4289#21363 (1)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           18421114735812 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0   69.0 |    0 3019 1440 3088 | SGestureOverlayWindow$_4289#16137 (7)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger:        DEVICE |           17188459124886 | 00002100 | RGBA_8888    |    0.0    0.0 1440.0  164.0 |    0 2924 1440 3088 | NavigationBar0$_4002#104 (1262)
+12-16 04:18:58.279  1701  1701 D SurfaceFlinger: 
+12-16 04:18:58.279  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.280  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.280  2486  5130 D LiftUpHandler: [LTW] Stopped already.
+12-16 04:18:58.280  1648 15748 D AudioFlinger: setParameters: filtered dev setParameters keyvalue screen_state=on
+12-16 04:18:58.281  2486  3599 V WindowManager: Finish Transition: TransitionRecord{ce3482d id=1281 type=OPEN flags=0x0 c=[
+12-16 04:18:58.281  2486  3599 V WindowManager:    ChangeInfo{6639b4f container=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234} flags=0x0}
+12-16 04:18:58.281  2486  3599 V WindowManager:    ChangeInfo{fd562dc container=Display{#0 state=ON size=1440x3088 ROTATION_0} flags=0x0}
+12-16 04:18:58.281  2486  3599 V WindowManager:    ChangeInfo{4224fe5 container=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} flags=0x10}
+12-16 04:18:58.281  2486  3599 V WindowManager:    ChangeInfo{711faba container=DefaultTaskDisplayArea_d0@267959883 flags=0x0}
+12-16 04:18:58.281  2486  3599 V WindowManager: ]
+12-16 04:18:58.281  2486  3599 V WindowManager: }, caller=com.android.server.wm.WindowOrganizerController.finishTransitionInner:31 com.android.server.wm.WindowOrganizerController.finishAllTransitions:60 android.window.IWindowOrganizerController$Stub.onTransact:283 
+12-16 04:18:58.281  1519  1519 D AHAL: AudioDevice: SetParameters: 1634: enter
+12-16 04:18:58.281  1519  1519 D AHAL: AudioVoice: VoiceSetParameters: 168: Enter
+12-16 04:18:58.281  1519  1519 D AHAL: AudioVoice: VoiceSetParameters: 412: Exit ret: 0
+12-16 04:18:58.281  1519  1519 D AHAL: SecAudioDevice: SecSetParameters: 281: Enter
+12-16 04:18:58.281  1519  1519 E AHAL: AudioDevice: SetParameters: 1645: Error in SecSetParameters -2
+12-16 04:18:58.281  1519  1519 D AHAL: factory: FactorySetParameters: 58: Enter
+12-16 04:18:58.281  1519  1519 D AHAL: Effect: EffectSetParameters: 245: Enter
+12-16 04:18:58.281  1519  1519 D AHAL: Effect: EffectSetParameters: 285: Exit
+12-16 04:18:58.281  2486  2566 V WindowManager: Finish Transition (#1281): created at 12-16 04:18:58.000 collect-started=0.953ms request-sent=28.855ms started=49.032ms ready=78.658ms sent=209.858ms commit=19.456ms finished=280.433ms
+12-16 04:18:58.281  1519  1519 D AHAL: AudioDevice: SetParameters: 1692:  - screen = on
+12-16 04:18:58.281  1519  1519 I PAL: ResourceManager: setParameter: 8093: Screen State:1
+12-16 04:18:58.281  1519  1519 D AHAL: AudioDevice: SetParameters: 2332: exit: screen_state=on
+12-16 04:18:58.281  2486  2486 D SGM:GameManager: onDisplayChanged. displyId: 0, state: 2
+12-16 04:18:58.281  2486  2486 D SGM:GameManager: dpi: 548, longPixel: 3088, shortPixel: 1440
+12-16 04:18:58.281  2486  3599 D PersonaActivityHelper: token.toString()  Token{9593a29 ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}}
+12-16 04:18:58.281  2486  3599 D PersonaActivityHelper: mLastResumedSFActivity getPackageName  com.android.settings
+12-16 04:18:58.281  2486  3599 D PersonaActivityHelper: mLastResumedSFActivity getShortClassName  .applications.InstalledAppDetails
+12-16 04:18:58.282  2486  2486 D AODManagerService: requestReCalToTSP IsSingleTouchMode = falserequestedReCalToTSP = false / previousDisplayState = ON
+12-16 04:18:58.282  1519  1519 I Audio_a2dpsink_hw: adev_set_parameters: kevpairs=[screen_state=on]
+12-16 04:18:58.282  2486  3037 D SGM:FgCheckThread: onLooperPrepared(), msg: MSG_LCD_ON
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController: onTransitionFinished: TransitionRecord{ce3482d id=1281 type=OPEN flags=0x0 c=[
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController:    ChangeInfo{6639b4f container=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234} flags=0x0}
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController:    ChangeInfo{fd562dc container=Display{#0 state=ON size=1440x3088 ROTATION_0} flags=0x0}
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController:    ChangeInfo{4224fe5 container=Task{c91a162 #14234 type=standard A=10039:com.android.systemui} flags=0x10}
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController:    ChangeInfo{711faba container=DefaultTaskDisplayArea_d0@267959883 flags=0x0}
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController: ]
+12-16 04:18:58.282  2486  3599 D ChangeTransitionController: }
+12-16 04:18:58.283  2486  3123 D AS.DesktopModeHelper: onDisplayChanged: #Id=0
+12-16 04:18:58.283  4002  4074 V WindowManagerShell: Track 0 became idle
+12-16 04:18:58.283  4002  4074 V WindowManagerShell: All active transition animations finished
+12-16 04:18:58.289  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Task=14234#21458 parentId=10 z=25} 1 children}] reparent to LayerHierarchy{RequestedLayerState{DefaultTaskDisplayArea_d0#10 parentId=9} 31 children}
+12-16 04:18:58.289  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.289  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Transition Root: Task=14234#21467 z=25} no children}] reparent to OffscreenRoot
+12-16 04:18:58.289  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Transition Root: Task=14234#21467 z=25} no children}] RelativeParent to null
+12-16 04:18:58.291  1701  1701 I SurfaceFlinger: id=21467 Removed Transition Root: Task=14234#21467 (266)
+12-16 04:18:58.306  1701  1701 I SurfaceFlinger: destroyed Transition Root: Task=14234#21467 form LifecycleManager
+12-16 04:18:58.306  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.306  1701  1701 I SurfaceFlinger: id=21467 onLayerDestroyed from LayerHierarchyBuilder(RequestedLayerState{Transition Root: Task=14234#21467 !handle z=25})
+12-16 04:18:58.308  1701  1701 I Layer   : id=21467 Destroyed Transition Root: Task=14234#21467
+12-16 04:18:58.322  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.330  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.339  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.355  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.372  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.373  2486  2570 I WindowManager: Reparenting to original parent: Surface(name=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234})/@0xc92d3cc, destroy=true, surface=Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff
+12-16 04:18:58.374  2486  3599 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:58.374  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.374  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.375  2486  3599 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.377  2486  3599 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.377  2486  3599 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:58.377  2486  3599 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:58.393  2486  2571 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.394  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.394  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.395  2486  2570 D SurfaceComposerClient: [SEC_SF_EFFECTS] setBackgroundBlurRadius ## Dim Layer for - Task=14234#21469 backgroundBlurRadius=0
+12-16 04:18:58.396 11099 11408 I SGPController: onForegroundAppChanged() update=true, cn=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}
+12-16 04:18:58.405  1701  1701 I SurfaceFlinger: [Display 0 name="Built-in Screen"#49] setFrameRateCategory: Default
+12-16 04:18:58.405  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21460 parentId=21459 z=1} 2 children}] reparent to LayerHierarchy{RequestedLayerState{ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459 parentId=21458} 4 children}
+12-16 04:18:58.405  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466 z=1} no children}] reparent to OffscreenRoot
+12-16 04:18:58.405  1701  1701 I SurfaceFlinger: [LayerHierarchy{RequestedLayerState{Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466 z=1} no children}] RelativeParent to null
+12-16 04:18:58.407  1701  1701 I SurfaceFlinger: id=21466 Removed Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466 (265)
+12-16 04:18:58.410  2486  2569 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=60.000004, presentationDeadlineNanos=17666666, appVsyncOffsetNanos=16666666, frameRateOverrides=[]
+12-16 04:18:58.411  2486  2486 D SGM:GameManager: onDisplayChanged. displyId: 0, state: 2
+12-16 04:18:58.412  2486  3037 D SGM:FgCheckThread: onLooperPrepared(), msg: MSG_LCD_ON
+12-16 04:18:58.412  2486  2486 D SGM:GameManager: dpi: 548, longPixel: 3088, shortPixel: 1440
+12-16 04:18:58.413  1648 15748 D AudioFlinger: setParameters: filtered dev setParameters keyvalue screen_state=on
+12-16 04:18:58.413  1519  1519 D AHAL: AudioDevice: SetParameters: 1634: enter
+12-16 04:18:58.413  1519  1519 D AHAL: AudioVoice: VoiceSetParameters: 168: Enter
+12-16 04:18:58.413  1519  1519 D AHAL: AudioVoice: VoiceSetParameters: 412: Exit ret: 0
+12-16 04:18:58.413  1519  1519 D AHAL: SecAudioDevice: SecSetParameters: 281: Enter
+12-16 04:18:58.413  1519  1519 E AHAL: AudioDevice: SetParameters: 1645: Error in SecSetParameters -2
+12-16 04:18:58.413  1519  1519 D AHAL: factory: FactorySetParameters: 58: Enter
+12-16 04:18:58.413  1519  1519 D AHAL: Effect: EffectSetParameters: 245: Enter
+12-16 04:18:58.413  2486  5130 D LiftUpHandler: [LTW] Stopped already.
+12-16 04:18:58.413  1519  1519 D AHAL: Effect: EffectSetParameters: 285: Exit
+12-16 04:18:58.413  1519  1519 D AHAL: AudioDevice: SetParameters: 1692:  - screen = on
+12-16 04:18:58.413  1519  1519 I PAL: ResourceManager: setParameter: 8093: Screen State:1
+12-16 04:18:58.413  1519  1519 D AHAL: AudioDevice: SetParameters: 2332: exit: screen_state=on
+12-16 04:18:58.414  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:58.414  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:58.415  4002  4002 D DisplayLifecycle: updateDisplay id = 0
+12-16 04:18:58.415  2486  2486 D AODManagerService: requestReCalToTSP IsSingleTouchMode = falserequestedReCalToTSP = false / previousDisplayState = ON
+12-16 04:18:58.415  4002  4105 D StackScroller: onDisplayChanged for predraw skip to 2
+12-16 04:18:58.415  2486  3599 D WifiDisplayAdapter: isFitToActiveDisplayLocked : false
+12-16 04:18:58.416  1519  1519 I Audio_a2dpsink_hw: adev_set_parameters: kevpairs=[screen_state=on]
+12-16 04:18:58.417  2486  3123 D AS.DesktopModeHelper: onDisplayChanged: #Id=0
+12-16 04:18:58.422  1701  1701 I SurfaceFlinger: destroyed Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466 form LifecycleManager
+12-16 04:18:58.422  1701  1701 I SurfaceFlinger: id=21466 onLayerDestroyed from LayerHierarchyBuilder(RequestedLayerState{Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466 !handle z=1})
+12-16 04:18:58.425  1701  1701 I Layer   : id=21466 Destroyed Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21466
+12-16 04:18:58.430  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.433  2486  3555 I ActivityManager: Changes in 11903 11 to 19, 128 to 0
+12-16 04:18:58.436  4289  4289 I HoneySpace.EdgePanel.EdgeVisibilityRepository: getComputedTrayVisible : keyguardState = 1
+12-16 04:18:58.436  4289  4289 I HoneySpace.EdgePanel.EdgeVisibilityRepository: updateTrayVisible: State = 0x1, visible = true, current containerState = 0, specificMode = 0
+12-16 04:18:58.436  4289  4289 I HoneySpace.EdgePanel.EdgeVisibilityRepository: Same container state 0
+12-16 04:18:58.437  2486  2575 I ActivityManager: Changes in 11903 19 to 11, 0 to 128
+12-16 04:18:58.438 21343 32351 V BinderSender: Uid 11903 already starts
+12-16 04:18:58.497  2486  5098 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:58.498  2486  5098 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.501  2486  5098 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.501  2486  5098 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:58.501  2486  5098 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:58.505  1559 15079 I HYPER-HAL: [RequestManager.cpp]releaseLocked(): Released ID : 3146308
+12-16 04:18:58.531  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.623  2486 15083 D SemInputDeviceManager: setProperty: (0) CMD,GRIP_DATA,1,60,10,32,926,32,3088
+12-16 04:18:58.623  2486 15083 D TspStateManager: wrote command: cmd=1,60,10,32,926,32,3088, type=1
+12-16 04:18:58.623  2486  3026 D SemInputDevice:TSP: SetPropertyTask: CMD,set_grip_data,1,60,10,32,926,32,3088 [12-16 04:18:58.623]
+12-16 04:18:58.628  1614  1614 I sysinput:Touch: writeInformation:249, OK
+12-16 04:18:58.629  2486  3026 D SysinputHAL_V1_3(V1_2): runTspCmdNoRead(TSP(1)): set_grip_data,1,60,10,32,926,32,3088 ret=0
+12-16 04:18:58.631  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.693  2486  2486 W AccessibilityManagerService:  wait for adding window timeout: 2334
+12-16 04:18:58.731  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.784  2486  5099 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:58.785  2486  5099 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.790  2486  5099 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.790  2486  5099 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:58.791  2486  5099 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:58.807  2486  3076 D WifiStaIfaceHidlImpl: getCachedScanData is not implemented by HIDL
+12-16 04:18:58.832  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.839  2486  3003 D SEP_UNION_SemDeviceInfoManagerService: onReceive : android.net.wifi.RSSI_CHANGED, userId = 0 
+12-16 04:18:58.839  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: isProfiling, hash=12133692, started=true
+12-16 04:18:58.840  2486  5394 D SemWifiUsabilityStatsMonitor: onWifiUsabilityStats - seqNum 8451, isSameBssidAndFreq true
+12-16 04:18:58.840  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: isProfiling, hash=12133692, started=true
+12-16 04:18:58.841  2486  3185 I SemWifiLinkQualityMonitor: Link stat: 2147 / 32 / 1.00 (25) / 260 / -57.0 || 100.0 : 260.00 / 0.5 : 1.00 / 0.55 : 0.01 / G (G) || 862620395240: 0.104 / 77.028 / N || A N / 0 0 / N 2.0 / N X 0 / 27177140 0 || Invalid
+12-16 04:18:58.842  2486  3003 D ActivityManager: Received BROADCAST intent 0x4adfadd Key{broadcastIntent pkg=com.samsung.android.app.routines intent=act=wifi_rssi_v3 flg=0x10000000 xflg=0x4 cmp=com.samsung.android.app.routines/.preloadproviders.receiver.SepUnionReceiver flags=0x2000000 u=0} requestCode=0 sent=0 from uid 1000
+12-16 04:18:58.842  2486  3003 D SEP_UNION_SemDeviceInfoManagerService: Send intent wifi_rssi_v3, userId: 0 by broadcast 
+12-16 04:18:58.842  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: Rssi : -57 highrange : -75 lowrange : -80 mIsRssiInHystersis : false
+12-16 04:18:58.842  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: Rssi : -57 highrange : -75 lowrange : -80 mIsRssiInHystersis : false
+12-16 04:18:58.842  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: isL2WHandoverProfilingRunning: returning: false
+12-16 04:18:58.842  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: No need to send L2WHandoverProfiling runnable
+12-16 04:18:58.842  3415  3415 I EPDG -- SIM1 [SMARTWIFI]: getHandoverThresholdMet: value is: false
+12-16 04:18:58.844  7950  7950 I Routine@Core[4.9.04.13]: SepUnionReceiver: onReceive: Intent { act=wifi_rssi_v3 flg=0x10000010 xflg=0x4 cmp=com.samsung.android.app.routines/.preloadproviders.receiver.SepUnionReceiver (has extras) }
+12-16 04:18:58.845  7950  8253 I Routine@Core[4.9.04.13]: SepUnionReceiver: onReceiveInternal
+12-16 04:18:58.845  7950  8253 I Routine@Core[4.9.04.13]: SepUnionIntentTagHandler: handleIntent - wifi_rssi_v3
+12-16 04:18:58.845  7950  8253 I Routine@Core[4.9.04.13]: Pref: putSharedPrefsData: key=pref_key_wifi_rssi, data.size=3
+12-16 04:18:58.848  2486  3003 D SEP_UNION_SemDeviceInfoManagerService: UnionContentObserver onChange u0: content://com.samsung.android.app.routines.provider.routines.v3/wifi_rssi_v3 
+12-16 04:18:58.848  2486  3003 D SEP_UNION_SemDeviceInfoManagerService: Uri matches exactly. Reporting changes... 
+12-16 04:18:58.849  7950  8253 I Routine@Core[4.9.04.13]: SepUnionReceiver: onReceiveInternal: - finished Intent { act=wifi_rssi_v3 flg=0x10000010 xflg=0x4 cmp=com.samsung.android.app.routines/.preloadproviders.receiver.SepUnionReceiver (has extras) }
+12-16 04:18:58.850  2486  3003 D ActivityManager: Received SERVICE intent 0xd29f04c Key{startService pkg=com.samsung.android.app.routines intent=act=com.samsung.android.app.routines.ACTION_CONDITION_STATE_CHANGED xflg=0x4 cmp=com.samsung.android.app.routines/.engine.service.RoutineEngineService flags=0x2000000 u=0} requestCode=95 from uid 1000
+12-16 04:18:58.850  2486  3003 D SEP_UNION_SemDeviceInfoManagerService: Send intent: com.samsung.android.app.routines.ACTION_CONDITION_STATE_CHANGED, userId: 0 by uri change 
+12-16 04:18:58.850  7950  7950 I Routine@Core[4.9.04.13]: RoutineEngineService: onCreate
+12-16 04:18:58.851  7950  7950 I Routine@Core[4.9.04.13]: RoutineEngineService: onConditionStateChanged: packageName=com.samsung.android.app.routines, tag=wifi_rssi_v3
+12-16 04:18:58.851  7950 13292 I Routine@Core[4.9.04.13]: ProcessUtils: setProcessImportant: needForeground=true, reason=ENGINE_COORDINATOR
+12-16 04:18:58.851  7950 13292 I Routine@Core[4.9.04.13]: ProcessUtils: setProcessImportant: skip... still in use with important reason=PRELOAD_CONDITION_SERVICE
+12-16 04:18:58.851  7950 13292 I Routine@Core[4.9.04.13]: COORD/CoordinatorRequestHandler: onCallReceive: method=condition_state_changed
+12-16 04:18:58.851  7950 13292 I Routine@Core[4.9.04.13]: COORD/CoordinatorRequestHandler: onCallReceive: wait until notify... method=condition_state_changed
+12-16 04:18:58.851  7950 11295 I Routine@Core[4.9.04.13]: COORD/CoordinatorRequestHandler: messageHandler.handleMessage: message=CONDITION_STATE_CHANGED
+12-16 04:18:58.858  7950  8253 I Routine@Core[4.9.04.13]: ConditionStateChanged: execute: packageName=com.samsung.android.app.routines, tag=wifi_rssi_v3, size=1
+12-16 04:18:58.858  7950  8253 I Routine@Core[4.9.04.13]: COORD/BasicConditionController: evaluateTriggerStatus: conditions.size=1
+12-16 04:18:58.858  7950  8253 I Routine@Core[4.9.04.13]: COORD/BasicConditionController: evaluateTriggerStatus: condition=RoutineCondition(meta=ConditionMeta(id=95, tag=wifi_rssi_v3, packageName=com.samsung.android.app.routines, componentName=null, componentType=v3, labelResourceId=2131889416, subLabelResourceId=-1, enabledLabelResourceId=0, negativeEnabledLabelResourceId=0, _isSupportNegative=0, descriptionResourceId=0, iconResourceId=2131231612, configActivity=com.samsung.android.app.routines/.preloadproviders.network.wifi.conditions.WifiRssiLevelConfigActivity, category=null, defaultParameter=null, defaultParameterLabel=null, uri=null, correctParam=null, parameterSpecSet=null, supportState=1, attributes=, version=1, defaultLabel=Wi-Fi strength), _instance=ConditionInstance(id=211, uuid=8462440030035789313, routineId=155, parameterRepresentation=1 bar or less, param={"wifi_level":"{\"TYPE\":\"STRING\",\"VALUE\":\"1\"}"}, isNegative=-1, timestamp=1765589074520, validState=1, extra=, _triggerStatus=0))
+12-16 04:18:58.861  7950  8253 I Routine@Core[4.9.04.13]: TASKD/ConditionTaskAdapterFactoryImpl: getAdapter - metaId=wifi_rssi_v3(id=95)
+12-16 04:18:58.862  7950  8253 I Routine@Sdk[3.1.20]: ParameterValues: fromJsonString: jsonString={"TYPE":"STRING","VALUE":"1"}
+12-16 04:18:58.862  7950  8253 I Routine@Core[4.9.04.13]: WifiRssiLevelConditionHandler: checkValidity - tag(wifi_rssi_v3)
+12-16 04:18:58.863  7950  8253 E Routine@Core[4.9.04.13]: ResultCode.FailCustomCode: fromValidState: failed to parse. validState=0x1
+12-16 04:18:58.863  7950  8253 I Routine@Core[4.9.04.13]: TASKD/ConditionTaskAdapterFactoryImpl: getAdapter - metaId=wifi_rssi_v3(id=95)
+12-16 04:18:58.864  7950  8253 I Routine@Sdk[3.1.20]: ParameterValues: fromJsonString: jsonString={"TYPE":"STRING","VALUE":"1"}
+12-16 04:18:58.864  7950  8253 I Routine@Core[4.9.04.13]: WifiRssiLevelConditionHandler: isSatisfied - tag(wifi_rssi_v3)
+12-16 04:18:58.864  7950  8253 I Routine@Core[4.9.04.13]: NumberUtils: parseInteger: error 
+12-16 04:18:58.865  7950  8253 I Routine@Core[4.9.04.13]: WifiRssiLevelConditionHandler: getSatisfiedStatus, level=4, operatorValue=1, paramValue=1, result=false
+12-16 04:18:58.865  7950  8253 I Routine@Core[4.9.04.13]: COORD/BasicConditionController: evaluateTriggerStatus: isSatisfied=false (conditionId=wifi_rssi_v3(id=211, uuid=846244, routineId=155))
+12-16 04:18:58.869  7950  8253 I Routine@Core[4.9.04.13]: COORD/ConditionProgressCallback: doTriggerOff: routineState=READY (routineId=155(uuid=565253, name=Seamless connection)[READY]) (conditionId=wifi_rssi_v3(id=211, uuid=846244, routineId=155))
+12-16 04:18:58.875  7950  8253 I Routine@Core[4.9.04.13]: COORD/RoutineCommandHandlerImpl: needEndRunning: routineState=READY (routineId=155(uuid=565253, name=Seamless connection)[READY])
+12-16 04:18:58.875  7950  8253 W Routine@Core[4.9.04.13]: COORD/RoutineCommandHandlerImpl: needEndRunning: not handled status. routineState=READY
+12-16 04:18:58.876  7950 13292 I Routine@Core[4.9.04.13]: COORD/CoordinatorRequestHandler: onCallReceive: released! method=condition_state_changed
+12-16 04:18:58.876  7950 13292 I Routine@Core[4.9.04.13]: ProcessUtils: setProcessImportant: needForeground=false, reason=ENGINE_COORDINATOR
+12-16 04:18:58.876  7950 13292 I Routine@Core[4.9.04.13]: ProcessUtils: setProcessImportant: skip... still in use with important reason=PRELOAD_CONDITION_SERVICE
+12-16 04:18:58.876  7950  7950 I Routine@Core[4.9.04.13]: RoutineEngineService: onConditionStateChanged.onComplete: tag=wifi_rssi_v3
+12-16 04:18:58.876  7950  7950 I Routine@Core[4.9.04.13]: RoutineEngineService: onStartCommand.onConditionStateChanged: result=true
+12-16 04:18:58.877  7950  7950 I Routine@Core[4.9.04.13]: RoutineEngineService: onDestroy
+12-16 04:18:58.931  2486  3555 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:58.932  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:58.933  2486  3555 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.936  2486  3555 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:58.936  2486  3555 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:58.937  2486  3555 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:59.037  1559 15074 I HYPER-HAL: [RequestManager.cpp]releaseLocked(): Released ID : 3143799
+12-16 04:18:59.052  1551 15216 I sensors-hal: handle_sns_std_sensor_event:311, [SSC_LIGHT] P: 0(0),m:7,c:0,b:31,c0:0,l:0,f(r):100,u(bl):100,j:0
+12-16 04:18:59.083  1671  1714 E HeatmapThread: ECT Thread time in milliseconds: 1765880339
+12-16 04:18:59.083  1671  1714 D HeatmapThread: !@ batteryplugType : 0
+12-16 04:18:59.083  1671  1714 D HeatmapThread: !@ batteryLevel : 0  batteryTemperature : 0 
+12-16 04:18:59.083  1671  1714 D HeatmapThread: !@ Heatmap currtime: 29431338
+12-16 04:18:59.083  1671  1714 D HeatmapThread: !@ Heatmap prevtime: 29431327
+12-16 04:18:59.083  1671  1714 D HeatmapThread: !@ Heatmap plugstarttime: 35791394
+12-16 04:18:59.083  1671  1714 D HeatmapThread: !@ Heatmap prevv_dsoh_update_time: 29430877
+12-16 04:18:59.084  1671  1714 E HeatmapThread: !@Could not open '/efs/FactoryApp/bsoh', errno = 13
+12-16 04:18:59.084  1671  1714 E HeatmapThread: !@ CAM Could not access BSOH EFS
+12-16 04:18:59.084  1671  1714 E HeatmapThread: !@ CAM New BSOH: 0
+12-16 04:18:59.094  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:59.194  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:59.208  2486  4603 W BitmapFactory: Null Options, creating a new one.
+12-16 04:18:59.209  2486  4603 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:59.215  2486  4603 I Kumiho-Kumiho: getPackageName: app.autocat.debug
+12-16 04:18:59.216  2486  4603 I AppIconSolution: getThemeIconWithBG called with public API, pkg = null, mode = 528
+12-16 04:18:59.216  2486  4603 I AppIconSolution: Just return a stored icon at ArchiveState, pkg = null
+12-16 04:18:59.276  2486  3015 D InputReader: Btn_touch(7): value=1 when=27177.576052
+12-16 04:18:59.276  2486  3015 I InputReader: Touch event's action is 0x0 (id=7, t=0) [pCnt=1, s=0.17026 ] when=27177.576052
+12-16 04:18:59.280  2486  3014 I InputDispatcher: Delivering touch to (4002): action: 0x4, f=0x0, d=0, '5c15412', t=1 
+12-16 04:18:59.280  2486  3014 I InputDispatcher: Delivering touch to (4002): action: 0x0, f=0x0, d=0, '9d9a4c5', t=1 +(-69,-1079)
+12-16 04:18:59.280  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: ViewPostIme pointer 0
+12-16 04:18:59.280  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[LogAccessDialogActivity]@e61c66d
+12-16 04:18:59.281  2486  3014 D PowerManagerService: [api] userActivityFromNative : touch displayId=0 eventTime=27177576
+12-16 04:18:59.281  2486  3014 D PowerManagerService: UserActivityStateListenerState: 1
+12-16 04:18:59.283  4289  4289 I HoneySpace.GestureInputHandler: inputConsumers = [com.honeyspace.gesture.inputconsumer.InputConsumer$Companion$NO_OP$1@c0450ed]
+12-16 04:18:59.284  4289  4289 I HoneySpace.InputSession: inputConsumers = NO_OP
+12-16 04:18:59.286  4289  4289 I HoneySpace.InputSession: open
+12-16 04:18:59.286  6331  6331 I SemDvfsHyPerManager: acquire hyper - TABoost/6331@23, type = -999
+12-16 04:18:59.286  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 20189858  [6331 / 23]    HINT :      list : [TABoost / 1] [TIMEOUT / 1500] 
+12-16 04:18:59.287  2486  2567 I GestureDetector: obtain mCurrentDownEvent. id: 883072426 caller: com.android.server.wm.SystemGesturesPointerEventListener.onPointerEvent:17 com.android.server.wm.PointerEventDispatcher.onInputEvent:51 android.view.InputEventReceiver.dispatchInputEvent:392 
+12-16 04:18:59.287  2486  2567 I GestureDetector: obtain mCurrentDownEvent. id: 883072426 caller: com.android.server.wm.SystemPerformancePointerEventListener.onPointerEvent:13 com.android.server.wm.PointerEventDispatcher.onInputEvent:51 android.view.InputEventReceiver.dispatchInputEvent:392 
+12-16 04:18:59.289  1701  1701 I SurfaceFlinger: [com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002#21464] setFrameRateCategory: HighHint
+12-16 04:18:59.295  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:59.305  2486  2567 I GestureDetector: obtain mCurrentMotionEventRaw. action: 2 id: 760808666
+12-16 04:18:59.305  2486  2567 I GestureDetector: obtain mCurrentMotionEventRaw. action: 2 id: 760808666
+12-16 04:18:59.367  2486  3015 D InputReader: Btn_touch(7): value=0 when=27177.666754
+12-16 04:18:59.367  2486  3015 I InputReader: Touch event's action is 0x1 (id=7, t=0) [pCnt=1, s=] when=27177.666754
+12-16 04:18:59.367  2486  3014 I InputDispatcher: Delivering touch to (4002): action: 0x1, f=0x0, d=0, '9d9a4c5', t=1 +(-69,-1079)
+12-16 04:18:59.368  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: ViewPostIme pointer 1
+12-16 04:18:59.369  4002  4002 I WindowManager: WindowManagerGlobal#removeView, ty=2, view=com.android.internal.policy.DecorView{4f5fe84 V.E...... R....... 0,0-1301,2009}[LogAccessDialogActivity], caller=android.view.WindowManagerGlobal.removeView:654 android.view.WindowManagerImpl.removeViewImmediate:216 android.app.Dialog.dismissDialog:850 
+12-16 04:18:59.369  4002  4002 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Dialog$$ExternalSyntheticLambda4@3df7987
+12-16 04:18:59.374  2486  6263 D CoreBackPreview: Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}: Setting back callback null
+12-16 04:18:59.376  4002  4002 I VRI[LogAccessDialogActivity]@e61c66d: dispatchDetachedFromWindow
+12-16 04:18:59.376  4289  4289 I HoneySpace.GestureInputHandler: reset
+12-16 04:18:59.376  4289  4289 I HoneySpace.InputSession: close
+12-16 04:18:59.377  2486  6263 D InputTransport: Input channel destroyed: '9d9a4c5', fd=1113
+12-16 04:18:59.377  2486  6263 V WindowManager: Remove Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}: mSurfaceControl=Surface(name=com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity$_4002)/@0xd5e5845 mAnimatingExit=false mRemoveOnExit=false mHasSurface=true surfaceShowing=true animating=false app-animation=false callers=com.android.server.wm.Session.remove:16 android.view.IWindowSession$Stub.onTransact:804 com.android.server.wm.Session.onTransact:1 android.os.Binder.execTransactInternal:1462 android.os.Binder.execTransact:1401 <bottom of call stack> 
+12-16 04:18:59.379  2486  6263 I WindowManager: Reparenting to leash, surface=Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff, leashParent=Surface(name=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234})/@0xc92d3cc
+12-16 04:18:59.380  1701  3293 I SurfaceFlinger: id=21470 createSurf, flag=24000, Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21470
+12-16 04:18:59.381  2486  6263 D WindowManager: makeSurface duration=2 leash=Surface(name=Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation)/@0x651cccb
+12-16 04:18:59.386  2486  6263 D WindowManager: Changing focus from Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity EXITING} to Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} displayId=0 Callers=com.android.server.wm.WindowState.removeIfPossible:602 com.android.server.wm.Session.remove:16 android.view.IWindowSession$Stub.onTransact:804 com.android.server.wm.Session.onTransact:1 
+12-16 04:18:59.387  2486  6263 I WindowManager: Cancelling animation restarting=true, leash=Surface(name=Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation)/@0x8e95417
+12-16 04:18:59.387  2486  6263 I WindowManager: Reparenting to original parent: Surface(name=WindowToken{441fe25 type=2000 android.os.BinderProxy@4a98f8f})/@0x39f58a5, destroy=false, surface=Surface(name=126abfa StatusBar)/@0x5f2169c
+12-16 04:18:59.387  2486  6263 I WindowManager: Reparenting to leash, surface=Surface(name=126abfa StatusBar)/@0x5f2169c, leashParent=Surface(name=WindowToken{441fe25 type=2000 android.os.BinderProxy@4a98f8f})/@0x39f58a5
+12-16 04:18:59.388  1701  4250 I SurfaceFlinger: id=21471 createSurf, flag=24000, Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21471
+12-16 04:18:59.389  1701  1701 I SurfaceFlinger: [Surface(name=9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity)/@0x13d79ff - animation-leash of window_animation#21470] attach to parent LayerHierarchy{RequestedLayerState{ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234}#21459 parentId=21458} 4 children}
+12-16 04:18:59.389  1701  1701 I SurfaceFlinger: [Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation#21471] attach to parent LayerHierarchy{RequestedLayerState{WindowToken{441fe25 type=2000 android.os.BinderProxy@4a98f8f}#98 parentId=17} 2 children}
+12-16 04:18:59.389  2486  6263 D WindowManager: makeSurface duration=2 leash=Surface(name=Surface(name=126abfa StatusBar)/@0x5f2169c - animation-leash of insets_animation)/@0xf1133c1
+12-16 04:18:59.390  2486  6263 D InsetsSourceProvider: updateControlForTarget: control=InsetsSourceControl: {4b350000 mType=statusBars initiallyVisible mSurfacePosition=Point(0, 0) mInsetsHint=Insets{left=0, top=100, right=0, bottom=0}}, target=Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}, from=com.android.server.wm.InsetsStateController.onControlTargetChanged:83 com.android.server.wm.InsetsPolicy.updateBarControlTarget:212 com.android.server.wm.DisplayPolicy.updateSystemBarAttributes:262 com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:372 com.android.server.wm.WindowState.removeIfPossible:602 
+12-16 04:18:59.390  2486  6263 I WindowManager: Cancelling animation restarting=true, leash=Surface(name=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation)/@0x9251ab3
+12-16 04:18:59.390  2486  6263 I WindowManager: Reparenting to original parent: Surface(name=WindowToken{6ec579d type=2019 android.os.BinderProxy@bc23e47})/@0x4580088, destroy=false, surface=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b
+12-16 04:18:59.390  2486  6263 I WindowManager: Reparenting to leash, surface=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b, leashParent=Surface(name=WindowToken{6ec579d type=2019 android.os.BinderProxy@bc23e47})/@0x4580088
+12-16 04:18:59.390  1701  4250 I SurfaceFlinger: id=21472 createSurf, flag=24000, Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation#21472
+12-16 04:18:59.391  2486  6263 D WindowManager: makeSurface duration=1 leash=Surface(name=Surface(name=5c15412 NavigationBar0)/@0xdf4b42b - animation-leash of insets_animation)/@0xd2e6aa7
+12-16 04:18:59.392  2486  6263 D InsetsSourceProvider: updateControlForTarget: control=InsetsSourceControl: {1fab0001 mType=navigationBars initiallyVisible mSurfacePosition=Point(0, 2924) mInsetsHint=Insets{left=0, top=0, right=0, bottom=0}}, target=Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}, from=com.android.server.wm.InsetsStateController.onControlTargetChanged:83 com.android.server.wm.InsetsPolicy.updateBarControlTarget:225 com.android.server.wm.DisplayPolicy.updateSystemBarAttributes:262 com.android.server.wm.WindowManagerService.updateFocusedWindowLocked:372 com.android.server.wm.WindowState.removeIfPossible:602 
+12-16 04:18:59.393  2486  6263 V SystemKeyManager: updateFocusedWindow() is called, com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:59.394  2486  6263 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:59.394  2486  6263 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:59.397  1701  1887 I CompositionEngine: [setDisplaySize] size=(571, 51)
+12-16 04:18:59.397  2486  6263 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:59.398  2486  6263 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:59.399  4002  4002 D InputTransport: Input channel destroyed: '9d9a4c5', fd=565
+12-16 04:18:59.400  2486  3922 D InputDispatcher: Focus left window (0): 9d9a4c5 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity
+12-16 04:18:59.401  2486  2570 D SurfaceComposerClient: setCornerRadius ## 29b8588 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity#21463 cornerRadius=0.000000
+12-16 04:18:59.401  2486  2570 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:59.406  2486  5642 D WindowManager: Transition is created, t=TransitionRecord{56c7b54 id=-1 type=CLOSE flags=0x0}, caller=com.android.server.wm.Transition.<init>:182 com.android.server.wm.TransitionController.createTransition:17 com.android.server.wm.TransitionController.requestCloseTransitionIfNeeded:73 com.android.server.wm.ActivityRecord.finishIfPossible:38 com.android.server.wm.ActivityClientController.finishActivity:268 
+12-16 04:18:59.407  2486  5642 D BLASTSyncEngine: SyncGroup is created, id=1282, name=Transition-CLOSE, caller=com.android.server.wm.BLASTSyncEngine$SyncGroup.<init>:52 com.android.server.wm.TransitionController.moveToCollecting:79 com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm.TransitionController.requestCloseTransitionIfNeeded:73 com.android.server.wm.ActivityRecord.finishIfPossible:38 com.android.server.wm.ActivityClientController.finishActivity:268 android.app.IActivityClientController$Stub.onTransact:840 
+12-16 04:18:59.407  2486  5642 W BLASTSyncEngine: setSyncMethod, id=1282, method=0, caller=com.android.server.wm.TransitionController.moveToCollecting:91 com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm.TransitionController.requestCloseTransitionIfNeeded:73 
+12-16 04:18:59.407  2486  5642 V WindowManager: Start collecting in Transition: TransitionRecord{56c7b54 id=1282 type=CLOSE flags=0x0}, caller=com.android.server.wm.TransitionController.createTransition:46 com.android.server.wm.TransitionController.requestCloseTransitionIfNeeded:73 com.android.server.wm.ActivityRecord.finishIfPossible:38 com.android.server.wm.ActivityClientController.finishActivity:268 android.app.IActivityClientController$Stub.onTransact:840 
+12-16 04:18:59.407  2486  5642 V WindowManager: Requesting StartTransition: TransitionRecord{56c7b54 id=1282 type=CLOSE flags=0x0}, caller=com.android.server.wm.TransitionController.requestCloseTransitionIfNeeded:81 com.android.server.wm.ActivityRecord.finishIfPossible:38 com.android.server.wm.ActivityClientController.finishActivity:268 android.app.IActivityClientController$Stub.onTransact:840 com.android.server.wm.ActivityClientController.onTransact:1 
+12-16 04:18:59.408  2486  5642 V WindowManager: Collecting in transition 1282: Task{c91a162 #14234 type=standard A=10039:com.android.systemui}, caller=com.android.server.wm.Transition.collectExistenceChange:40 com.android.server.wm.Transition.collectClose:7 com.android.server.wm.ActivityRecord.finishIfPossible:50 com.android.server.wm.ActivityClientController.finishActivity:268 android.app.IActivityClientController$Stub.onTransact:840 
+12-16 04:18:59.408  2486  5642 D WindowManager: prepareSync <SYNC_STATE_WAITING_FOR_DRAW>, mPrepareSyncSeqId=0, win=Window{9d9a4c5 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity EXITING}
+12-16 04:18:59.408  2486  5642 D WindowManager: prepareSync <SYNC_STATE_WAITING_FOR_DRAW>, mPrepareSyncSeqId=0, win=Window{29b8588 u0 com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity}
+12-16 04:18:59.409  4002  4074 V WindowManagerShell: Transition requested (#1282): android.os.BinderProxy@ffa282d TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=14234 effectiveUid=10039 displayId=0 isRunning=false baseIntent=Intent { flg=0x10800000 cmp=com.android.systemui/.logcat.LogAccessDialogActivity } baseActivity=null topActivity=null origActivity=null realActivity=ComponentInfo{com.android.systemui/com.android.systemui.logcat.LogAccessDialogActivity} numActivities=0 lastActiveTime=27755634 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 maxWidth=-1 maxHeight=-1 defaultMinSize=220 desktopDefaultMinSize=304 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@58f0162} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=null launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=true lastNonFullscreenBounds=Rect(108, 822 - 1332, 2366) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 0, 0) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=undefined} topActivityBounds=null topActivityInDisplayCompat=false singleTapFromLetterbox=false} topActivityMainWindowFrame=null originallySupportedMultiWindow=true hasWallpaper=false rootAffinity=10039:com.android.systemui isTopTaskInStage=false CoverLauncherWidgetTask=false LaunchedFromAppsCoverLauncherTask=false LaunchedFromMultistarCoverLauncherTask=false isAllowedSeamlessRotation=false isTopTransparentActivity=true isAliasManaged=false hasConfigChanged=false snappingGuideBounds=null isAiKeyRemoveAppTask=false lastDesktopWindowingBounds=null lastExternalDesktopWindowingBounds=null safeCutoutInsets=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 1282 }
+12-16 04:18:59.410  4002  4074 V ShellDesktopMode: DesktopTasksController: isDesktopModeShowing: hasVisibleTasks=false hasTopTransparentFullscreenTask=false
+12-16 04:18:59.410  2486  5642 D ActivityTaskManager: scheduleTopResumedActivityChanged, onTop=false, r=ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234 f}}, caller=com.android.server.wm.ActivityTaskSupervisor.scheduleTopResumedActivityStateLossIfNeeded:19 com.android.server.wm.ActivityTaskSupervisor.updateTopResumedActivityIfNeeded:20 com.android.server.wm.TaskDisplayArea.positionChildAt:252 com.android.server.wm.Task.moveToFront:40 com.android.server.wm.Task.adjustFocusToNextFocusableTask:133 com.android.server.wm.ActivityRecord.finishIfPossible:71 
+12-16 04:18:59.410  4002  4074 V ShellDesktopMode: DesktopTasksController: isDesktopModeShowing: hasVisibleTasks=false hasTopTransparentFullscreenTask=false
+12-16 04:18:59.410  4002  4074 D ShellDesktopMode: handleRequest: TransitionRequestInfo {type=2, tid=14234, debugId=1282}
+12-16 04:18:59.410  2486  5642 V WindowManager: Collecting in transition 1282: ActivityRecord{14153815 u0 com.android.systemui/.logcat.LogAccessDialogActivity t14234 f}}, caller=com.android.server.wm.TransitionController.collect:7 com.android.server.wm.ActivityRecord.setVisibility:132 com.android.server.wm.ActivityRecord.finishIfPossible:87 com.android.server.wm.ActivityClientController.finishActivity:268 android.app.IActivityClientController$Stub.onTransact:840 
+12-16 04:18:59.410  4002  4074 V ShellDesktopMode: DesktopTasksController: skipping handleRequest reason=transition type not handled (2)
+12-16 04:18:59.415  2486  5642 D SurfaceComposerClient: setCornerRadius ## 78f597c com.termux/com.termux.app.TermuxActivity#16899 cornerRadius=0.000000
+12-16 04:18:59.417  2486  5098 I SemDvfsHyPerManager: acquire hyper - AMS_ACT_RESUME/2486@29, type = -999
+12-16 04:18:59.418  2486  5098 D ActivityManagerPerformance: AMP_acquire() ACT_RESUME
+12-16 04:18:59.418  1559  1588 I HYPER-HAL: [RequestManager.cpp]acquire(): Acquired ID : 3163899  [2486 / 29]    HINT : AMS_ACT_RESUME    list : 
+12-16 04:18:59.418  2486  5098 D SGM:FgCheckThread: TaskStackListener.onTaskFocusChanged(), taskId=14234, focused=false
+12-16 04:18:59.418  2486  5098 D SGM:FgCheckThread: TaskStackListener.onTaskFocusChanged(), taskId=14194, focused=true

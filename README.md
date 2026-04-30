@@ -67,6 +67,7 @@ For the original project, documentation, and release APKs, visit [MuntashirAkon/
 - View/change net policy
 - Control battery optimization
 - Freeze/unfreeze apps
+- Shizuku support for executing root/privileged commands
 
 ### Root-only features
 
@@ -88,6 +89,12 @@ For the original project, documentation, and release APKs, visit [MuntashirAkon/
 - Import app list exported by App Manager
 - More advance terminal emulator
 - Database viewer and editor, etc.
+
+## Recent Updates
+-   **Bottom Navigation Bar (Experimental):** Added an option in settings to toggle between a traditional top navigation bar and a new bottom navigation bar for improved one-handed use.
+-   **Archive App in Details Page:** Implemented the ability to archive apps directly from their details page.
+-   **CI Stability Improvements:** Resolved various compilation and linting issues, ensuring a more stable development process.
+-   **Material You Theming (Planned):** An issue has been created to track the comprehensive integration of Material You expressive theming across the application.
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
 alt="Get it on F-Droid"

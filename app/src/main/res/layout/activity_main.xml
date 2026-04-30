@@ -7,8 +7,28 @@
     android:layout_height="match_parent"
     tools:context="io.github.muntashirakon.AppManager.main.MainActivity">
 
+    <io.github.muntashirakon.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <io.github.muntashirakon.widget.RecyclerView
+            android:id="@+id/item_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:focusable="false"
+            android:clipToPadding="false"
+            app:fastScrollerEnabled="true"
+            tools:listitem="@layout/item_main" />
+
+    </io.github.muntashirakon.widget.SwipeRefreshLayout>
+
     <io.github.muntashirakon.widget.AppBarLayout
-        android:id="@+id/appbar"
+        android:id="@+id/top_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -16,7 +36,7 @@
         app:liftOnScrollTargetViewId="@+id/item_list">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/top_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@null"
@@ -29,50 +49,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <ViewStub
+            android:id="@+id/suggestions_stub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/layout_suggestions" />
+
     </io.github.muntashirakon.widget.AppBarLayout>
 
-    <io.github.muntashirakon.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="false"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabCradleMargin="12dp"
+        app:fabCradleRoundedCornerRadius="12dp"
+        app:fabCradleVerticalOffset="8dp"
+        app:navigationIcon="@null"
+        app:menu="@menu/activity_main_actions"
+        tools:menu="@menu/activity_main_actions" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
+        app:layout_anchor="@id/bottom_app_bar" />
 
-            <ViewStub
-                android:id="@+id/suggestions_stub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout="@layout/layout_suggestions" />
-
-            <ViewStub
-                android:id="@+id/filter_chips_stub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout="@layout/layout_filter_chips" />
-
-            <io.github.muntashirakon.widget.RecyclerView
-                android:id="@+id/item_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:focusable="false"
-                android:clipToPadding="false"
-                android:fitsSystemWindows="true"
-                app:fastScrollerEnabled="true"
-                tools:listitem="@layout/item_main" />
-        </LinearLayout>
-
-    </io.github.muntashirakon.widget.SwipeRefreshLayout>
+    <io.github.muntashirakon.AppManager.misc.AdvancedSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:elevation="8dp"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <io.github.muntashirakon.widget.MultiSelectionView
         android:id="@+id/selection_view"

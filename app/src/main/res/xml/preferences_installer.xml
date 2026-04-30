@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <io.github.muntashirakon.preference.TopSwitchPreference
+        app:icon="@drawable/ic_autorenew"
         app:iconSpaceReserved="false"
         app:key="use_installer"
         app:persistent="false"
@@ -14,6 +15,7 @@
         app:title="@string/pref_cat_general">
 
         <Preference
+            app:icon="@drawable/ic_drag"
             app:iconSpaceReserved="false"
             app:key="installer_install_location"
             app:title="@string/install_location"
@@ -21,12 +23,14 @@
 
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_block"
             app:iconSpaceReserved="false"
             app:key="installer_block_trackers"
             app:summary="@string/pref_block_trackers_msg"
             app:title="@string/block_trackers" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_eye"
             app:iconSpaceReserved="false"
             app:key="installer_display_changes"
             app:summary="@string/pref_display_changes_msg"
@@ -40,48 +44,56 @@
         app:title="@string/pref_cat_advanced">
 
         <Preference
+            app:icon="@drawable/ic_android"
             app:iconSpaceReserved="false"
             app:key="installer_installer_app"
             app:title="@string/installer_app"
             tools:summary="App Manager" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_check_circle"
             app:iconSpaceReserved="false"
             app:key="installer_disable_verification"
             app:summary="@string/pref_disable_apk_verification_description"
             app:title="@string/pref_disable_apk_verification" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_edit"
             app:iconSpaceReserved="false"
             app:key="installer_update_ownership"
             app:summary="@string/pref_request_update_ownership_description"
             app:title="@string/pref_request_update_ownership" />
 
         <Preference
+            app:icon="@drawable/ic_file"
             app:iconSpaceReserved="false"
             app:key="installer_default_pkg_source"
             app:title="@string/pref_default_package_source"
             tools:summary="Other" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_arrow_outward"
             app:iconSpaceReserved="false"
             app:key="installer_set_origin"
             app:summary="@string/pref_set_origin_description"
             app:title="@string/pref_set_origin" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_code"
             app:iconSpaceReserved="false"
             app:key="installer_sign_apk"
             app:summary="@string/pref_sign_apk_msg"
             app:title="@string/pref_sign_apk" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_fast_forward"
             app:iconSpaceReserved="false"
             app:key="installer_force_dex_opt"
             app:summary="@string/pref_installer_force_dexopt_description"
             app:title="@string/optimize_option_force_dexopt" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_autorenew"
             app:iconSpaceReserved="false"
             app:key="installer_always_on_background"
             app:summary="@string/pref_always_on_background_msg"
