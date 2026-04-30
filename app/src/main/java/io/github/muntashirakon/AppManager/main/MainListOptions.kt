@@ -10,6 +10,7 @@ import io.github.muntashirakon.AppManager.filters.options.AppTypeOption
 import io.github.muntashirakon.AppManager.filters.options.BackupOption
 import io.github.muntashirakon.AppManager.filters.options.ComponentsOption
 import io.github.muntashirakon.AppManager.filters.options.FreezeOption
+import io.github.muntashirakon.AppManager.filters.options.ArchivableOption
 import io.github.muntashirakon.AppManager.filters.options.InstalledOption
 import io.github.muntashirakon.AppManager.filters.options.RunningAppsOption
 import io.github.muntashirakon.AppManager.misc.ListOptions
@@ -171,11 +172,8 @@ class MainListOptions : ListOptions() {
             if (flags and FILTER_APPS_WITH_SSAID != 0) appTypeWithFlags = appTypeWithFlags or AppTypeOption.APP_TYPE_SSAID
             if (flags and FILTER_STOPPED_APPS != 0) appTypeWithFlags = appTypeWithFlags or AppTypeOption.APP_TYPE_STOPPED
             if (flags and FILTER_ARCHIVABLE_APPS != 0) {
-                // TODO: Replace with ArchivableOption once implemented — should filter to user-installed,
-                //  currently installed apps that are NOT already in the ArchivedApp database.
-                //  For now, approximate with InstalledOption (installed, non-system) as a placeholder.
-                val option = InstalledOption()
-                option.setKeyValue("installed", null)
+                val option = ArchivableOption()
+                option.setKeyValue("archivable", null)
                 filterItem.addFilterOption(option)
             }
             if (appTypeWithFlags > 0) {

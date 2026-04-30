@@ -6,6 +6,7 @@ object FilterOptions {
     @JvmStatic
     fun create(filterName: String): FilterOption {
         return when (filterName) {
+            "archivable" -> ArchivableOption()
             "apk_size" -> ApkSizeOption()
             "app_label" -> AppLabelOption()
             "app_type" -> AppTypeOption()

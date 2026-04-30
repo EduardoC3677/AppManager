@@ -26,4 +26,7 @@ interface ArchivedAppDao {
 
     @Query("DELETE FROM archived_apps WHERE package_name = :packageName")
     fun deleteByPackageNameSync(packageName: String)
+
+    @Query("SELECT package_name FROM archived_apps")
+    fun getAllPackageNamesSync(): List<String>
 }
