@@ -22,6 +22,7 @@ import io.github.muntashirakon.AppManager.backup.BackupUtils
 import io.github.muntashirakon.AppManager.compat.ActivityManagerCompat
 import io.github.muntashirakon.AppManager.compat.PackageManagerCompat
 import io.github.muntashirakon.AppManager.compat.UserHandleHidden
+import io.github.muntashirakon.AppManager.db.AppsDb
 import io.github.muntashirakon.AppManager.db.entity.App
 import io.github.muntashirakon.AppManager.db.utils.AppDb
 import io.github.muntashirakon.AppManager.filters.FilterItem
@@ -543,6 +544,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
     private fun sortApplicationList(@MainListOptions.SortOrder sortBy: Int, reverse: Boolean) {
         synchronized(mApplicationItems) {
             val mode = if (reverse) -1 else 1
+            // Load archived package names once per sort pass so the SORT_BY_ARCHIVABLE comparator
+            // can exclude apps that are already archived from the "archivable first" group.
+            val archivedPackages: Set<String> = if (sortBy == MainListOptions.SORT_BY_ARCHIVABLE) {
+                AppsDb.getInstance().archivedAppDao().getAllPackageNamesSync().toHashSet()
+            } else emptySet()
             mApplicationItems.sortWith { o1, o2 ->
                 var primaryComparison = 0
                 when (sortBy) {
@@ -578,10 +584,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
                     MainListOptions.SORT_BY_LAST_ACTION -> primaryComparison = -mode * o1.lastActionTime.compareTo(o2.lastActionTime)
                     MainListOptions.SORT_BY_TRACKERS -> primaryComparison = -mode * o1.trackerCount.compareTo(o2.trackerCount)
                     MainListOptions.SORT_BY_ARCHIVABLE -> {
-                        // Archivable = user-installed (not FLAG_SYSTEM), currently installed
-                        // Archivable apps sort first (regardless of reverse flag) to help users find storage candidates
-                        val isArchivable1 = o1.isInstalled && (o1.flags and ApplicationInfo.FLAG_SYSTEM) == 0
-                        val isArchivable2 = o2.isInstalled && (o2.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+                        // Archivable = user-installed, currently installed, NOT already archived
+                        val isArchivable1 = o1.isInstalled && !o1.isSystem && o1.packageName !in archivedPackages
+                        val isArchivable2 = o2.isInstalled && !o2.isSystem && o2.packageName !in archivedPackages
                         primaryComparison = isArchivable2.compareTo(isArchivable1) // true > false puts archivable first
                     }
                 }
