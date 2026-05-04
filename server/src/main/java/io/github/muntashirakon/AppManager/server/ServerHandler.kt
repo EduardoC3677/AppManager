@@ -113,8 +113,9 @@ class ServerHandler(
                     }
                     BaseCaller.TYPE_SHELL -> {
                         val shellCaller = ParcelableUtil.unmarshall(baseCaller.rawBytes, ShellCaller.CREATOR)
+                        val command = shellCaller?.getCommand() ?: ""
                         val shell = Shell.getShell("")
-                        val shellResult = shell.exec(shellCaller?.getCommand())
+                        val shellResult = shell.exec(command)
                         result = CallerResult()
                         val parcel = Parcel.obtain()
                         try {
