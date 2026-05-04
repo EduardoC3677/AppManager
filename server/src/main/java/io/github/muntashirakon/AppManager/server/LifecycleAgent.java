@@ -48,8 +48,8 @@ public final class LifecycleAgent {
     @NonNull
     private Intent makeIntent(String action) {
         return new Intent(action)
-                .setClassName(mConfigParams.getAppName(), ServerActions.PACKAGE_NAME + ".servermanager.ServerStatusChangeReceiver")
-                .putExtra(PARAM_TOKEN, mConfigParams.getToken())
-                .putExtra(PARAM_UID, mConfigParams.getUid());
+                .setClassName(mConfigParams.appName, ServerActions.PACKAGE_NAME + ".servermanager.ServerStatusChangeReceiver")
+                .putExtra(PARAM_TOKEN, mConfigParams.token)
+                .putExtra(PARAM_UID, mConfigParams.uid);
     }
 }
