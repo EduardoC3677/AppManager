@@ -34,8 +34,9 @@ internal class RemoteFile : FileImpl<RemoteFile> {
         return RemoteFile(fs, path, name)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun createArray(n: Int): Array<RemoteFile> {
-        return arrayOfNulls(n)
+        return arrayOfNulls<RemoteFile>(n) as Array<RemoteFile>
     }
 
     @Throws(IOException::class)

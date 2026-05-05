@@ -28,8 +28,9 @@ internal class LocalFile : FileImpl<LocalFile> {
         return LocalFile(path, name)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun createArray(n: Int): Array<LocalFile> {
-        return arrayOfNulls(n)
+        return arrayOfNulls<LocalFile>(n) as Array<LocalFile>
     }
 
     @Throws(ErrnoException::class)

@@ -11,12 +11,6 @@ import android.system.OsConstants.*
 import android.util.ArraySet
 import android.util.MutableLong
 import androidx.annotation.RequiresApi
-import io.github.muntashirakon.io.FileSystemManager.MODE_APPEND
-import io.github.muntashirakon.io.FileSystemManager.MODE_CREATE
-import io.github.muntashirakon.io.FileSystemManager.MODE_READ_ONLY
-import io.github.muntashirakon.io.FileSystemManager.MODE_READ_WRITE
-import io.github.muntashirakon.io.FileSystemManager.MODE_TRUNCATE
-import io.github.muntashirakon.io.FileSystemManager.MODE_WRITE_ONLY
 import java.io.File
 import java.io.FileDescriptor
 import java.io.IOException
@@ -46,22 +40,22 @@ internal object FileUtils {
 
     fun modeToPosix(mode: Int): Int {
         var res: Int
-        if (mode and MODE_READ_WRITE == MODE_READ_WRITE) {
+        if (mode and FileSystemManager.MODE_READ_WRITE == FileSystemManager.MODE_READ_WRITE) {
             res = O_RDWR
-        } else if (mode and MODE_WRITE_ONLY == MODE_WRITE_ONLY) {
+        } else if (mode and FileSystemManager.MODE_WRITE_ONLY == FileSystemManager.MODE_WRITE_ONLY) {
             res = O_WRONLY
-        } else if (mode and MODE_READ_ONLY == MODE_READ_ONLY) {
+        } else if (mode and FileSystemManager.MODE_READ_ONLY == FileSystemManager.MODE_READ_ONLY) {
             res = O_RDONLY
         } else {
             throw IllegalArgumentException("Bad mode: $mode")
         }
-        if (mode and MODE_CREATE == MODE_CREATE) {
+        if (mode and FileSystemManager.MODE_CREATE == FileSystemManager.MODE_CREATE) {
             res = res or O_CREAT
         }
-        if (mode and MODE_TRUNCATE == MODE_TRUNCATE) {
+        if (mode and FileSystemManager.MODE_TRUNCATE == FileSystemManager.MODE_TRUNCATE) {
             res = res or O_TRUNC
         }
-        if (mode and MODE_APPEND == MODE_APPEND) {
+        if (mode and FileSystemManager.MODE_APPEND == FileSystemManager.MODE_APPEND) {
             res = res or O_APPEND
         }
         return res
@@ -70,23 +64,23 @@ internal object FileUtils {
     @RequiresApi(api = 26)
     fun modeToOptions(mode: Int): Set<OpenOption> {
         val set = ArraySet<OpenOption>()
-        if (mode and MODE_READ_WRITE == MODE_READ_WRITE) {
+        if (mode and FileSystemManager.MODE_READ_WRITE == FileSystemManager.MODE_READ_WRITE) {
             set.add(StandardOpenOption.READ)
             set.add(StandardOpenOption.WRITE)
-        } else if (mode and MODE_WRITE_ONLY == MODE_WRITE_ONLY) {
+        } else if (mode and FileSystemManager.MODE_WRITE_ONLY == FileSystemManager.MODE_WRITE_ONLY) {
             set.add(StandardOpenOption.WRITE)
-        } else if (mode and MODE_READ_ONLY == MODE_READ_ONLY) {
+        } else if (mode and FileSystemManager.MODE_READ_ONLY == FileSystemManager.MODE_READ_ONLY) {
             set.add(StandardOpenOption.READ)
         } else {
             throw IllegalArgumentException("Bad mode: $mode")
         }
-        if (mode and MODE_CREATE == MODE_CREATE) {
+        if (mode and FileSystemManager.MODE_CREATE == FileSystemManager.MODE_CREATE) {
             set.add(StandardOpenOption.CREATE)
         }
-        if (mode and MODE_TRUNCATE == MODE_TRUNCATE) {
+        if (mode and FileSystemManager.MODE_TRUNCATE == FileSystemManager.MODE_TRUNCATE) {
             set.add(StandardOpenOption.TRUNCATE_EXISTING)
         }
-        if (mode and MODE_APPEND == MODE_APPEND) {
+        if (mode and FileSystemManager.MODE_APPEND == FileSystemManager.MODE_APPEND) {
             set.add(StandardOpenOption.APPEND)
         }
         return set
@@ -94,23 +88,23 @@ internal object FileUtils {
 
     fun modeToFlag(mode: Int): Flag {
         val f = Flag()
-        if (mode and MODE_READ_WRITE == MODE_READ_WRITE) {
+        if (mode and FileSystemManager.MODE_READ_WRITE == FileSystemManager.MODE_READ_WRITE) {
             f.read = true
             f.write = true
-        } else if (mode and MODE_WRITE_ONLY == MODE_WRITE_ONLY) {
+        } else if (mode and FileSystemManager.MODE_WRITE_ONLY == FileSystemManager.MODE_WRITE_ONLY) {
             f.write = true
-        } else if (mode and MODE_READ_ONLY == MODE_READ_ONLY) {
+        } else if (mode and FileSystemManager.MODE_READ_ONLY == FileSystemManager.MODE_READ_ONLY) {
             f.read = true
         } else {
             throw IllegalArgumentException("Bad mode: $mode")
         }
-        if (mode and MODE_CREATE == MODE_CREATE) {
+        if (mode and FileSystemManager.MODE_CREATE == FileSystemManager.MODE_CREATE) {
             f.create = true
         }
-        if (mode and MODE_TRUNCATE == MODE_TRUNCATE) {
+        if (mode and FileSystemManager.MODE_TRUNCATE == FileSystemManager.MODE_TRUNCATE) {
             f.truncate = true
         }
-        if (mode and MODE_APPEND == MODE_APPEND) {
+        if (mode and FileSystemManager.MODE_APPEND == FileSystemManager.MODE_APPEND) {
             f.append = true
         }
 

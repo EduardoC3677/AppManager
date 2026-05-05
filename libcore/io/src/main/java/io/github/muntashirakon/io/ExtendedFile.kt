@@ -221,15 +221,15 @@ abstract class ExtendedFile : File {
     /**
      * {@inheritDoc}
      */
-    override abstract fun listFiles(): Array<ExtendedFile>?
+    override abstract fun listFiles(): Array<out ExtendedFile>?
 
     /**
      * {@inheritDoc}
      */
-    override abstract fun listFiles(filter: FilenameFilter?): Array<ExtendedFile>?
+    override abstract fun listFiles(filter: FilenameFilter?): Array<out ExtendedFile>?
 
     /**
      * {@inheritDoc}
      */
-    override abstract fun listFiles(filter: FileFilter?): Array<ExtendedFile>?
+    override abstract fun listFiles(filter: FileFilter?): Array<out ExtendedFile>?
 }

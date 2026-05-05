@@ -138,8 +138,8 @@ abstract class BaseParceledListSlice<T> : Parcelable {
                 dest.writeInt(0)
                 val retriever = object : Binder() {
                     @Throws(RemoteException::class)
-                    override fun onTransact(code: Int, data: Parcel, reply: Parcel, flags: Int): Boolean {
-                        if (code != FIRST_CALL_TRANSACTION) {
+                    override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
+                        if (code != FIRST_CALL_TRANSACTION || reply == null) {
                             return super.onTransact(code, data, reply, flags)
                         }
                         var idx = data.readInt()
