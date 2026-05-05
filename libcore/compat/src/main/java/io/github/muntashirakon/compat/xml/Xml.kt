@@ -130,7 +130,7 @@ object Xml {
      */
     @JvmStatic
     fun newFastSerializer(): TypedXmlSerializer {
-        return XmlUtils.makeTyped(FastXmlSerializer())
+        return XmlUtils.makeTyped(android.util.Xml.newSerializer())
     }
 
     /**

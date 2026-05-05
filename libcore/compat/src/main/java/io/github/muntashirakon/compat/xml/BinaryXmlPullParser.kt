@@ -381,13 +381,13 @@ class BinaryXmlPullParser : TypedXmlPullParser {
     }
 
     @Throws(XmlPullParserException::class)
-    override fun getAttributeBytesHex(index: Int): ByteArray? {
-        return mAttributes[index]!!.getValueBytesHex()
+    override fun getAttributeBytesHex(index: Int): ByteArray {
+        return mAttributes[index]!!.getValueBytesHex() ?: ByteArray(0)
     }
 
     @Throws(XmlPullParserException::class)
-    override fun getAttributeBytesBase64(index: Int): ByteArray? {
-        return mAttributes[index]!!.getValueBytesBase64()
+    override fun getAttributeBytesBase64(index: Int): ByteArray {
+        return mAttributes[index]!!.getValueBytesBase64() ?: ByteArray(0)
     }
 
     @Throws(XmlPullParserException::class)
