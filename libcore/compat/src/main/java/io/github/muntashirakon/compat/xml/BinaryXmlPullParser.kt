@@ -587,15 +587,15 @@ class BinaryXmlPullParser : TypedXmlPullParser {
      * human-readable values when needed.
      */
     private class Attribute {
-        var name: String? = null
-        var type = 0
+        @JvmField var name: String? = null
+        @JvmField var type = 0
 
-        var valueString: String? = null
-        var valueBytes: ByteArray? = null
-        var valueInt = 0
-        var valueLong: Long = 0
-        var valueFloat = 0f
-        var valueDouble = 0.0
+        @JvmField var valueString: String? = null
+        @JvmField var valueBytes: ByteArray? = null
+        @JvmField var valueInt = 0
+        @JvmField var valueLong: Long = 0
+        @JvmField var valueFloat = 0f
+        @JvmField var valueDouble = 0.0
 
         fun reset() {
             name = null
