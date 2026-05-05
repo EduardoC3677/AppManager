@@ -4,6 +4,8 @@ package io.github.muntashirakon.compat.xml
 
 import android.text.TextUtils
 import android.util.Base64
+import android.util.TypedXmlPullParser
+import android.util.TypedXmlSerializer
 import io.github.muntashirakon.compat.HexDump
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException

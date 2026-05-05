@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.compat.xml
 
+import android.util.TypedXmlSerializer
 import io.github.muntashirakon.compat.io.FastDataOutput
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlSerializer

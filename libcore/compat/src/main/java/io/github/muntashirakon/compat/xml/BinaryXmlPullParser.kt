@@ -4,6 +4,8 @@ package io.github.muntashirakon.compat.xml
 
 import android.util.Base64
 import android.text.TextUtils
+import android.util.TypedXmlPullParser
+import io.github.muntashirakon.compat.HexDump
 import io.github.muntashirakon.compat.io.FastDataInput
 import io.github.muntashirakon.compat.xml.BinaryXmlSerializer.Companion.ATTRIBUTE
 import io.github.muntashirakon.compat.xml.BinaryXmlSerializer.Companion.PROTOCOL_MAGIC_VERSION_0
@@ -20,8 +22,6 @@ import io.github.muntashirakon.compat.xml.BinaryXmlSerializer.Companion.TYPE_LON
 import io.github.muntashirakon.compat.xml.BinaryXmlSerializer.Companion.TYPE_NULL
 import io.github.muntashirakon.compat.xml.BinaryXmlSerializer.Companion.TYPE_STRING
 import io.github.muntashirakon.compat.xml.BinaryXmlSerializer.Companion.TYPE_STRING_INTERNED
-import io.github.muntashirakon.compat.xml.XmlUtils.bytesToHexString
-import io.github.muntashirakon.compat.xml.XmlUtils.hexStringToBytes
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.EOFException
@@ -97,7 +97,7 @@ class BinaryXmlPullParser : TypedXmlPullParser {
             val magic = ByteArray(4)
             mIn!!.readFully(magic)
             if (!Arrays.equals(magic, PROTOCOL_MAGIC_VERSION_0)) {
-                throw IOException("Unexpected magic " + bytesToHexString(magic))
+                throw IOException("Unexpected magic " + HexDump.toHexString(magic))
             }
 
             // We're willing to immediately consume a START_DOCUMENT if present,
@@ -607,7 +607,7 @@ class BinaryXmlPullParser : TypedXmlPullParser {
             return when (type) {
                 TYPE_NULL -> null
                 TYPE_STRING, TYPE_STRING_INTERNED -> valueString
-                TYPE_BYTES_HEX -> bytesToHexString(valueBytes!!)
+                TYPE_BYTES_HEX -> HexDump.toHexString(valueBytes!!)
                 TYPE_BYTES_BASE64 -> Base64.encodeToString(valueBytes, Base64.NO_WRAP)
                 TYPE_INT -> Integer.toString(valueInt)
                 TYPE_INT_HEX -> Integer.toString(valueInt, 16)
@@ -627,7 +627,7 @@ class BinaryXmlPullParser : TypedXmlPullParser {
                 TYPE_NULL -> null
                 TYPE_BYTES_HEX, TYPE_BYTES_BASE64 -> valueBytes
                 TYPE_STRING, TYPE_STRING_INTERNED -> try {
-                    hexStringToBytes(valueString!!)
+                    HexDump.hexStringToByteArray(valueString!!)
                 } catch (e: Exception) {
                     throw XmlPullParserException("Invalid attribute $name: $e")
                 }
@@ -752,7 +752,7 @@ class BinaryXmlPullParser : TypedXmlPullParser {
                 "gt" -> return ">"
                 "amp" -> return "&"
                 "apos" -> return "'"
-                "quot" -> return """
+                "quot" -> return "\""
             }
             if (entity.length > 1 && entity[0] == '#') {
                 val c = entity.substring(1).toInt().toChar()

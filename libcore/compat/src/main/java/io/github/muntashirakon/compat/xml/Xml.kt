@@ -5,6 +5,8 @@ package io.github.muntashirakon.compat.xml
 import android.os.Build
 import android.system.ErrnoException
 import android.system.Os
+import android.util.TypedXmlPullParser
+import android.util.TypedXmlSerializer
 import android.util.Xml
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
