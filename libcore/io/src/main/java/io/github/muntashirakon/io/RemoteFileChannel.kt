@@ -102,7 +102,7 @@ internal class RemoteFileChannel(private val fs: IFileSystemService, file: File,
                         return -1
                     len = fs.pread(handle, limit - pos, currentOffset).tryAndGet()
                     if (len == 0)
-                        return@while // break
+                        break
                     dst.limit(pos + len)
                     // Must read exactly len bytes
                     var sz = 0
