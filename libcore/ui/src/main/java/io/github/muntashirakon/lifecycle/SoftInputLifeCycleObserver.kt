@@ -16,7 +16,7 @@ class SoftInputLifeCycleObserver(private val mViewRef: WeakReference<View>) : De
             return
         }
         mViewRef.get()!!.postDelayed({
-            val v = mViewRef.get() ?: return
+            val v = mViewRef.get() ?: return@postDelayed
             v.requestFocus()
             val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
@@ -28,7 +28,7 @@ class SoftInputLifeCycleObserver(private val mViewRef: WeakReference<View>) : De
             return
         }
         mViewRef.get()!!.postDelayed({
-            val v = mViewRef.get() ?: return
+            val v = mViewRef.get() ?: return@postDelayed
             val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(v.windowToken, 0)
         }, 100)
