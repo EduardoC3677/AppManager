@@ -2,6 +2,8 @@
 
 package io.github.muntashirakon.compat.xml
 
+import android.util.TypedXmlPullParser
+import android.util.TypedXmlSerializer
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
