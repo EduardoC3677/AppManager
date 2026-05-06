@@ -12,20 +12,20 @@ plugins {
 }
 
 android {
-    namespace 'io.github.muntashirakon.AppManager.server'
-    compileSdk compile_sdk
+    namespace = 'io.github.muntashirakon.AppManager.server'
+    compileSdk = compile_sdk
     buildToolsVersion = build_tools
 
     defaultConfig {
-        minSdk min_sdk
-        targetSdk target_sdk
+        minSdk = min_sdk
+        targetSdk = target_sdk
     }
 
     compileOptions {
-        encoding "UTF-8"
+        encoding = "UTF-8"
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
-        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
