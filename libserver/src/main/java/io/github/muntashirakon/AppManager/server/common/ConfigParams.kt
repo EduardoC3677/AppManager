@@ -34,11 +34,11 @@ class ConfigParams {
 
     override fun toString(): String {
         return "ConfigParam{" +
-                "mIsDebug=" + isDebug +
-                ", mPath='" + path + '\'' +
-                ", mRunInBackground=" + isRunInBackground +
-                ", mToken='" + token + '\'' +
-                ", mUid='" + uid + '\'' +
+                "mIsDebug=$isDebug" +
+                ", mPath='$path'" +
+                ", mRunInBackground=$isRunInBackground" +
+                ", mToken='$token'" +
+                ", mUid='$uid'" +
                 '}'
     }
 

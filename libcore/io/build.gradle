@@ -27,11 +27,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    sourceSets {
-        main {
-            aidl.srcDirs = ['src/main/aidl']
-        }
-    }
 }
 
 dependencies {
