@@ -31,14 +31,6 @@ class AtomicExtendedFile(val baseFile: ExtendedFile) {
     private val mLegacyBackupName: ExtendedFile = baseFile.parentFile!!.getChildFile(baseFile.name + ".bak")
 
     /**
-     * Return the path to the base file.  You should not generally use this,
-     * as the data at that path may not be valid.
-     */
-    fun getBaseFile(): ExtendedFile {
-        return baseFile
-    }
-
-    /**
      * Delete the atomic file.  This deletes both the base and new files.
      */
     fun delete() {
