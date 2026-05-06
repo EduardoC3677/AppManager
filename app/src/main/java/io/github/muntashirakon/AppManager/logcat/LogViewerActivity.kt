@@ -375,9 +375,7 @@ class LogViewerActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     companion object {
         val TAG: String = LogViewerActivity::class.java.simpleName
-        const val EXTRA_FILTER = "filter"
-        const val EXTRA_LEVEL = "level"
-        const val UPDATE_CHECK_INTERVAL = 200
+        const val EXTRA_FILTER = "filter"\nconst val EXTRA_LEVEL = "level"\nconst val UPDATE_CHECK_INTERVAL = 200
         const val EXTRA_FILENAME = "filename"
 
         private const val MAX_NUM_SUGGESTIONS = 1000

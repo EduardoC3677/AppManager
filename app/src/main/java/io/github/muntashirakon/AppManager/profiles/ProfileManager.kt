@@ -59,10 +59,7 @@ class ProfileManager @Throws(IOException::class) constructor(profileId: String, 
     }
 
     companion object {
-        const val TAG = "ProfileManager"
-        const val PROFILE_EXT = ".am.json"
-
-        @JvmStatic
+        const val TAG = "ProfileManager"\nconst val PROFILE_EXT = ".am.json"\n@JvmStatic
         fun getProfileIntent(context: Context, @BaseProfile.ProfileType type: Int, profileId: String): Intent {
             return when (type) {
                 BaseProfile.PROFILE_TYPE_APPS -> AppsProfileActivity.getProfileIntent(context, profileId)

@@ -134,10 +134,7 @@ class ActivityLauncherShortcutActivity : BaseActivity() {
     }
 
     companion object {
-        private const val EXTRA_PKG = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.pkg"
-        private const val EXTRA_CLS = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.cls"
-        private const val EXTRA_AST = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.ast"
-        private const val EXTRA_USR = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.usr"
+        private const val EXTRA_PKG = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.pkg"\nprivate const val EXTRA_CLS = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.cls"\nprivate const val EXTRA_AST = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.ast"\nprivate const val EXTRA_USR = "${BuildConfig.APPLICATION_ID}.intent.EXTRA.shortcut.usr"
 
         @JvmStatic
         fun getShortcutIntent(context: Context, pkg: String, clazz: String, @UserIdInt userId: Int, launchViaAssist: Boolean): Intent {

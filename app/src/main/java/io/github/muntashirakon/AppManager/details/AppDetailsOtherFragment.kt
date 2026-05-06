@@ -201,8 +201,7 @@ class AppDetailsOtherFragment : AppDetailsFragment() {
                     item.path?.let { sb.append(Formatter.formatFileSize(context, item.size)).append(", ") }
                     sb.append(getString(R.string.version_name_with_code, pi.versionName, PackageInfoCompat.getLongVersionCode(pi)))
                     if (item.path != null) {
-                        sb.append("
-").append(item.path)
+                        sb.append("\n").append(item.path)
                         holder.launchBtn?.visibility = View.VISIBLE
                         holder.launchBtn?.setIconResource(io.github.muntashirakon.ui.R.drawable.ic_information)
                         holder.launchBtn?.setOnClickListener { startActivity(AppDetailsActivity.getIntent(context, Paths.get(item.path!!), false)) }
@@ -214,8 +213,7 @@ class AppDetailsOtherFragment : AppDetailsFragment() {
                         holder.textView2?.text = (item.item as LocalizedString).toLocalizedString(context)
                         holder.launchBtn?.visibility = View.GONE
                     } else {
-                        val sb = StringBuilder(Formatter.formatFileSize(context, item.size)).append("
-").append(item.path)
+                        val sb = StringBuilder(Formatter.formatFileSize(context, item.size)).append("\n").append(item.path)
                         holder.textView2?.text = sb
                         holder.launchBtn?.visibility = View.VISIBLE
                         holder.launchBtn?.setIconResource(R.drawable.ic_open_in_new)
@@ -223,8 +221,7 @@ class AppDetailsOtherFragment : AppDetailsFragment() {
                     }
                 }
                 "JAR" -> {
-                    val sb = StringBuilder(Formatter.formatFileSize(context, item.size)).append("
-").append(item.path)
+                    val sb = StringBuilder(Formatter.formatFileSize(context, item.size)).append("\n").append(item.path)
                     holder.textView2?.text = sb
                     holder.launchBtn?.visibility = View.VISIBLE
                     holder.launchBtn?.setIconResource(R.drawable.ic_open_in_new)
@@ -243,8 +240,7 @@ class AppDetailsOtherFragment : AppDetailsFragment() {
                 else -> Color.TRANSPARENT
             }
             if (info.name == null) {
-                holder.textView1?.text = if (info.reqGlEsVersion == FeatureInfo.GL_ES_VERSION_UNDEFINED) item.name else "${getString(R.string.gles_version)} ${Utils.getGlEsVersion(info.reqGlEsVersion)}"
-                holder.textView3?.visibility = View.GONE
+                holder.textView1?.text = if (info.reqGlEsVersion == FeatureInfo.GL_ES_VERSION_UNDEFINED) item.name else "${getString(R.string.gles_version)} ${Utils.getGlEsVersion(info.reqGlEsVersion)}"\nholder.textView3?.visibility = View.GONE
             } else {
                 holder.textView1?.text = item.name
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && info.version != 0) {
@@ -257,20 +253,14 @@ class AppDetailsOtherFragment : AppDetailsFragment() {
         private fun getConfigurationView(holder: ViewHolder, index: Int) {
             val info = synchronized(mAdapterList) { mAdapterList[index].item as ConfigurationInfo }
             holder.cardView.strokeColor = Color.TRANSPARENT
-            holder.textView1?.text = "${getString(R.string.gles_version)} ${Utils.getGlEsVersion(info.reqGlEsVersion)}"
-            holder.textView2?.text = "${getString(R.string.input_features)}: ${Utils.getInputFeaturesString(info.reqInputFeatures)}"
-            holder.textView3?.text = "${getString(R.string.keyboard_type)}: ${getString(Utils.getKeyboardType(info.reqKeyboardType))}"
-            holder.textView4?.text = "${getString(R.string.navigation)}: ${getString(Utils.getNavigation(info.reqNavigation))}"
-            holder.textView5?.text = "${getString(R.string.touchscreen)}: ${getString(Utils.getTouchScreen(info.reqTouchScreen))}"
-        }
+            holder.textView1?.text = "${getString(R.string.gles_version)} ${Utils.getGlEsVersion(info.reqGlEsVersion)}"\nholder.textView2?.text = "${getString(R.string.input_features)}: ${Utils.getInputFeaturesString(info.reqInputFeatures)}"\nholder.textView3?.text = "${getString(R.string.keyboard_type)}: ${getString(Utils.getKeyboardType(info.reqKeyboardType))}"\nholder.textView4?.text = "${getString(R.string.navigation)}: ${getString(Utils.getNavigation(info.reqNavigation))}"\nholder.textView5?.text = "${getString(R.string.touchscreen)}: ${getString(Utils.getTouchScreen(info.reqTouchScreen))}"\n}
 
         private fun getSignatureView(context: Context, holder: ViewHolder, index: Int) {
             val item = synchronized(mAdapterList) { mAdapterList[index] }
             val sig = item.item as X509Certificate
             val ssb = SpannableStringBuilder()
             if (index == 0) viewModel?.getApkVerifierResult()?.let { ssb.append(PackageUtils.getApkVerifierInfo(it, context)) }
-            if (!item.name.isNullOrEmpty()) ssb.append(UIUtils.getTitleText(context, item.name)).append("
-")
+            if (!item.name.isNullOrEmpty()) ssb.append(UIUtils.getTitleText(context, item.name)).append("\n")
             try { ssb.append(PackageUtils.getSigningCertificateInfo(context, sig)) } catch (ignore: CertificateEncodingException) {}
             holder.textView1?.text = ssb
             holder.textView1?.setTextIsSelectable(true)

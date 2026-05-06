@@ -41,8 +41,7 @@ class LiveLogViewerFragment : AbsLogViewerFragment(), LogViewerViewModel.LogLine
         if (mLogListAdapter != null && mLogListAdapter!!.itemCount > 0) {
             mRecyclerView!!.scrollToPosition(mLogListAdapter!!.itemCount - 1)
         }
-        mActivity!!.supportActionBar?.subtitle = ""
-        super.onResume()
+        mActivity!!.supportActionBar?.subtitle = ""\nsuper.onResume()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -105,8 +104,7 @@ class LiveLogViewerFragment : AbsLogViewerFragment(), LogViewerViewModel.LogLine
                 UIUtils.displayShortToast(R.string.nothing_selected)
                 return true
             }
-            Utils.copyToClipboard(mActivity, "", TextUtils.join("
-", selectedLogsAsStrings))
+            Utils.copyToClipboard(mActivity, "", TextUtils.join("\n", selectedLogsAsStrings))
             UIUtils.displayShortToast(R.string.copied_to_clipboard)
         } else return super.onMenuItemSelected(item)
         return true

@@ -30,9 +30,7 @@ object ServerConfig {
     val TAG: String = ServerConfig::class.java.simpleName
 
     const val DEFAULT_ADB_PORT = 5555
-    const val SERVER_RUNNER_EXEC_NAME = "run_server.sh"
-    private const val LOCAL_TOKEN = "l_token"
-    private val SERVER_RUNNER_EXEC = arrayOfNulls<File>(2)
+    const val SERVER_RUNNER_EXEC_NAME = "run_server.sh"\nprivate const val LOCAL_TOKEN = "l_token"\nprivate val SERVER_RUNNER_EXEC = arrayOfNulls<File>(2)
     private val SERVER_RUNNER_JAR = arrayOfNulls<File>(2)
     private val sPreferences: SharedPreferences = ContextUtils.getContext()!!
         .getSharedPreferences("server_config", Context.MODE_PRIVATE)
@@ -146,25 +144,18 @@ object ServerConfig {
     @WorkerThread
     fun getLocalServerHost(context: Context): String {
         val ipAddress = Inet4Address.getLoopbackAddress().hostAddress
-        if (ipAddress == null || ipAddress == "::1") return "127.0.0.1"
-        return ipAddress
+        if (ipAddress == null || ipAddress == "::1") return "127.0.0.1"\nreturn ipAddress
     }
 
     @JvmStatic
     @WorkerThread
     private fun getHostIpAddress(context: Context): String {
-        if (isEmulator(context)) return "10.0.2.2"
-        val ipAddress = Inet4Address.getLoopbackAddress().hostAddress
-        if (ipAddress == null || ipAddress == "::1") return "127.0.0.1"
-        return ipAddress
+        if (isEmulator(context)) return "10.0.2.2"\nval ipAddress = Inet4Address.getLoopbackAddress().hostAddress
+        if (ipAddress == null || ipAddress == "::1") return "127.0.0.1"\nreturn ipAddress
     }
 
     // https://github.com/firebase/firebase-android-sdk/blob/7d86138304a6573cbe2c61b66b247e930fa05767/firebase-crashlytics/src/main/java/com/google/firebase/crashlytics/internal/common/CommonUtils.java#L402
-    private const val GOLDFISH = "goldfish"
-    private const val RANCHU = "ranchu"
-    private const val SDK = "sdk"
-
-    @JvmStatic
+    private const val GOLDFISH = "goldfish"\nprivate const val RANCHU = "ranchu"\nprivate const val SDK = "sdk"\n@JvmStatic
     private fun isEmulator(context: Context): Boolean {
         @SuppressLint("HardwareIds")
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)

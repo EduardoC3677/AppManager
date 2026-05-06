@@ -107,11 +107,7 @@ URI: $mUri")
     }
 
     companion object {
-        const val TAG = "RulesTypeSelectionDialogFragment"
-        const val ARG_MODE = "ARG_MODE"
-        const val ARG_URI = "ARG_URI"
-        const val ARG_PKG = "ARG_PKG"
-        const val ARG_USERS = "ARG_USERS"
+        const val TAG = "RulesTypeSelectionDialogFragment"\nconst val ARG_MODE = "ARG_MODE"\nconst val ARG_URI = "ARG_URI"\nconst val ARG_PKG = "ARG_PKG"\nconst val ARG_USERS = "ARG_USERS"
 
         const val MODE_IMPORT = 1
         const val MODE_EXPORT = 2

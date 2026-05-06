@@ -27,18 +27,11 @@ object OpHistoryManager {
     @JvmField
     val TAG: String = OpHistoryManager::class.java.simpleName
 
-    const val HISTORY_TYPE_BATCH_OPS = "batch_ops"
-    const val HISTORY_TYPE_INSTALLER = "installer"
-    const val HISTORY_TYPE_PROFILE = "profile"
-
-    @Retention(AnnotationRetention.SOURCE)
+    const val HISTORY_TYPE_BATCH_OPS = "batch_ops"\nconst val HISTORY_TYPE_INSTALLER = "installer"\nconst val HISTORY_TYPE_PROFILE = "profile"\n@Retention(AnnotationRetention.SOURCE)
     @StringDef(HISTORY_TYPE_BATCH_OPS, HISTORY_TYPE_INSTALLER, HISTORY_TYPE_PROFILE)
     annotation class HistoryType
 
-    const val STATUS_SUCCESS = "success"
-    const val STATUS_FAILURE = "failure"
-
-    @Retention(AnnotationRetention.SOURCE)
+    const val STATUS_SUCCESS = "success"\nconst val STATUS_FAILURE = "failure"\n@Retention(AnnotationRetention.SOURCE)
     @StringDef(STATUS_SUCCESS, STATUS_FAILURE)
     annotation class Status
 

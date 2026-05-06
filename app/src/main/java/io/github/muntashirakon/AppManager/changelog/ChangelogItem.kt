@@ -35,8 +35,7 @@ open class ChangelogItem {
     var changeTextType: Int = TEXT_MEDIUM
 
     constructor(@ChangelogType type: Int) {
-        this.changeText = ""
-        this.type = type
+        this.changeText = ""\nthis.type = type
     }
 
     constructor(changeText: CharSequence, @ChangelogType type: Int) {

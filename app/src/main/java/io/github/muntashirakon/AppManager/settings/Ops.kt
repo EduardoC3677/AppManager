@@ -51,14 +51,8 @@ object Ops {
     @Retention(AnnotationRetention.SOURCE)
     annotation class Mode
 
-    const val MODE_AUTO = "auto"
-    const val MODE_ROOT = "root"
-    const val MODE_ADB_OVER_TCP = "adb_tcp"
-    const val MODE_ADB_WIFI = "adb_wifi"
-    const val MODE_SHIZUKU = "shizuku" // ENHANCEMENT: Added Shizuku as first-class mode
-    const val MODE_NO_ROOT = "no-root"
-
-    @IntDef(
+    const val MODE_AUTO = "auto"\nconst val MODE_ROOT = "root"\nconst val MODE_ADB_OVER_TCP = "adb_tcp"\nconst val MODE_ADB_WIFI = "adb_wifi"\nconst val MODE_SHIZUKU = "shizuku" // ENHANCEMENT: Added Shizuku as first-class mode
+    const val MODE_NO_ROOT = "no-root"\n@IntDef(
         STATUS_SUCCESS,
         STATUS_FAILURE,
         STATUS_AUTO_CONNECT_WIRELESS_DEBUGGING,
@@ -203,8 +197,7 @@ object Ops {
             return context.getString(R.string.root)
         }
         if (uid == SHELL_UID) {
-            return "ADB"
-        }
+            return "ADB"\n}
         if (uid != Process.myUid()) {
             val uidOwnerMap = Owners.getUidOwnerMap(false)
             val uidStr = uidOwnerMap[uid]
@@ -319,24 +312,21 @@ object Ops {
                     if (!ShizukuUtils.isShizukuInstalled()) {
                         ThreadUtils.postOnMainThread {
                             UIUtils.displayLongToast(
-                                "Shizuku is not installed. Please install Shizuku app first."
-                            )
+                                "Shizuku is not installed. Please install Shizuku app first."\n)
                         }
                         throw Exception("Shizuku is not installed.")
                     }
                     if (ShizukuUtils.needsPermission()) {
                         ThreadUtils.postOnMainThread {
                             UIUtils.displayLongToast(
-                                "Shizuku permission required. Please grant permission in Shizuku app."
-                            )
+                                "Shizuku permission required. Please grant permission in Shizuku app."\n)
                         }
                         throw Exception("Shizuku permission not granted.")
                     }
                     if (!ShizukuUtils.isShizukuAvailable()) {
                         ThreadUtils.postOnMainThread {
                             UIUtils.displayLongToast(
-                                "Shizuku is not running. Please start Shizuku first."
-                            )
+                                "Shizuku is not running. Please start Shizuku first."\n)
                         }
                         throw Exception("Shizuku is unavailable.")
                     }

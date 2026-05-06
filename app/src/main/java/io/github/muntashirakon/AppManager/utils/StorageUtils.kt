@@ -27,11 +27,7 @@ import java.util.HashSet
 
 object StorageUtils {
     @JvmField
-    val TAG = "StorageUtils"
-
-    private const val ENV_SECONDARY_STORAGE = "SECONDARY_STORAGE"
-
-    @JvmStatic
+    val TAG = "StorageUtils"\nprivate const val ENV_SECONDARY_STORAGE = "SECONDARY_STORAGE"\n@JvmStatic
     @WorkerThread
     fun getAllStorageLocations(context: Context): ArrayMap<String, Uri> {
         val storageLocations = ArrayMap<String, Uri>(10)

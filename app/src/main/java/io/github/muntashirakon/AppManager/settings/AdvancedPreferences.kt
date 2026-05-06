@@ -36,8 +36,7 @@ class AdvancedPreferences : PreferenceFragment() {
             "%version_code%",
             "%min_sdk%",
             "%target_sdk%",
-            "%datetime%"
-        )
+            "%datetime%"\n)
 
         private fun addChip(apkFormats: ChipGroup, text: CharSequence): Chip {
             val chip = Chip(apkFormats.context)

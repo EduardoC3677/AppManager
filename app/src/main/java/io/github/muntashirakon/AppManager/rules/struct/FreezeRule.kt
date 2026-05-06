@@ -29,8 +29,7 @@ class FreezeRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "FreezeRule{freezeType=$freezeType, packageName='$packageName'}"
-    }
+        return "FreezeRule{freezeType=$freezeType, packageName='$packageName'}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t$freezeType"

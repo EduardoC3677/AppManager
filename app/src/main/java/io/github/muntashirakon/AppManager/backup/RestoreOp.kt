@@ -178,12 +178,9 @@ internal class RestoreOp @Throws(BackupException::class) constructor(
             if (checksum != mChecksum[infoFile.getName()]) {
                 throw BackupException(
                     "Couldn't verify metadata file." +
-                            "
-File: " + infoFile +
-                            "
-Found: " + checksum +
-                            "
-Required: " + mChecksum[infoFile.getName()]
+                            "\nFile: " + infoFile +
+                            "\nFound: " + checksum +
+                            "\nRequired: " + mChecksum[infoFile.getName()]
                 )
             }
         }
@@ -196,12 +193,9 @@ Required: " + mChecksum[infoFile.getName()]
         if (checksum != mChecksum[metadataFile.getName()]) {
             throw BackupException(
                 "Couldn't verify metadata file." +
-                        "
-File: " + metadataFile +
-                        "
-Found: " + checksum +
-                        "
-Required: " + mChecksum[metadataFile.getName()]
+                        "\nFile: " + metadataFile +
+                        "\nFound: " + checksum +
+                        "\nRequired: " + mChecksum[metadataFile.getName()]
             )
         }
     }
@@ -248,10 +242,8 @@ Required: " + mChecksum[metadataFile.getName()]
                 if (!mRequestedFlags.skipSignatureCheck()) {
                     throw BackupException(
                         "Signing info verification failed." +
-                                "
-Installed: " + certChecksumList +
-                                "
-Backup: " + Arrays.toString(certChecksums)
+                                "\nInstalled: " + certChecksumList +
+                                "\nBackup: " + Arrays.toString(certChecksums)
                     )
                 }
             }
@@ -263,12 +255,9 @@ Backup: " + Arrays.toString(certChecksums)
                 if (checksum != mChecksum[file.getName()]) {
                     throw BackupException(
                         "Source file verification failed." +
-                                "
-File: " + file +
-                                "
-Found: " + checksum +
-                                "
-Required: " + mChecksum[file.getName()]
+                                "\nFile: " + file +
+                                "\nFound: " + checksum +
+                                "\nRequired: " + mChecksum[file.getName()]
                     )
                 }
             }
@@ -343,8 +332,7 @@ Required: " + mChecksum[file.getName()]
                 }
 
                 override fun onSecondAttemptInHyperOsWithoutInstaller(apkFile: io.github.muntashirakon.AppManager.apk.ApkFile?) {
-                    options.installerName = "com.android.shell"
-                    packageInstaller.install(allApks.requireNoNulls(), mPackageName, options)
+                    options.installerName = "com.android.shell"\npackageInstaller.install(allApks.requireNoNulls(), mPackageName, options)
                 }
 
                 override fun onFinishedInstall(sessionId: Int, packageName: String, result: Int, blockingPackage: String?, statusMessage: String?) {
@@ -355,14 +343,11 @@ Required: " + mChecksum[file.getName()]
                 if (!packageInstaller.install(allApks.requireNoNulls(), mPackageName, options)) {
                     var statusMessage: String = if (!isVerified) {
                         // Previously installed app was uninstalled.
-                        "Couldn't perform a re-installation"
-                    } else {
-                        "Couldn't perform an installation"
-                    }
+                        "Couldn't perform a re-installation"\n} else {
+                        "Couldn't perform an installation"\n}
                     if (status.get() != null) {
                         statusMessage += ": " + status.get()
-                    } else statusMessage += "."
-                    throw BackupException(statusMessage)
+                    } else statusMessage += "."\nthrow BackupException(statusMessage)
                 }
             } finally {
                 deleteFiles(allApks.requireNoNulls()) // Clean up apk files
@@ -402,12 +387,9 @@ Required: " + mChecksum[file.getName()]
                 if (checksum != mChecksum[file.getName()]) {
                     throw BackupException(
                         "KeyStore file verification failed." +
-                                "
-File: " + file +
-                                "
-Found: " + checksum +
-                                "
-Required: " + mChecksum[file.getName()]
+                                "\nFile: " + file +
+                                "\nFound: " + checksum +
+                                "\nRequired: " + mChecksum[file.getName()]
                     )
                 }
             }
@@ -476,12 +458,9 @@ Required: " + mChecksum[file.getName()]
                     if (checksum != mChecksum[file.getName()]) {
                         throw BackupException(
                             "Data file verification failed for index $i." +
-                                    "
-File: " + file +
-                                    "
-Found: " + checksum +
-                                    "
-Required: " + mChecksum[file.getName()]
+                                    "\nFile: " + file +
+                                    "\nFound: " + checksum +
+                                    "\nRequired: " + mChecksum[file.getName()]
                         )
                     }
                 }
@@ -711,12 +690,9 @@ Required: " + mChecksum[file.getName()]
             if (checksum != mChecksum[miscFile.getName()]) {
                 throw BackupException(
                     "Couldn't verify misc file." +
-                            "
-File: " + miscFile +
-                            "
-Found: " + checksum +
-                            "
-Required: " + mChecksum[miscFile.getName()]
+                            "\nFile: " + miscFile +
+                            "\nFound: " + checksum +
+                            "\nRequired: " + mChecksum[miscFile.getName()]
                 )
             }
         }
@@ -756,12 +732,9 @@ Required: " + mChecksum[miscFile.getName()]
             if (checksum != mChecksum[rulesFile.getName()]) {
                 throw BackupException(
                     "Couldn't verify permission file." +
-                            "
-File: " + rulesFile +
-                            "
-Found: " + checksum +
-                            "
-Required: " + mChecksum[rulesFile.getName()]
+                            "\nFile: " + rulesFile +
+                            "\nFound: " + checksum +
+                            "\nRequired: " + mChecksum[rulesFile.getName()]
                 )
             }
         }

@@ -46,8 +46,7 @@ class VirusTotal(apiKey: String) {
         }
 
         override fun toString(): String {
-            return "ResponseV3{response=$response, error=$error, httpCode=$httpCode}"
-        }
+            return "ResponseV3{response=$response, error=$error, httpCode=$httpCode}"\n}
     }
 
     @Throws(IOException::class)
@@ -122,8 +121,7 @@ class VirusTotal(apiKey: String) {
         val connection = url.openConnection() as HttpURLConnection
         return try {
             connection.useCaches = false
-            connection.requestMethod = "POST"
-            connection.doInput = true
+            connection.requestMethod = "POST"\nconnection.doInput = true
             connection.setRequestProperty("accept", "application/json")
             connection.setRequestProperty("x-apikey", mApiKey)
             val status = connection.responseCode
@@ -145,8 +143,7 @@ class VirusTotal(apiKey: String) {
         return try {
             connection.useCaches = false
             connection.doOutput = true
-            connection.requestMethod = "POST"
-            connection.doInput = true
+            connection.requestMethod = "POST"\nconnection.doInput = true
             connection.setRequestProperty("accept", "application/json")
             connection.setRequestProperty("x-apikey", mApiKey)
             connection.setRequestProperty("content-type", "multipart/form-data; boundary=$FORM_DATA_BOUNDARY")
@@ -155,8 +152,7 @@ class VirusTotal(apiKey: String) {
                 addMultipartFormData(outputStream, "password", password)
             }
             addMultipartFormData(outputStream, "file", filename, isStream)
-            outputStream.write("
-".toByteArray(StandardCharsets.UTF_8))
+            outputStream.write("\n".toByteArray(StandardCharsets.UTF_8))
             outputStream.write(("--$FORM_DATA_BOUNDARY--
 ").toByteArray(StandardCharsets.UTF_8))
             outputStream.flush()
@@ -178,8 +174,7 @@ class VirusTotal(apiKey: String) {
         val connection = url.openConnection() as HttpURLConnection
         return try {
             connection.useCaches = false
-            connection.requestMethod = "GET"
-            connection.doInput = true
+            connection.requestMethod = "GET"\nconnection.doInput = true
             connection.setRequestProperty("accept", "application/json")
             connection.setRequestProperty("x-apikey", mApiKey)
             val status = connection.responseCode
@@ -199,13 +194,7 @@ class VirusTotal(apiKey: String) {
     }
 
     companion object {
-        private const val FORM_DATA_BOUNDARY = "--AppManagerDataBoundary9f3d77ed3a"
-        private const val API_V3_PREFIX = "https://www.virustotal.com/api/v3"
-        private const val URL_FILE_UPLOAD = "$API_V3_PREFIX/files"
-        private const val URL_LARGE_FILE_UPLOAD = "$API_V3_PREFIX/files/upload_url"
-        private const val URL_FILE_REPORT = "$API_V3_PREFIX/files/"
-
-        @JvmStatic
+        private const val FORM_DATA_BOUNDARY = "--AppManagerDataBoundary9f3d77ed3a"\nprivate const val API_V3_PREFIX = "https://www.virustotal.com/api/v3"\nprivate const val URL_FILE_UPLOAD = "$API_V3_PREFIX/files"\nprivate const val URL_LARGE_FILE_UPLOAD = "$API_V3_PREFIX/files/upload_url"\nprivate const val URL_FILE_REPORT = "$API_V3_PREFIX/files/"\n@JvmStatic
         fun getInstance(): VirusTotal? {
             val apiKey = Prefs.VirusTotal.getApiKey()
             return if (FeatureController.isVirusTotalEnabled() && apiKey != null) {
@@ -214,9 +203,7 @@ class VirusTotal(apiKey: String) {
         }
 
         @JvmStatic
-        fun getPermalink(id: String): String = "https://www.virustotal.com/gui/file/$id"
-
-        @JvmStatic
+        fun getPermalink(id: String): String = "https://www.virustotal.com/gui/file/$id"\n@JvmStatic
         @Throws(IOException::class)
         fun getAnalysisId(connection: HttpURLConnection): String {
             return try {
@@ -243,8 +230,7 @@ class VirusTotal(apiKey: String) {
         fun addMultipartFormData(os: OutputStream, key: String, value: String) {
             os.write(("--$FORM_DATA_BOUNDARY
 ").toByteArray(StandardCharsets.UTF_8))
-            os.write(("Content-Disposition: form-data; name="$key"
-").toByteArray(StandardCharsets.UTF_8))
+            os.write(("Content-Disposition: form-data; name="$key"\n").toByteArray(StandardCharsets.UTF_8))
             os.write(("Content-Type: text/plain; charset=UTF-8
 ").toByteArray(StandardCharsets.UTF_8))
             os.write(("
@@ -257,8 +243,7 @@ $value
         fun addMultipartFormData(os: OutputStream, key: String, filename: String, isStream: InputStream) {
             os.write(("--$FORM_DATA_BOUNDARY
 ").toByteArray(StandardCharsets.UTF_8))
-            os.write(("Content-Disposition: form-data; name="$key"; filename="$filename"
-").toByteArray(StandardCharsets.UTF_8))
+            os.write(("Content-Disposition: form-data; name="$key"; filename="$filename"\n").toByteArray(StandardCharsets.UTF_8))
             os.write(("Content-Type: application/octet-stream
 ").toByteArray(StandardCharsets.UTF_8))
             os.write(("Content-Transfer-Encoding: chunked

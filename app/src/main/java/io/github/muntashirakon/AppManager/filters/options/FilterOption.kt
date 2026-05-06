@@ -28,9 +28,7 @@ abstract class FilterOption(val type: String) : LocalizedString, Parcelable {
         const val TYPE_DURATION_MILLIS = 8
         const val TYPE_SIZE_BYTES = 9
 
-        const val KEY_ALL = "all"
-
-        @JvmField
+        const val KEY_ALL = "all"\n@JvmField
         val CREATOR: Parcelable.Creator<FilterOption> = object : Parcelable.Creator<FilterOption> {
             override fun createFromParcel(`in`: Parcel): FilterOption {
                 val type = `in`.readString()!!
@@ -128,8 +126,7 @@ abstract class FilterOption(val type: String) : LocalizedString, Parcelable {
                 TYPE_INT, TYPE_INT_FLAGS -> this.intValue = value.toInt()
                 TYPE_LONG, TYPE_TIME_MILLIS, TYPE_DURATION_MILLIS, TYPE_SIZE_BYTES -> this.longValue = value.toLong()
                 TYPE_REGEX -> this.regexValue = Pattern.compile(Pattern.quote(value))
-                TYPE_STR_MULTIPLE -> this.stringValues = value.split("
-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                TYPE_STR_MULTIPLE -> this.stringValues = value.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             }
         }
     }

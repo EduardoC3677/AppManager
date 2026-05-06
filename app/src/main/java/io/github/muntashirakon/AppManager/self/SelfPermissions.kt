@@ -28,9 +28,7 @@ import io.github.muntashirakon.AppManager.utils.Utils
 import io.github.muntashirakon.io.Paths
 
 object SelfPermissions {
-    const val SHELL_PACKAGE_NAME = "com.android.shell"
-
-    @JvmStatic
+    const val SHELL_PACKAGE_NAME = "com.android.shell"\n@JvmStatic
     fun init() {
         if (!canModifyPermissions()) {
             return

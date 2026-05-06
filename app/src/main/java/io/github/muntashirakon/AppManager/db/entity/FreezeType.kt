@@ -12,9 +12,7 @@ class FreezeType {
     @JvmField
     @PrimaryKey
     @ColumnInfo(name = "package_name")
-    var packageName: String = ""
-
-    @JvmField
+    var packageName: String = ""\n@JvmField
     @ColumnInfo(name = "type")
     @FreezeMethod
     var type: Int = 0

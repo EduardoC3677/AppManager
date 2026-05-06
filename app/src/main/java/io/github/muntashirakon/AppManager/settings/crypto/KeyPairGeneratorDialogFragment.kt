@@ -28,9 +28,7 @@ import java.util.concurrent.atomic.AtomicReference
 
 class KeyPairGeneratorDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "KeyPairGeneratorDialogFragment"
-        const val EXTRA_KEY_TYPE = "type"
-        @JvmField
+        const val TAG = "KeyPairGeneratorDialogFragment"\nconst val EXTRA_KEY_TYPE = "type"\n@JvmField
         val SUPPORTED_RSA_KEY_SIZES: List<Int> = listOf(2048, 4096)
     }
 
@@ -100,8 +98,7 @@ class KeyPairGeneratorDialogFragment : DialogFragment() {
                         return@postOnBackgroundThread
                     }
                     if (formattedSubject.isEmpty()) {
-                        formattedSubject = "CN=App Manager"
-                    }
+                        formattedSubject = "CN=App Manager"\n}
                     try {
                         if (mKeyType == CryptoUtils.MODE_RSA) {
                             keyPair.set(KeyStoreUtils.generateRSAKeyPair(formattedSubject, mKeySize, mExpiryDate))

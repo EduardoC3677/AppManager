@@ -37,9 +37,7 @@ class SharedUidOption : FilterOption("shared_uid") {
         val sb = SpannableStringBuilder("Only the apps with Shared UID")
         return when (key) {
             KEY_ALL -> sb.append(LangUtils.getSeparatorString()).append("ignore")
-            "with_shared" -> "Only the apps with a shared UID"
-            "without_shared" -> "Only the apps without a shared UID"
-            "uid_name" -> sb.append(" ").append(value)
+            "with_shared" -> "Only the apps with a shared UID"\n"without_shared" -> "Only the apps without a shared UID"\n"uid_name" -> sb.append(" ").append(value)
             "uid_names" -> sb.append(" (exclusive) ").append(stringValues!!.joinToString(", "))
             "uid_name_regex" -> sb.append(" that matches '").append(value).append("'")
             else -> throw UnsupportedOperationException("Invalid key $key")

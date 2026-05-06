@@ -28,8 +28,7 @@ class RandomChar @JvmOverloads constructor(
     }
 
     companion object {
-        const val UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val LOWERCASE = UPPERCASE.lowercase(Locale.ROOT)
+        const val UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"\nval LOWERCASE = UPPERCASE.lowercase(Locale.ROOT)
         const val DIGITS = "0123456789"
         val ALPHA_NUMERIC = UPPERCASE + LOWERCASE + DIGITS
     }

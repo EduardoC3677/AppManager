@@ -33,8 +33,7 @@ class WhatsNewFragment : Fragment() {
 
     companion object {
         val TAG: String = WhatsNewFragment::class.java.simpleName
-        private const val ARG_NEW_PKG_INFO = "new_pkg"
-        private const val ARG_OLD_PKG_INFO = "old_pkg"
+        private const val ARG_NEW_PKG_INFO = "new_pkg"\nprivate const val ARG_OLD_PKG_INFO = "old_pkg"
 
         @JvmStatic
         fun getInstance(newPkgInfo: PackageInfo, oldPkgInfo: PackageInfo?): WhatsNewFragment {

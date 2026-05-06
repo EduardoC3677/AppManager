@@ -73,8 +73,7 @@ class PackageInstallerCompat private constructor() {
     private var mCloseApkFile = true
     private var mInstallCompleted = false
     private var mApkFile: ApkFile? = null
-    private var mPackageName: String = ""
-    private var mAppLabel: CharSequence? = null
+    private var mPackageName: String = ""\nprivate var mAppLabel: CharSequence? = null
     private var mSessionId = -1
     @Status
     private var mFinalStatus = STATUS_FAILURE_INVALID
@@ -561,12 +560,7 @@ class PackageInstallerCompat private constructor() {
 
     companion object {
         val TAG: String = PackageInstallerCompat::class.java.simpleName
-        const val ACTION_INSTALL_STARTED = "${BuildConfig.APPLICATION_ID}.action.INSTALL_STARTED"
-        const val ACTION_INSTALL_COMPLETED = "${BuildConfig.APPLICATION_ID}.action.INSTALL_COMPLETED"
-        const val ACTION_INSTALL_INTERACTION_BEGIN = "${BuildConfig.APPLICATION_ID}.action.INSTALL_INTERACTION_BEGIN"
-        const val ACTION_INSTALL_INTERACTION_END = "${BuildConfig.APPLICATION_ID}.action.INSTALL_INTERACTION_END"
-
-        const val STATUS_SUCCESS = PackageInstaller.STATUS_SUCCESS
+        const val ACTION_INSTALL_STARTED = "${BuildConfig.APPLICATION_ID}.action.INSTALL_STARTED"\nconst val ACTION_INSTALL_COMPLETED = "${BuildConfig.APPLICATION_ID}.action.INSTALL_COMPLETED"\nconst val ACTION_INSTALL_INTERACTION_BEGIN = "${BuildConfig.APPLICATION_ID}.action.INSTALL_INTERACTION_BEGIN"\nconst val ACTION_INSTALL_INTERACTION_END = "${BuildConfig.APPLICATION_ID}.action.INSTALL_INTERACTION_END"\nconst val STATUS_SUCCESS = PackageInstaller.STATUS_SUCCESS
         const val STATUS_FAILURE_ABORTED = PackageInstaller.STATUS_FAILURE_ABORTED
         const val STATUS_FAILURE_BLOCKED = PackageInstaller.STATUS_FAILURE_BLOCKED
         const val STATUS_FAILURE_CONFLICT = PackageInstaller.STATUS_FAILURE_CONFLICT

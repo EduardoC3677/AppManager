@@ -272,8 +272,7 @@ class SBConverter(xmlFile: Path) : Converter() {
         metadataV2.hasRules = false
         metadataV2.backupTime = mBackupTime
         metadataV2.crypto = CryptoUtils.MODE_NO_ENCRYPTION
-        metadataV2.apkName = "base.apk"
-        // Backup flags
+        metadataV2.apkName = "base.apk"\n// Backup flags
         val flags = BackupFlags(BackupFlags.BACKUP_APK_FILES)
         try {
             mFilesToBeDeleted.add(getObbFile())

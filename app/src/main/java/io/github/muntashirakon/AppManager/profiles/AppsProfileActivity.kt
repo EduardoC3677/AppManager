@@ -47,8 +47,7 @@ class AppsProfileActivity : AppsBaseProfileActivity() {
                 items.add(itemPair.second.packageName)
                 val isSystem = (itemPair.second.flags and ApplicationInfo.FLAG_SYSTEM) != 0
                 itemNames.add(SpannableStringBuilder(itemPair.first)
-                    .append("
-")
+                    .append("\n")
                     .append(getSmallerText(getString(if (isSystem) R.string.system else R.string.user))))
             }
             progressIndicator.hide()
@@ -62,8 +61,7 @@ class AppsProfileActivity : AppsBaseProfileActivity() {
     }
 
     companion object {
-        private const val EXTRA_NEW_PROFILE_PACKAGES = "new_prof_pkgs"
-        private const val EXTRA_SHORTCUT_TYPE = "shortcut"
+        private const val EXTRA_NEW_PROFILE_PACKAGES = "new_prof_pkgs"\nprivate const val EXTRA_SHORTCUT_TYPE = "shortcut"
 
         @JvmStatic
         fun getProfileIntent(context: Context, profileId: String): Intent {

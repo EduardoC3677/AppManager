@@ -46,9 +46,7 @@ class ArchivableOption : FilterOption("archivable") {
         val sb = SpannableStringBuilder("Archivable")
         return when (key) {
             KEY_ALL -> sb.append(LangUtils.getSeparatorString()).append("any")
-            "archivable" -> "Archivable apps"
-            "not_archivable" -> "Non-archivable apps"
-            else -> throw UnsupportedOperationException("Invalid key $key")
+            "archivable" -> "Archivable apps"\n"not_archivable" -> "Non-archivable apps"\nelse -> throw UnsupportedOperationException("Invalid key $key")
         }
     }
 }

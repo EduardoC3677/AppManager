@@ -382,7 +382,6 @@ class FmActivity : BaseActivity() {
     }
 
     companion object {
-        const val LAUNCHER_ALIAS = "io.github.muntashirakon.AppManager.fm.FilesActivity"
-        const val EXTRA_OPTIONS = "opt"
+        const val LAUNCHER_ALIAS = "io.github.muntashirakon.AppManager.fm.FilesActivity"\nconst val EXTRA_OPTIONS = "opt"
     }
 }

@@ -364,9 +364,7 @@ internal class LocalServerManager private constructor(private val mContext: Cont
     }
 
     companion object {
-        private const val TAG = "LocalServerManager"
-
-        @SuppressLint("StaticFieldLeak")
+        private const val TAG = "LocalServerManager"\n@SuppressLint("StaticFieldLeak")
         @Volatile
         private var sLocalServerManager: LocalServerManager? = null
 

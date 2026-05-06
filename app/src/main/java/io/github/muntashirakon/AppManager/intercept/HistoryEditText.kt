@@ -19,9 +19,7 @@ open class HistoryEditText(private val mContext: Activity, vararg editors: Mater
             showHistory()
         }
 
-        fun toString(pref: SharedPreferences): String = "$mId : '${getHistory(pref)}'"
-
-        protected fun showHistory() {
+        fun toString(pref: SharedPreferences): String = "$mId : '${getHistory(pref)}'"\nprotected fun showHistory() {
             val items = getHistoryItems()
             val adapter = NoFilterArrayAdapter(mContext, io.github.muntashirakon.ui.R.layout.auto_complete_dropdown_item, items)
             mEditor.setAdapter(adapter)
@@ -50,8 +48,7 @@ open class HistoryEditText(private val mContext: Activity, vararg editors: Mater
         private fun toString(list: List<String>?): String {
             val result = StringBuilder()
             list?.let {
-                var nextDelim = ""
-                for (instance in it) {
+                var nextDelim = ""\nfor (instance in it) {
                     val instanceString = instance.trim()
                     if (instanceString.isNotEmpty()) {
                         result.append(nextDelim).append(instanceString)
@@ -87,14 +84,12 @@ open class HistoryEditText(private val mContext: Activity, vararg editors: Mater
     override fun toString(): String {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext)
         val result = StringBuilder()
-        for (handler in mEditorHandlers) result.append(handler.toString(sharedPref)).append("
-")
+        for (handler in mEditorHandlers) result.append(handler.toString(sharedPref)).append("\n")
         return result.toString()
     }
 
     companion object {
-        private const val DELIMITER = "';'"
-        private const val MAX_HISTORY_SIZE = 8
+        private const val DELIMITER = "';'"\nprivate const val MAX_HISTORY_SIZE = 8
         private const val HISTORY_PREFIX = "ActivityInterceptor_history_"
     }
 }

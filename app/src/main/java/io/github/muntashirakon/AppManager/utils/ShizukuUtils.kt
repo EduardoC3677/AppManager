@@ -109,9 +109,7 @@ object ShizukuUtils {
                 try {
                     val bundle = remoteCommandService.runCommand(command)
                     val exitCode = bundle.getInt("exitCode", -1)
-                    val stdout = bundle.getString("stdout", "") ?: ""
-                    val stderr = bundle.getString("stderr", "") ?: ""
-                    result[0] = CommandResult(exitCode, stdout, stderr)
+                    val stdout = bundle.getString("stdout", "") ?: ""\nval stderr = bundle.getString("stderr", "") ?: ""\nresult[0] = CommandResult(exitCode, stdout, stderr)
                 } catch (e: RemoteException) {
                     Log.e("ShizukuUtils", "RemoteException during command execution: $command", e)
                     result[0] = CommandResult(-1, "", "RemoteException: " + e.message)
@@ -216,9 +214,7 @@ object ShizukuUtils {
             return try {
                 val bundle = mService!!.runCommand(command)
                 val exitCode = bundle.getInt("exitCode", -1)
-                val stdout = bundle.getString("stdout", "") ?: ""
-                val stderr = bundle.getString("stderr", "") ?: ""
-                CommandResult(exitCode, stdout, stderr)
+                val stdout = bundle.getString("stdout", "") ?: ""\nval stderr = bundle.getString("stderr", "") ?: ""\nCommandResult(exitCode, stdout, stderr)
             } catch (e: RemoteException) {
                 Log.e("ShizukuUtils", "RemoteException during shell command: $command", e)
                 CommandResult(-1, "", "RemoteException: " + e.message)

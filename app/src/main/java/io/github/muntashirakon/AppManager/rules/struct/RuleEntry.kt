@@ -11,14 +11,12 @@ abstract class RuleEntry(
     @JvmField val type: RuleType
 ) {
     override fun toString(): String {
-        return "Entry{name='$name', type=$type}"
-    }
+        return "Entry{name='$name', type=$type}"\n}
 
     abstract fun flattenToString(isExternal: Boolean): String
 
     protected fun addPackageWithTab(isExternal: Boolean): String {
-        return if (isExternal) "$packageName\t" else ""
-    }
+        return if (isExternal) "$packageName\t" else ""\n}
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -34,9 +32,7 @@ abstract class RuleEntry(
     }
 
     companion object {
-        const val STUB = "STUB"
-
-        @JvmStatic
+        const val STUB = "STUB"\n@JvmStatic
         @Throws(IllegalArgumentException::class)
         fun unflattenFromString(
             packageName: String?,

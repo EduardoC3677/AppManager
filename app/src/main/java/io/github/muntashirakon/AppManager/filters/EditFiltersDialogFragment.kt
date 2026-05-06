@@ -37,8 +37,7 @@ class EditFiltersDialogFragment : DialogFragment(), EditFilterOptionFragment.OnC
                 if (TextUtils.isDigitsOnly(part2)) part2.toInt() else 0
             } else 0
             val option = mFilterItem.getFilterOptionForId(intId)
-            if (option == null) lastError = "Invalid ID '$id'"
-            return option != null
+            if (option == null) lastError = "Invalid ID '$id'"\nreturn option != null
         }
     }
 

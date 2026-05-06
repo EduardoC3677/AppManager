@@ -27,8 +27,7 @@ class AddToProfileDialogFragment : DialogFragment() {
         val profiles = ExUtils.requireNonNullElse({ ProfileManager.getProfiles<AppsProfile>(AppsProfile.PROFILE_TYPE_APPS) }, emptyList())
         val profileNames = ArrayList<CharSequence>(profiles.size)
         for (profile in profiles) {
-            profileNames.add(SpannableStringBuilder(profile.name).append("
-")
+            profileNames.add(SpannableStringBuilder(profile.name).append("\n")
                 .append(getSecondaryText(requireContext(), getSmallerText(
                     profile.toLocalizedString(requireContext())))))
         }

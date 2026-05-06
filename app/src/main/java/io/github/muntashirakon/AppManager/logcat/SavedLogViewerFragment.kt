@@ -73,8 +73,7 @@ class SavedLogViewerFragment : AbsLogViewerFragment(), LogViewerViewModel.LogLin
             }
             val sb = StringBuilder()
             for (line in mLogListAdapter!!.selectedLogLines) {
-                sb.append(line.originalLine).append("
-")
+                sb.append(line.originalLine).append("\n")
             }
             UIUtils.copyToClipboard(mActivity, "", sb.toString())
             UIUtils.displayShortToast(R.string.copied_to_clipboard)
@@ -94,8 +93,7 @@ class SavedLogViewerFragment : AbsLogViewerFragment(), LogViewerViewModel.LogLin
 
     companion object {
         val TAG: String = SavedLogViewerFragment::class.java.simpleName
-        private const val ARG_FILENAME = "filename"
-        private const val ARG_URI = "uri"
+        private const val ARG_FILENAME = "filename"\nprivate const val ARG_URI = "uri"
 
         @JvmStatic
         fun getInstance(filename: String?): SavedLogViewerFragment {

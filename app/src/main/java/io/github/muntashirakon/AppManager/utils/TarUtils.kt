@@ -43,11 +43,7 @@ object TarUtils {
     @Retention(AnnotationRetention.SOURCE)
     annotation class TarType
 
-    const val TAR_GZIP = "z"
-    const val TAR_BZIP2 = "j"
-    const val TAR_ZSTD = "s"
-
-    /**
+    const val TAR_GZIP = "z"\nconst val TAR_BZIP2 = "j"\nconst val TAR_ZSTD = "s"\n/**
      * Create a tar file using the given compression method and split it into multiple files based
      * on the supplied split size.
      *

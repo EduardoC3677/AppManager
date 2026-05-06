@@ -60,8 +60,7 @@ class RestoreMultipleFragment : Fragment() {
         if (appsWithoutBackups.isNotEmpty()) {
             val sb = SpannableStringBuilder(getString(R.string.backup_apps_cannot_be_restored))
             for (appLabel in appsWithoutBackups) {
-                sb.append("
-● ").append(appLabel)
+                sb.append("\n● ").append(appLabel)
             }
             messageView.text = sb
             messageView.visibility = View.VISIBLE

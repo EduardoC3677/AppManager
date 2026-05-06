@@ -41,9 +41,7 @@ class AddIntentExtraFragment : DialogFragment() {
         var keyName: String? = null
         var keyValue: Any? = null
 
-        override fun toString(): String = "PrefItem{type=$type, keyName='$keyName', keyValue=$keyValue}"
-
-        companion object {
+        override fun toString(): String = "PrefItem{type=$type, keyName='$keyName', keyValue=$keyValue}"\ncompanion object {
             private const val serialVersionUID = 4815162342L
         }
     }
@@ -120,9 +118,7 @@ class AddIntentExtraFragment : DialogFragment() {
     }
 
     companion object {
-        const val TAG = "AddIntentExtraFragment"
-        const val ARG_PREF_ITEM = "ARG_PREF_ITEM"
-        const val ARG_MODE = "ARG_MODE"
+        const val TAG = "AddIntentExtraFragment"\nconst val ARG_PREF_ITEM = "ARG_PREF_ITEM"\nconst val ARG_MODE = "ARG_MODE"
         const val MODE_EDIT = 1
         const val MODE_CREATE = 2
         const val MODE_DELETE = 3

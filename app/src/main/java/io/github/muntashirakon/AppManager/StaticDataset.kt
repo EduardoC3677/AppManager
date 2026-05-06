@@ -24,12 +24,7 @@ object StaticDataset {
     private var sTrackerNames: Array<String>? = null
     private var sDebloatObjects: List<DebloatObject>? = null
 
-    const val ARMEABI_V7A = "armeabi_v7a"
-    const val ARM64_V8A = "arm64_v8a"
-    const val X86 = "x86"
-    const val X86_64 = "x86_64"
-
-    @JvmField
+    const val ARMEABI_V7A = "armeabi_v7a"\nconst val ARM64_V8A = "arm64_v8a"\nconst val X86 = "x86"\nconst val X86_64 = "x86_64"\n@JvmField
     val ALL_ABIS: Map<String, String> = HashMap<String, String>().apply {
         put(ARMEABI_V7A, VMRuntime.ABI_ARMEABI_V7A)
         put(ARM64_V8A, VMRuntime.ABI_ARM64_V8A)
@@ -37,15 +32,7 @@ object StaticDataset {
         put(X86_64, VMRuntime.ABI_X86_64)
     }
 
-    const val LDPI = "ldpi"
-    const val MDPI = "mdpi"
-    const val TVDPI = "tvdpi"
-    const val HDPI = "hdpi"
-    const val XHDPI = "xhdpi"
-    const val XXHDPI = "xxhdpi"
-    const val XXXHDPI = "xxxhdpi"
-
-    @JvmField
+    const val LDPI = "ldpi"\nconst val MDPI = "mdpi"\nconst val TVDPI = "tvdpi"\nconst val HDPI = "hdpi"\nconst val XHDPI = "xhdpi"\nconst val XXHDPI = "xxhdpi"\nconst val XXXHDPI = "xxxhdpi"\n@JvmField
     val DENSITY_NAME_TO_DENSITY: ArrayMap<String, Int> = ArrayMap<String, Int>(7).apply {
         put(LDPI, DisplayMetrics.DENSITY_LOW)
         put(MDPI, DisplayMetrics.DENSITY_MEDIUM)

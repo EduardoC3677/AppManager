@@ -55,8 +55,7 @@ class ChecksumsDialogFragment : DialogFragment() {
         copyAll.setOnClickListener {
             val sb = StringBuilder()
             for (checksum in mAdapter!!.items) {
-                sb.append(checksum.first).append(": ").append(checksum.second).append("
-")
+                sb.append(checksum.first).append(": ").append(checksum.second).append("\n")
             }
             if (sb.isNotEmpty()) {
                 io.github.muntashirakon.util.UiUtils.copyToClipboard(requireContext(), sb.toString())

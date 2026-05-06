@@ -50,10 +50,8 @@ class AndroidBackupExtractor @Throws(IOException::class) constructor(
                     if (filename == null || filename.startsWith("../")) {
                         throw IOException(
                             "Zip slip vulnerability detected!" +
-                                    "
-Expected dest: " + File(realDestPath, entry!!.name) +
-                                    "
-Actual path: " + (if (filename != null) File(realDestPath, filename) else realDestPath)
+                                    "\nExpected dest: " + File(realDestPath, entry!!.name) +
+                                    "\nActual path: " + (if (filename != null) File(realDestPath, filename) else realDestPath)
                         )
                     }
                     if (!filename.startsWith(relativeDirInAb)) {
@@ -77,10 +75,8 @@ Actual path: " + (if (filename != null) File(realDestPath, filename) else realDe
                         if (realDestPath != null && realFilePath != null && !realFilePath.startsWith(realDestPath)) {
                             throw IOException(
                                 "Zip slip vulnerability detected!" +
-                                        "
-Expected dest: " + File(realDestPath, entry!!.name) +
-                                        "
-Actual path: $realFilePath"
+                                        "\nExpected dest: " + File(realDestPath, entry!!.name) +
+                                        "\nActual path: $realFilePath"
                             )
                         }
                         if (!entry!!.isDirectory) {
@@ -217,11 +213,7 @@ Actual path: $realFilePath"
         val firstPart = parts[0]
         val secondPart = parts[1]
         return when (firstPart) {
-            Constants.FILES_TREE_TOKEN, Constants.DEVICE_FILES_TREE_TOKEN -> "files/$secondPart"
-            Constants.NO_BACKUP_TREE_TOKEN, Constants.DEVICE_NO_BACKUP_TREE_TOKEN -> "no_backup/$secondPart"
-            Constants.DATABASE_TREE_TOKEN, Constants.DEVICE_DATABASE_TREE_TOKEN -> "databases/$secondPart"
-            Constants.SHAREDPREFS_TREE_TOKEN, Constants.DEVICE_SHAREDPREFS_TREE_TOKEN -> "shared_prefs/$secondPart"
-            Constants.CACHE_TREE_TOKEN, Constants.DEVICE_CACHE_TREE_TOKEN -> "caches/$secondPart"
+            Constants.FILES_TREE_TOKEN, Constants.DEVICE_FILES_TREE_TOKEN -> "files/$secondPart"\nConstants.NO_BACKUP_TREE_TOKEN, Constants.DEVICE_NO_BACKUP_TREE_TOKEN -> "no_backup/$secondPart"\nConstants.DATABASE_TREE_TOKEN, Constants.DEVICE_DATABASE_TREE_TOKEN -> "databases/$secondPart"\nConstants.SHAREDPREFS_TREE_TOKEN, Constants.DEVICE_SHAREDPREFS_TREE_TOKEN -> "shared_prefs/$secondPart"\nConstants.CACHE_TREE_TOKEN, Constants.DEVICE_CACHE_TREE_TOKEN -> "caches/$secondPart"
             else -> secondPart
         }
     }

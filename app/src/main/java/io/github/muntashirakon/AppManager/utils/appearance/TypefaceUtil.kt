@@ -10,9 +10,7 @@ import android.view.ContextThemeWrapper
 import io.github.muntashirakon.AppManager.logs.Log
 
 object TypefaceUtil {
-    private const val TAG = "TypefaceUtil"
-
-    private val sOverriddenFonts = HashMap<String, Typeface?>()
+    private const val TAG = "TypefaceUtil"\nprivate val sOverriddenFonts = HashMap<String, Typeface?>()
 
     @JvmStatic
     fun replaceFontsWithSystem(context: Context) {

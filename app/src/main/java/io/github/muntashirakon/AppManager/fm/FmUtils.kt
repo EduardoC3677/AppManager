@@ -44,12 +44,10 @@ object FmUtils {
     private fun getSingleMode(mode: Int, special: Boolean, specialChar: String): String {
         val canExecute = (mode and 0x1) != 0
         val execMode = if (canExecute) {
-            if (special) specialChar.lowercase(Locale.ROOT) else "x"
-        } else if (special) {
+            if (special) specialChar.lowercase(Locale.ROOT) else "x"\n} else if (special) {
             specialChar.uppercase(Locale.ROOT)
         } else {
-            "-"
-        }
+            "-"\n}
         return (if (mode and 0x4 != 0) "r" else "-") +
                 (if (mode and 0x2 != 0) "w" else "-") +
                 execMode
@@ -75,8 +73,7 @@ object FmUtils {
             }
             VirtualFileSystem.SCHEME -> {
                 if (uri.authority == null) return null
-                var path = uri.path ?: ""
-                if (!path.startsWith(File.separator)) {
+                var path = uri.path ?: ""\nif (!path.startsWith(File.separator)) {
                     path = File.separator + path
                 }
                 path = Paths.relativePath(path, File.separator)

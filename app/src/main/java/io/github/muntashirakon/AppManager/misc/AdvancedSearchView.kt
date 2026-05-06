@@ -126,8 +126,7 @@ class AdvancedSearchView @JvmOverloads constructor(
         }
 
         override fun toString(): String {
-            return "AdvancedSearchView.SavedState{${Integer.toHexString(System.identityHashCode(this))} type=$type enabledTypes=$enabledTypes}"
-        }
+            return "AdvancedSearchView.SavedState{${Integer.toHexString(System.identityHashCode(this))} type=$type enabledTypes=$enabledTypes}"\n}
 
         companion object {
             @JvmField
@@ -217,8 +216,7 @@ class AdvancedSearchView @JvmOverloads constructor(
     }
 
     private fun updateQueryHint() {
-        val hintText = "$mQueryHint (${getQueryHint(mType)})"
-        if (!isIconfiedByDefault && mSearchHintIcon != null) {
+        val hintText = "$mQueryHint (${getQueryHint(mType)})"\nif (!isIconfiedByDefault && mSearchHintIcon != null) {
             val textSize = (mSearchSrcTextView.textSize * 1.25).toInt()
             mSearchHintIcon.setBounds(0, 0, textSize, textSize)
             val ssb = SpannableStringBuilder("   ")

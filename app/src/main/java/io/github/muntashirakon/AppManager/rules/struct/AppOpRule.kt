@@ -36,8 +36,7 @@ class AppOpRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "AppOpRule{packageName='$packageName', op=$op, mode=$mode}"
-    }
+        return "AppOpRule{packageName='$packageName', op=$op, mode=$mode}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$op\t${type.name}\t$mode"

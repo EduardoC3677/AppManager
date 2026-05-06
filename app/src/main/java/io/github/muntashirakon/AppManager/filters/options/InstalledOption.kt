@@ -35,9 +35,7 @@ class InstalledOption : FilterOption("installed") {
         val sb = SpannableStringBuilder("Installed")
         return when (key) {
             KEY_ALL -> sb.append(LangUtils.getSeparatorString()).append("any")
-            "installed" -> "Installed apps"
-            "uninstalled" -> "Uninstalled apps"
-            "installed_before" -> sb.append(" before ").append(DateUtils.formatDateTime(context, longValue))
+            "installed" -> "Installed apps"\n"uninstalled" -> "Uninstalled apps"\n"installed_before" -> sb.append(" before ").append(DateUtils.formatDateTime(context, longValue))
             "installed_after" -> sb.append(" after ").append(DateUtils.formatDateTime(context, longValue))
             else -> throw UnsupportedOperationException("Invalid key $key")
         }

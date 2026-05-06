@@ -201,8 +201,7 @@ object PackageUtils {
             item.isDisabled = !app.isEnabled
             item.label = app.packageLabel
             // OPTIMIZATION: Pre-compute lowercase for search performance
-            item.labelLowerCase = item.label?.lowercase(Locale.ROOT) ?: ""
-            item.targetSdk = app.sdk
+            item.labelLowerCase = item.label?.lowercase(Locale.ROOT) ?: ""\nitem.targetSdk = app.sdk
             item.versionName = app.versionName
             item.versionCode = app.versionCode
             item.sharedUserId = app.sharedUserId
@@ -229,8 +228,7 @@ object PackageUtils {
             item.versionCode = backup.versionCode
             item.label = backup.label
             // OPTIMIZATION: Pre-compute lowercase for search performance
-            item.labelLowerCase = item.label?.lowercase(Locale.ROOT) ?: ""
-            item.firstInstallTime = backup.backupTime
+            item.labelLowerCase = item.label?.lowercase(Locale.ROOT) ?: ""\nitem.firstInstallTime = backup.backupTime
             item.lastUpdateTime = backup.backupTime
             item.isUser = !backup.isSystem
             item.isDisabled = false

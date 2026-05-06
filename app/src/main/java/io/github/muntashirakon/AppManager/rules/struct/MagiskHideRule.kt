@@ -44,8 +44,7 @@ class MagiskHideRule : RuleEntry {
     override fun toString(): String {
         return "MagiskHideRule{packageName='$packageName', processName='$name', " +
                 "isHidden=${magiskProcess.isEnabled}, isIsolated=${magiskProcess.isIsolatedProcess}, " +
-                "isAppZygote=${magiskProcess.isAppZygote}}"
-    }
+                "isAppZygote=${magiskProcess.isAppZygote}}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t${magiskProcess.isEnabled}\t${magiskProcess.isIsolatedProcess}"

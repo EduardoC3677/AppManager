@@ -233,8 +233,7 @@ Output: $outputPath")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     putExtra(OpenPgpApi.RESULT_INTENT, IntentCompat.getParcelableExtra(result, OpenPgpApi.RESULT_INTENT, PendingIntent::class.java))
                 }
-                val openPGP = "Open PGP"
-                val builder = NotificationUtils.getHighPriorityNotificationBuilder(mContext)
+                val openPGP = "Open PGP"\nval builder = NotificationUtils.getHighPriorityNotificationBuilder(mContext)
                     .setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setWhen(System.currentTimeMillis())
@@ -256,9 +255,6 @@ Output: $outputPath")
     }
 
     companion object {
-        const val TAG = "OpenPGPCrypto"
-        const val ACTION_OPEN_PGP_INTERACTION_BEGIN = "${BuildConfig.APPLICATION_ID}.action.OPEN_PGP_INTERACTION_BEGIN"
-        const val ACTION_OPEN_PGP_INTERACTION_END = "${BuildConfig.APPLICATION_ID}.action.OPEN_PGP_INTERACTION_END"
-        const val GPG_EXT = ".gpg"
+        const val TAG = "OpenPGPCrypto"\nconst val ACTION_OPEN_PGP_INTERACTION_BEGIN = "${BuildConfig.APPLICATION_ID}.action.OPEN_PGP_INTERACTION_BEGIN"\nconst val ACTION_OPEN_PGP_INTERACTION_END = "${BuildConfig.APPLICATION_ID}.action.OPEN_PGP_INTERACTION_END"\nconst val GPG_EXT = ".gpg"
     }
 }

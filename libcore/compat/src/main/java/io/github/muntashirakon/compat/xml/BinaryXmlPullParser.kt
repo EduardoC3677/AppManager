@@ -53,6 +53,7 @@ import java.util.*
  * <li>Namespaces, prefixes, properties, and options are unsupported.
  * </ul>
  */
+@Suppress("NewApi")
 class BinaryXmlPullParser : TypedXmlPullParser {
     private var mIn: FastDataInput? = null
 

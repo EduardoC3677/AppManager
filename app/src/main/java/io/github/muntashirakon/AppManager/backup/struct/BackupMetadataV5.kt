@@ -316,8 +316,7 @@ class BackupMetadataV5(val info: Info, val metadata: Metadata) : LocalizedString
             subtitleText.append(", ").append(context.getText(R.string.frozen))
         }
 
-        return SpannableStringBuilder(getTitleText(context, titleText)).append("
-")
+        return SpannableStringBuilder(getTitleText(context, titleText)).append("\n")
             .append(getSmallerText(getSecondaryText(context, subtitleText)))
     }
 }

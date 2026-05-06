@@ -37,8 +37,7 @@ class BackupOption : FilterOption("backup") {
         BACKUP_EXT_OBB_MEDIA to "OBB and media",
         BACKUP_CACHE to "Cache",
         BACKUP_EXTRAS to "Extras",
-        BACKUP_RULES to "Rules"
-    )
+        BACKUP_RULES to "Rules"\n)
 
     override fun getKeysWithType(): Map<String, Int> {
         return mKeysWithType
@@ -149,12 +148,7 @@ class BackupOption : FilterOption("backup") {
     override fun toLocalizedString(context: Context): CharSequence {
         val sb = SpannableStringBuilder()
         return when (key) {
-            KEY_ALL -> "Apps with or without backups"
-            "backups" -> "Only the apps with backups"
-            "no_backups" -> "only the apps without backups"
-            "latest_backup" -> "Only the apps having the latest backups"
-            "outdated_backup" -> "Only the apps having some outdated backups"
-            "made_before" -> sb.append("Only the apps with backups made before ").append(DateUtils.formatDate(context, longValue))
+            KEY_ALL -> "Apps with or without backups"\n"backups" -> "Only the apps with backups"\n"no_backups" -> "only the apps without backups"\n"latest_backup" -> "Only the apps having the latest backups"\n"outdated_backup" -> "Only the apps having some outdated backups"\n"made_before" -> sb.append("Only the apps with backups made before ").append(DateUtils.formatDate(context, longValue))
             "made_after" -> sb.append("Only the apps with backups made after ").append(DateUtils.formatDate(context, longValue))
             "with_flags" -> sb.append("Only the apps having backups with the flags ").append(flagsToString("with_flags", intValue))
             "without_flags" -> sb.append("Only the apps having backups without the flags ").append(flagsToString("without_flags", intValue))

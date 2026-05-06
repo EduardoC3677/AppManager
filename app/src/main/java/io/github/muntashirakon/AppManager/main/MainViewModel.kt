@@ -383,8 +383,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
             mApplicationItemsLiveData.postValue(filteredApplicationItems)
             return
         }
-        val queryLower = mSearchQuery?.lowercase(Locale.ROOT) ?: ""
-        val filteredApplicationItems = ArrayList<ApplicationItem>()
+        val queryLower = mSearchQuery?.lowercase(Locale.ROOT) ?: ""\nval filteredApplicationItems = ArrayList<ApplicationItem>()
         for (item in applicationItems) {
             if (ThreadUtils.isInterrupted()) return
             item.ensureLowerCaseFields()
@@ -414,8 +413,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
                     val profile = BaseProfile.fromPath(profilePath)
                     if (profile is AppsProfile) {
                         val option = PackageNameOption()
-                        option.setKeyValue("eq_any", TextUtils.join("
-", profile.packages))
+                        option.setKeyValue("eq_any", TextUtils.join("\n", profile.packages))
                         profileFilterOptions.add(option)
                     } else if (profile is AppsFilterProfile) {
                         val filterItem = profile.filterItem

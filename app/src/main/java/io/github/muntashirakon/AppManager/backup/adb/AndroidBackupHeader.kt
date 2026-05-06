@@ -19,9 +19,7 @@ import javax.crypto.spec.SecretKeySpec
 
 internal class AndroidBackupHeader {
     companion object {
-        private const val TRANSFORMATION = "AES/CBC/PKCS5Padding"
-
-        @JvmStatic
+        private const val TRANSFORMATION = "AES/CBC/PKCS5Padding"\n@JvmStatic
         @Throws(IOException::class)
         private fun readHeaderLine(`in`: InputStream): String {
             var c: Int
@@ -246,10 +244,8 @@ internal class AndroidBackupHeader {
         headerbuf.append(Constants.BACKUP_FILE_HEADER_MAGIC)
         headerbuf.append(mBackupFileVersion) // integer, no trailing 
 
-        headerbuf.append(if (mCompress) "
-1
-" else "
-0
+        headerbuf.append(if (mCompress) "\n1
+" else "\n0
 ")
 
         var finalOutput = backupStream

@@ -28,15 +28,7 @@ object LogcatHelper {
     const val LOG_ID_ALL = LOG_ID_MAIN or LOG_ID_RADIO or LOG_ID_EVENTS or LOG_ID_SYSTEM or LOG_ID_CRASH
     const val LOG_ID_DEFAULT = LOG_ID_MAIN or LOG_ID_SYSTEM or LOG_ID_CRASH
 
-    const val BUFFER_MAIN = "main"
-    const val BUFFER_RADIO = "radio"
-    const val BUFFER_EVENTS = "events"
-    const val BUFFER_SYSTEM = "system"
-    const val BUFFER_CRASH = "crash"
-    const val BUFFER_ALL = "all"
-    const val BUFFER_DEFAULT = "default"
-
-    const val DEFAULT_DISPLAY_LIMIT = 10000
+    const val BUFFER_MAIN = "main"\nconst val BUFFER_RADIO = "radio"\nconst val BUFFER_EVENTS = "events"\nconst val BUFFER_SYSTEM = "system"\nconst val BUFFER_CRASH = "crash"\nconst val BUFFER_ALL = "all"\nconst val BUFFER_DEFAULT = "default"\nconst val DEFAULT_DISPLAY_LIMIT = 10000
     const val DEFAULT_LOG_WRITE_INTERVAL = 200
 
     @JvmStatic

@@ -19,24 +19,21 @@ object DateUtils {
         val dateTime = Date(millis)
         val date = getDateFormat(context).format(dateTime)
         val time = getTimeFormat(context).format(dateTime)
-        return "$date $time"
-    }
+        return "$date $time"\n}
 
     @JvmStatic
     fun formatMediumDateTime(context: Context, millis: Long): String {
         val dateTime = Date(millis)
         val date = getMediumDateFormat(context).format(dateTime)
         val time = getTimeFormat(context).format(dateTime)
-        return "$date $time"
-    }
+        return "$date $time"\n}
 
     @JvmStatic
     fun formatLongDateTime(context: Context, millis: Long): String {
         val dateTime = Date(millis)
         val date = getLongDateFormat(context).format(dateTime)
         val time = getTimeFormat(context).format(dateTime)
-        return "$date $time"
-    }
+        return "$date $time"\n}
 
     @JvmStatic
     @JvmOverloads
@@ -45,12 +42,10 @@ object DateUtils {
         if (millis == 0L) {
             return res.getQuantityString(R.plurals.usage_minutes, 0, 0)
         }
-        var fTime = ""
-        var remainingMillis = millis
+        var fTime = ""\nvar remainingMillis = millis
         if (remainingMillis < 0) {
             remainingMillis = -remainingMillis
-            if (addSign) fTime = "- "
-        }
+            if (addSign) fTime = "- "\n}
         var time = remainingMillis / 1000 // seconds
         val month = time / 2_592_000
         time %= 2_592_000

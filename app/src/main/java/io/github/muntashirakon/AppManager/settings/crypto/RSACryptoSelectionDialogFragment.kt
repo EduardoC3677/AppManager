@@ -32,9 +32,7 @@ class RSACryptoSelectionDialogFragment : DialogFragment() {
     companion object {
         @JvmField
         val TAG: String = RSACryptoSelectionDialogFragment::class.java.simpleName
-        private const val EXTRA_ALIAS = "alias"
-
-        @JvmStatic
+        private const val EXTRA_ALIAS = "alias"\n@JvmStatic
         fun getInstance(alias: String): RSACryptoSelectionDialogFragment {
             val fragment = RSACryptoSelectionDialogFragment()
             val args = Bundle()

@@ -670,7 +670,7 @@
     <string name="advanced">Advanced</string>
     <string name="user_profile_with_id">Profile: %1$s (%2$d)</string>
     <string name="root">Root</string>
-    <string name="shizuku">Shizuku</string>
+    <string name="shizuku_label">Shizuku</string>
     <string name="no_root">No root</string>
     <string name="close">Close</string>
     <string name="comment">Comment</string>
@@ -1006,6 +1006,7 @@
     <string name="netpolicy_reject_wifi_data">Reject Wi-Fi data</string>
     <string name="netpolicy_disable_network_access">Disable network access</string>
     <string name="wireless_debugging">Wireless debugging</string>
+    <string name="shizuku">Shizuku</string>
     <string name="adb_connect">Connect</string>
     <string name="port_number">Port</string>
     <string name="adb_connect_port_number_description">Port number is located under <b>IP address &amp; port</b> section

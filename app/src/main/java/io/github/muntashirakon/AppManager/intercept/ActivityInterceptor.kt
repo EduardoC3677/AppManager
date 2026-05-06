@@ -343,8 +343,7 @@ class ActivityInterceptor : BaseActivity() {
     private fun pasteIntentDetails() {
         val clip = ClipboardUtils.readClipboard(this) ?: return
         val text = clip.toString()
-        val lines = text.split("
-")
+        val lines = text.split("\n")
         mUseRoot = false; mUserHandle = UserHandleHidden.myUserId()
         var count = 0
         for (line in lines) {
@@ -368,8 +367,7 @@ class ActivityInterceptor : BaseActivity() {
     }
 
     private fun getIntentDetailsString(): String {
-        val m = mMutableIntent ?: return ""
-        val list = getMatchingActivities()
+        val m = mMutableIntent ?: return ""\nval list = getMatchingActivities()
         val count = list.size
         val res = StringBuilder()
         res.append("URI	${getUri(m)}
@@ -378,8 +376,7 @@ class ActivityInterceptor : BaseActivity() {
 ")
         if (mUserHandle != UserHandleHidden.myUserId()) res.append("USER	$mUserHandle
 ")
-        res.append("
-${IntentCompat.flattenToString(m)}
+        res.append("\n${IntentCompat.flattenToString(m)}
 MATCHING ACTIVITIES	$count
 ")
         val spaces = " ".repeat(count.toString().length)
@@ -393,8 +390,7 @@ MATCHING ACTIVITIES	$count
 ")
         }
         mLastResultCode?.let {
-            res.append("
-ACTIVITY RESULT	$it
+            res.append("\nACTIVITY RESULT	$it
 ")
             mLastResultIntent?.let { li -> res.append(IntentCompat.describeIntent(li, "RESULT")) }
         }
@@ -430,8 +426,7 @@ ACTIVITY RESULT	$it
             R.id.action_paste -> { pasteIntentDetails(); true }
             R.id.action_shortcut -> {
                 try {
-                    val name = supportActionBar?.subtitle ?: title ?: ""
-                    val icon = ContextCompat.getDrawable(this, R.drawable.ic_launcher_foreground)!!
+                    val name = supportActionBar?.subtitle ?: title ?: ""\nval icon = ContextCompat.getDrawable(this, R.drawable.ic_launcher_foreground)!!
                     val i = Intent(mMutableIntent).apply {
                         putExtra(EXTRA_AUTH, AuthManager.getKey())
                         putExtra(EXTRA_TRIGGER_ON_START, true)
@@ -567,15 +562,7 @@ ${ai.name}"; h.subtitle.setTextIsSelectable(true)
 
     companion object {
         val TAG: String = ActivityInterceptor::class.java.simpleName
-        const val EXTRA_PACKAGE_NAME = "${BuildConfig.APPLICATION_ID}.intent.extra.PACKAGE_NAME"
-        const val EXTRA_CLASS_NAME = "${BuildConfig.APPLICATION_ID}.intent.extra.CLASS_NAME"
-        const val EXTRA_ACTION = "${BuildConfig.APPLICATION_ID}.intent.extra.ACTION"
-        const val EXTRA_ROOT = "${BuildConfig.APPLICATION_ID}.intent.extra.ROOT"
-        const val EXTRA_USER_HANDLE = "${BuildConfig.APPLICATION_ID}.intent.extra.USER_HANDLE"
-        const val EXTRA_TRIGGER_ON_START = "${BuildConfig.APPLICATION_ID}.intent.extra.TRIGGER_ON_START"
-        const val EXTRA_AUTH = "${BuildConfig.APPLICATION_ID}.intent.extra.AUTH"
-        private const val INTENT_EDITED = "intent_edited"
-        private val INTENT_FLAG_TO_STRING = SparseArrayCompat<String>().apply {
+        const val EXTRA_PACKAGE_NAME = "${BuildConfig.APPLICATION_ID}.intent.extra.PACKAGE_NAME"\nconst val EXTRA_CLASS_NAME = "${BuildConfig.APPLICATION_ID}.intent.extra.CLASS_NAME"\nconst val EXTRA_ACTION = "${BuildConfig.APPLICATION_ID}.intent.extra.ACTION"\nconst val EXTRA_ROOT = "${BuildConfig.APPLICATION_ID}.intent.extra.ROOT"\nconst val EXTRA_USER_HANDLE = "${BuildConfig.APPLICATION_ID}.intent.extra.USER_HANDLE"\nconst val EXTRA_TRIGGER_ON_START = "${BuildConfig.APPLICATION_ID}.intent.extra.TRIGGER_ON_START"\nconst val EXTRA_AUTH = "${BuildConfig.APPLICATION_ID}.intent.extra.AUTH"\nprivate const val INTENT_EDITED = "intent_edited"\nprivate val INTENT_FLAG_TO_STRING = SparseArrayCompat<String>().apply {
             put(Intent.FLAG_GRANT_READ_URI_PERMISSION, "FLAG_GRANT_READ_URI_PERMISSION")
             put(Intent.FLAG_GRANT_WRITE_URI_PERMISSION, "FLAG_GRANT_WRITE_URI_PERMISSION")
             put(Intent.FLAG_FROM_BACKGROUND, "FLAG_FROM_BACKGROUND")

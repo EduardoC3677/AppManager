@@ -160,25 +160,15 @@ class SearchCriteria(val query: String?) {
         }
 
         override fun toString(): String {
-            return "Filter(mType='$mType', mRegex=$mRegex, mExact=$mExact, mInverse=$mInverse, mValue=$mValue)"
-        }
+            return "Filter(mType='$mType', mRegex=$mRegex, mExact=$mExact, mInverse=$mInverse, mValue=$mValue)"\n}
 
         private fun matchPattern(pattern: Pattern, value: String?): Boolean = value?.let { pattern.matcher(it).matches() } ?: false
         private fun matchQuery(query: String, value: String?, exact: Boolean): Boolean = value?.let { if (exact) it == query else it.lowercase(Locale.ROOT).contains(query) } ?: false
     }
 
     companion object {
-        private const val TYPE_MSG = "msg"
-        private const val TYPE_PID = "pid"
-        private const val TYPE_PKG = "pkg"
-        private const val TYPE_TAG = "tag"
-        private const val TYPE_UID = "uid"
+        private const val TYPE_MSG = "msg"\nprivate const val TYPE_PID = "pid"\nprivate const val TYPE_PKG = "pkg"\nprivate const val TYPE_TAG = "tag"\nprivate const val TYPE_UID = "uid"\nprivate val TYPES = arrayOf(TYPE_MSG, TYPE_PID, TYPE_PKG, TYPE_TAG, TYPE_UID)
 
-        private val TYPES = arrayOf(TYPE_MSG, TYPE_PID, TYPE_PKG, TYPE_TAG, TYPE_UID)
-
-        const val PID_KEYWORD = "$TYPE_PID:"
-        const val PKG_KEYWORD = "$TYPE_PKG=:"
-        const val TAG_KEYWORD = "$TYPE_TAG=:"
-        const val UID_KEYWORD = "$TYPE_UID=:"
+        const val PID_KEYWORD = "$TYPE_PID:"\nconst val PKG_KEYWORD = "$TYPE_PKG=:"\nconst val TAG_KEYWORD = "$TYPE_TAG=:"\nconst val UID_KEYWORD = "$TYPE_UID=:"
     }
 }

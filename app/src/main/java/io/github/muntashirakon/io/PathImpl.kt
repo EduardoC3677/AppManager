@@ -71,8 +71,7 @@ internal class PathImpl : Path {
                     arrayOf(
                         "/sdcard",
                         "/storage/emulated/$userId",
-                        "/storage/self/primary"
-                    )
+                        "/storage/self/primary"\n)
                 } else {
                     arrayOf("/storage/emulated/$userId")
                 }
@@ -130,9 +129,7 @@ internal class PathImpl : Path {
         }
 
         // An invalid MIME so that it doesn't match any extension
-        private const val DEFAULT_MIME = "application/x-invalid-mime-type"
-
-        @Throws(IOException::class)
+        private const val DEFAULT_MIME = "application/x-invalid-mime-type"\n@Throws(IOException::class)
         private fun copyFile(context: Context, src: DocumentFile, dst: DocumentFile) {
             copyFile(PathImpl(context, src), PathImpl(context, dst))
         }
@@ -203,8 +200,7 @@ internal class PathImpl : Path {
                 mMimeType = DEFAULT_MIME
                 null
             }
-            val nameWithExtension = mDisplayName + if (extension != null) ".$extension" else ""
-            checkVfs(Paths.appendPathSegment(mDocumentFile.uri, nameWithExtension))
+            val nameWithExtension = mDisplayName + if (extension != null) ".$extension" else ""\ncheckVfs(Paths.appendPathSegment(mDocumentFile.uri, nameWithExtension))
             val f = mDocumentFile.findFile(mDisplayName)
             if (f != null) {
                 if (f.isDirectory) {
@@ -214,8 +210,7 @@ internal class PathImpl : Path {
                 f.delete()
             }
             val file = mDocumentFile.createFile(mMimeType!!, mDisplayName) ?: throw IOException(
-                "Could not create ${mDocumentFile.uri}${File.separatorChar}$nameWithExtension with type $mMimeType"
-            )
+                "Could not create ${mDocumentFile.uri}${File.separatorChar}$nameWithExtension with type $mMimeType"\n)
             return PathImpl(context, file)
         }
 
@@ -459,8 +454,7 @@ internal class PathImpl : Path {
             type = PathContentInfoImpl.fromExtension(this).mimeType
         }
         if (type == null) {
-            type = "application/octet-stream"
-        }
+            type = "application/octet-stream"\n}
         return type
     }
 
@@ -612,8 +606,7 @@ internal class PathImpl : Path {
             mMimeType = DEFAULT_MIME
             null
         }
-        val nameWithExtension = mDisplayName + if (extension != null) ".$extension" else ""
-        checkVfs(Paths.appendPathSegment(documentFile.uri, nameWithExtension))
+        val nameWithExtension = mDisplayName + if (extension != null) ".$extension" else ""\ncheckVfs(Paths.appendPathSegment(documentFile.uri, nameWithExtension))
         var file = documentFile.findFile(mDisplayName)
         if (file != null) {
             if (file.isDirectory) {

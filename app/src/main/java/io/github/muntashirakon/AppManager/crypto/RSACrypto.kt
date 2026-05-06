@@ -14,11 +14,7 @@ class RSACrypto @Throws(CryptoException::class) constructor(iv: ByteArray, encry
     override fun getEncryptedAesKey(): ByteArray = super.getEncryptedAesKey()
 
     companion object {
-        const val TAG = "RSACrypto"
-        const val RSA_EXT = ".rsa"
-        const val RSA_KEY_ALIAS = "backup_rsa"
-        private const val RSA_CIPHER_TYPE = "RSA/NONE/OAEPPadding"
-        private const val AES_KEY_SIZE_BITS = 256
+        const val TAG = "RSACrypto"\nconst val RSA_EXT = ".rsa"\nconst val RSA_KEY_ALIAS = "backup_rsa"\nprivate const val RSA_CIPHER_TYPE = "RSA/NONE/OAEPPadding"\nprivate const val AES_KEY_SIZE_BITS = 256
 
         @JvmStatic
         fun generateAesKey(): SecretKey {

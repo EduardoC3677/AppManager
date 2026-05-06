@@ -235,8 +235,7 @@ class InstallerOptionsFragment : DialogFragment() {
         for (pair in appInfo) {
             items.add(pair.first!!)
             itemNames.add(SpannableStringBuilder(pair.second)
-                .append("
-")
+                .append("\n")
                 .append(getSecondaryText(requireContext(), getSmallerText(pair.first!!))))
         }
         SearchableSingleChoiceDialogBuilder(requireActivity(), items, itemNames)
@@ -272,9 +271,7 @@ class InstallerOptionsFragment : DialogFragment() {
 
     companion object {
         val TAG: String = InstallerOptionsFragment::class.java.simpleName
-        private const val ARG_PACKAGE_NAME = "pkg"
-        private const val ARG_TEST_ONLY_APP = "test_only"
-        private const val ARG_REF_INSTALLER_OPTIONS = "ref_opt"
+        private const val ARG_PACKAGE_NAME = "pkg"\nprivate const val ARG_TEST_ONLY_APP = "test_only"\nprivate const val ARG_REF_INSTALLER_OPTIONS = "ref_opt"
 
         @JvmStatic
         fun getInstance(packageName: String?, isTestOnly: Boolean?, options: InstallerOptions, clickListener: OnClickListener?): InstallerOptionsFragment {

@@ -22,11 +22,7 @@ object SaveLogHelper {
     @JvmField
     val TAG: String = SaveLogHelper::class.java.simpleName
 
-    const val DEVICE_INFO_FILENAME = "device_info.txt"
-    const val LOG_FILENAME = "logcat.am.log"
-    const val DMESG_FILENAME = "dmesg.txt"
-    const val SAVED_LOGS_DIR = "saved_logs"
-    private const val BUFFER = 0x1000 // 4K
+    const val DEVICE_INFO_FILENAME = "device_info.txt"\nconst val LOG_FILENAME = "logcat.am.log"\nconst val DMESG_FILENAME = "dmesg.txt"\nconst val SAVED_LOGS_DIR = "saved_logs"\nprivate const val BUFFER = 0x1000 // 4K
 
     @JvmStatic
     fun saveTemporaryFile(extension: String, text: CharSequence?, lines: Collection<String>?): Path? {
@@ -70,8 +66,7 @@ object SaveLogHelper {
         val dateFormat = DateFormat.getDateTimeInstance()
         for (i in files.indices) {
             fileNames[i] = SpannableStringBuilder(files[i].getName())
-                .append("
-").append(
+                .append("\n").append(
                     UIUtils.getSmallerText(
                         UIUtils.getSecondaryText(
                             context,

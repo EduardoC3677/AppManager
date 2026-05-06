@@ -57,9 +57,7 @@ class SsaidSettings {
     }
 
     companion object {
-        const val SSAID_USER_KEY = "userkey"
-
-        private fun getName(packageName: String?, uid: Int): String = if (packageName == SYSTEM_PACKAGE_NAME) SSAID_USER_KEY else uid.toString()
+        const val SSAID_USER_KEY = "userkey"\nprivate fun getName(packageName: String?, uid: Int): String = if (packageName == SYSTEM_PACKAGE_NAME) SSAID_USER_KEY else uid.toString()
 
         @JvmStatic
         fun generateSsaid(packageName: String): String {

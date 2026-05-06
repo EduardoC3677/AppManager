@@ -16,8 +16,7 @@ abstract class AbsExpressionEvaluator {
             val start = currentExpr.lastIndexOf('(')
             val end = currentExpr.indexOf(')', start)
             if (end == -1) {
-                lastError = "Expected ')'."
-                return false
+                lastError = "Expected ')'."\nreturn false
             }
             // Get expression without parenthesis
             val subExpr = currentExpr.substring(start + 1, end)

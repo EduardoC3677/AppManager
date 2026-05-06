@@ -11,9 +11,7 @@ import java.util.Objects
 
 // Copyright 2020 John "topjohnwu" Wu
 object ContextUtils {
-    const val TAG = "ContextUtils"
-
-    @SuppressLint("StaticFieldLeak")
+    const val TAG = "ContextUtils"\n@SuppressLint("StaticFieldLeak")
     @JvmField
     var rootContext: Context? = null
 

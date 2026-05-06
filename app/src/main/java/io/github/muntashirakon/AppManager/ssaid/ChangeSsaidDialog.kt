@@ -118,9 +118,7 @@ class ChangeSsaidDialog : DialogFragment() {
 
     companion object {
         val TAG: String = ChangeSsaidDialog::class.java.simpleName
-        const val ARG_PACKAGE_NAME = "pkg"
-        const val ARG_UID = "uid"
-        const val ARG_OPTIONAL_SSAID = "ssaid"
+        const val ARG_PACKAGE_NAME = "pkg"\nconst val ARG_UID = "uid"\nconst val ARG_OPTIONAL_SSAID = "ssaid"
 
         @JvmStatic
         fun getInstance(packageName: String, uid: Int, ssaid: String?): ChangeSsaidDialog {

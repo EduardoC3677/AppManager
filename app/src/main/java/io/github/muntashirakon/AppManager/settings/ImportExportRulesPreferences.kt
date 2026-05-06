@@ -26,10 +26,7 @@ import java.util.concurrent.Future
 
 class ImportExportRulesPreferences : PreferenceFragment() {
     companion object {
-        private const val MIME_JSON = "application/json"
-        private const val MIME_TSV = "text/tab-separated-values"
-        private const val MIME_XML = "text/xml"
-    }
+        private const val MIME_JSON = "application/json"\nprivate const val MIME_TSV = "text/tab-separated-values"\nprivate const val MIME_XML = "text/xml"\n}
 
     private val mUserHandle = UserHandleHidden.myUserId()
     private lateinit var mActivity: SettingsActivity
@@ -95,8 +92,7 @@ class ImportExportRulesPreferences : PreferenceFragment() {
         mActivity = requireActivity() as SettingsActivity
         findPreference<Preference>("export")!!
             .setOnPreferenceClickListener {
-                val fileName = "app_manager_rules_export-" + DateUtils.formatDateTime(mActivity, System.currentTimeMillis()) + ".am.tsv"
-                mExportRules.launch(fileName)
+                val fileName = "app_manager_rules_export-" + DateUtils.formatDateTime(mActivity, System.currentTimeMillis()) + ".am.tsv"\nmExportRules.launch(fileName)
                 true
             }
         findPreference<Preference>("import")!!
@@ -175,8 +171,7 @@ class ImportExportRulesPreferences : PreferenceFragment() {
         for (i in itemCounts.indices) {
             val itemCount = itemCounts[i]
             packages.add(itemCount.packageName)
-            packagesWithItemCounts[i] = SpannableStringBuilder(itemCount.packageLabel).append("
-")
+            packagesWithItemCounts[i] = SpannableStringBuilder(itemCount.packageLabel).append("\n")
                 .append(
                     UIUtils.getSmallerText(
                         UIUtils.getSecondaryText(

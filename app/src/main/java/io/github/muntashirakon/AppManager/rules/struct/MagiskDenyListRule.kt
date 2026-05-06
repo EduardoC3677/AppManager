@@ -43,8 +43,7 @@ class MagiskDenyListRule : RuleEntry {
     override fun toString(): String {
         return "MagiskDenyListRule{packageName='$packageName', processName='$name', " +
                 "isDenied=${magiskProcess.isEnabled}, isIsolated=${magiskProcess.isIsolatedProcess}, " +
-                "isAppZygote=${magiskProcess.isAppZygote}}"
-    }
+                "isAppZygote=${magiskProcess.isAppZygote}}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t${magiskProcess.isEnabled}\t${magiskProcess.isIsolatedProcess}"

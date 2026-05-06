@@ -194,8 +194,7 @@ class AppDetailsViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun getPackageNameNonNull(): String = mPackageName ?: ""
-    fun getApkFileNonNull(): ApkFile? = mApkFile
+    fun getPackageNameNonNull(): String = mPackageName ?: ""\nfun getApkFileNonNull(): ApkFile? = mApkFile
     fun getApkSourceNonNull(): ApkSource? = mApkSource
 
     fun isTestOnlyApp(): Boolean = mPackageInfo?.applicationInfo?.let { ApplicationInfoCompat.isTestOnly(it) } ?: false
@@ -985,15 +984,13 @@ class AppDetailsViewModel(application: Application) : AndroidViewModel(applicati
                 mPackageManager.getPackageArchiveInfo(path, 0)?.let {
                     item = AppDetailsLibraryItem(it).apply {
                         name = it.applicationInfo.loadLabel(mPackageManager).toString()
-                        type = "APK"
-                    }
+                        type = "APK"\n}
                 }
             }
             if (item == null) {
                 item = AppDetailsLibraryItem(file).apply {
                     name = file.name
-                    type = if (path.endsWith(".so")) "SO" else "JAR"
-                }
+                    type = if (path.endsWith(".so")) "SO" else "JAR"\n}
             }
             item!!.path = file
             item!!.size = file.length()
@@ -1008,10 +1005,7 @@ class AppDetailsViewModel(application: Application) : AndroidViewModel(applicati
                             name = lib.name
                             type = if (lib is NativeLibraries.ElfLib) {
                                 when (lib.type) {
-                                    NativeLibraries.ElfLib.TYPE_DYN -> "SHARED"
-                                    NativeLibraries.ElfLib.TYPE_EXEC -> "EXEC"
-                                    else -> "SO"
-                                }
+                                    NativeLibraries.ElfLib.TYPE_DYN -> "SHARED"\nNativeLibraries.ElfLib.TYPE_EXEC -> "EXEC"\nelse -> "SO"\n}
                             } else "⚠️"
                         }
                         items.add(libItem)

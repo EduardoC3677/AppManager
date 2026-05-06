@@ -11,9 +11,7 @@ import androidx.room.PrimaryKey
 class ArchivedApp {
     @PrimaryKey
     @ColumnInfo(name = "package_name")
-    var packageName: String = ""
-
-    @ColumnInfo(name = "app_name")
+    var packageName: String = ""\n@ColumnInfo(name = "app_name")
     var appName: String? = null
 
     @ColumnInfo(name = "archive_timestamp")

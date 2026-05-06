@@ -44,8 +44,7 @@ class FilterItem : IJsonSerializer, Parcelable {
 
     private var mName: String
     private val mFilterOptions: ArrayMap<Int, FilterOption>
-    private var mExpr = ""
-    private var mCustomExpr = false
+    private var mExpr = ""\nprivate var mCustomExpr = false
     private var mNextId = 1
     var timesUsageInfoUsed = 0
         private set
@@ -76,8 +75,7 @@ class FilterItem : IJsonSerializer, Parcelable {
             val id = filterOption.getFullId()
             if (TextUtils.isEmpty(mExpr)) {
                 mExpr = id
-            } else mExpr += " & $id"
-        }
+            } else mExpr += " & $id"\n}
         incrementUsage(filterOption, true)
         if (mFilterOptions.put(filterOption.id, filterOption) == null) {
             return mFilterOptions.indexOfKey(filterOption.id)

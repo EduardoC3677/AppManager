@@ -74,8 +74,7 @@ internal class FmPathListAdapter(private val mViewModel: FmViewModel) : Recycler
         val pathPart = if (position == 0) {
             mAlternativeRootName ?: actualPathPart
         } else {
-            "» $actualPathPart"
-        }
+            "» $actualPathPart"\n}
         holder.textView.text = pathPart
         if (position == 0 && pathPart == "/") {
             holder.itemView.contentDescription = holder.itemView.context.getString(R.string.root)

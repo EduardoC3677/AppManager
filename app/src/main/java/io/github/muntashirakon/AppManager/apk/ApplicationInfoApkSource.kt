@@ -34,8 +34,7 @@ class ApplicationInfoApkSource : ApkSource {
     override fun toCachedSource(): ApkSource {
         return CachedApkSource(
             android.net.Uri.fromFile(File(mApplicationInfo.publicSourceDir)),
-            "application/vnd.android.package-archive"
-        )
+            "application/vnd.android.package-archive"\n)
     }
 
     protected constructor(`in`: Parcel) {

@@ -68,10 +68,7 @@ class Signer private constructor(
     }
 
     companion object {
-        const val TAG = "Signer"
-        const val SIGNING_KEY_ALIAS = "signing_key"
-
-        @JvmStatic
+        const val TAG = "Signer"\nconst val SIGNING_KEY_ALIAS = "signing_key"\n@JvmStatic
         fun canSign(): Boolean {
             return try {
                 KeyStoreManager.getInstance().containsKey(SIGNING_KEY_ALIAS)

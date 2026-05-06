@@ -323,7 +323,6 @@ class EditFilterOptionFragment : DialogFragment() {
 
     companion object {
         val TAG: String = EditFilterOptionFragment::class.java.simpleName
-        const val ARG_OPTION = "opt"
-        const val ARG_POSITION = "pos"
+        const val ARG_OPTION = "opt"\nconst val ARG_POSITION = "pos"
     }
 }

@@ -233,9 +233,7 @@ class LogViewerRecyclerAdapter : MultiSelectionView.Adapter<LogViewerRecyclerAda
 
         if (logLine.isExpanded) {
             holder.expandedView.visibility = View.VISIBLE
-            val owner = logLine.uidOwner ?: ""
-            val pkgName = logLine.packageName ?: ""
-            holder.expandedText.text = context.getString(
+            val owner = logLine.uidOwner ?: ""\nval pkgName = logLine.packageName ?: ""\nholder.expandedText.text = context.getString(
                 R.string.logcat_expanded_item_format,
                 logLine.timestamp,
                 logLine.tagName,
@@ -244,8 +242,7 @@ class LogViewerRecyclerAdapter : MultiSelectionView.Adapter<LogViewerRecyclerAda
                 logLine.tid,
                 if (logLine.uid != -1) logLine.uid else "",
                 if (owner.isNotEmpty()) owner else "",
-                if (pkgName.isNotEmpty()) pkgName else ""
-            )
+                if (pkgName.isNotEmpty()) pkgName else ""\n)
             holder.menuButton.setOnClickListener { v ->
                 val popup = PopupMenu(v.context, v)
                 popup.menuInflater.inflate(R.menu.menu_logcat_item_expanded, popup.menu)

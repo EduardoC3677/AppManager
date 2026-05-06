@@ -107,9 +107,7 @@ object PackageManagerCompat {
             pkgsFromPkgInfo.removeAll(pkgsFromAppInfo)
             Log.i(TAG, "Loaded extra packages: $pkgsFromPkgInfo")
             throw IllegalStateException(
-                "Retrieved " + packageInfoList.size + " packages out of "
-                        + refPackages.size + " applications which is impossible"
-            )
+                "Retrieved " + packageInfoList.size + " packages out of "\n+ refPackages.size + " applications which is impossible"\n)
         }
         Log.w(TAG, "Could not fetch installed packages for user %d using getInstalledPackages(), using workaround", userId)
         packageInfoList = ArrayList(refPackages.size)
@@ -499,8 +497,7 @@ object PackageManagerCompat {
     @RequiresPermission(
         anyOf = [
             Manifest.permission.INSTALL_PACKAGES,
-            "com.android.permission.INSTALL_EXISTING_PACKAGES"
-        ]
+            "com.android.permission.INSTALL_EXISTING_PACKAGES"\n]
     )
     @Throws(RemoteException::class)
     fun installExistingPackageAsUser(
@@ -558,8 +555,7 @@ object PackageManagerCompat {
     @RequiresPermission(
         allOf = [
             Manifest.permission.DELETE_CACHE_FILES,
-            "android.permission.INTERNAL_DELETE_CACHE_FILES"
-        ]
+            "android.permission.INTERNAL_DELETE_CACHE_FILES"\n]
     )
     @Throws(AndroidException::class)
     fun deleteApplicationCacheFilesAsUser(pair: UserPackagePair) {
@@ -589,8 +585,7 @@ object PackageManagerCompat {
     @RequiresPermission(
         allOf = [
             Manifest.permission.DELETE_CACHE_FILES,
-            "android.permission.INTERNAL_DELETE_CACHE_FILES"
-        ]
+            "android.permission.INTERNAL_DELETE_CACHE_FILES"\n]
     )
     fun deleteApplicationCacheFilesAsUser(packageName: String, userId: Int): Boolean {
         return try {

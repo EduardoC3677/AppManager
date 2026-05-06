@@ -9,11 +9,7 @@ import io.github.muntashirakon.AppManager.types.UserPackagePair
 import io.github.muntashirakon.AppManager.utils.PackageUtils
 
 object SelfUriManager {
-    const val APP_MANAGER_SCHEME = "app-manager"
-    const val SETTINGS_HOST = "settings"
-    const val DETAILS_HOST = "details"
-
-    @JvmStatic
+    const val APP_MANAGER_SCHEME = "app-manager"\nconst val SETTINGS_HOST = "settings"\nconst val DETAILS_HOST = "details"\n@JvmStatic
     fun getUserPackagePairFromUri(detailsUri: Uri?): UserPackagePair? {
         // Required format app-manager://details?id=<pkg>&user=<user_id>
         if (detailsUri == null || APP_MANAGER_SCHEME != detailsUri.scheme || DETAILS_HOST != detailsUri.host) {

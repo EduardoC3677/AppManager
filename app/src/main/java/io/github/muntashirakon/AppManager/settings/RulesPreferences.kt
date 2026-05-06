@@ -82,8 +82,7 @@ class RulesPreferences : PreferenceFragment() {
         defaultFreezingMethod.isEnabled = SelfPermissions.canFreezeUnfreezePackages()
         defaultFreezingMethod.setOnPreferenceClickListener {
             val itemDescription = Array<CharSequence>(FREEZING_METHODS.size) { i ->
-                SpannableStringBuilder(getString(FREEZING_METHOD_TITLES[i])).append("
-")
+                SpannableStringBuilder(getString(FREEZING_METHOD_TITLES[i])).append("\n")
                     .append(UIUtils.getSmallerText(getString(FREEZING_METHOD_DESCRIPTIONS[i])))
             }
             SearchableSingleChoiceDialogBuilder(mActivity, FREEZING_METHODS, itemDescription)
@@ -117,8 +116,7 @@ class RulesPreferences : PreferenceFragment() {
         }
         defaultBlockingMethod.setOnPreferenceClickListener {
             val itemDescription = Array<CharSequence>(BLOCKING_METHODS.size) { i ->
-                SpannableStringBuilder(getString(BLOCKING_METHOD_TITLES[i])).append("
-")
+                SpannableStringBuilder(getString(BLOCKING_METHOD_TITLES[i])).append("\n")
                     .append(UIUtils.getSmallerText(getString(BLOCKING_METHOD_DESCRIPTIONS[i])))
             }
             SearchableSingleChoiceDialogBuilder(mActivity, BLOCKING_METHODS, itemDescription)

@@ -26,10 +26,7 @@ class RunningAppsOption : FilterOption("running_apps") {
 
     override fun toLocalizedString(context: Context): CharSequence {
         return when (key) {
-            KEY_ALL -> "Both running and not running apps"
-            "running" -> "Only the running apps"
-            "not_running" -> "Only the not running apps"
-            else -> throw UnsupportedOperationException("Invalid key $key")
+            KEY_ALL -> "Both running and not running apps"\n"running" -> "Only the running apps"\n"not_running" -> "Only the not running apps"\nelse -> throw UnsupportedOperationException("Invalid key $key")
         }
     }
 }

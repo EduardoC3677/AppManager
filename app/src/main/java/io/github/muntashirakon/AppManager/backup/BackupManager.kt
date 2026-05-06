@@ -158,22 +158,11 @@ class BackupManager {
         val CACHE_DIRS = arrayOf("cache/.*", "code_cache/.*", "no_backup/.*")
         @JvmField
         val LIB_DIR = arrayOf("lib/")
-        const val SOURCE_PREFIX = "source"
-        const val DATA_PREFIX = "data"
-        const val KEYSTORE_PREFIX = "keystore"
-        const val KEYSTORE_PLACEHOLDER = -1000
-        const val DATA_BACKUP_SPECIAL_PREFIX = "special:"
-        const val DATA_BACKUP_SPECIAL_ADB = DATA_BACKUP_SPECIAL_PREFIX + "adb"
-
-        const val CERT_PREFIX = "cert_"
-        const val MASTER_KEY = ".masterkey"
-
-        @JvmStatic
+        const val SOURCE_PREFIX = "source"\nconst val DATA_PREFIX = "data"\nconst val KEYSTORE_PREFIX = "keystore"\nconst val KEYSTORE_PLACEHOLDER = -1000
+        const val DATA_BACKUP_SPECIAL_PREFIX = "special:"\nconst val DATA_BACKUP_SPECIAL_ADB = DATA_BACKUP_SPECIAL_PREFIX + "adb"\nconst val CERT_PREFIX = "cert_"\nconst val MASTER_KEY = ".masterkey"\n@JvmStatic
         fun getExt(@TarUtils.TarType tarType: String): String {
             return when (tarType) {
-                TarUtils.TAR_BZIP2 -> ".tar.bz2"
-                TarUtils.TAR_ZSTD -> ".tar.zst"
-                else -> ".tar.gz"
+                TarUtils.TAR_BZIP2 -> ".tar.bz2"\nTarUtils.TAR_ZSTD -> ".tar.zst"\nelse -> ".tar.gz"
             }
         }
     }

@@ -229,8 +229,6 @@ abstract class AppsBaseProfileActivity : BaseActivity(), NavigationBarView.OnIte
     }
 
     companion object {
-        protected const val EXTRA_NEW_PROFILE_NAME = "new_prof"
-        protected const val EXTRA_PROFILE_ID = "prof"
-        protected const val EXTRA_STATE = "state"
+        protected const val EXTRA_NEW_PROFILE_NAME = "new_prof"\nprotected const val EXTRA_PROFILE_ID = "prof"\nprotected const val EXTRA_STATE = "state"
     }
 }

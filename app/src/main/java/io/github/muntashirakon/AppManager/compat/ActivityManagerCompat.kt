@@ -380,10 +380,7 @@ class ActivityManagerCompat {
             intent: Intent?, resultCode: Int, data: String?, extras: Bundle?,
             ordered: Boolean, sticky: Boolean, sendingUser: Int
         ) {
-            var line = "Broadcast completed: result=$resultCode"
-            if (data != null) line += ", data="$data""
-            if (extras != null) line += ", extras: $extras"
-            Log.e("AM", line)
+            var line = "Broadcast completed: result=$resultCode"\nif (data != null) line += ", data="$data""\nif (extras != null) line += ", extras: $extras"\nLog.e("AM", line)
             synchronized(this) {
                 mFinished = true
                 (this as Object).notifyAll()

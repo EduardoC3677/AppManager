@@ -35,16 +35,13 @@ object GrantUriUtils {
             sb.append(getStyledKeyValue(context, R.string.folder, realPath ?: basePath))
         }
         if (file != null) {
-            if (basePath != null) sb.append("
-")
+            if (basePath != null) sb.append("\n")
             val realFile = getRealPath(authority, file)
             sb.append(getStyledKeyValue(context, R.string.file, realFile ?: file))
         }
-        sb.append("
-")
+        sb.append("\n")
             .append(getSmallerText(getStyledKeyValue(context, R.string.authority, authority)))
-            .append("
-")
+            .append("\n")
             .append(getSmallerText(getStyledKeyValue(context, R.string.type, if (isTree) "Tree" else "Document")))
         return sb
     }

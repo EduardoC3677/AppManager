@@ -17,13 +17,8 @@ object RunnerUtils {
     val TAG: String = RunnerUtils::class.java.simpleName
 
     @JvmField
-    val CMD_AM = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) "cmd activity" else "am"
-    @JvmField
-    val CMD_PM = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) "cmd package" else "pm"
-
-    private const val EMPTY = ""
-
-    /**
+    val CMD_AM = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) "cmd activity" else "am"\n@JvmField
+    val CMD_PM = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) "cmd package" else "pm"\nprivate const val EMPTY = ""\n/**
      * Translator object for escaping Shell command language.
      *
      * @see [Shell Command Language](http://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html)
@@ -33,32 +28,9 @@ object RunnerUtils {
 
     init {
         val escapeXsiMap = HashMap<CharSequence, CharSequence>()
-        escapeXsiMap["|"] = "\|"
-        escapeXsiMap["&"] = "\&"
-        escapeXsiMap[";"] = "\;"
-        escapeXsiMap["<"] = "\<"
-        escapeXsiMap[">"] = "\>"
-        escapeXsiMap["("] = "\("
-        escapeXsiMap[")"] = "\)"
-        escapeXsiMap["$"] = "\$"
-        escapeXsiMap["`"] = "`"
-        escapeXsiMap[""] = ""
-        escapeXsiMap["""] = """
-        escapeXsiMap["'"] = "'"
-        escapeXsiMap[" "] = "\ "
-        escapeXsiMap["	"] = "	"
-        escapeXsiMap["
-"] = EMPTY
-        escapeXsiMap["
-"] = EMPTY
-        escapeXsiMap["*"] = "\*"
-        escapeXsiMap["?"] = "\?"
-        escapeXsiMap["["] = "\["
-        escapeXsiMap["#"] = "\#"
-        escapeXsiMap["~"] = "\~"
-        escapeXsiMap["="] = "\="
-        escapeXsiMap["%"] = "\%"
-        ESCAPE_XSI = LookupTranslator(Collections.unmodifiableMap(escapeXsiMap))
+        escapeXsiMap["|"] = "\|"\nescapeXsiMap["&"] = "\&"\nescapeXsiMap[";"] = "\;"\nescapeXsiMap["<"] = "\<"\nescapeXsiMap[">"] = "\>"\nescapeXsiMap["("] = "\("\nescapeXsiMap[")"] = "\)"\nescapeXsiMap["$"] = "\$"\nescapeXsiMap["`"] = "`"\nescapeXsiMap[""] = ""\nescapeXsiMap["""] = """\nescapeXsiMap["'"] = "'"\nescapeXsiMap[" "] = "\ "\nescapeXsiMap["	"] = "	"\nescapeXsiMap["\n"] = EMPTY
+        escapeXsiMap["\n"] = EMPTY
+        escapeXsiMap["*"] = "\*"\nescapeXsiMap["?"] = "\?"\nescapeXsiMap["["] = "\["\nescapeXsiMap["#"] = "\#"\nescapeXsiMap["~"] = "\~"\nescapeXsiMap["="] = "\="\nescapeXsiMap["%"] = "\%"\nESCAPE_XSI = LookupTranslator(Collections.unmodifiableMap(escapeXsiMap))
     }
 
     /**
@@ -70,9 +42,7 @@ object RunnerUtils {
      *
      * Example:
      * ```
-     * input string: He didn't say, "Stop!"
-     * output string: He\ didn't\ say,\ "Stop!"
-     * ```
+     * input string: He didn't say, "Stop!"\n* output string: He\ didn't\ say,\ "Stop!"\n* ```
      *
      * @param input String to escape values in, may be null
      * @return String with escaped values, `null` if null string input

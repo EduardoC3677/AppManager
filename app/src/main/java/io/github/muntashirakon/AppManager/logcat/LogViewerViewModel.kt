@@ -272,9 +272,7 @@ class LogViewerViewModel(application: Application) : AndroidViewModel(applicatio
             var tempDmesg: Path? = null
             var tempLog: Path? = null
             var tempZip: Path? = null
-            val attachmentType = "application/zip"
-
-            try {
+            val attachmentType = "application/zip"\ntry {
                 if (includeDeviceInfo) {
                     tempDeviceInfo = SaveLogHelper.saveTemporaryFile("txt", BuildHelper.getBuildInformationAsString(), null)
                 }

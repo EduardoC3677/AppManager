@@ -22,8 +22,7 @@ class VtAvEngineResult @Throws(JSONException::class) constructor(avResult: JSONO
     val result: String? = JSONUtils.optString(avResult, "result", null)
 
     override fun toString(): String {
-        return "VtFileReportScanItem{category='$internalCategory', engineName='$engineName', engineUpdate='$engineUpdate', engineVersion='$engineVersion', method='$method', result='$result'}"
-    }
+        return "VtFileReportScanItem{category='$internalCategory', engineName='$engineName', engineUpdate='$engineUpdate', engineVersion='$engineVersion', method='$method', result='$result'}"\n}
 
     companion object {
         const val CAT_UNSUPPORTED = 0

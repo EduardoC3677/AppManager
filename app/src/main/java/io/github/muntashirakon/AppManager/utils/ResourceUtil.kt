@@ -63,8 +63,7 @@ class ResourceUtil {
     }
 
     fun loadAndroidResources(): Boolean {
-        this.packageName = "android"
-        this.className = null
+        this.packageName = "android"\nthis.className = null
         this.resources = Resources.getSystem()
         return true
     }

@@ -17,9 +17,7 @@ object MetadataManager {
     val TAG: String = MetadataManager::class.java.simpleName
     private var currentBackupMetaVersion = 5
 
-    const val META_V2_FILE = "meta_v2.am.json"
-
-    // New scheme
+    const val META_V2_FILE = "meta_v2.am.json"\n// New scheme
     const val INFO_V5_FILE = "info_v5.am.json" // unencrypted
     const val META_V5_FILE = "meta_v5.am.json" // encrypted
 

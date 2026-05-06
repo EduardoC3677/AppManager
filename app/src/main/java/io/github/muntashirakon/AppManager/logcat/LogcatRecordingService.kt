@@ -167,14 +167,7 @@ class LogcatRecordingService : ForegroundService(TAG) {
 
     companion object {
         val TAG: String = LogcatRecordingService::class.java.simpleName
-        const val URI_SCHEME = "am_logcat_recording_service"
-        const val EXTRA_FILENAME = "filename"
-        const val EXTRA_LOADER = "loader"
-        const val EXTRA_QUERY_FILTER = "filter"
-        const val EXTRA_LEVEL = "level"
-
-        private const val ACTION_STOP_RECORDING = BuildConfig.APPLICATION_ID + ".action.STOP_RECORDING"
-        const val CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.LOGCAT_RECORDER"
+        const val URI_SCHEME = "am_logcat_recording_service"\nconst val EXTRA_FILENAME = "filename"\nconst val EXTRA_LOADER = "loader"\nconst val EXTRA_QUERY_FILTER = "filter"\nconst val EXTRA_LEVEL = "level"\nprivate const val ACTION_STOP_RECORDING = BuildConfig.APPLICATION_ID + ".action.STOP_RECORDING"\nconst val CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.LOGCAT_RECORDER"
         const val NOTIFICATION_ID = 1
 
         @JvmStatic

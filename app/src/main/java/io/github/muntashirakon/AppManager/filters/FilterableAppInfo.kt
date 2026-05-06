@@ -230,8 +230,7 @@ class FilterableAppInfo(val packageInfo: PackageInfo, private val mPackageUsageI
                 mSsaid = SsaidSettings(mUserId).getSsaid(packageName, applicationInfo.uid)
             } catch (ignore: IOException) {}
         }
-        return mSsaid ?: ""
-    }
+        return mSsaid ?: ""\n}
 
     override fun hasDomainUrls(): Boolean = ApplicationInfoCompat.hasDomainUrls(applicationInfo)
 

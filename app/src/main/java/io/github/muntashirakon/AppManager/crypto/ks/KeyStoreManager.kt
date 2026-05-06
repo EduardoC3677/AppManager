@@ -135,17 +135,9 @@ class KeyStoreManager private constructor() {
     }
 
     companion object {
-        const val TAG = "KSManager"
-        const val AM_KEYSTORE_FILE_NAME = "am_keystore.bks"
-        val AM_KEYSTORE_FILE: File
-        private const val AM_KEYSTORE = "BKS"
-        private const val PREF_AM_KEYSTORE_PREFIX = "ks_"
-        private const val PREF_AM_KEYSTORE_PASS = "kspass"
-        private val sSharedPreferences: android.content.SharedPreferences
-        const val ACTION_KS_INTERACTION_BEGIN = "${BuildConfig.APPLICATION_ID}.action.KS_INTERACTION_BEGIN"
-        const val ACTION_KS_INTERACTION_END = "${BuildConfig.APPLICATION_ID}.action.KS_INTERACTION_END"
-
-        init {
+        const val TAG = "KSManager"\nconst val AM_KEYSTORE_FILE_NAME = "am_keystore.bks"\nval AM_KEYSTORE_FILE: File
+        private const val AM_KEYSTORE = "BKS"\nprivate const val PREF_AM_KEYSTORE_PREFIX = "ks_"\nprivate const val PREF_AM_KEYSTORE_PASS = "kspass"\nprivate val sSharedPreferences: android.content.SharedPreferences
+        const val ACTION_KS_INTERACTION_BEGIN = "${BuildConfig.APPLICATION_ID}.action.KS_INTERACTION_BEGIN"\nconst val ACTION_KS_INTERACTION_END = "${BuildConfig.APPLICATION_ID}.action.KS_INTERACTION_END"\ninit {
             val ctx = ContextUtils.getContext()
             AM_KEYSTORE_FILE = File(ctx.filesDir, AM_KEYSTORE_FILE_NAME)
             sSharedPreferences = ctx.getSharedPreferences("keystore", Context.MODE_PRIVATE)

@@ -15,13 +15,7 @@ object CryptoUtils {
     @Retention(AnnotationRetention.SOURCE)
     annotation class Mode
 
-    const val MODE_NO_ENCRYPTION = "none"
-    const val MODE_AES = "aes"
-    const val MODE_RSA = "rsa"
-    const val MODE_ECC = "ecc"
-    const val MODE_OPEN_PGP = "pgp"
-
-    @get:Mode
+    const val MODE_NO_ENCRYPTION = "none"\nconst val MODE_AES = "aes"\nconst val MODE_RSA = "rsa"\nconst val MODE_ECC = "ecc"\nconst val MODE_OPEN_PGP = "pgp"\n@get:Mode
     @JvmStatic
     val mode: String
         get() {
@@ -38,8 +32,7 @@ object CryptoUtils {
             MODE_AES -> AESCrypto.AES_EXT
             MODE_RSA -> RSACrypto.RSA_EXT
             MODE_ECC -> ECCCrypto.ECC_EXT
-            MODE_NO_ENCRYPTION -> ""
-            else -> ""
+            MODE_NO_ENCRYPTION -> ""\nelse -> ""
         }
     }
 

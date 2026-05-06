@@ -40,8 +40,7 @@ object KeyStoreUtils {
         val keyStorePath = getKeyStorePath(userHandle)
         val fileNames = keyStorePath.listFileNames()
         val keyStoreFiles = ArrayList<String>()
-        val uidStr = "${uid}_"
-        for (fileName in fileNames) {
+        val uidStr = "${uid}_"\nfor (fileName in fileNames) {
             if (fileName.startsWith(uidStr) || fileName.startsWith(".$uidStr")) {
                 keyStoreFiles.add(fileName)
             }

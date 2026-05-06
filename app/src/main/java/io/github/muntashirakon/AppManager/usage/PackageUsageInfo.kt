@@ -73,8 +73,7 @@ class PackageUsageInfo : Parcelable {
     }
 
     override fun toString(): String {
-        return "PackageUS{packageName='$packageName', appLabel='$appLabel', screenTime=$screenTime, lastUsageTime=$lastUsageTime, timesOpened=$timesOpened, txData=$mobileData, rxData=$wifiData, entries=$entries}"
-    }
+        return "PackageUS{packageName='$packageName', appLabel='$appLabel', screenTime=$screenTime, lastUsageTime=$lastUsageTime, timesOpened=$timesOpened, txData=$mobileData, rxData=$wifiData, entries=$entries}"\n}
 
     class Entry : Parcelable {
         val startTime: Long

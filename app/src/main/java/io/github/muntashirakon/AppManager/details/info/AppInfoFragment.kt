@@ -305,8 +305,7 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
                         ThreadUtils.postOnMainThread {
                             showProgressIndicator(false)
                             val intent = Intent(Intent.ACTION_SEND).apply {
-                                type = "application/*"
-                                putExtra(Intent.EXTRA_STREAM, FmProvider.getContentUri(tmpApkSource))
+                                type = "application/*"\nputExtra(Intent.EXTRA_STREAM, FmProvider.getContentUri(tmpApkSource))
                                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             }
                             ContextUtils.getContext().startActivity(Intent.createChooser(intent, ContextUtils.getContext().getString(R.string.share_apk)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -333,8 +332,7 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
                 true
             }
             R.id.action_export_blocking_rules -> {
-                val fileName = "app_manager_rules_export-${DateUtils.formatDateTime(mActivity, System.currentTimeMillis())}.am.tsv"
-                mExport.launch(fileName) { uri ->
+                val fileName = "app_manager_rules_export-${DateUtils.formatDateTime(mActivity, System.currentTimeMillis())}.am.tsv"\nmExport.launch(fileName) { uri ->
                     if (uri == null || mMainModel == null) return@launch
                     val dialogFragment = RulesTypeSelectionDialogFragment()
                     dialogFragment.arguments = Bundle().apply {
@@ -507,8 +505,7 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
     private fun runWithTermux(command: Array<String>) {
         val intent = Intent().apply {
             setClassName("com.termux", "com.termux.app.RunCommandService")
-            action = "com.termux.RUN_COMMAND"
-            putExtra("com.termux.RUN_COMMAND_PATH", Utils.TERMUX_LOGIN_PATH)
+            action = "com.termux.RUN_COMMAND"\nputExtra("com.termux.RUN_COMMAND_PATH", Utils.TERMUX_LOGIN_PATH)
             putExtra("com.termux.RUN_COMMAND_ARGUMENTS", command)
             putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
         }
@@ -588,13 +585,10 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
                     val priority = PackageInfoCompat2.getOverlayPriority(mPackageInfo!!)
                     val isStatic = PackageInfoCompat2.isStaticOverlayPackage(mPackageInfo!!)
                     val ssb = SpannableStringBuilder().apply {
-                        if (targetName != null) append(getStyledKeyValue(it.context, R.string.overlay_target, targetName)).append("
-").append(getSmallerText(target))
+                        if (targetName != null) append(getStyledKeyValue(it.context, R.string.overlay_target, targetName)).append("\n").append(getSmallerText(target))
                         else append(getStyledKeyValue(it.context, R.string.overlay_target, target))
-                        category?.let { c -> append("
-").append(getSmallerText(getStyledKeyValue(it.context, R.string.overlay_category, c))) }
-                        if (!isStatic) append("
-").append(getSmallerText(getStyledKeyValue(it.context, R.string.priority, priority.toString())))
+                        category?.let { c -> append("\n").append(getSmallerText(getStyledKeyValue(it.context, R.string.overlay_category, c))) }
+                        if (!isStatic) append("\n").append(getSmallerText(getStyledKeyValue(it.context, R.string.priority, priority.toString())))
                     }
                     MaterialAlertDialogBuilder(it.context).setTitle(R.string.title_overlay).setMessage(ssb).setNeutralButton(R.string.app_info) { _, _ -> startActivity(AppDetailsActivity.getIntent(it.context, target, mUserId)) }.setNegativeButton(R.string.close, null).show()
                 }
@@ -723,10 +717,8 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
         ThreadUtils.postOnBackgroundThread {
             val names = Array(runningServices.size) { i ->
                 val info = runningServices[i]
-                val desc = SpannableStringBuilder().append(getStyledKeyValue(ctx, R.string.process_name, info.process)).append("
-").append(getStyledKeyValue(ctx, R.string.pid, info.pid.toString()))
-                SpannableStringBuilder(info.service.shortClassName).append("
-").append(getSmallerText(desc))
+                val desc = SpannableStringBuilder().append(getStyledKeyValue(ctx, R.string.process_name, info.process)).append("\n").append(getStyledKeyValue(ctx, R.string.pid, info.pid.toString()))
+                SpannableStringBuilder(info.service.shortClassName).append("\n").append(getSmallerText(desc))
             }
             val logAvail = FeatureController.isLogViewerEnabled() && SelfPermissions.checkSelfOrRemotePermission(Manifest.permission.DUMP)
             val tb = DialogTitleBuilder(ctx).setTitle(R.string.running_services)
@@ -773,10 +765,8 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
         val procs = Array(magiskProcesses.size) { i ->
             val mp = magiskProcesses[it]
             val sb = SpannableStringBuilder().apply {
-                if (mp.isIsolatedProcess) { append("
-").append(UIUtils.getSecondaryText(mActivity, getString(R.string.isolated))); if (mp.isRunning) append(", ").append(UIUtils.getSecondaryText(mActivity, getString(R.string.running))) }
-                else if (mp.isRunning) append("
-").append(UIUtils.getSecondaryText(mActivity, getString(R.string.running)))
+                if (mp.isIsolatedProcess) { append("\n").append(UIUtils.getSecondaryText(mActivity, getString(R.string.isolated))); if (mp.isRunning) append(", ").append(UIUtils.getSecondaryText(mActivity, getString(R.string.running))) }
+                else if (mp.isRunning) append("\n").append(UIUtils.getSecondaryText(mActivity, getString(R.string.running)))
             }
             SpannableStringBuilder(mp.name).append(UIUtils.getSmallerText(sb))
         }
@@ -922,9 +912,7 @@ class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuPr
     private fun displayInstallerDialog(isInfo: InstallSourceInfoCompat) {
         val infoList = mutableListOf<CharSequence>()
         val pkgs = mutableListOf<String>()
-        fun add(label: CharSequence?, pkg: String?, titleRes: Int) { pkg?.let { p -> infoList.add(SpannableStringBuilder(getSmallerText(getString(titleRes))).append("
-").append(getTitleText(requireContext(), label ?: p)).append("
-").append(p)); pkgs.add(p) } }
+        fun add(label: CharSequence?, pkg: String?, titleRes: Int) { pkg?.let { p -> infoList.add(SpannableStringBuilder(getSmallerText(getString(titleRes))).append("\n").append(getTitleText(requireContext(), label ?: p)).append("\n").append(p)); pkgs.add(p) } }
         add(isInfo.installingPackageLabel, isInfo.installingPackageName, R.string.installer)
         add(isInfo.initiatingPackageLabel, isInfo.initiatingPackageName, R.string.actual_installer)
         add(isInfo.originatingPackageLabel, isInfo.originatingPackageName, R.string.apk_source)

@@ -46,10 +46,7 @@ object KeyStoreUtils {
         }
     }
 
-    const val KEY_STORE_TYPE_JKS = "JKS"
-    const val KEY_STORE_TYPE_PKCS12 = "PKCS12"
-    const val KEY_STORE_TYPE_BKS = "BKS"
-    private val TYPES = arrayOf(KEY_STORE_TYPE_JKS, KEY_STORE_TYPE_PKCS12, KEY_STORE_TYPE_BKS)
+    const val KEY_STORE_TYPE_JKS = "JKS"\nconst val KEY_STORE_TYPE_PKCS12 = "PKCS12"\nconst val KEY_STORE_TYPE_BKS = "BKS"\nprivate val TYPES = arrayOf(KEY_STORE_TYPE_JKS, KEY_STORE_TYPE_PKCS12, KEY_STORE_TYPE_BKS)
 
     @JvmStatic
     @Throws(IOException::class, GeneralSecurityException::class)
@@ -177,14 +174,7 @@ object KeyStoreUtils {
         }
     }
 
-    private const val RSA_BEGIN_HEADER = "-----BEGIN RSA PRIVATE KEY-----"
-    private const val RSA_END_HEADER = "-----END RSA PRIVATE KEY-----"
-    private const val PKCS8_BEGIN_HEADER = "-----BEGIN PRIVATE KEY-----"
-    private const val PKCS8_END_HEADER = "-----END PRIVATE KEY-----"
-    private const val DSA_BEGIN_HEADER = "-----BEGIN DSA PRIVATE KEY-----"
-    private const val DSA_END_HEADER = "-----END DSA PRIVATE KEY-----"
-
-    private fun ASN1Parse(b: ByteArray, integers: MutableList<BigInteger>) {
+    private const val RSA_BEGIN_HEADER = "-----BEGIN RSA PRIVATE KEY-----"\nprivate const val RSA_END_HEADER = "-----END RSA PRIVATE KEY-----"\nprivate const val PKCS8_BEGIN_HEADER = "-----BEGIN PRIVATE KEY-----"\nprivate const val PKCS8_END_HEADER = "-----END PRIVATE KEY-----"\nprivate const val DSA_BEGIN_HEADER = "-----BEGIN DSA PRIVATE KEY-----"\nprivate const val DSA_END_HEADER = "-----END DSA PRIVATE KEY-----"\nprivate fun ASN1Parse(b: ByteArray, integers: MutableList<BigInteger>) {
         var pos = 0
         while (pos < b.size) {
             val tag = b[pos++].toInt()

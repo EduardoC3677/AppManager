@@ -14,8 +14,7 @@ class UserInfo(userInfo: android.content.pm.UserInfo) : LocalizedString {
 
     init {
         val username = userInfo.name
-        name = username ?: if (id == UserHandleHidden.myUserId()) "This" else "Other"
-    }
+        name = username ?: if (id == UserHandleHidden.myUserId()) "This" else "Other"\n}
 
     override fun toLocalizedString(context: Context): CharSequence {
         return "$name ($id)"

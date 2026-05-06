@@ -17,13 +17,9 @@ import java.util.Objects
 class Backup {
     @JvmField
     @ColumnInfo(name = "package_name")
-    var packageName: String = ""
-
-    @JvmField
+    var packageName: String = ""\n@JvmField
     @ColumnInfo(name = "backup_name")
-    var backupName: String = ""
-
-    @JvmField
+    var backupName: String = ""\n@JvmField
     @ColumnInfo(name = "package_label")
     var label: String? = null
 

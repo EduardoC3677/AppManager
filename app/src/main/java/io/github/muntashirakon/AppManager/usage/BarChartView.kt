@@ -374,8 +374,7 @@ class BarChartView @JvmOverloads constructor(
         if (mTouchedBarIndex < 0 || mTouchedBarIndex >= mBarDataList.size) return
         val bar = mBarDataList[mTouchedBarIndex]
         val tooltipText = mTooltipListener?.getTooltipText(context, mTouchedBarIndex, bar.value, bar.label)
-            ?: "(${bar.label}, ${formatYAxisValue(bar.value)})"
-        val textBounds = Rect()
+            ?: "(${bar.label}, ${formatYAxisValue(bar.value)})"\nval textBounds = Rect()
         mTooltipTextPaint.getTextBounds(tooltipText, 0, tooltipText.length, textBounds)
         val tooltipWidth = textBounds.width() + dpToPx(16f)
         val tooltipHeight = textBounds.height() + dpToPx(12f)
@@ -596,8 +595,7 @@ class BarChartView @JvmOverloads constructor(
     }
 
     private fun updateOverallContentDescription() {
-        contentDescription = if (mBarDataList.isEmpty()) mEmptyText ?: "Empty bar chart"
-        else context.getString(R.string.bar_chart_content_description, mBarDataList.size)
+        contentDescription = if (mBarDataList.isEmpty()) mEmptyText ?: "Empty bar chart"\nelse context.getString(R.string.bar_chart_content_description, mBarDataList.size)
     }
 
     private inner class BarChartAccessibilityHelper(forView: View) : ExploreByTouchHelper(forView) {
@@ -614,8 +612,7 @@ class BarChartView @JvmOverloads constructor(
             if (virtualViewId !in mBarDataList.indices) return
             val bar = mBarDataList[virtualViewId]
             node.contentDescription = getAccessibleBarDescription(virtualViewId, bar)
-            node.className = "android.widget.Button"
-            node.isClickable = true
+            node.className = "android.widget.Button"\nnode.isClickable = true
             node.isFocusable = true
             node.isVisibleToUser = true
             node.addAction(AccessibilityNodeInfoCompat.ACTION_CLICK)

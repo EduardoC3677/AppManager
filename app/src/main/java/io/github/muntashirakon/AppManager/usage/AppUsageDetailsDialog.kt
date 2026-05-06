@@ -98,9 +98,7 @@ class AppUsageDetailsDialog : CapsuleBottomSheetDialogFragment() {
 
     companion object {
         val TAG: String = AppUsageDetailsDialog::class.java.simpleName
-        private const val ARG_PACKAGE_USAGE_INFO = "pkg_usg_info"
-        private const val ARG_INTERVAL_TYPE = "interval"
-        private const val ARG_DATE = "date"
+        private const val ARG_PACKAGE_USAGE_INFO = "pkg_usg_info"\nprivate const val ARG_INTERVAL_TYPE = "interval"\nprivate const val ARG_DATE = "date"
 
         @JvmStatic
         fun getInstance(usageInfo: PackageUsageInfo?, @IntervalType interval: Int, date: Long): AppUsageDetailsDialog {

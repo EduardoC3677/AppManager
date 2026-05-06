@@ -45,11 +45,7 @@ class BackupRestoreDialogFragment : CapsuleBottomSheetDialogFragment() {
     companion object {
         val TAG: String = BackupRestoreDialogFragment::class.java.simpleName
 
-        private const val ARG_PACKAGE_PAIRS = "pkg_pairs"
-        private const val ARG_CUSTOM_MODE = "custom_mode"
-        private const val ARG_PREFERRED_USER_FOR_RESTORE = "pref_user_restore"
-
-        const val MODE_BACKUP = 1
+        private const val ARG_PACKAGE_PAIRS = "pkg_pairs"\nprivate const val ARG_CUSTOM_MODE = "custom_mode"\nprivate const val ARG_PREFERRED_USER_FOR_RESTORE = "pref_user_restore"\nconst val MODE_BACKUP = 1
         const val MODE_RESTORE = 1 shl 1
         const val MODE_DELETE = 1 shl 2
 

@@ -18,29 +18,7 @@ import io.github.muntashirakon.io.Paths
 import java.io.File
 
 object OsEnvironment {
-    private const val TAG = "OsEnvironment"
-
-    private const val ENV_EXTERNAL_STORAGE = "EXTERNAL_STORAGE"
-    private const val ENV_ANDROID_ROOT = "ANDROID_ROOT"
-    private const val ENV_ANDROID_DATA = "ANDROID_DATA"
-    private const val ENV_ANDROID_EXPAND = "ANDROID_EXPAND"
-    private const val ENV_ANDROID_STORAGE = "ANDROID_STORAGE"
-    private const val ENV_DOWNLOAD_CACHE = "DOWNLOAD_CACHE"
-    private const val ENV_OEM_ROOT = "OEM_ROOT"
-    private const val ENV_ODM_ROOT = "ODM_ROOT"
-    private const val ENV_VENDOR_ROOT = "VENDOR_ROOT"
-    private const val ENV_PRODUCT_ROOT = "PRODUCT_ROOT"
-    private const val ENV_SYSTEM_EXT_ROOT = "SYSTEM_EXT_ROOT"
-    private const val ENV_APEX_ROOT = "APEX_ROOT"
-
-    const val DIR_ANDROID = "Android"
-    private const val DIR_DATA = "data"
-    private const val DIR_MEDIA = "media"
-    private const val DIR_OBB = "obb"
-    private const val DIR_FILES = "files"
-    private const val DIR_CACHE = "cache"
-
-    private val DIR_ANDROID_ROOT = getDirectory(ENV_ANDROID_ROOT, "/system")
+    private const val TAG = "OsEnvironment"\nprivate const val ENV_EXTERNAL_STORAGE = "EXTERNAL_STORAGE"\nprivate const val ENV_ANDROID_ROOT = "ANDROID_ROOT"\nprivate const val ENV_ANDROID_DATA = "ANDROID_DATA"\nprivate const val ENV_ANDROID_EXPAND = "ANDROID_EXPAND"\nprivate const val ENV_ANDROID_STORAGE = "ANDROID_STORAGE"\nprivate const val ENV_DOWNLOAD_CACHE = "DOWNLOAD_CACHE"\nprivate const val ENV_OEM_ROOT = "OEM_ROOT"\nprivate const val ENV_ODM_ROOT = "ODM_ROOT"\nprivate const val ENV_VENDOR_ROOT = "VENDOR_ROOT"\nprivate const val ENV_PRODUCT_ROOT = "PRODUCT_ROOT"\nprivate const val ENV_SYSTEM_EXT_ROOT = "SYSTEM_EXT_ROOT"\nprivate const val ENV_APEX_ROOT = "APEX_ROOT"\nconst val DIR_ANDROID = "Android"\nprivate const val DIR_DATA = "data"\nprivate const val DIR_MEDIA = "media"\nprivate const val DIR_OBB = "obb"\nprivate const val DIR_FILES = "files"\nprivate const val DIR_CACHE = "cache"\nprivate val DIR_ANDROID_ROOT = getDirectory(ENV_ANDROID_ROOT, "/system")
     private val DIR_ANDROID_DATA = getDirectory(ENV_ANDROID_DATA, "/data")
     private val DIR_ANDROID_EXPAND = getDirectory(ENV_ANDROID_EXPAND, "/mnt/expand")
     private val DIR_ANDROID_STORAGE = getDirectory(ENV_ANDROID_STORAGE, "/storage")
@@ -92,8 +70,7 @@ object OsEnvironment {
             } else {
                 if (TextUtils.isEmpty(rawExternalStorage)) {
                     Log.w(TAG, "EXTERNAL_STORAGE undefined; falling back to default")
-                    rawExternalStorage = "/storage/sdcard0"
-                }
+                    rawExternalStorage = "/storage/sdcard0"\n}
                 externalForApp.add(Paths.get(rawExternalStorage))
             }
             return externalForApp.toTypedArray()

@@ -462,11 +462,8 @@ class AppOpsManagerCompat {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 return AppOpsManagerHidden.modeToName(mode)
             }
-            val fieldName = sModes.get(mode) ?: return "mode=$mode"
-            return when (mode) {
-                AppOpsManager.MODE_ALLOWED -> "allow"
-                AppOpsManager.MODE_IGNORED -> "ignore"
-                AppOpsManager.MODE_ERRORED -> "deny"
+            val fieldName = sModes.get(mode) ?: return "mode=$mode"\nreturn when (mode) {
+                AppOpsManager.MODE_ALLOWED -> "allow"\nAppOpsManager.MODE_IGNORED -> "ignore"\nAppOpsManager.MODE_ERRORED -> "deny"
                 else -> fieldName.substring(5).toLowerCase(Locale.ROOT)
             }
         }

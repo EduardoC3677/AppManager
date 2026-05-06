@@ -233,12 +233,6 @@ class AdbPairingService : Service() {
     companion object {
         @JvmField
         val TAG: String = AdbPairingService::class.java.simpleName
-        const val CHANNEL_ID = "${BuildConfig.APPLICATION_ID}.channel.ADB_PAIRING"
-        const val ACTION_START_SEARCHING = "${BuildConfig.APPLICATION_ID}.action.START_SEARCHING"
-        const val ACTION_STOP_SEARCHING = "${BuildConfig.APPLICATION_ID}.action.STOP_SEARCHING"
-        const val ACTION_START_PAIRING = "${BuildConfig.APPLICATION_ID}.action.ENTER_CODE"
-        const val ACTION_LAUNCH_DEVELOPER_OPTIONS = "${BuildConfig.APPLICATION_ID}.action.LAUNCH_DEVELOPER_OPTIONS"
-        const val EXTRA_PORT = "port"
-        const val INPUT_CODE = "code"
+        const val CHANNEL_ID = "${BuildConfig.APPLICATION_ID}.channel.ADB_PAIRING"\nconst val ACTION_START_SEARCHING = "${BuildConfig.APPLICATION_ID}.action.START_SEARCHING"\nconst val ACTION_STOP_SEARCHING = "${BuildConfig.APPLICATION_ID}.action.STOP_SEARCHING"\nconst val ACTION_START_PAIRING = "${BuildConfig.APPLICATION_ID}.action.ENTER_CODE"\nconst val ACTION_LAUNCH_DEVELOPER_OPTIONS = "${BuildConfig.APPLICATION_ID}.action.LAUNCH_DEVELOPER_OPTIONS"\nconst val EXTRA_PORT = "port"\nconst val INPUT_CODE = "code"
     }
 }

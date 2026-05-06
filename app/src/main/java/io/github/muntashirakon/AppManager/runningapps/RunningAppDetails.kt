@@ -63,8 +63,7 @@ class RunningAppDetails : CapsuleBottomSheetDialogFragment() {
         priority.text = String.format(Locale.getDefault(), "%d", processItem.priority)
         threads.text = String.format(Locale.getDefault(), "%d", processItem.threadCount)
         user.text = String.format(Locale.getDefault(), "%s (%d)", processItem.user, processItem.uid)
-        state.text = if (TextUtils.isEmpty(processItem.state_extra)) processItem.state else "${processItem.state} (${processItem.state_extra})"
-        seLinuxContext.text = processItem.context
+        state.text = if (TextUtils.isEmpty(processItem.state_extra)) processItem.state else "${processItem.state} (${processItem.state_extra})"\nseLinuxContext.text = processItem.context
         cliArgs.text = processItem.commandlineArgsAsString
         if (processItem is AppProcessItem) {
             val packageInfo = processItem.packageInfo

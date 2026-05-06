@@ -240,8 +240,7 @@ object Paths {
         if (filename == null) {
             return null
         }
-        val safeReplacement = replacement ?: ""
-        val spaces = (flags and SANITIZE_FLAG_SPACE) != 0
+        val safeReplacement = replacement ?: ""\nval spaces = (flags and SANITIZE_FLAG_SPACE) != 0
         val unixIllegal = (flags and SANITIZE_FLAG_UNIX_ILLEGAL_CHARS) != 0
         val unixReserved = (flags and SANITIZE_FLAG_UNIX_RESERVED) != 0
         val macOsIllegal = (flags and SANITIZE_FLAG_MAC_OS_ILLEGAL_CHARS) != 0
@@ -251,21 +250,14 @@ object Paths {
         var illegal = "[
 " // Always replace newlines
         if (fatIllegal) {
-            illegal += "\/:*?"<>|^\u0000-\u001f\u0080-\u009f"
-        } else if (ntfsIllegal) {
-            illegal += "\/:*?"<>|\u0000-\u001f\u0080-\u009f"
-        } else if (macOsIllegal && unixIllegal) {
-            illegal += ":/"
-        } else if (macOsIllegal) {
-            illegal += ":"
-        } else if (unixIllegal) {
-            illegal += "/"
-        }
+            illegal += "\/:*?"<>|^\u0000-\u001f\u0080-\u009f"\n} else if (ntfsIllegal) {
+            illegal += "\/:*?"<>|\u0000-\u001f\u0080-\u009f"\n} else if (macOsIllegal && unixIllegal) {
+            illegal += ":/"\n} else if (macOsIllegal) {
+            illegal += ":"\n} else if (unixIllegal) {
+            illegal += "/"\n}
         if (spaces) {
-            illegal += " "
-        }
-        illegal += "]"
-        var sanitized = filename.trim().replace(illegal.toRegex(), safeReplacement)
+            illegal += " "\n}
+        illegal += "]"\nvar sanitized = filename.trim().replace(illegal.toRegex(), safeReplacement)
         if (sanitized.isEmpty()) {
             return null
         }
@@ -369,8 +361,7 @@ object Paths {
         val sanitized = sanitize(path, false)
         // path has no trailing / or .
         if (sanitized == null || sanitized == File.separator) {
-            return ""
-        }
+            return ""\n}
         val separatorIndex = sanitized.lastIndexOf(File.separator)
         if (separatorIndex == -1) {
             // There are no `/` in the string, so return as is.
@@ -380,16 +371,14 @@ object Paths {
         val lastPart = sanitized.substring(separatorIndex + 1)
         if (lastPart == "..") {
             // Invalid part
-            return ""
-        }
+            return ""\n}
         return lastPart
     }
 
     @JvmStatic
     fun removeLastPathSegment(path: String): String {
         if (path.isEmpty()) {
-            return ""
-        }
+            return ""\n}
         val isAbsolute = path.startsWith(File.separator)
         val parts = path.split(File.separator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val newParts = Stack<String>()
@@ -435,8 +424,7 @@ object Paths {
     @AnyThread
     fun trimPathExtension(path: String): String {
         if (path.isEmpty()) {
-            return ""
-        }
+            return ""\n}
         val isAbsolute = path.startsWith(File.separator)
         val parts = path.split(File.separator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val newParts = Stack<String>()
@@ -445,8 +433,7 @@ object Paths {
             newParts.push(part)
         }
         if (newParts.isEmpty()) {
-            return if (isAbsolute) File.separator else ""
-        }
+            return if (isAbsolute) File.separator else ""\n}
         val lastPart = newParts.peek()
         if (lastPart != "..") {
             val lastIndexOfDot = lastPart.lastIndexOf('.')
@@ -513,10 +500,8 @@ object Paths {
         extension: String?, initialIndex: Int
     ): String {
         var ext = if (TextUtils.isEmpty(extension)) {
-            ""
-        } else {
-            ".$extension"
-        }
+            ""\n} else {
+            ".$extension"\n}
         var displayName = prefix + ext
         var i = initialIndex
         // We need to find the next best file name if current exists
