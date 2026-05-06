@@ -70,7 +70,7 @@ internal class LocalFile : FileImpl<LocalFile> {
 
     override fun isBlock(): Boolean {
         return try {
-            OsConstants.S_ISBLK(mode)
+            OsConstants.S_ISBLK(getMode())
         } catch (e: ErrnoException) {
             false
         }
@@ -78,7 +78,7 @@ internal class LocalFile : FileImpl<LocalFile> {
 
     override fun isCharacter(): Boolean {
         return try {
-            OsConstants.S_ISCHR(mode)
+            OsConstants.S_ISCHR(getMode())
         } catch (e: ErrnoException) {
             false
         }
@@ -86,7 +86,7 @@ internal class LocalFile : FileImpl<LocalFile> {
 
     override fun isSymlink(): Boolean {
         return try {
-            OsConstants.S_ISLNK(mode)
+            OsConstants.S_ISLNK(getMode())
         } catch (e: ErrnoException) {
             false
         }
@@ -94,7 +94,7 @@ internal class LocalFile : FileImpl<LocalFile> {
 
     override fun isNamedPipe(): Boolean {
         return try {
-            OsConstants.S_ISFIFO(mode)
+            OsConstants.S_ISFIFO(getMode())
         } catch (e: ErrnoException) {
             false
         }
@@ -102,7 +102,7 @@ internal class LocalFile : FileImpl<LocalFile> {
 
     override fun isSocket(): Boolean {
         return try {
-            OsConstants.S_ISSOCK(mode)
+            OsConstants.S_ISSOCK(getMode())
         } catch (e: ErrnoException) {
             false
         }

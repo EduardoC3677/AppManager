@@ -90,7 +90,7 @@ object NIOFactory {
     }
 
     @JvmStatic
-    fun createFsService(): FileSystemService {
+    internal fun createFsService(): FileSystemService {
         return FileSystemService()
     }
 }

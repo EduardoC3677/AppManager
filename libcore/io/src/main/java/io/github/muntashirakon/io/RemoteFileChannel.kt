@@ -208,7 +208,7 @@ internal class RemoteFileChannel(private val fs: IFileSystemService, file: File,
     override fun position(): Long {
         ensureOpen()
         return try {
-            fs.lseek(handle, 0, SEEK_CUR.toLong()).tryAndGet()
+            fs.lseek(handle, 0, SEEK_CUR).tryAndGet()
         } catch (e: RemoteException) {
             throw IOException(e)
         }
