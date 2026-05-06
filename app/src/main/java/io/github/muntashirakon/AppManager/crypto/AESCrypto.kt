@@ -108,12 +108,15 @@ open class AESCrypto : Crypto {
             throw IOException("The number of input and output files are not the same.")
         }
         val cipher = GCMBlockCipher.newInstance(AESEngine.newInstance())
-        cipher.init(forEncryption, params)
         for (i in inputFiles.indices) {
             val inputPath = inputFiles[i]
             val outputPath = outputFiles[i]
             Log.i(TAG, "Input: $inputPath
 Output: $outputPath")
+            // Re-initialize for each file to avoid cipher reuse error.
+            // Deriving a unique IV per file from the base IV and filename to ensure security.
+            val fileName = inputPath.getName().removeSuffix(AES_EXT)
+            cipher.init(forEncryption, getParamsForFile(fileName))
             inputPath.openInputStream().use { isStream ->
                 outputPath.openOutputStream().use { osStream ->
                     if (forEncryption) {
@@ -124,6 +127,16 @@ Output: $outputPath")
                 }
             }
         }
+    }
+
+    private fun getParamsForFile(fileName: String): AEADParameters {
+        val iv = mIv.clone()
+        val bytes = fileName.toByteArray(Charsets.UTF_8)
+        // XOR filename bytes into the IV to ensure uniqueness per file in the same backup
+        for (i in bytes.indices) {
+            iv[i % iv.size] = (iv[i % iv.size].toInt() xor bytes[i].toInt()).toByte()
+        }
+        return AEADParameters(KeyParameter(mSecretKey.encoded), mMacSizeBits, iv)
     }
 
     override fun close() {

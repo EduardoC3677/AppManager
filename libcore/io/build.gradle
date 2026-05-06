@@ -15,6 +15,10 @@ android {
         targetSdk target_sdk
     }
 
+    buildFeatures {
+        aidl true
+    }
+
     compileOptions {
         encoding "UTF-8"
         sourceCompatibility JavaVersion.VERSION_1_8
