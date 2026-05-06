@@ -473,6 +473,15 @@
             android:exported="true"
             android:label="@string/title_labs_activity" />
 
+        <service
+            android:name=".adb.AdbPairingService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync|specialUse" />
+
+        <activity
+            android:name=".adb.AdbPairingTutorialActivity"
+            android:exported="false" />
+
         <activity-alias
             android:name=".apk.installer.AppInfoActivity"
             android:exported="true"
