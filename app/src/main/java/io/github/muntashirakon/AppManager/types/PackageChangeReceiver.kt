@@ -21,38 +21,27 @@ abstract class PackageChangeReceiver(context: Context) : BroadcastReceiver() {
          * Specifies that some packages have been altered. This could be due to batch operations, database update, etc.
          * It has one extra namely [Intent.EXTRA_CHANGED_PACKAGE_LIST].
          */
-        const val ACTION_PACKAGE_ALTERED = BuildConfig.APPLICATION_ID + ".action.PACKAGE_ALTERED"
-
-        /**
+        const val ACTION_PACKAGE_ALTERED = BuildConfig.APPLICATION_ID + ".action.PACKAGE_ALTERED"\n/**
          * Specifies that some packages have been added. This could be due to batch operations, database update, etc.
          * It has one extra namely [Intent.EXTRA_CHANGED_PACKAGE_LIST].
          */
-        const val ACTION_PACKAGE_ADDED = BuildConfig.APPLICATION_ID + ".action.PACKAGE_ADDED"
-
-        /**
+        const val ACTION_PACKAGE_ADDED = BuildConfig.APPLICATION_ID + ".action.PACKAGE_ADDED"\n/**
          * Specifies that some packages have been removed. This could be due to batch operations, database update, etc.
          * It has one extra namely [Intent.EXTRA_CHANGED_PACKAGE_LIST].
          */
-        const val ACTION_PACKAGE_REMOVED = BuildConfig.APPLICATION_ID + ".action.PACKAGE_REMOVED"
-
-        /**
+        const val ACTION_PACKAGE_REMOVED = BuildConfig.APPLICATION_ID + ".action.PACKAGE_REMOVED"\n/**
          * Specifies that some packages have been altered. This could be due to batch operations, database update, etc.
          * It has one extra namely [Intent.EXTRA_CHANGED_PACKAGE_LIST].
          */
-        const val ACTION_DB_PACKAGE_ALTERED = BuildConfig.APPLICATION_ID + ".action.DB_PACKAGE_ALTERED"
-
-        /**
+        const val ACTION_DB_PACKAGE_ALTERED = BuildConfig.APPLICATION_ID + ".action.DB_PACKAGE_ALTERED"\n/**
          * Specifies that some packages have been added. This could be due to batch operations, database update, etc.
          * It has one extra namely [Intent.EXTRA_CHANGED_PACKAGE_LIST].
          */
-        const val ACTION_DB_PACKAGE_ADDED = BuildConfig.APPLICATION_ID + ".action.DB_PACKAGE_ADDED"
-
-        /**
+        const val ACTION_DB_PACKAGE_ADDED = BuildConfig.APPLICATION_ID + ".action.DB_PACKAGE_ADDED"\n/**
          * Specifies that some packages have been removed. This could be due to batch operations, database update, etc.
          * It has one extra namely [Intent.EXTRA_CHANGED_PACKAGE_LIST].
          */
-        const val ACTION_DB_PACKAGE_REMOVED = BuildConfig.APPLICATION_ID + ".action.DB_PACKAGE_REMOVED"
-    }
+        const val ACTION_DB_PACKAGE_REMOVED = BuildConfig.APPLICATION_ID + ".action.DB_PACKAGE_REMOVED"\n}
 
     init {
         val filter = IntentFilter(Intent.ACTION_PACKAGE_ADDED)

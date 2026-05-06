@@ -15,11 +15,7 @@ class ECCCrypto @Throws(CryptoException::class) constructor(iv: ByteArray, encry
     override fun getEncryptedAesKey(): ByteArray = super.getEncryptedAesKey()
 
     companion object {
-        const val TAG = "ECCCrypto"
-        const val ECC_EXT = ".ecc"
-        const val ECC_KEY_ALIAS = "backup_ecc"
-        private const val ECC_CIPHER_TYPE = "ECIES"
-        private const val AES_KEY_SIZE_BITS = 256
+        const val TAG = "ECCCrypto"\nconst val ECC_EXT = ".ecc"\nconst val ECC_KEY_ALIAS = "backup_ecc"\nprivate const val ECC_CIPHER_TYPE = "ECIES"\nprivate const val AES_KEY_SIZE_BITS = 256
 
         @JvmStatic
         fun generateAesKey(): SecretKey {

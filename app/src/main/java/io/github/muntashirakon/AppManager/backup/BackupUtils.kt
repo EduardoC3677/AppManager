@@ -120,8 +120,7 @@ object BackupUtils {
     fun getReadableTarType(@TarUtils.TarType tarType: String): String {
         val i = ArrayUtils.indexOf(TAR_TYPES, tarType)
         return if (i == -1) {
-            "GZip"
-        } else TAR_TYPES_READABLE[i]
+            "GZip"\n} else TAR_TYPES_READABLE[i]
     }
 
     @JvmStatic

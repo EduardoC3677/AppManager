@@ -98,8 +98,7 @@ class AppUsageAdapter(private val mActivity: AppUsageActivity) : RecyclerView.Ad
         val date = viewModel.currentDate
         val formattedDuration = DateUtils.getFormattedDuration(mActivity, duration)
         val intervalDescription = UsageUtils.getIntervalDescription(mActivity, intervalType, date)
-        val contentDescription = "${mActivity.getString(R.string.app_usage)} $intervalDescription. $formattedDuration"
-        holder.itemView.contentDescription = contentDescription
+        val contentDescription = "${mActivity.getString(R.string.app_usage)} $intervalDescription. $formattedDuration"\nholder.itemView.contentDescription = contentDescription
         holder.screenTimeView.text = formattedDuration
         holder.usageIntervalView.text = intervalDescription
         holder.nextButton.visibility = if (UsageUtils.hasNextDay(date)) View.VISIBLE else View.INVISIBLE
@@ -139,14 +138,12 @@ class AppUsageAdapter(private val mActivity: AppUsageActivity) : RecyclerView.Ad
             val phoneIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_phone_android)
             val dataUsage = String.format("  ↑ %1\$s ↓ %2$s", Formatter.formatFileSize(mActivity, mobileData.first!!), Formatter.formatFileSize(mActivity, mobileData.second!!))
             holder.mobileDataUsage.text = UIUtils.setImageSpan(dataUsage, phoneIcon, holder.mobileDataUsage)
-        } else holder.mobileDataUsage.text = ""
-        val wifiData = usageInfo.wifiData
+        } else holder.mobileDataUsage.text = ""\nval wifiData = usageInfo.wifiData
         if (wifiData != null && (wifiData.first != 0L || wifiData.second != 0L)) {
             val wifiIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_wifi)
             val dataUsage = String.format("  ↑ %1\$s ↓ %2$s", Formatter.formatFileSize(mActivity, wifiData.first!!), Formatter.formatFileSize(mActivity, wifiData.second!!))
             holder.wifiDataUsage.text = UIUtils.setImageSpan(dataUsage, wifiIcon, holder.wifiDataUsage)
-        } else holder.wifiDataUsage.text = ""
-        holder.percentUsage.text = String.format(Locale.getDefault(), "%d%%", percentUsage)
+        } else holder.wifiDataUsage.text = ""\nholder.percentUsage.text = String.format(Locale.getDefault(), "%d%%", percentUsage)
         holder.usageIndicator.show()
         holder.usageIndicator.progress = percentUsage
         holder.itemView.setOnClickListener { viewModel.loadPackageUsageInfo(usageInfo) }

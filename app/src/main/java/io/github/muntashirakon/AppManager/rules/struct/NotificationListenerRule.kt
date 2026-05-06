@@ -29,8 +29,7 @@ class NotificationListenerRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "NotificationListenerRule{packageName='$packageName', name='$name', isGranted=$isGranted}"
-    }
+        return "NotificationListenerRule{packageName='$packageName', name='$name', isGranted=$isGranted}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t$isGranted"

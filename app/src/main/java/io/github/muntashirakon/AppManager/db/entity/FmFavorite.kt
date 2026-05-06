@@ -15,13 +15,9 @@ class FmFavorite {
 
     @JvmField
     @ColumnInfo(name = "name")
-    var name: String = ""
-
-    @JvmField
+    var name: String = ""\n@JvmField
     @ColumnInfo(name = "uri")
-    var uri: String = ""
-
-    @JvmField
+    var uri: String = ""\n@JvmField
     @ColumnInfo(name = "init_uri")
     var initUri: String? = null
 

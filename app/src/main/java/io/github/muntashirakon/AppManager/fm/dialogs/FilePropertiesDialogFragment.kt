@@ -201,11 +201,9 @@ class FilePropertiesDialogFragment : DialogFragment() {
             mDateModifiedView!!.setText(DateUtils.formatDateTime(requireContext(), fileProperties.lastModified))
         }
         if (noInit || mFileProperties!!.creationTime != fileProperties.creationTime) {
-            mDateCreatedView!!.text = if (fileProperties.creationTime > 0) DateUtils.formatDateTime(requireContext(), fileProperties.creationTime) else "--"
-        }
+            mDateCreatedView!!.text = if (fileProperties.creationTime > 0) DateUtils.formatDateTime(requireContext(), fileProperties.creationTime) else "--"\n}
         if (noInit || mFileProperties!!.lastAccess != fileProperties.lastAccess) {
-            mDateAccessedView!!.setText(if (fileProperties.lastAccess > 0) DateUtils.formatDateTime(requireContext(), fileProperties.lastAccess) else "--"
-        }
+            mDateAccessedView!!.setText(if (fileProperties.lastAccess > 0) DateUtils.formatDateTime(requireContext(), fileProperties.lastAccess) else "--"\n}
         if (noInit || mFileProperties!!.canWrite != fileProperties.canWrite) {
             val isPhysicalWritable = fileProperties.canWrite && fileProperties.isPhysicalFs
             mDateModifiedLayout!!.isEndIconVisible = isPhysicalWritable
@@ -372,8 +370,7 @@ class FilePropertiesDialogFragment : DialogFragment() {
                 val id = AndroidId().apply {
                     this.id = uid
                     this.name = uidOwnerMap[uid]!!
-                    this.description = "System"
-                }
+                    this.description = "System"\n}
                 mOwnerList.add(id)
             }
             val gidGroupMap = Groups.getGidGroupMap(false)
@@ -381,8 +378,7 @@ class FilePropertiesDialogFragment : DialogFragment() {
                 val id = AndroidId().apply {
                     this.id = gid
                     this.name = gidGroupMap[gid]!!
-                    this.description = "System"
-                }
+                    this.description = "System"\n}
                 mGroupList.add(id)
             }
             val applicationInfoList = PackageUtils.getAllApplications(0)
@@ -601,10 +597,7 @@ class FilePropertiesDialogFragment : DialogFragment() {
 
     class AndroidId : LocalizedString {
         var id: Int = 0
-        var name: String = ""
-        var description: CharSequence = ""
-
-        override fun toLocalizedString(context: Context): CharSequence {
+        var name: String = ""\nvar description: CharSequence = ""\noverride fun toLocalizedString(context: Context): CharSequence {
             return SpannableStringBuilder(name).append(" (").append(id.toString()).append(")
 ")
                 .append(UIUtils.getSmallerText(UIUtils.getSecondaryText(context, description)))
@@ -622,9 +615,7 @@ class FilePropertiesDialogFragment : DialogFragment() {
     class FileProperties {
         lateinit var path: Path
         var isPhysicalFs: Boolean = false
-        var name: String = ""
-        var readablePath: String = ""
-        var folderCount: Int = 0
+        var name: String = ""\nvar readablePath: String = ""\nvar folderCount: Int = 0
         var fileCount: Int = 0
         var isDirectory: Boolean = false
         var isSymlink: Boolean = false

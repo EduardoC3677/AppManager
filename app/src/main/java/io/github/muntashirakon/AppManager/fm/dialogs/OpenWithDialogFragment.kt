@@ -207,8 +207,7 @@ class OpenWithDialogFragment : DialogFragment() {
             val resolvedInfo = mMatchingActivities[index]
             holder.title.text = resolvedInfo.label
             val activityName = resolvedInfo.name
-            val summary = resolvedInfo.appLabel.toString() + "
-" + resolvedInfo.shortName
+            val summary = resolvedInfo.appLabel.toString() + "\n" + resolvedInfo.shortName
             holder.summary.text = summary
             val tag = resolvedInfo.packageName + "_" + resolvedInfo.label
             holder.icon.tag = tag
@@ -304,9 +303,7 @@ class OpenWithDialogFragment : DialogFragment() {
 
     companion object {
         val TAG: String = OpenWithDialogFragment::class.java.simpleName
-        private const val ARG_PATH = "path"
-        private const val ARG_TYPE = "type"
-        private const val ARG_CLOSE_ACTIVITY = "close"
+        private const val ARG_PATH = "path"\nprivate const val ARG_TYPE = "type"\nprivate const val ARG_CLOSE_ACTIVITY = "close"
 
         @JvmStatic
         fun getInstance(path: Path): OpenWithDialogFragment = getInstance(path, null)

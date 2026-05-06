@@ -15,14 +15,12 @@ class MiuiVersionInfo(
     fun getMiuiVersion(): String? {
         if (finalIsBeta) return null
         val splits = version.split(".")
-        return "${splits[0]}.${splits[1]}"
-    }
+        return "${splits[0]}.${splits[1]}"\n}
 
     fun getRomVersion(): String? {
         if (finalIsBeta) return null
         val splits = version.split(".")
-        return "${splits[2]}.${splits[3]}"
-    }
+        return "${splits[2]}.${splits[3]}"\n}
 
     fun getAndroidVersionCodeName(): String? {
         return letters?.split(".")?.get(0)

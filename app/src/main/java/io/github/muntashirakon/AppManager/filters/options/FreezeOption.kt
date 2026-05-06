@@ -54,10 +54,7 @@ class FreezeOption : FilterOption("freeze_unfreeze") {
 
     override fun toLocalizedString(context: Context): CharSequence {
         return when (key) {
-            KEY_ALL -> "Frozen" + getSeparatorString() + " any"
-            "frozen" -> "Frozen apps only"
-            "unfrozen" -> "Unfrozen apps only"
-            "with_flags" -> "Frozen apps with types " + flagsToString("with_flags", intValue)
+            KEY_ALL -> "Frozen" + getSeparatorString() + " any"\n"frozen" -> "Frozen apps only"\n"unfrozen" -> "Unfrozen apps only"\n"with_flags" -> "Frozen apps with types " + flagsToString("with_flags", intValue)
             "without_flags" -> "Frozen apps without types " + flagsToString("without_flags", intValue)
             else -> throw UnsupportedOperationException("Invalid key $key")
         }

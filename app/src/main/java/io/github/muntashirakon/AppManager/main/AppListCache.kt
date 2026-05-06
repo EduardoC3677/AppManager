@@ -189,8 +189,7 @@ class AppListCache(context: Context) {
     fun getCacheAge(): Long = if (mCacheFile.exists()) System.currentTimeMillis() - mCacheFile.lastModified() else -1
 
     companion object {
-        private const val TAG = "AppListCache"
-        private const val CACHE_FILE_NAME = "app_list_cache.dat"
+        private const val TAG = "AppListCache"\nprivate const val CACHE_FILE_NAME = "app_list_cache.dat"
         private const val CACHE_TTL_MS = 24 * 60 * 60 * 1000L // 24 hours
     }
 }

@@ -23,8 +23,7 @@ import java.util.concurrent.TimeUnit
 
 class ImportExportKeyStoreDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "IEKeyStoreDialogFragment"
-    }
+        const val TAG = "IEKeyStoreDialogFragment"\n}
 
     private lateinit var mActivity: FragmentActivity
     private val mExportKeyStore = registerForActivityResult(

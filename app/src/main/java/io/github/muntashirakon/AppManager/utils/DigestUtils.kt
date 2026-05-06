@@ -27,18 +27,8 @@ object DigestUtils {
     @Retention(AnnotationRetention.SOURCE)
     annotation class Algorithm
 
-    const val CRC32 = "CRC32"
-    const val MD2 = "MD2"
-    const val MD5 = "MD5"
-    const val SHA_1 = "SHA-1"
-
-    @TargetApi(22)
-    const val SHA_224 = "SHA-224"
-    const val SHA_256 = "SHA-256"
-    const val SHA_384 = "SHA-384"
-    const val SHA_512 = "SHA-512"
-
-    @AnyThread
+    const val CRC32 = "CRC32"\nconst val MD2 = "MD2"\nconst val MD5 = "MD5"\nconst val SHA_1 = "SHA-1"\n@TargetApi(22)
+    const val SHA_224 = "SHA-224"\nconst val SHA_256 = "SHA-256"\nconst val SHA_384 = "SHA-384"\nconst val SHA_512 = "SHA-512"\n@AnyThread
     @JvmStatic
     fun getHexDigest(@Algorithm algo: String, bytes: ByteArray): String {
         return HexEncoding.encodeToString(getDigest(algo, bytes), false /* lowercase */)

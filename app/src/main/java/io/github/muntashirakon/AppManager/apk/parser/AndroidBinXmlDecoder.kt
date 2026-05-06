@@ -67,8 +67,7 @@ object AndroidBinXmlDecoder {
                     resXmlDocument.setPackageBlock(frameworkPackageBlock)
                     ResXmlPullParser(resXmlDocument).use { parser ->
                         val indent = StringBuilder(10)
-                        val indentStep = "  "
-                        out.println("<?xml version="1.0" encoding="utf-8"?>")
+                        val indentStep = "  "\nout.println("<?xml version="1.0" encoding="utf-8"?>")
                         while (true) {
                             val type = parser.next()
                             when (type) {
@@ -78,12 +77,10 @@ object AndroidBinXmlDecoder {
                                     val nsStart = parser.getNamespaceCount(parser.depth - 1)
                                     val nsEnd = parser.getNamespaceCount(parser.depth)
                                     for (i in nsStart until nsEnd) {
-                                        out.printf("
-%sxmlns:%s="%s"", indent, parser.getNamespacePrefix(i), parser.getNamespaceUri(i))
+                                        out.printf("\n%sxmlns:%s="%s"", indent, parser.getNamespacePrefix(i), parser.getNamespaceUri(i))
                                     }
                                     for (i in 0 until parser.attributeCount) {
-                                        out.printf("
-%s%s%s="%s"", indent, getNamespacePrefix(parser.getAttributePrefix(i)), parser.getAttributeName(i), parser.getAttributeValue(i))
+                                        out.printf("\n%s%s%s="%s"", indent, getNamespacePrefix(parser.getAttributePrefix(i)), parser.getAttributeName(i), parser.getAttributeValue(i))
                                     }
                                     out.println(">")
                                 }

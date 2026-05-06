@@ -153,8 +153,7 @@ class SplitApkChooser : Fragment() {
 
     companion object {
         val TAG: String = SplitApkChooser::class.java.simpleName
-        private const val EXTRA_ACTION_NAME = "name"
-        private const val EXTRA_VERSION_INFO = "version"
+        private const val EXTRA_ACTION_NAME = "name"\nprivate const val EXTRA_VERSION_INFO = "version"
 
         @JvmStatic
         fun getNewInstance(versionInfo: String, actionName: String?): SplitApkChooser {

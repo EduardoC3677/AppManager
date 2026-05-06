@@ -44,9 +44,7 @@ import java.util.Locale
 
 object Utils {
     @JvmField
-    val TERMUX_LOGIN_PATH: String = OsEnvironment.getDataDirectoryRaw() + "/data/com.termux/files/usr/bin/login"
-
-    @JvmStatic
+    val TERMUX_LOGIN_PATH: String = OsEnvironment.getDataDirectoryRaw() + "/data/com.termux/files/usr/bin/login"\n@JvmStatic
     fun camelCaseToSpaceSeparatedString(str: String): String {
         return TextUtils.join(" ", splitByCharacterType(str, true)).replace(" _", "")
     }
@@ -277,8 +275,7 @@ object Utils {
             builder.append("NotNeeded, ")
         checkStringBuilderEnd(builder)
         val result = builder.toString()
-        return if (result.isEmpty()) "⚐" else "⚑ $result"
-    }
+        return if (result.isEmpty()) "⚐" else "⚑ $result"\n}
 
     // FIXME Add translation support
     @JvmStatic
@@ -286,60 +283,42 @@ object Utils {
         val basePermissionType = PermissionInfoCompat.getProtection(permissionInfo)
         val permissionFlags = PermissionInfoCompat.getProtectionFlags(permissionInfo)
         var protectionLevel = when (basePermissionType) {
-            PermissionInfo.PROTECTION_DANGEROUS -> "dangerous"
-            PermissionInfo.PROTECTION_NORMAL -> "normal"
-            PermissionInfo.PROTECTION_SIGNATURE -> "signature"
-            PermissionInfo.PROTECTION_SIGNATURE_OR_SYSTEM,
-            PermissionInfo.PROTECTION_SIGNATURE or PermissionInfo.PROTECTION_FLAG_PRIVILEGED -> "signatureOrPrivileged"
-            else -> "????"
-        }
+            PermissionInfo.PROTECTION_DANGEROUS -> "dangerous"\nPermissionInfo.PROTECTION_NORMAL -> "normal"\nPermissionInfo.PROTECTION_SIGNATURE -> "signature"\nPermissionInfo.PROTECTION_SIGNATURE_OR_SYSTEM,
+            PermissionInfo.PROTECTION_SIGNATURE or PermissionInfo.PROTECTION_FLAG_PRIVILEGED -> "signatureOrPrivileged"\nelse -> "????"\n}
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_PRIVILEGED) != 0)
-                protectionLevel += "|privileged"
-            if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_PRE23) != 0)
+                protectionLevel += "|privileged"\nif ((permissionFlags and PermissionInfo.PROTECTION_FLAG_PRE23) != 0)
                 protectionLevel += "|pre23"  // pre marshmallow
             if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_INSTALLER) != 0)
-                protectionLevel += "|installer"
-            if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_VERIFIER) != 0)
-                protectionLevel += "|verifier"
-            if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_PREINSTALLED) != 0)
-                protectionLevel += "|preinstalled"
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                protectionLevel += "|installer"\nif ((permissionFlags and PermissionInfo.PROTECTION_FLAG_VERIFIER) != 0)
+                protectionLevel += "|verifier"\nif ((permissionFlags and PermissionInfo.PROTECTION_FLAG_PREINSTALLED) != 0)
+                protectionLevel += "|preinstalled"\nif (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_SETUP) != 0)
-                    protectionLevel += "|setup"
-            }
+                    protectionLevel += "|setup"\n}
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_RUNTIME_ONLY) != 0)
-                    protectionLevel += "|runtime"
-            }
+                    protectionLevel += "|runtime"\n}
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_INSTANT) != 0)
-                    protectionLevel += "|instant"
-            }
+                    protectionLevel += "|instant"\n}
         } else {
             if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_SYSTEM) != 0) {
-                protectionLevel += "|system"
-            }
+                protectionLevel += "|system"\n}
         }
 
         if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_DEVELOPMENT) != 0) {
-            protectionLevel += "|development"
-        }
+            protectionLevel += "|development"\n}
         if ((permissionFlags and PermissionInfo.PROTECTION_FLAG_APPOP) != 0) {
-            protectionLevel += "|appop"
-        }
+            protectionLevel += "|appop"\n}
         return protectionLevel
     }
 
     // FIXME Add translation support
     @JvmStatic
     fun getInputFeaturesString(flag: Int): String {
-        var string = ""
-        if ((flag and ConfigurationInfo.INPUT_FEATURE_FIVE_WAY_NAV) != 0)
-            string += "Five way nav"
-        if ((flag and ConfigurationInfo.INPUT_FEATURE_HARD_KEYBOARD) != 0)
-            string += (if (string.isEmpty()) "" else "|") + "Hard keyboard"
-        return if (string.isEmpty()) "null" else string
+        var string = ""\nif ((flag and ConfigurationInfo.INPUT_FEATURE_FIVE_WAY_NAV) != 0)
+            string += "Five way nav"\nif ((flag and ConfigurationInfo.INPUT_FEATURE_HARD_KEYBOARD) != 0)
+            string += (if (string.isEmpty()) "" else "|") + "Hard keyboard"\nreturn if (string.isEmpty()) "null" else string
     }
 
     @JvmStatic
@@ -389,8 +368,7 @@ object Utils {
     fun getGlEsVersion(reqGlEsVersion: Int): String {
         val major = ((reqGlEsVersion and 0xffff0000.toInt()) shr 16)
         val minor = reqGlEsVersion and 0x0000ffff
-        return "$major.$minor"
-    }
+        return "$major.$minor"\n}
 
     @JvmStatic
     fun getVulkanVersion(pm: PackageManager): String? {
@@ -399,17 +377,13 @@ object Utils {
         }
         // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/GraphicsEnvironment.java;l=193;drc=f80e786d308318894be30d54b93f38034496fc66
         if (pm.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION, 0x00403000)) {
-            return "1.3"
-        }
+            return "1.3"\n}
         if (pm.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION, 0x00402000)) {
-            return "1.2"
-        }
+            return "1.2"\n}
         if (pm.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION, 0x00401000)) {
-            return "1.1"
-        }
+            return "1.1"\n}
         if (pm.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION, 0x00400000)) {
-            return "1.0"
-        }
+            return "1.0"\n}
         return null
     }
 
@@ -599,8 +573,7 @@ object Utils {
     @JvmStatic
     fun <T> prettyPrintObject(obj: T?): String {
         if (obj == null) {
-            return "null"
-        }
+            return "null"\n}
         val sb = StringBuilder()
         val clazz: Class<*> = obj.javaClass
         sb.append(clazz.simpleName).append("{")

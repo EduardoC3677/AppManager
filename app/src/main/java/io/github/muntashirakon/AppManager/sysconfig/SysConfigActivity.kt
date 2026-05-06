@@ -128,74 +128,61 @@ class SysConfigActivity : BaseActivity() {
             val sb = SpannableStringBuilder()
             when (info.type) {
                 SysConfigType.TYPE_PERMISSION -> {
-                    sb.append(UIUtils.getStyledKeyValue(context, "GID", Arrays.toString(info.gids))).append("
-")
+                    sb.append(UIUtils.getStyledKeyValue(context, "GID", Arrays.toString(info.gids))).append("\n")
                     sb.append(UIUtils.getStyledKeyValue(context, "Per user", info.perUser.toString()))
                 }
                 SysConfigType.TYPE_ASSIGN_PERMISSION -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Permissions", ""))
                     if (info.permissions?.isEmpty() == true) sb.append(" None")
-                    info.permissions?.forEach { sb.append("
-- $it") }
+                    info.permissions?.forEach { sb.append("\n- $it") }
                 }
                 SysConfigType.TYPE_SPLIT_PERMISSION -> {
-                    sb.append(UIUtils.getStyledKeyValue(context, "Target SDK", info.targetSdk.toString())).append("
-")
+                    sb.append(UIUtils.getStyledKeyValue(context, "Target SDK", info.targetSdk.toString())).append("\n")
                     sb.append(UIUtils.getStyledKeyValue(context, "Permissions", ""))
                     if (info.permissions?.isEmpty() == true) sb.append(" None")
-                    info.permissions?.forEach { sb.append("
-- $it") }
+                    info.permissions?.forEach { sb.append("\n- $it") }
                 }
                 SysConfigType.TYPE_LIBRARY -> {
-                    sb.append(UIUtils.getStyledKeyValue(context, "Filename", info.filename)).append("
-")
+                    sb.append(UIUtils.getStyledKeyValue(context, "Filename", info.filename)).append("\n")
                     sb.append(UIUtils.getStyledKeyValue(context, "Dependencies", ""))
                     if (info.dependencies?.isEmpty() == true) sb.append(" None")
-                    info.dependencies?.forEach { sb.append("
-- $it") }
+                    info.dependencies?.forEach { sb.append("\n- $it") }
                 }
                 SysConfigType.TYPE_FEATURE -> if (info.version > 0) sb.append(UIUtils.getStyledKeyValue(context, "Version", info.version.toString()))
                 SysConfigType.TYPE_DEFAULT_ENABLED_VR_APP -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Components", Arrays.toString(info.classNames)))
                     if (info.classNames?.isEmpty() == true) sb.append(" None")
-                    info.classNames?.forEach { sb.append("
-- $it") }
+                    info.classNames?.forEach { sb.append("\n- $it") }
                 }
                 SysConfigType.TYPE_COMPONENT_OVERRIDE -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Components", ""))
                     if (info.classNames?.isEmpty() == true) sb.append(" None")
-                    info.classNames?.indices?.forEach { sb.append("
-- ${info.classNames!![it]} = ${if (info.whitelist!![it]) "Enabled" else "Disabled"}") }
+                    info.classNames?.indices?.forEach { sb.append("\n- ${info.classNames!![it]} = ${if (info.whitelist!![it]) "Enabled" else "Disabled"}") }
                 }
                 SysConfigType.TYPE_BACKUP_TRANSPORT_WHITELISTED_SERVICE -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Services", ""))
                     if (info.classNames?.isEmpty() == true) sb.append(" None")
-                    info.classNames?.forEach { sb.append("
-- $it") }
+                    info.classNames?.forEach { sb.append("\n- $it") }
                 }
                 SysConfigType.TYPE_DISABLED_UNTIL_USED_PREINSTALLED_CARRIER_ASSOCIATED_APP -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Associated packages", ""))
                     if (info.packages?.isEmpty() == true) sb.append(" None")
-                    info.packages?.indices?.forEach { sb.append("
-- Package${LangUtils.getSeparatorString()}${info.packages!![it]}, Target SDK${LangUtils.getSeparatorString()}${info.targetSdks!![it]}") }
+                    info.packages?.indices?.forEach { sb.append("\n- Package${LangUtils.getSeparatorString()}${info.packages!![it]}, Target SDK${LangUtils.getSeparatorString()}${info.targetSdks!![it]}") }
                 }
                 SysConfigType.TYPE_PRIVAPP_PERMISSIONS, SysConfigType.TYPE_OEM_PERMISSIONS -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Permissions", ""))
                     if (info.permissions?.isEmpty() == true) sb.append(" None")
-                    info.permissions?.indices?.forEach { sb.append("
-- ${info.permissions!![it]} = ${if (info.whitelist!![it]) "Granted" else "Revoked"}") }
+                    info.permissions?.indices?.forEach { sb.append("\n- ${info.permissions!![it]} = ${if (info.whitelist!![it]) "Granted" else "Revoked"}") }
                 }
                 SysConfigType.TYPE_ALLOW_ASSOCIATION -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "Associated packages", ""))
                     if (info.packages?.isEmpty() == true) sb.append(" None")
-                    info.packages?.forEach { sb.append("
-- $it") }
+                    info.packages?.forEach { sb.append("\n- $it") }
                 }
                 SysConfigType.TYPE_INSTALL_IN_USER_TYPE -> {
                     sb.append(UIUtils.getStyledKeyValue(context, "User types", ""))
                     if (info.userTypes?.isEmpty() == true) sb.append(" None")
-                    info.userTypes?.indices?.forEach { sb.append("
-- ${info.userTypes!![it]} = ${if (info.whitelist!![it]) "Whitelisted" else "Blacklisted"}") }
+                    info.userTypes?.indices?.forEach { sb.append("\n- ${info.userTypes!![it]} = ${if (info.whitelist!![it]) "Whitelisted" else "Blacklisted"}") }
                 }
                 SysConfigType.TYPE_NAMED_ACTOR -> info.actors?.indices?.forEach { sb.append("Actor${LangUtils.getSeparatorString()}${info.actors!![it]}, Package${LangUtils.getSeparatorString()}${info.packages!![it]}
 ") }

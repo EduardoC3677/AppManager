@@ -30,26 +30,8 @@ import java.util.concurrent.Executor
 @SuppressLint("RestrictedApi")
 class RootServiceManager private constructor() : Handler.Callback {
     companion object {
-        const val TAG = "RootServiceManager"
-
-        const val MSG_STOP = 1
-        const val BUNDLE_BINDER_KEY = "binder"
-        const val INTENT_BUNDLE_KEY = "bundle"
-        const val INTENT_DAEMON_KEY = "daemon"
-        const val RECEIVER_BROADCAST = BuildConfig.APPLICATION_ID + ".RECEIVER_BROADCAST"
-
-        const val CLASSPATH_ENV = "CLASSPATH"
-        const val LOGGING_ENV = "LOGGING"
-        const val DEBUG_ENV = "DEBUG"
-
-        const val CMDLINE_START_SERVICE = "start"
-        const val CMDLINE_START_DAEMON = "daemon"
-        const val CMDLINE_STOP_SERVICE = "stop"
-
-        const val API_27_DEBUG = "-Xrunjdwp:transport=dt_android_adb,suspend=n,server=y -Xcompiler-option --debuggable"
-        const val API_28_DEBUG = "-XjdwpProvider:adbconnection -XjdwpOptions:suspend=n,server=y -Xcompiler-option --debuggable"
-
-        @JvmField
+        const val TAG = "RootServiceManager"\nconst val MSG_STOP = 1
+        const val BUNDLE_BINDER_KEY = "binder"\nconst val INTENT_BUNDLE_KEY = "bundle"\nconst val INTENT_DAEMON_KEY = "daemon"\nconst val RECEIVER_BROADCAST = BuildConfig.APPLICATION_ID + ".RECEIVER_BROADCAST"\nconst val CLASSPATH_ENV = "CLASSPATH"\nconst val LOGGING_ENV = "LOGGING"\nconst val DEBUG_ENV = "DEBUG"\nconst val CMDLINE_START_SERVICE = "start"\nconst val CMDLINE_START_DAEMON = "daemon"\nconst val CMDLINE_STOP_SERVICE = "stop"\nconst val API_27_DEBUG = "-Xrunjdwp:transport=dt_android_adb,suspend=n,server=y -Xcompiler-option --debuggable"\nconst val API_28_DEBUG = "-XjdwpProvider:adbconnection -XjdwpOptions:suspend=n,server=y -Xcompiler-option --debuggable"\n@JvmField
         val PACKAGE_STAGING_DIRECTORY = File("/data/local/tmp/am_staging")
 
         const val JVMTI_ERROR = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -63,15 +45,11 @@ class RootServiceManager private constructor() : Handler.Callback {
                 "! check out RootService's Javadoc.                   !
 " +
                 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-"
-
-        private const val REMOTE_EN_ROUTE = 1 shl 0
+"\nprivate const val REMOTE_EN_ROUTE = 1 shl 0
         private const val DAEMON_EN_ROUTE = 1 shl 1
         private const val RECEIVER_REGISTERED = 1 shl 2
 
-        private const val IPCMAIN_CLASSNAME = "io.github.muntashirakon.AppManager.server.RootServiceMain"
-
-        private var sInstance: RootServiceManager? = null
+        private const val IPCMAIN_CLASSNAME = "io.github.muntashirakon.AppManager.server.RootServiceMain"\nprivate var sInstance: RootServiceManager? = null
 
         @JvmStatic
         fun getInstance(): RootServiceManager {
@@ -109,9 +87,7 @@ class RootServiceManager private constructor() : Handler.Callback {
         }
 
         private fun getParams(env: StringBuilder): String {
-            var params = ""
-
-            if (Utils.vLog()) {
+            var params = ""\nif (Utils.vLog()) {
                 env.append("$LOGGING_ENV=1 ")
             }
 
@@ -128,8 +104,7 @@ class RootServiceManager private constructor() : Handler.Callback {
             }
 
             // Disable image dex2oat as it can be quite slow in some ROMs if triggered
-            return "$params -Xnoimage-dex2oat"
-        }
+            return "$params -Xnoimage-dex2oat"\n}
     }
 
     private var mRemote: RemoteProcess? = null
@@ -159,8 +134,7 @@ class RootServiceManager private constructor() : Handler.Callback {
                 Log.e(TAG, JVMTI_ERROR)
             }
 
-            val mainJarName = "main.jar"
-            val ctx = ContextUtils.getContext()
+            val mainJarName = "main.jar"\nval ctx = ContextUtils.getContext()
             val de = ContextUtils.getDeContext(ctx)
             val mainJar: File = try {
                 File(FileUtils.getExternalCachePath(de), mainJarName)
@@ -198,14 +172,12 @@ class RootServiceManager private constructor() : Handler.Callback {
         action: String,
         debugParams: String
     ): String {
-        val execFile = "/system/bin/app_process" + if (Utils.isProcess64Bit()) "64" else "32"
-        val packageStagingCommand: String
+        val execFile = "/system/bin/app_process" + if (Utils.isProcess64Bit()) "64" else "32"\nval packageStagingCommand: String
         env.append(CLASSPATH_ENV).append("=")
         if (Ops.hasRoot()) {
             // Avoid using the package staging directory
             env.append(mainJar)
-            packageStagingCommand = ""
-        } else if (!Ops.isSystem()) {
+            packageStagingCommand = ""\n} else if (!Ops.isSystem()) {
             // Use package staging directory
             env.append(stagingMainJar)
             packageStagingCommand = (PackageUtils.ensurePackageStagingDirectoryCommand() +
@@ -214,8 +186,7 @@ class RootServiceManager private constructor() : Handler.Callback {
         } else {
             // System can't use package staging directory
             env.append(mainJar)
-            packageStagingCommand = ""
-        }
+            packageStagingCommand = ""\n}
         env.append(" ")
         return (packageStagingCommand +
                 String.format(
@@ -237,8 +208,7 @@ class RootServiceManager private constructor() : Handler.Callback {
                 Locale.ROOT, "--nice-name=%s:priv:%d",
                 BuildConfig.APPLICATION_ID, Process.myUid() / 100000
             )
-            CMDLINE_START_DAEMON -> "--nice-name=" + BuildConfig.APPLICATION_ID + ":priv:daemon"
-            else -> ""
+            CMDLINE_START_DAEMON -> "--nice-name=" + BuildConfig.APPLICATION_ID + ":priv:daemon"\nelse -> ""
         }
     }
 

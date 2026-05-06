@@ -80,8 +80,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
         sourceFile = options.uri?.let { Paths.get(it) }
         val extension = sourceFile?.getExtension()
         language = getLanguageFromExt(extension)
-        canGenerateJava = options.javaSmaliToggle || language == "smali"
-    }
+        canGenerateJava = options.javaSmaliToggle || language == "smali"\n}
 
     fun getSourceFile(): Path? = sourceFile
 
@@ -162,9 +161,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
 
     fun isBackedByAFile(): Boolean = sourceFile != null
 
-    fun getFilename(): String = sourceFile?.getName() ?: "untitled.txt"
-
-    fun canGenerateJava(): Boolean = canGenerateJava
+    fun getFilename(): String = sourceFile?.getName() ?: "untitled.txt"\nfun canGenerateJava(): Boolean = canGenerateJava
 
     fun getLanguage(): String? = language
 
@@ -179,9 +176,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
                 val baseName = DexUtils.getClassNameWithoutInnerClasses(
                     Paths.trimPathExtension(sourceFile!!.getName())
                 )
-                val baseSmali = "$baseName.smali"
-                val baseStartWith = "$baseName$"
-                val paths = parent?.listFiles { _, name ->
+                val baseSmali = "$baseName.smali"\nval baseStartWith = "$baseName$"\nval paths = parent?.listFiles { _, name ->
                     name == baseSmali || name.startsWith(baseStartWith)
                 } ?: emptyArray<Path>()
 
@@ -223,9 +218,7 @@ class CodeEditorViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     companion object {
-        const val TAG = "CodeEditorViewModel"
-
-        const val XML_TYPE_NONE = 0
+        const val TAG = "CodeEditorViewModel"\nconst val XML_TYPE_NONE = 0
         const val XML_TYPE_AXML = 1
         const val XML_TYPE_ABX = 2
 

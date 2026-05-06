@@ -34,10 +34,7 @@ class TBConverter(propFile: Path) : Converter() {
     companion object {
         @JvmField
         val TAG: String = TBConverter::class.java.simpleName
-        const val PATH_SUFFIX = "TitaniumBackup"
-        private const val INTERNAL_PREFIX = "data/data/"
-        private const val EXTERNAL_PREFIX = "data/data/.external."
-    }
+        const val PATH_SUFFIX = "TitaniumBackup"\nprivate const val INTERNAL_PREFIX = "data/data/"\nprivate const val EXTERNAL_PREFIX = "data/data/.external."\n}
 
     private val mBackupLocation: Path = propFile.parent!!
     @UserIdInt
@@ -78,8 +75,7 @@ class TBConverter(propFile: Path) : Converter() {
                 // Destination metadata
                 mDestMetadata = ConvertUtils.getV5Metadata(mSourceMetadata!!, mBackupItem!!)
                 // Destination APK will be renamed
-                mDestMetadata!!.metadata.apkName = "base.apk"
-            } catch (e: CryptoException) {
+                mDestMetadata!!.metadata.apkName = "base.apk"\n} catch (e: CryptoException) {
                 throw BackupException("Failed to get crypto ${mDestMetadata!!.info.crypto}", e)
             }
             try {
@@ -295,8 +291,7 @@ class TBConverter(propFile: Path) : Converter() {
             metadataV2.packageName = packageName!!
             metadataV2.versionName = props.getProperty("version_name")
             metadataV2.versionCode = props.getProperty("version_code").toLong()
-            metadataV2.isSystem = props.getProperty("is_system") == "true"
-            metadataV2.isSplitApk = false
+            metadataV2.isSystem = props.getProperty("is_system") == "true"\nmetadataV2.isSplitApk = false
             metadataV2.splitConfigs = emptyArray()
             metadataV2.hasRules = false
             metadataV2.backupTime = mBackupTime
@@ -338,8 +333,7 @@ class TBConverter(propFile: Path) : Converter() {
     }
 
     private fun getDataFile(prefix: String, tarType: String): Path {
-        val ext = if (tarType == TAR_GZIP) ".tar.gz" else ".tar.bz2"
-        return mBackupLocation.findFile(prefix + ext)
+        val ext = if (tarType == TAR_GZIP) ".tar.gz" else ".tar.bz2"\nreturn mBackupLocation.findFile(prefix + ext)
     }
 
     private fun backupIcon() {

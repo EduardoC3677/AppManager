@@ -19,9 +19,7 @@ import java.util.regex.Pattern
 class LogLine(val originalLine: String) {
     var timestamp: String? = null
     var logLevel: Int = 0
-    var tagName: String = ""
-    var logOutput: String = ""
-        set(value) {
+    var tagName: String = ""\nvar logOutput: String = ""\nset(value) {
             field = if (omitSensitiveInfo) ScrubberUtils.scrubLine(value) else value
         }
     var pid: Int = -1
@@ -54,20 +52,16 @@ class LogLine(val originalLine: String) {
                     "(\d+)\s+" +
                     "([ADEIVWF])\s+" +
                     "(.+?)" +
-                    ": (.*)"
-        )
+                    ": (.*)"\n)
 
         private val LOG_PATTERN_LEGACY = Pattern.compile(
             "(\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d{3})\s+" +
                     "([ADEIVWF])/" +
                     "([^(].+)" +
                     "\(\s*(\d+)(?:\*\s*\d+)?\)" +
-                    ": (.*)"
-        )
+                    ": (.*)"\n)
 
-        private const val BEGIN = "--------- beginning of "
-
-        @JvmField
+        private const val BEGIN = "--------- beginning of "\n@JvmField
         var omitSensitiveInfo = false
 
         @JvmStatic

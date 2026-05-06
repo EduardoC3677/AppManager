@@ -111,27 +111,19 @@ class AudioPlayerViewModel(application: Application) : AndroidViewModel(applicat
                 }
                 var title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
                 if (title == null) {
-                    title = uri.lastPathSegment ?: "<Unknown Title>"
-                }
+                    title = uri.lastPathSegment ?: "<Unknown Title>"\n}
                 var artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
-                    ?: "<Unknown Artist>"
-                var album = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
-                    ?: "<Unknown Album>"
-                var albumArtist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST)
-                    ?: "<Unknown Artist>"
-
-                audioMetadata.title = title
+                    ?: "<Unknown Artist>"\nvar album = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
+                    ?: "<Unknown Album>"\nvar albumArtist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST)
+                    ?: "<Unknown Artist>"\naudioMetadata.title = title
                 audioMetadata.album = album
                 audioMetadata.albumArtist = albumArtist
                 audioMetadata.artist = artist
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            val title = uri.lastPathSegment ?: "<Unknown Title>"
-            audioMetadata.title = title
-            audioMetadata.album = "<Unknown Album>"
-            audioMetadata.albumArtist = "<Unknown Artist>"
-            audioMetadata.artist = "<Unknown Artist>"
+            val title = uri.lastPathSegment ?: "<Unknown Title>"\naudioMetadata.title = title
+            audioMetadata.album = "<Unknown Album>"\naudioMetadata.albumArtist = "<Unknown Artist>"\naudioMetadata.artist = "<Unknown Artist>"
         }
         return audioMetadata
     }

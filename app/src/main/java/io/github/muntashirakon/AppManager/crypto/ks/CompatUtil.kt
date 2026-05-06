@@ -23,17 +23,9 @@ import javax.security.auth.x500.X500Principal
 
 object CompatUtil {
     private val TAG = CompatUtil::class.java.simpleName
-    private const val ANDROID_KEY_STORE_PROVIDER = "AndroidKeyStore"
-    private const val AES_GCM_CIPHER_TYPE = "AES/GCM/NoPadding"
-    private const val AES_GCM_KEY_SIZE_IN_BITS = 128
+    private const val ANDROID_KEY_STORE_PROVIDER = "AndroidKeyStore"\nprivate const val AES_GCM_CIPHER_TYPE = "AES/GCM/NoPadding"\nprivate const val AES_GCM_KEY_SIZE_IN_BITS = 128
     private const val AES_GCM_IV_LENGTH = 12
-    private const val AES_LOCAL_PROTECTION_KEY_ALIAS = "aes_local_protection"
-    private const val RSA_WRAP_LOCAL_PROTECTION_KEY_ALIAS = "rsa_wrap_local_protection"
-    private const val RSA_WRAP_CIPHER_TYPE = "RSA/NONE/PKCS1Padding"
-    private const val AES_WRAPPED_PROTECTION_KEY_SHARED_PREFERENCE = "aes_wrapped_local_protection"
-    private const val SHARED_KEY_ANDROID_VERSION_WHEN_KEY_HAS_BEEN_GENERATED = "android_version_when_key_has_been_generated"
-
-    private var sPrng: SecureRandom? = null
+    private const val AES_LOCAL_PROTECTION_KEY_ALIAS = "aes_local_protection"\nprivate const val RSA_WRAP_LOCAL_PROTECTION_KEY_ALIAS = "rsa_wrap_local_protection"\nprivate const val RSA_WRAP_CIPHER_TYPE = "RSA/NONE/PKCS1Padding"\nprivate const val AES_WRAPPED_PROTECTION_KEY_SHARED_PREFERENCE = "aes_wrapped_local_protection"\nprivate const val SHARED_KEY_ANDROID_VERSION_WHEN_KEY_HAS_BEEN_GENERATED = "android_version_when_key_has_been_generated"\nprivate var sPrng: SecureRandom? = null
 
     @JvmStatic
     @Throws(KeyStoreException::class, CertificateException::class, NoSuchAlgorithmException::class, IOException::class, NoSuchProviderException::class, InvalidAlgorithmParameterException::class, NoSuchPaddingException::class, InvalidKeyException::class, IllegalBlockSizeException::class, UnrecoverableKeyException::class)

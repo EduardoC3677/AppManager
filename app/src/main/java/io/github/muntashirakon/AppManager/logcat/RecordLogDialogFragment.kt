@@ -47,9 +47,7 @@ class RecordLogDialogFragment : DialogFragment() {
         val suggestions = requireArguments().getStringArray(QUERY_SUGGESTIONS)
         val logFilename = SaveLogHelper.createLogFilename()
         mLogLevel = Prefs.LogViewer.getLogLevel()
-        mFilterQuery = ""
-
-        return TextInputDialogBuilder(mActivity, R.string.enter_filename)
+        mFilterQuery = ""\nreturn TextInputDialogBuilder(mActivity, R.string.enter_filename)
             .setTitle(R.string.record_log)
             .setInputText(logFilename)
             .setPositiveButton(R.string.record) { _, _, filename, _ ->

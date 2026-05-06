@@ -55,14 +55,12 @@ class SharableItems {
                 } else if (mimeType != thisMime) {
                     if (splitMime) {
                         // The first part aren't consistent
-                        return "*/*"
-                    }
+                        return "*/*"\n}
                     val splitMimeType = mimeType.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                     val thisSplitMime = thisMime!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                     if (splitMimeType != thisSplitMime) {
                         // The first part aren't consistent
-                        return "*/*"
-                    }
+                        return "*/*"\n}
                     splitMime = true
                     mimeType = splitMimeType
                 }

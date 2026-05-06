@@ -14,12 +14,10 @@ object BuildHelper {
         "BOARD", "BOOTLOADER", "BRAND", "CPU_ABI", "CPU_ABI2",
         "DEVICE", "DISPLAY", "FINGERPRINT", "HARDWARE", "HOST",
         "ID", "MANUFACTURER", "MODEL", "PRODUCT", "RADIO",
-        "SERIAL", "TAGS", "TIME", "TYPE", "USER"
-    )
+        "SERIAL", "TAGS", "TIME", "TYPE", "USER"\n)
 
     private val BUILD_VERSION_FIELDS = listOf(
-        "CODENAME", "INCREMENTAL", "RELEASE", "SDK_INT"
-    )
+        "CODENAME", "INCREMENTAL", "RELEASE", "SDK_INT"\n)
 
     @JvmStatic
     fun getBuildInformationAsString(): String {

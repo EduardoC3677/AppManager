@@ -173,8 +173,7 @@ class ProfilesActivity : BaseActivity(), NewProfileDialogFragment.OnCreateNewPro
                 holder.title.text = profile.name
             }
             val value = mAdapterMap?.get(profile)
-            holder.summary.text = value ?: ""
-            holder.itemView.setOnClickListener {
+            holder.summary.text = value ?: ""\nholder.itemView.setOnClickListener {
                 val intent = ProfileManager.getProfileIntent(mActivity, profile.type, profile.profileId)
                 mActivity.startActivity(intent)
             }

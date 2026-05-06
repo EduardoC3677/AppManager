@@ -27,8 +27,7 @@ object RestartUtils {
 
     private val RESTART_REASON = arrayOf(
         // Mapped to above
-        "", "recovery", "bootloader", "userspace", "download", "edl"
-    )
+        "", "recovery", "bootloader", "userspace", "download", "edl"\n)
 
     @JvmStatic
     fun restart(@RestartType type: Int) {

@@ -337,8 +337,7 @@ class AppDetailsPermissionsFragment : AppDetailsFragment() {
                 val sb = StringBuilder()
                 if (hasAcc) sb.append("${context.getString(R.string.accept_time)}${LangUtils.getSeparatorString()}${DateUtils.getFormattedDuration(context, now - item.time)} ${context.getString(R.string.ago)}")
                 if (hasRej) {
-                    if (sb.isNotEmpty()) sb.append("
-")
+                    if (sb.isNotEmpty()) sb.append("\n")
                     sb.append("${context.getString(R.string.reject_time)}${LangUtils.getSeparatorString()}${DateUtils.getFormattedDuration(context, now - item.rejectTime)} ${context.getString(R.string.ago)}")
                 }
                 holder.textView8?.visibility = View.VISIBLE
@@ -346,11 +345,9 @@ class AppDetailsPermissionsFragment : AppDetailsFragment() {
             } else holder.textView8?.visibility = View.GONE
             item.permissionInfo?.let { pi ->
                 holder.textView6?.visibility = View.VISIBLE
-                holder.textView6?.text = "${context.getString(R.string.permission_name)}${LangUtils.getSeparatorString()}${pi.name}"
-                pi.loadDescription(packageManager)?.let { holder.textView2?.visibility = View.VISIBLE; holder.textView2?.text = it } ?: run { holder.textView2?.visibility = View.GONE }
+                holder.textView6?.text = "${context.getString(R.string.permission_name)}${LangUtils.getSeparatorString()}${pi.name}"\npi.loadDescription(packageManager)?.let { holder.textView2?.visibility = View.VISIBLE; holder.textView2?.text = it } ?: run { holder.textView2?.visibility = View.GONE }
                 holder.textView3?.visibility = View.VISIBLE
-                holder.textView3?.text = "⚑ ${Utils.getProtectionLevelString(pi)}|${if (item.permission!!.isGranted()) "granted" else "revoked"}"
-                pi.packageName?.let { holder.textView4?.visibility = View.VISIBLE; holder.textView4?.text = "${context.getString(R.string.package_name)}${LangUtils.getSeparatorString()}$it" } ?: run { holder.textView4?.visibility = View.GONE }
+                holder.textView3?.text = "⚑ ${Utils.getProtectionLevelString(pi)}|${if (item.permission!!.isGranted()) "granted" else "revoked"}"\npi.packageName?.let { holder.textView4?.visibility = View.VISIBLE; holder.textView4?.text = "${context.getString(R.string.package_name)}${LangUtils.getSeparatorString()}$it" } ?: run { holder.textView4?.visibility = View.GONE }
                 pi.group?.let { holder.textView5?.visibility = View.VISIBLE; holder.textView5?.text = "${context.getString(R.string.group)}${LangUtils.getSeparatorString()}$it" } ?: run { holder.textView5?.visibility = View.GONE }
             } ?: run { holder.textView2?.visibility = View.GONE; holder.textView3?.visibility = View.GONE; holder.textView4?.visibility = View.GONE; holder.textView5?.visibility = View.GONE; holder.textView6?.visibility = View.GONE }
             holder.cardView.strokeColor = if (item.isDangerous) ColorCodes.getPermissionDangerousIndicatorColor(context) else Color.TRANSPARENT
@@ -381,8 +378,7 @@ class AppDetailsPermissionsFragment : AppDetailsFragment() {
             val info = item.item
             holder.textView1?.text = if (mConstraint != null && info.name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(info.name, mConstraint!!, colorQueryStringHighlight) else info.name
             info.loadDescription(packageManager)?.let { holder.textView2?.visibility = View.VISIBLE; holder.textView2?.text = it } ?: run { holder.textView2?.visibility = View.GONE }
-            holder.textView3?.text = "⚑ ${Utils.getProtectionLevelString(info)}|${if (item.permission.isGranted()) "granted" else "revoked"}"
-            holder.cardView.strokeColor = if (item.isDangerous) ColorCodes.getPermissionDangerousIndicatorColor(context) else Color.TRANSPARENT
+            holder.textView3?.text = "⚑ ${Utils.getProtectionLevelString(info)}|${if (item.permission.isGranted()) "granted" else "revoked"}"\nholder.cardView.strokeColor = if (item.isDangerous) ColorCodes.getPermissionDangerousIndicatorColor(context) else Color.TRANSPARENT
             info.packageName?.let { holder.textView4?.visibility = View.VISIBLE; holder.textView4?.text = "${context.getString(R.string.package_name)}${LangUtils.getSeparatorString()}$it" } ?: run { holder.textView4?.visibility = View.GONE }
             info.group?.let { holder.textView5?.visibility = View.VISIBLE; holder.textView5?.text = "${context.getString(R.string.group)}${LangUtils.getSeparatorString()}$it" } ?: run { holder.textView5?.visibility = View.GONE }
             val canMod = item.modifiable && !mIsExternalApk
@@ -425,17 +421,13 @@ class AppDetailsPermissionsFragment : AppDetailsFragment() {
             holder.textView1?.text = info.loadLabel(packageManager)
             holder.textView2?.text = if (mConstraint != null && info.name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(info.name, mConstraint!!, colorQueryStringHighlight)
             else if (info.name.startsWith(mPackageName!!)) info.name.replaceFirst(mPackageName!!, "") else info.name
-            val tag = "${mPackageName}_${info.name}"
-            holder.imageView?.tag = tag
+            val tag = "${mPackageName}_${info.name}"\nholder.imageView?.tag = tag
             ImageLoader.getInstance().displayImage(tag, info, holder.imageView!!)
             info.loadDescription(packageManager)?.let { holder.textView3?.visibility = View.VISIBLE; holder.textView3?.text = it } ?: run { holder.textView3?.visibility = View.GONE }
-            holder.textView4?.text = "${getString(R.string.group)}: ${info.group}${permAppOp(info.name)}"
-            val prot = Utils.getProtectionLevelString(info)
-            holder.textView5?.text = "⚑ $prot"
-            holder.cardView.strokeColor = if (prot.contains("dangerous")) ColorCodes.getPermissionDangerousIndicatorColor(context) else Color.TRANSPARENT
+            holder.textView4?.text = "${getString(R.string.group)}: ${info.group}${permAppOp(info.name)}"\nval prot = Utils.getProtectionLevelString(info)
+            holder.textView5?.text = "⚑ $prot"\nholder.cardView.strokeColor = if (prot.contains("dangerous")) ColorCodes.getPermissionDangerousIndicatorColor(context) else Color.TRANSPARENT
         }
 
-        private fun permAppOp(s: String): String = AppOpsManagerCompat.permissionToOp(s)?.let { "
-AppOp: $it" } ?: ""
+        private fun permAppOp(s: String): String = AppOpsManagerCompat.permissionToOp(s)?.let { "\nAppOp: $it" } ?: ""
     }
 }

@@ -238,8 +238,7 @@ class InstallerPreferences : PreferenceFragment() {
             items.add(pair.first)
             itemNames.add(
                 SpannableStringBuilder(pair.second)
-                    .append("
-")
+                    .append("\n")
                     .append(getSecondaryText(requireContext(), getSmallerText(pair.first)))
             )
         }

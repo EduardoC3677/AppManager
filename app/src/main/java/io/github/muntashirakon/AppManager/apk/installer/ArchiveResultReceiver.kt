@@ -39,7 +39,6 @@ class ArchiveResultReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val ACTION_ARCHIVE_RESULT = "io.github.muntashirakon.AppManager.ACTION_ARCHIVE_RESULT"
-        private const val TAG = "ArchiveResultReceiver"
+        const val ACTION_ARCHIVE_RESULT = "io.github.muntashirakon.AppManager.ACTION_ARCHIVE_RESULT"\nprivate const val TAG = "ArchiveResultReceiver"
     }
 }

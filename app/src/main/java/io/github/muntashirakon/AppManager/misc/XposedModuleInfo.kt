@@ -55,8 +55,7 @@ class XposedModuleInfo(private val mApp: ApplicationInfo, modernModuleApk: ZipFi
                     prop.load(modernModuleApk.getInputStream(propEntry))
                     minV = extractIntPart(prop.getProperty("minApiVersion") ?: "")
                     targetV = extractIntPart(prop.getProperty("targetApiVersion") ?: "")
-                    staticS = prop.getProperty("staticScope") == "true"
-                }
+                    staticS = prop.getProperty("staticScope") == "true"\n}
                 val scopeEntry = modernModuleApk.getEntry("META-INF/xposed/scope.list")
                 if (scopeEntry != null) {
                     BufferedReader(InputStreamReader(modernModuleApk.getInputStream(scopeEntry))).use { reader ->
@@ -85,8 +84,7 @@ class XposedModuleInfo(private val mApp: ApplicationInfo, modernModuleApk: ZipFi
 
     fun getDescription(pm: PackageManager): CharSequence {
         if (mDescription != null) return mDescription!!
-        var descriptionTmp: CharSequence = ""
-        if (legacy) {
+        var descriptionTmp: CharSequence = ""\nif (legacy) {
             val descriptionRaw = mApp.metaData?.get("xposeddescription")
             if (descriptionRaw is String) {
                 descriptionTmp = descriptionRaw.trim()
@@ -117,9 +115,7 @@ class XposedModuleInfo(private val mApp: ApplicationInfo, modernModuleApk: ZipFi
         list?.let {
             it.replaceAll { s ->
                 when (s) {
-                    "android" -> "system"
-                    "system" -> "android"
-                    else -> s
+                    "android" -> "system"\n"system" -> "android"\nelse -> s
                 }
             }
             mScopeList = it
@@ -130,27 +126,19 @@ class XposedModuleInfo(private val mApp: ApplicationInfo, modernModuleApk: ZipFi
     override fun toLocalizedString(context: Context): CharSequence {
         val pm = context.packageManager
         val sb = SpannableStringBuilder()
-            .append(getStyledKeyValue(context, R.string.module_name, getAppLabel(pm))).append("
-")
-            .append(getStyledKeyValue(context, R.string.title_description, getDescription(pm))).append("
-")
-            .append(getStyledKeyValue(context, R.string.type, if (legacy) "Legacy" else "Modern")).append("
-")
+            .append(getStyledKeyValue(context, R.string.module_name, getAppLabel(pm))).append("\n")
+            .append(getStyledKeyValue(context, R.string.title_description, getDescription(pm))).append("\n")
+            .append(getStyledKeyValue(context, R.string.type, if (legacy) "Legacy" else "Modern")).append("\n")
         if (legacy) {
-            sb.append(getStyledKeyValue(context, "Xposed Minimum API", minVersion.toString())).append("
-")
+            sb.append(getStyledKeyValue(context, "Xposed Minimum API", minVersion.toString())).append("\n")
         } else {
-            sb.append(getStyledKeyValue(context, "Xposed API", "")).append("
-")
+            sb.append(getStyledKeyValue(context, "Xposed API", "")).append("\n")
                 .append(getStyledKeyValue(context, "  Min", minVersion.toString())).append(", ")
-                .append(getStyledKeyValue(context, "Target", targetVersion.toString())).append("
-")
-                .append(getStyledKeyValue(context, "Scope", if (staticScope) "Static" else "Dynamic")).append("
-")
+                .append(getStyledKeyValue(context, "Target", targetVersion.toString())).append("\n")
+                .append(getStyledKeyValue(context, "Scope", if (staticScope) "Static" else "Dynamic")).append("\n")
         }
         getScopeList(pm)?.takeIf { it.isNotEmpty() }?.let {
-            sb.append(getBoldString("Scopes")).append("
-").append(UiUtils.getOrderedList(it))
+            sb.append(getBoldString("Scopes")).append("\n").append(UiUtils.getOrderedList(it))
         }
         return sb
     }

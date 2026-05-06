@@ -37,24 +37,20 @@ class OABConverter(private val mBackupLocation: Path) : Converter() {
     companion object {
         @JvmField
         val TAG: String = OABConverter::class.java.simpleName
-        const val PATH_SUFFIX = "oandbackups"
-
-        private val SPECIAL_BACKUPS = listOf(
+        const val PATH_SUFFIX = "oandbackups"\nprivate val SPECIAL_BACKUPS = listOf(
             "accounts",
             "appwidgets",
             "bluetooth",
             "data.usage.policy",
             "wallpaper",
-            "wifi.access.points"
-        )
+            "wifi.access.points"\n)
 
         private const val MODE_UNSET = 0
         private const val MODE_APK = 1
         private const val MODE_DATA = 2
         private const val MODE_BOTH = 3
 
-        private const val EXTERNAL_FILES = "external_files"
-    }
+        private const val EXTERNAL_FILES = "external_files"\n}
 
     override val packageName: String = mBackupLocation.getName()
     @UserIdInt

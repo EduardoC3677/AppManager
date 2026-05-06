@@ -16,9 +16,7 @@ import java.util.IllformedLocaleException
 import java.util.Locale
 
 object LangUtils {
-    const val LANG_AUTO = "auto"
-
-    private var sLocaleMap: MutableMap<String, Locale?>? = null
+    const val LANG_AUTO = "auto"\nprivate var sLocaleMap: MutableMap<String, Locale?>? = null
 
     @SuppressLint("AppBundleLocaleChanges") // We don't use Play Store
     private fun loadAppLanguages(context: Context) {
@@ -73,10 +71,8 @@ object LangUtils {
     @JvmStatic
     fun getSeparatorString(): String {
         return if (Locale.getDefault().language == Locale("fr").language) {
-            " : "
-        } else {
-            ": "
-        }
+            " : "\n} else {
+            ": "\n}
     }
 
     @JvmStatic

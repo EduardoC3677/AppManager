@@ -122,12 +122,10 @@ class ComponentRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "ComponentRule{packageName='$packageName', name='$name', type=${type.name}, componentStatus='$componentStatus'}"
-    }
+        return "ComponentRule{packageName='$packageName', name='$name', type=${type.name}, componentStatus='$componentStatus'}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
-        return addPackageWithTab(isExternal) + "$name\t${type.name}\t$componentStatus"
-    }
+        return addPackageWithTab(isExternal) + "$name\t${type.name}\t$componentStatus"\n}
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -145,21 +143,14 @@ class ComponentRule : RuleEntry {
         /** Component has been blocked with both IFW and PM. */
         const val COMPONENT_BLOCKED_IFW_DISABLE = "true" // To preserve compatibility
         /** Component has been blocked with IFW. */
-        const val COMPONENT_BLOCKED_IFW = "ifw_true"
-        /** Component has been disabled. */
-        const val COMPONENT_DISABLED = "dis_true"
-        /** Component has been enabled. */
-        const val COMPONENT_ENABLED = "en_true"
-
-        /** Component will be blocked with both IFW and PM. */
+        const val COMPONENT_BLOCKED_IFW = "ifw_true"\n/** Component has been disabled. */
+        const val COMPONENT_DISABLED = "dis_true"\n/** Component has been enabled. */
+        const val COMPONENT_ENABLED = "en_true"\n/** Component will be blocked with both IFW and PM. */
         const val COMPONENT_TO_BE_BLOCKED_IFW_DISABLE = "false" // To preserve compatibility
         /** Component will be blocked with IFW. */
-        const val COMPONENT_TO_BE_BLOCKED_IFW = "ifw_false"
-        /** Component will be disabled. */
-        const val COMPONENT_TO_BE_DISABLED = "dis_false"
-        /** Component will be enabled. */
-        const val COMPONENT_TO_BE_ENABLED = "en_false"
-        /** Component will be set to the default state, removed from IFW rules if exists and cleared from DB. */
+        const val COMPONENT_TO_BE_BLOCKED_IFW = "ifw_false"\n/** Component will be disabled. */
+        const val COMPONENT_TO_BE_DISABLED = "dis_false"\n/** Component will be enabled. */
+        const val COMPONENT_TO_BE_ENABLED = "en_false"\n/** Component will be set to the default state, removed from IFW rules if exists and cleared from DB. */
         const val COMPONENT_TO_BE_DEFAULTED = "unblocked"
     }
 }

@@ -14,20 +14,16 @@ import io.github.muntashirakon.io.Paths
 import java.util.*
 
 object MagiskUtils {
-    const val NVBASE = "/data/adb"
-    private var sBootMode = false
+    const val NVBASE = "/data/adb"\nprivate var sBootMode = false
 
-    const val ISOLATED_MAGIC = "isolated"
-
-    private val SCAN_PATHS = arrayOf(
+    const val ISOLATED_MAGIC = "isolated"\nprivate val SCAN_PATHS = arrayOf(
         "/system/app", "/system/priv-app", "/system/preload",
         "/system/product/app", "/system/product/priv-app", "/system/product/overlay",
         "/system/vendor/app", "/system/vendor/overlay",
         "/system/system_ext/app", "/system/system_ext/priv-app",
         "/system_ext/app", "/system_ext/priv-app",
         "/vendor/app", "/vendor/overlay",
-        "/product/app", "/product/priv-app", "/product/overlay"
-    )
+        "/product/app", "/product/priv-app", "/product/overlay"\n)
 
     @JvmStatic
     fun getModDir(): Path {
@@ -88,8 +84,7 @@ object MagiskUtils {
         packageInfo.services?.forEach { info ->
             if ((info.flags and ServiceInfo.FLAG_ISOLATED_PROCESS) != 0) {
                 if ((info.flags and ServiceInfo.FLAG_USE_APP_ZYGOTE) != 0) {
-                    val procName = (applicationInfo.processName ?: applicationInfo.packageName) + "_zygote"
-                    if (processNameProcessMap[procName] == null) {
+                    val procName = (applicationInfo.processName ?: applicationInfo.packageName) + "_zygote"\nif (processNameProcessMap[procName] == null) {
                         val mp = MagiskProcess(packageName, procName)
                         mp.isEnabled = enabledProcesses.contains(procName)
                         mp.isIsolatedProcess = true

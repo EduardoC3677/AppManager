@@ -174,8 +174,7 @@ class EditPrefItemFragment : DialogFragment() {
 
     companion object {
         val TAG: String = EditPrefItemFragment::class.java.simpleName
-        const val ARG_PREF_ITEM = "ARG_PREF_ITEM"
-        const val ARG_MODE = "ARG_MODE"
+        const val ARG_PREF_ITEM = "ARG_PREF_ITEM"\nconst val ARG_MODE = "ARG_MODE"
         const val MODE_EDIT = 1
         const val MODE_CREATE = 2
         const val MODE_DELETE = 3

@@ -34,8 +34,7 @@ object SensorServiceCompat {
     @RequiresPermission(ManifestCompat.permission.MANAGE_SENSORS)
     @Throws(IOException::class)
     fun enableSensor(packageName: String, @UserIdInt userId: Int, enable: Boolean) {
-        val state = if (enable) "active" else "idle"
-        val command: Array<String> = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+        val state = if (enable) "active" else "idle"\nval command: Array<String> = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             arrayOf("set-uid-state", packageName, state, "--user", userId.toString())
         } else {
             arrayOf("set-uid-state", packageName, state)

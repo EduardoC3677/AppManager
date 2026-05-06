@@ -143,7 +143,6 @@ class FreezeUnfreezeService : Service() {
 
     companion object {
         val TAG: String = FreezeUnfreezeService::class.java.simpleName
-        val CHANNEL_ID = "${BuildConfig.APPLICATION_ID}.channel.FREEZE_UNFREEZE_MONITOR"
-        private const val STOP_ACTION = "${BuildConfig.APPLICATION_ID}.action.STOP_FREEZE_UNFREEZE_MONITOR"
+        val CHANNEL_ID = "${BuildConfig.APPLICATION_ID}.channel.FREEZE_UNFREEZE_MONITOR"\nprivate const val STOP_ACTION = "${BuildConfig.APPLICATION_ID}.action.STOP_FREEZE_UNFREEZE_MONITOR"
     }
 }

@@ -37,8 +37,7 @@ class ClassListingFragment : Fragment() {
             val sb = SpannableStringBuilder()
             for (i in allClasses.indices) {
                 sb.append(getMonospacedText(allClasses[i]))
-                if (i < allClasses.size - 1) sb.append("
-")
+                if (i < allClasses.size - 1) sb.append("\n")
             }
             description.text = sb
         }

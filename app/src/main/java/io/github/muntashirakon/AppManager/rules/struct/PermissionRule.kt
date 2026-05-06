@@ -80,8 +80,7 @@ class PermissionRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "PermissionRule{packageName='$packageName', name='$name', isGranted=$isGranted, flags=$flags}"
-    }
+        return "PermissionRule{packageName='$packageName', name='$name', isGranted=$isGranted, flags=$flags}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t$isGranted\t$flags"

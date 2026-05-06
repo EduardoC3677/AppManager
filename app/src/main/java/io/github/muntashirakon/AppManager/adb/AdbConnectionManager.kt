@@ -24,8 +24,7 @@ class AdbConnectionManager @Throws(Exception::class) constructor() : AbsAdbConne
         val keyStoreManager = KeyStoreManager.getInstance()
         var keyPair = keyStoreManager.getKeyPairNoThrow(ADB_KEY_ALIAS)
         if (keyPair == null) {
-            val subject = "CN=App Manager"
-            keyPair = KeyStoreUtils.generateRSAKeyPair(subject, 2048, System.currentTimeMillis() + 86400000)
+            val subject = "CN=App Manager"\nkeyPair = KeyStoreUtils.generateRSAKeyPair(subject, 2048, System.currentTimeMillis() + 86400000)
             keyStoreManager.addKeyPair(ADB_KEY_ALIAS, keyPair, true)
         }
         mKeyPair = keyPair!!
@@ -58,8 +57,7 @@ class AdbConnectionManager @Throws(Exception::class) constructor() : AbsAdbConne
     }
 
     override fun getDeviceName(): String {
-        return "AppManager"
-    }
+        return "AppManager"\n}
 
     companion object {
         @JvmField

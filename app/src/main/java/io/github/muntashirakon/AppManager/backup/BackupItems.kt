@@ -19,17 +19,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 object BackupItems {
-    const val BACKUP_DIRECTORY = "backups"
-    private const val APK_SAVING_DIRECTORY = "apks"
-
-    private const val ICON_FILE = "icon.png"
-    private const val RULES_TSV = "rules.am.tsv"
-    private const val MISC_TSV = "misc.am.tsv"
-    private const val CHECKSUMS_TXT = "checksums.txt"
-    private const val FREEZE = ".freeze"
-    private const val NO_MEDIA = ".nomedia"
-
-    private val baseDirectory: Path
+    const val BACKUP_DIRECTORY = "backups"\nprivate const val APK_SAVING_DIRECTORY = "apks"\nprivate const val ICON_FILE = "icon.png"\nprivate const val RULES_TSV = "rules.am.tsv"\nprivate const val MISC_TSV = "misc.am.tsv"\nprivate const val CHECKSUMS_TXT = "checksums.txt"\nprivate const val FREEZE = ".freeze"\nprivate const val NO_MEDIA = ".nomedia"\nprivate val baseDirectory: Path
         get() = Prefs.Storage.getAppManagerDirectory()
 
     @JvmStatic

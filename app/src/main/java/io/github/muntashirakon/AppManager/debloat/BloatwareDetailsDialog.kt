@@ -141,29 +141,19 @@ class BloatwareDetailsDialog : CapsuleBottomSheetDialogFragment() {
         debloatObject.getDescription()?.let { sb.append(it.trim()) }
         val dependencies = debloatObject.getDependencies()
         if (dependencies.isNotEmpty()) {
-            if (dependencies.size == 1) sb.append(UIUtils.getBoldString("
-
-Dependency: ")).append(dependencies[0])
-            else sb.append(UIUtils.getBoldString("
-
-Dependencies
+            if (dependencies.size == 1) sb.append(UIUtils.getBoldString("\nDependency: ")).append(dependencies[0])
+            else sb.append(UIUtils.getBoldString("\nDependencies
 ")).append(UIUtils.getOrderedList(dependencies.toList()))
         }
         val requiredBy = debloatObject.getRequiredBy()
         if (requiredBy.isNotEmpty()) {
-            if (requiredBy.size == 1) sb.append(UIUtils.getBoldString("
-
-Required by: ")).append(requiredBy[0])
-            else sb.append(UIUtils.getBoldString("
-
-Required by
+            if (requiredBy.size == 1) sb.append(UIUtils.getBoldString("\nRequired by: ")).append(requiredBy[0])
+            else sb.append(UIUtils.getBoldString("\nRequired by
 ")).append(UIUtils.getOrderedList(requiredBy.toList()))
         }
         val refSites = debloatObject.getWebRefs()
         if (refSites.isNotEmpty()) {
-            sb.append(UIUtils.getBoldString("
-
-References
+            sb.append(UIUtils.getBoldString("\nReferences
 ")).append(UIUtils.getOrderedList(refSites.toList()))
         }
         return sb
@@ -226,8 +216,7 @@ References
                 }
             }
             val sb = StringBuilder()
-            suggestion.reason?.let { sb.append(it).append("
-") }
+            suggestion.reason?.let { sb.append(it).append("\n") }
             sb.append(suggestion.repo)
             holder.repoView.text = sb
         }

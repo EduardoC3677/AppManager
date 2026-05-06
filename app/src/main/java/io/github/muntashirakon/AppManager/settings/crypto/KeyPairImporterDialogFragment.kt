@@ -27,9 +27,7 @@ import java.util.*
 
 class KeyPairImporterDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "KeyPairImporterDialogFragment"
-        const val EXTRA_ALIAS = "alias"
-    }
+        const val TAG = "KeyPairImporterDialogFragment"\nconst val EXTRA_ALIAS = "alias"\n}
 
     interface OnKeySelectedListener {
         fun onKeySelected(keyPair: KeyPair?)

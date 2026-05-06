@@ -22,8 +22,7 @@ class ApkWhatsNewFinder {
     annotation class ChangeType
 
     class Change(val changeType: Int, var value: String) {
-        override fun toString(): String = "Change{changeType=$changeType, value='$value'}"
-    }
+        override fun toString(): String = "Change{changeType=$changeType, value='$value'}"\n}
 
     private val mTmpInfo = mutableSetOf<String>()
 
@@ -38,9 +37,7 @@ class ApkWhatsNewFinder {
         val newVersionCode = PackageInfoCompat.getLongVersionCode(newPkgInfo)
         val oldVersionCode = PackageInfoCompat.getLongVersionCode(oldPkgInfo)
         if (newVersionCode != oldVersionCode) {
-            val newVersionInfo = "${newPkgInfo.versionName} ($newVersionCode)"
-            val oldVersionInfo = "${oldPkgInfo.versionName} ($oldVersionCode)"
-            changes[VERSION_INFO] = arrayOf(
+            val newVersionInfo = "${newPkgInfo.versionName} ($newVersionCode)"\nval oldVersionInfo = "${oldPkgInfo.versionName} ($oldVersionCode)"\nchanges[VERSION_INFO] = arrayOf(
                 Change(CHANGE_INFO, componentInfo[VERSION_INFO]),
                 Change(CHANGE_ADD, newVersionInfo),
                 Change(CHANGE_REMOVED, oldVersionInfo)

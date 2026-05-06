@@ -7,8 +7,7 @@ import java.util.*
 
 class BatchOpsLogger : Logger {
     override fun println(priority: Int, tag: String?, message: String?, th: Throwable?) {
-        val log = (if (tag != null) "[$tag] " else "") + message + (if (th != null) "
-" + android.util.Log.getStackTraceString(th) else "")
+        val log = (if (tag != null) "[$tag] " else "") + message + (if (th != null) "\n" + android.util.Log.getStackTraceString(th) else "")
         synchronized(sAllLogs) {
             sAllLogs.add(log)
         }

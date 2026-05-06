@@ -126,9 +126,7 @@ class FmProvider : ContentProvider() {
     }
 
     companion object {
-        const val AUTHORITY = BuildConfig.APPLICATION_ID + ".file"
-
-        @JvmStatic
+        const val AUTHORITY = BuildConfig.APPLICATION_ID + ".file"\n@JvmStatic
         fun getContentUri(path: Path): Uri {
             return getContentUri(path.getUri())
         }
@@ -157,8 +155,7 @@ class FmProvider : ContentProvider() {
             val pathParts = uri.pathSegments
             var pathStartIndex = 0
             var scheme = ContentResolver.SCHEME_FILE
-            var authority = ""
-            if (pathParts.isNotEmpty()) {
+            var authority = ""\nif (pathParts.isNotEmpty()) {
                 val firstPart = pathParts[0]
                 if (firstPart.startsWith("!!")) {
                     pathStartIndex = 1

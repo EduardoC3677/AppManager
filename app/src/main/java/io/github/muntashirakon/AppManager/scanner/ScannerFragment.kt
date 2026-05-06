@@ -94,8 +94,7 @@ class ScannerFragment : Fragment() {
                     .append(getMonospacedText(digest.second)))
             }
             view.findViewById<TextView>(R.id.apk_title).setText(R.string.apk_checksums)
-            view.findViewById<TextView>(R.id.apk_description).text = TextUtilsCompat.joinSpannable("
-", lines)
+            view.findViewById<TextView>(R.id.apk_description).text = TextUtilsCompat.joinSpannable("\n", lines)
         }
         mViewModel!!.getPackageInfoLiveData().observe(viewLifecycleOwner) { packageInfo ->
             if (packageInfo != null) {
@@ -147,10 +146,8 @@ class ScannerFragment : Fragment() {
                         .setNegativeButton(R.string.ok, null)
                         .setNeutralButton(R.string.send_selected) { _, _, selectedItems ->
                             val message = "Package: ${mViewModel!!.packageName}
-Signatures: $selectedItems"
-                            val i = Intent(Intent.ACTION_SEND).apply {
-                                type = "message/rfc822"
-                                putExtra(Intent.EXTRA_EMAIL, arrayOf("am4android@riseup.net"))
+Signatures: $selectedItems"\nval i = Intent(Intent.ACTION_SEND).apply {
+                                type = "message/rfc822"\nputExtra(Intent.EXTRA_EMAIL, arrayOf("am4android@riseup.net"))
                                 putExtra(Intent.EXTRA_SUBJECT, "App Manager: Missing signatures")
                                 putExtra(Intent.EXTRA_TEXT, message)
                             }
@@ -229,8 +226,7 @@ Signatures: $selectedItems"
                 }
                 sb.append(getSmallerText(" (${item.engineVersion})"))
                 if (item.result != null) {
-                    sb.append("
-").append(item.result)
+                    sb.append("\n").append(item.result)
                 }
             }
             detectedList.addAll(suspiciousList)
@@ -274,8 +270,7 @@ Signatures: $selectedItems"
                 foundNativeLibInfoMap[libNames[i]] = builder
             }
             for (lib in matchedLibs[i]!!) {
-                builder.append("
-").append(getMonospacedText(lib))
+                builder.append("\n").append(getMonospacedText(lib))
             }
         }
         return foundNativeLibInfoMap
@@ -291,8 +286,7 @@ Signatures: $selectedItems"
                     .append(getPrimaryText(mActivity!!, trackerInfo.label))
             }
             foundTrackerInfoMap[trackerInfo.label]!!
-                .append("
-")
+                .append("\n")
                 .append(getMonospacedText(trackerInfo.signature))
                 .append(getSmallerText(" (${trackerInfo.count})"))
             if (!hasSecondDegree) {
@@ -348,8 +342,7 @@ Signatures: $selectedItems"
                     .append(getSmallerText(" (${libraryInfo.type})"))
             }
             foundLibInfoMap[libraryInfo.label]!!
-                .append("
-")
+                .append("\n")
                 .append(getMonospacedText(libraryInfo.signature))
                 .append(getSmallerText(" (${libraryInfo.count})"))
         }
@@ -381,20 +374,15 @@ Signatures: $selectedItems"
             val builder = SpannableStringBuilder()
             for (cert in certificates) {
                 try {
-                    if (builder.isNotEmpty()) builder.append("
-
-")
+                    if (builder.isNotEmpty()) builder.append("\n")
                     builder.append(getPrimaryText(context, context.getString(R.string.issuer) + LangUtils.getSeparatorString()))
-                        .append(cert.issuerX500Principal.name).append("
-")
+                        .append(cert.issuerX500Principal.name).append("\n")
                         .append(getPrimaryText(context, context.getString(R.string.algorithm) + LangUtils.getSeparatorString()))
-                        .append(cert.sigAlgName).append("
-")
+                        .append(cert.sigAlgName).append("\n")
                     builder.append(getPrimaryText(context, context.getString(R.string.checksums)))
                     val digests = DigestUtils.getDigests(cert.encoded)
                     for (digest in digests) {
-                        builder.append("
-")
+                        builder.append("\n")
                             .append(getPrimaryText(context, digest.first + LangUtils.getSeparatorString()))
                             .append(getMonospacedText(digest.second))
                     }

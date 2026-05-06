@@ -204,23 +204,7 @@ object IntentCompat {
             for (key in extras.keySet()) {
                 val pair = valueToParsableStringAndType(extras.get(key)) ?: continue
                 val prefix = when (pair.first) {
-                    AddIntentExtraFragment.TYPE_STRING -> "--es"
-                    AddIntentExtraFragment.TYPE_NULL -> "--esn"
-                    AddIntentExtraFragment.TYPE_BOOLEAN -> "--ez"
-                    AddIntentExtraFragment.TYPE_INTEGER -> "--ei"
-                    AddIntentExtraFragment.TYPE_LONG -> "--el"
-                    AddIntentExtraFragment.TYPE_FLOAT -> "--ef"
-                    AddIntentExtraFragment.TYPE_URI -> "--eu"
-                    AddIntentExtraFragment.TYPE_COMPONENT_NAME -> "--ecn"
-                    AddIntentExtraFragment.TYPE_INT_ARR -> "--eia"
-                    AddIntentExtraFragment.TYPE_INT_AL -> "--eial"
-                    AddIntentExtraFragment.TYPE_LONG_ARR -> "--ela"
-                    AddIntentExtraFragment.TYPE_LONG_AL -> "--elal"
-                    AddIntentExtraFragment.TYPE_FLOAT_ARR -> "--efa"
-                    AddIntentExtraFragment.TYPE_FLOAT_AL -> "--efal"
-                    AddIntentExtraFragment.TYPE_STRING_ARR -> "--esa"
-                    AddIntentExtraFragment.TYPE_STRING_AL -> "--esal"
-                    else -> continue
+                    AddIntentExtraFragment.TYPE_STRING -> "--es"\nAddIntentExtraFragment.TYPE_NULL -> "--esn"\nAddIntentExtraFragment.TYPE_BOOLEAN -> "--ez"\nAddIntentExtraFragment.TYPE_INTEGER -> "--ei"\nAddIntentExtraFragment.TYPE_LONG -> "--el"\nAddIntentExtraFragment.TYPE_FLOAT -> "--ef"\nAddIntentExtraFragment.TYPE_URI -> "--eu"\nAddIntentExtraFragment.TYPE_COMPONENT_NAME -> "--ecn"\nAddIntentExtraFragment.TYPE_INT_ARR -> "--eia"\nAddIntentExtraFragment.TYPE_INT_AL -> "--eial"\nAddIntentExtraFragment.TYPE_LONG_ARR -> "--ela"\nAddIntentExtraFragment.TYPE_LONG_AL -> "--elal"\nAddIntentExtraFragment.TYPE_FLOAT_ARR -> "--efa"\nAddIntentExtraFragment.TYPE_FLOAT_AL -> "--efal"\nAddIntentExtraFragment.TYPE_STRING_ARR -> "--esa"\nAddIntentExtraFragment.TYPE_STRING_AL -> "--esal"\nelse -> continue
                 }
                 args.add(prefix)
                 args.add(key)
@@ -260,8 +244,7 @@ object IntentCompat {
                 val pair = valueToParsableStringAndType(extras.get(key)) ?: continue
                 sb.append("EXTRA	$key	${pair.first}")
                 if (pair.first != AddIntentExtraFragment.TYPE_NULL) sb.append("	${pair.second}")
-                sb.append("
-")
+                sb.append("\n")
             }
         }
         return sb.toString()
@@ -293,8 +276,7 @@ object IntentCompat {
                 val pair = valueToParsableStringAndType(extras.get(key)) ?: continue
                 sb.append("$prefix EXTRA	$key	${pair.first}")
                 if (pair.first != AddIntentExtraFragment.TYPE_NULL) sb.append("	${pair.second}")
-                sb.append("
-")
+                sb.append("\n")
             }
         }
         return sb.toString()
@@ -303,8 +285,7 @@ object IntentCompat {
     @JvmStatic
     fun unflattenFromString(intentString: String): Intent? {
         val intent = Intent()
-        val lines = intentString.split("
-")
+        val lines = intentString.split("\n")
         var data: Uri? = null
         var type: String? = null
         for (line in lines) {

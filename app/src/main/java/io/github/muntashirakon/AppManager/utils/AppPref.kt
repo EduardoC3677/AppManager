@@ -197,8 +197,7 @@ class AppPref {
     annotation class Type
 
     companion object {
-        private const val PREF_NAME = "preferences"
-        private const val PREF_SKIP = 5
+        private const val PREF_NAME = "preferences"\nprivate const val PREF_SKIP = 5
 
         const val TYPE_BOOLEAN = 0
         const val TYPE_FLOAT = 1
@@ -449,8 +448,7 @@ class AppPref {
             PrefKey.PREF_CUSTOM_LOCALE_STR ->
                 LangUtils.LANG_AUTO
             PrefKey.PREF_CORNER_RADIUS_PRESET_STR ->
-                "subtle"
-            PrefKey.PREF_APP_OP_SORT_ORDER_INT,
+                "subtle"\nPrefKey.PREF_APP_OP_SORT_ORDER_INT,
             PrefKey.PREF_COMPONENTS_SORT_ORDER_INT,
             PrefKey.PREF_PERMISSIONS_SORT_ORDER_INT ->
                 AppDetailsFragment.SORT_BY_NAME
@@ -467,8 +465,7 @@ class AppPref {
             PrefKey.PREF_MAIN_WINDOW_FILTER_PROFILE_STR,
             PrefKey.PREF_SELECTED_USERS_STR,
             PrefKey.PREF_VIRUS_TOTAL_API_KEY_STR ->
-                ""
-            PrefKey.PREF_MODE_OF_OPS_STR ->
+                ""\nPrefKey.PREF_MODE_OF_OPS_STR ->
                 Ops.MODE_AUTO
             PrefKey.PREF_INSTALLER_DEFAULT_PKG_SOURCE_INT ->
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -500,8 +497,7 @@ class AppPref {
                 // This is default for root
                 ComponentRule.COMPONENT_TO_BE_BLOCKED_IFW_DISABLE
             PrefKey.PREF_SAVED_APK_FORMAT_STR ->
-                "%label%_%version%"
-            PrefKey.PREF_AUTHORIZATION_KEY_STR ->
+                "%label%_%version%"\nPrefKey.PREF_AUTHORIZATION_KEY_STR ->
                 AuthManager.generateKey()
             PrefKey.PREF_FREEZE_TYPE_INT ->
                 FreezeUtils.FREEZE_DISABLE

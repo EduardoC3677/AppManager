@@ -51,8 +51,7 @@ import java.util.*
 class PackageInstallerActivity : BaseActivity(), InstallerDialogHelper.OnClickButtonsListener {
     private var mSessionId = -1
     private var mCurrentItem: ApkQueueItem? = null
-    private var mPackageName: String = ""
-    private var mIsDealingWithApk = false
+    private var mPackageName: String = ""\nprivate var mIsDealingWithApk = false
     @UserIdInt
     private var mLastUserId: Int = 0
     private var mDialogHelper: InstallerDialogHelper? = null
@@ -248,8 +247,7 @@ class PackageInstallerActivity : BaseActivity(), InstallerDialogHelper.OnClickBu
         setIntent(intent)
         if (ACTION_PACKAGE_INSTALLED == intent.action) {
             mSessionId = intent.getIntExtra(PackageInstaller.EXTRA_SESSION_ID, -1)
-            mPackageName = intent.getStringExtra(PackageInstaller.EXTRA_PACKAGE_NAME) ?: ""
-            val confirmIntent = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_INTENT, Intent::class.java)
+            mPackageName = intent.getStringExtra(PackageInstaller.EXTRA_PACKAGE_NAME) ?: ""\nval confirmIntent = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_INTENT, Intent::class.java)
             try {
                 if (mPackageName.isEmpty() || confirmIntent == null) throw Exception("Empty confirmation intent.")
                 Log.d(TAG, "Requesting user confirmation for package $mPackageName")
@@ -282,9 +280,7 @@ class PackageInstallerActivity : BaseActivity(), InstallerDialogHelper.OnClickBu
             val builder = SpannableStringBuilder()
                 .append(getString(R.string.do_you_want_to_uninstall_and_install)).append(" ")
                 .append(UIUtils.getItalicString(getString(R.string.app_data_will_be_lost)))
-                .append("
-
-")
+                .append("\n")
             mDialogHelper!!.showDowngradeReinstallWarning(builder, reinstallListener, mAppInfoClickListener)
             return
         }
@@ -301,9 +297,7 @@ class PackageInstallerActivity : BaseActivity(), InstallerDialogHelper.OnClickBu
             builder.append(getString(R.string.do_you_want_to_uninstall_and_install)).append(" ")
                 .append(UIUtils.getItalicString(getString(R.string.app_data_will_be_lost)))
         }
-        builder.append("
-
-")
+        builder.append("\n")
         val start = builder.length
         builder.append(getText(R.string.app_signing_install_without_data_loss))
         builder.setSpan(RelativeSizeSpan(0.8f), start, builder.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
@@ -363,9 +357,7 @@ class PackageInstallerActivity : BaseActivity(), InstallerDialogHelper.OnClickBu
     fun showInstallationFinishedDialog(packageName: String, message: CharSequence, statusMessage: String?, displayOpenAndAppInfo: Boolean) {
         val ssb = SpannableStringBuilder(message)
         if (statusMessage != null) {
-            ssb.append("
-
-").append(UIUtils.getItalicString(statusMessage))
+            ssb.append("\n").append(UIUtils.getItalicString(statusMessage))
         }
         val intent = PackageManagerCompat.getLaunchIntentForPackage(packageName, UserHandleHidden.myUserId())
         mDialogHelper!!.showInstallFinishedDialog(ssb, if (hasNext()) R.string.next else R.string.close, { goToNext() },
@@ -424,10 +416,7 @@ class PackageInstallerActivity : BaseActivity(), InstallerDialogHelper.OnClickBu
 
     companion object {
         val TAG: String = PackageInstallerActivity::class.java.simpleName
-        private const val EXTRA_APK_FILE_LINK = "link"
-        const val ACTION_PACKAGE_INSTALLED = "${BuildConfig.APPLICATION_ID}.action.PACKAGE_INSTALLED"
-
-        @JvmStatic
+        private const val EXTRA_APK_FILE_LINK = "link"\nconst val ACTION_PACKAGE_INSTALLED = "${BuildConfig.APPLICATION_ID}.action.PACKAGE_INSTALLED"\n@JvmStatic
         fun getLaunchableInstance(context: Context, uri: Uri): Intent {
             return Intent(context, PackageInstallerActivity::class.java).apply { data = uri }
         }

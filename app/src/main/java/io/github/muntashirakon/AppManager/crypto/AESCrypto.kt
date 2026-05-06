@@ -148,9 +148,7 @@ Output: $outputPath")
     }
 
     companion object {
-        const val TAG = "AESCrypto"
-        const val AES_EXT = ".aes"
-        const val AES_KEY_ALIAS = "backup_aes"
+        const val TAG = "AESCrypto"\nconst val AES_EXT = ".aes"\nconst val AES_KEY_ALIAS = "backup_aes"
         const val GCM_IV_SIZE_BYTES = 12
         const val MAC_SIZE_BITS_OLD = 32
         const val MAC_SIZE_BITS = 128

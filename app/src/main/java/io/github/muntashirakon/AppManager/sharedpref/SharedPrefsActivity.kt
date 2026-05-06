@@ -202,8 +202,7 @@ class SharedPrefsActivity : BaseActivity(), SearchView.OnQueryTextListener, Edit
             val prefName = mAdapterList!![position]
             holder.itemName.text = if (mConstraint != null && prefName.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(prefName, mConstraint!!, mQueryStringHighlightColor) else prefName
             val value = mAdapterMap?.get(prefName)
-            val strValue = value?.toString() ?: ""
-            holder.itemValue.text = if (strValue.length > REASONABLE_STR_SIZE) strValue.substring(0, REASONABLE_STR_SIZE) else strValue
+            val strValue = value?.toString() ?: ""\nholder.itemValue.text = if (strValue.length > REASONABLE_STR_SIZE) strValue.substring(0, REASONABLE_STR_SIZE) else strValue
             holder.itemView.setOnClickListener { mActivity.displayEditor(prefName) }
         }
 
@@ -234,8 +233,7 @@ class SharedPrefsActivity : BaseActivity(), SearchView.OnQueryTextListener, Edit
     }
 
     companion object {
-        const val EXTRA_PREF_LOCATION = "loc"
-        const val EXTRA_PREF_LABEL = "label"
+        const val EXTRA_PREF_LOCATION = "loc"\nconst val EXTRA_PREF_LABEL = "label"
         const val REASONABLE_STR_SIZE = 200
     }
 }

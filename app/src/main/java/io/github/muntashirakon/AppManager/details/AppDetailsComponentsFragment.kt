@@ -299,8 +299,7 @@ class AppDetailsComponentsFragment : AppDetailsFragment() {
             val isBlocked = item.isBlocked
             if (isBlocked) {
                 holder.blockingMethod.visibility = View.VISIBLE
-                holder.blockingMethod.text = if (rule!!.isIfw) (if (item.isDisabled) "IFW+Dis" else "IFW") else "Dis"
-            } else holder.blockingMethod.visibility = View.GONE
+                holder.blockingMethod.text = if (rule!!.isIfw) (if (item.isDisabled) "IFW+Dis" else "IFW") else "Dis"\n} else holder.blockingMethod.visibility = View.GONE
             holder.toggleSwitch.isChecked = !isBlocked
             holder.toggleSwitch.visibility = View.VISIBLE
             holder.toggleSwitch.setOnClickListener {
@@ -344,18 +343,13 @@ class AppDetailsComponentsFragment : AppDetailsFragment() {
             holder.chipType.visibility = if (item.isTracker) { holder.chipType.setText(R.string.tracker); View.VISIBLE } else View.GONE
             holder.nameView.text = if (mConstraint != null && name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(name, mConstraint!!, colorQueryStringHighlight)
             else if (name.startsWith(mPackageName!!)) name.replaceFirst(mPackageName!!, "") else name
-            val tag = "${mPackageName}_$name"
-            holder.imageView.tag = tag
+            val tag = "${mPackageName}_$name"\nholder.imageView.tag = tag
             ImageLoader.getInstance().displayImage(tag, info, holder.imageView)
-            holder.textView1.text = "${getString(R.string.task_affinity)}: ${info.taskAffinity}"
-            holder.textView2.text = "${getString(R.string.launch_mode)}: ${getString(Utils.getLaunchMode(info.launchMode))} | ${getString(R.string.orientation)}: ${getString(Utils.getOrientationString(info.screenOrientation))}"
-            holder.textView3.text = Utils.getActivitiesFlagsString(info.flags)
-            holder.textView4.text = "${getString(R.string.soft_input)}: ${Utils.getSoftInputString(info.softInputMode)} | ${info.permission ?: getString(R.string.require_no_permission)}"
-            holder.labelView.text = item.label
+            holder.textView1.text = "${getString(R.string.task_affinity)}: ${info.taskAffinity}"\nholder.textView2.text = "${getString(R.string.launch_mode)}: ${getString(Utils.getLaunchMode(info.launchMode))} | ${getString(R.string.orientation)}: ${getString(Utils.getOrientationString(info.screenOrientation))}"\nholder.textView3.text = Utils.getActivitiesFlagsString(info.flags)
+            holder.textView4.text = "${getString(R.string.soft_input)}: ${Utils.getSoftInputString(info.softInputMode)} | ${info.permission ?: getString(R.string.require_no_permission)}"\nholder.labelView.text = item.label
             if (info.processName != null && info.processName != mPackageName) {
                 holder.processNameView.visibility = View.VISIBLE
-                holder.processNameView.text = "${getString(R.string.process_name)}: ${info.processName}"
-            } else holder.processNameView.visibility = View.GONE
+                holder.processNameView.text = "${getString(R.string.process_name)}: ${info.processName}"\n} else holder.processNameView.visibility = View.GONE
             if (item.canLaunch || item.canLaunchAssist) {
                 holder.launchBtn.setOnClickListener {
                     val cn = ComponentName(mPackageName!!, name)
@@ -408,18 +402,15 @@ class AppDetailsComponentsFragment : AppDetailsFragment() {
             holder.labelView.text = item.label
             holder.nameView.text = if (mConstraint != null && info.name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(info.name, mConstraint!!, colorQueryStringHighlight)
             else if (info.name.startsWith(mPackageName!!)) info.name.replaceFirst(mPackageName!!, "") else info.name
-            val tag = "${mPackageName}_${info.name}"
-            holder.imageView.tag = tag
+            val tag = "${mPackageName}_${info.name}"\nholder.imageView.tag = tag
             ImageLoader.getInstance().displayImage(tag, info, holder.imageView)
             val sb = StringBuilder(Utils.getServiceFlagsString(info.flags))
-            if (sb.isNotEmpty()) sb.append("
-")
+            if (sb.isNotEmpty()) sb.append("\n")
             sb.append(info.permission ?: getString(R.string.require_no_permission))
             holder.textView1.text = sb
             if (info.processName != null && info.processName != mPackageName) {
                 holder.processNameView.visibility = View.VISIBLE
-                holder.processNameView.text = "${getString(R.string.process_name)}: ${info.processName}"
-            } else holder.processNameView.visibility = View.GONE
+                holder.processNameView.text = "${getString(R.string.process_name)}: ${info.processName}"\n} else holder.processNameView.visibility = View.GONE
             if (item.canLaunch) {
                 holder.launchBtn.setOnClickListener { try { ActivityManagerCompat.startService(Intent().setClassName(mPackageName!!, info.name), mUserId, true) } catch (th: Throwable) { UIUtils.displayShortToast(th.toString()) } }
                 holder.launchBtn.visibility = View.VISIBLE
@@ -441,17 +432,12 @@ class AppDetailsComponentsFragment : AppDetailsFragment() {
             holder.labelView.text = item.label
             holder.nameView.text = if (mConstraint != null && info.name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(info.name, mConstraint!!, colorQueryStringHighlight)
             else if (info.name.startsWith(mPackageName!!)) info.name.replaceFirst(mPackageName!!, "") else info.name
-            val tag = "${mPackageName}_${info.name}"
-            holder.imageView.tag = tag
+            val tag = "${mPackageName}_${info.name}"\nholder.imageView.tag = tag
             ImageLoader.getInstance().displayImage(tag, info, holder.imageView)
-            holder.textView1.text = "${getString(R.string.task_affinity)}: ${info.taskAffinity}"
-            holder.textView2.text = "${getString(R.string.launch_mode)}: ${getString(Utils.getLaunchMode(info.launchMode))} | ${getString(R.string.orientation)}: ${getString(Utils.getOrientationString(info.screenOrientation))}"
-            holder.textView3.text = info.permission ?: getString(R.string.require_no_permission)
-            holder.textView4.text = "${getString(R.string.soft_input)}: ${Utils.getSoftInputString(info.softInputMode)}"
-            if (info.processName != null && info.processName != mPackageName) {
+            holder.textView1.text = "${getString(R.string.task_affinity)}: ${info.taskAffinity}"\nholder.textView2.text = "${getString(R.string.launch_mode)}: ${getString(Utils.getLaunchMode(info.launchMode))} | ${getString(R.string.orientation)}: ${getString(Utils.getOrientationString(info.screenOrientation))}"\nholder.textView3.text = info.permission ?: getString(R.string.require_no_permission)
+            holder.textView4.text = "${getString(R.string.soft_input)}: ${Utils.getSoftInputString(info.softInputMode)}"\nif (info.processName != null && info.processName != mPackageName) {
                 holder.processNameView.visibility = View.VISIBLE
-                holder.processNameView.text = "${getString(R.string.process_name)}: ${info.processName}"
-            } else holder.processNameView.visibility = View.GONE
+                holder.processNameView.text = "${getString(R.string.process_name)}: ${info.processName}"\n} else holder.processNameView.visibility = View.GONE
             if (mCanModifyComponentStates) handleBlock(holder, item, RuleType.RECEIVER)
             else { holder.toggleSwitch.visibility = View.GONE; holder.blockingMethod.visibility = View.GONE }
         }
@@ -467,16 +453,11 @@ class AppDetailsComponentsFragment : AppDetailsFragment() {
             }
             holder.chipType.visibility = if (item.isTracker) { holder.chipType.setText(R.string.tracker); View.VISIBLE } else View.GONE
             holder.labelView.text = item.label
-            val tag = "${mPackageName}_${info.name}"
-            holder.imageView.tag = tag
+            val tag = "${mPackageName}_${info.name}"\nholder.imageView.tag = tag
             ImageLoader.getInstance().displayImage(tag, info, holder.imageView)
-            holder.textView1.text = "${getString(R.string.grant_uri_permission)}: ${info.grantUriPermissions}"
-            val pp = info.pathPermissions
-            holder.textView2.text = "${getString(R.string.path_permissions)}: ${pp?.let { val sb = StringBuilder(); val r = getString(R.string.read); val w = getString(R.string.write); it.forEach { p -> sb.append("$r: ${p.readPermission}/$w: ${p.writePermission}, ") }; Utils.checkStringBuilderEnd(sb); sb.toString() } ?: "null"}"
-            val up = info.uriPermissionPatterns
-            holder.textView3.text = "${getString(R.string.patterns_allowed)}: ${up?.let { val sb = StringBuilder(); it.forEach { p -> sb.append("${p}, ") }; Utils.checkStringBuilderEnd(sb); sb.toString() } ?: "null"}"
-            holder.textView4.text = "${getString(R.string.authority)}: ${info.authority}"
-            holder.nameView.text = if (mConstraint != null && info.name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(info.name, mConstraint!!, colorQueryStringHighlight)
+            holder.textView1.text = "${getString(R.string.grant_uri_permission)}: ${info.grantUriPermissions}"\nval pp = info.pathPermissions
+            holder.textView2.text = "${getString(R.string.path_permissions)}: ${pp?.let { val sb = StringBuilder(); val r = getString(R.string.read); val w = getString(R.string.write); it.forEach { p -> sb.append("$r: ${p.readPermission}/$w: ${p.writePermission}, ") }; Utils.checkStringBuilderEnd(sb); sb.toString() } ?: "null"}"\nval up = info.uriPermissionPatterns
+            holder.textView3.text = "${getString(R.string.patterns_allowed)}: ${up?.let { val sb = StringBuilder(); it.forEach { p -> sb.append("${p}, ") }; Utils.checkStringBuilderEnd(sb); sb.toString() } ?: "null"}"\nholder.textView4.text = "${getString(R.string.authority)}: ${info.authority}"\nholder.nameView.text = if (mConstraint != null && info.name.lowercase(Locale.ROOT).contains(mConstraint!!)) UIUtils.getHighlightedText(info.name, mConstraint!!, colorQueryStringHighlight)
             else if (info.name.startsWith(mPackageName!!)) info.name.replaceFirst(mPackageName!!, "") else info.name
             if (info.processName != null && info.processName != mPackageName) {
                 holder.processNameView.visibility = View.VISIBLE

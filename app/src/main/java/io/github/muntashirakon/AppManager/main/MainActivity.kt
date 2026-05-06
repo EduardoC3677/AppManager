@@ -457,8 +457,7 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
             val dialog = DexOptDialog.getInstance(viewModel!!.getSelectedPackages().keys.toTypedArray())
             dialog.show(supportFragmentManager, DexOptDialog.TAG)
         } else if (id == R.id.action_export_blocking_rules) {
-            val fileName = "app_manager_rules_export-" + DateUtils.formatDateTime(this, System.currentTimeMillis()) + ".am.tsv"
-            mBatchExportRules.launch(fileName)
+            val fileName = "app_manager_rules_export-" + DateUtils.formatDateTime(this, System.currentTimeMillis()) + ".am.tsv"\nmBatchExportRules.launch(fileName)
         } else if (id == R.id.action_export_app_list) {
             val exportTypes = listOf(
                 ListExporter.EXPORT_TYPE_CSV,
@@ -470,8 +469,7 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
                 .setTitle(R.string.export_app_list_select_format)
                 .setOnSingleChoiceClickListener { _, _, item, isChecked ->
                     if (!isChecked) return@setOnSingleChoiceClickListener
-                    val filename = "app_manager_app_list-" + DateUtils.formatLongDateTime(this, System.currentTimeMillis()) + ".am"
-                    when (item) {
+                    val filename = "app_manager_app_list-" + DateUtils.formatLongDateTime(this, System.currentTimeMillis()) + ".am"\nwhen (item) {
                         ListExporter.EXPORT_TYPE_CSV -> mExportAppListCsv.launch("$filename.csv")
                         ListExporter.EXPORT_TYPE_JSON -> mExportAppListJson.launch("$filename.json")
                         ListExporter.EXPORT_TYPE_XML -> mExportAppListXml.launch("$filename.xml")
@@ -674,10 +672,7 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
     override fun onQueryTextSubmit(query: String, type: Int): Boolean = false
 
     companion object {
-        private const val PACKAGE_NAME_APK_UPDATER = "com.apkupdater"
-        private const val ACTIVITY_NAME_APK_UPDATER = "com.apkupdater.activity.MainActivity"
-
-        private var SHOW_DISCLAIMER = true
+        private const val PACKAGE_NAME_APK_UPDATER = "com.apkupdater"\nprivate const val ACTIVITY_NAME_APK_UPDATER = "com.apkupdater.activity.MainActivity"\nprivate var SHOW_DISCLAIMER = true
 
         const val ACTION_STOP_RECORDING_FROM_NOTIFICATION = BuildConfig.APPLICATION_ID + ".action.STOP_RECORDING_FROM_NOTIFICATION"
     }

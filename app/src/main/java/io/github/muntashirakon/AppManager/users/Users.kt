@@ -16,9 +16,7 @@ import io.github.muntashirakon.AppManager.utils.ArrayUtils
 import io.github.muntashirakon.AppManager.utils.ExUtils
 
 object Users {
-    const val TAG = "Users"
-
-    private val sUserInfoList = mutableListOf<UserInfo>()
+    const val TAG = "Users"\nprivate val sUserInfoList = mutableListOf<UserInfo>()
     private var sUnprivilegedMode = false
 
     @JvmStatic

@@ -32,12 +32,7 @@ object FreezeUnfreeze {
 
     const val PRIVATE_FLAG_FREEZE_FORCE = 1 shl 0
 
-    private const val EXTRA_PACKAGE_NAME = "pkg"
-    private const val EXTRA_USER_ID = "user"
-    private const val EXTRA_FLAGS = "flags"
-    private const val EXTRA_FORCE_FREEZE = "force"
-
-    @JvmStatic
+    private const val EXTRA_PACKAGE_NAME = "pkg"\nprivate const val EXTRA_USER_ID = "user"\nprivate const val EXTRA_FLAGS = "flags"\nprivate const val EXTRA_FORCE_FREEZE = "force"\n@JvmStatic
     fun getShortcutIntent(context: Context, shortcutInfo: FreezeUnfreezeShortcutInfo): Intent {
         return Intent(context, FreezeUnfreezeActivity::class.java).apply {
             putExtra(EXTRA_PACKAGE_NAME, shortcutInfo.packageName)
@@ -77,8 +72,7 @@ object FreezeUnfreeze {
         val itemDescription = Array<CharSequence>(FREEZING_METHODS.size) { i ->
             SpannableStringBuilder()
                 .append(context.getString(FREEZING_METHOD_TITLES[i]))
-                .append("
-")
+                .append("\n")
                 .append(UIUtils.getSmallerText(context.getString(FREEZING_METHOD_DESCRIPTIONS[i])))
         }
         return SearchableSingleChoiceDialogBuilder(context, FREEZING_METHODS.toList(), itemDescription)

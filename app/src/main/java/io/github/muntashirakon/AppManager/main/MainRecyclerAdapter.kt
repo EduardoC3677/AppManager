@@ -247,8 +247,7 @@ class MainRecyclerAdapter(activity: MainActivity) : MultiSelectionView.Adapter<M
         if (item.isInstalled) {
             if (item.uidOrAppIds.isNotEmpty()) holder.userId.text = item.uidOrAppIds
             holder.userId.setTextColor(if (item.sharedUserId != null) mColorOrange else mColorSecondary)
-        } else holder.userId.text = ""
-        if (item.sha != null) {
+        } else holder.userId.text = ""\nif (item.sha != null) {
             holder.issuer.visibility = View.VISIBLE
             holder.issuer.text = item.issuerShortName
             holder.sha.visibility = View.VISIBLE
@@ -291,13 +290,11 @@ class MainRecyclerAdapter(activity: MainActivity) : MultiSelectionView.Adapter<M
             val isSystemApp = context.getString(if (item.isSystem) R.string.system else R.string.user) + item.appTypePostfix
             holder.isSystemApp.text = isSystemApp
         } else {
-            holder.isSystemApp.text = "-"
-        }
+            holder.isSystemApp.text = "-"\n}
         holder.isSystemApp.setTextColor(if (item.isPersistent) Color.MAGENTA else mColorSecondary)
         if (item.sdkString != null) {
             holder.size.text = item.sdkString
-        } else holder.size.text = "-"
-        holder.size.setTextColor(if (item.usesCleartextTraffic) mColorOrange else mColorSecondary)
+        } else holder.size.text = "-"\nholder.size.setTextColor(if (item.usesCleartextTraffic) mColorOrange else mColorSecondary)
         if (item.backup != null) {
             holder.backupIndicator.visibility = View.VISIBLE
             holder.backupInfo.visibility = View.VISIBLE

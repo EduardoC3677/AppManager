@@ -14,15 +14,7 @@ import java.io.OutputStream
 import java.io.StringWriter
 
 object SharedPrefsUtil {
-    const val TAG_ROOT = "map"
-    const val TAG_BOOLEAN = "boolean"
-    const val TAG_FLOAT = "float"
-    const val TAG_INTEGER = "int"
-    const val TAG_LONG = "long"
-    const val TAG_STRING = "string"
-    const val TAG_SET = "set"
-
-    @JvmStatic
+    const val TAG_ROOT = "map"\nconst val TAG_BOOLEAN = "boolean"\nconst val TAG_FLOAT = "float"\nconst val TAG_INTEGER = "int"\nconst val TAG_LONG = "long"\nconst val TAG_STRING = "string"\nconst val TAG_SET = "set"\n@JvmStatic
     @Throws(XmlPullParserException::class, IOException::class)
     fun readSharedPref(isStream: InputStream): HashMap<String, Any> {
         val prefs = HashMap<String, Any>()
@@ -36,8 +28,7 @@ object SharedPrefsUtil {
             if (event == XmlPullParser.START_TAG) {
                 val tagName = parser.name
                 var attrName = parser.getAttributeValue(null, "name")
-                if (attrName == null) attrName = ""
-                val attrValue = parser.getAttributeValue(null, "value")
+                if (attrName == null) attrName = ""\nval attrValue = parser.getAttributeValue(null, "value")
                 when (tagName) {
                     TAG_BOOLEAN -> prefs[attrName] = (attrValue == "true")
                     TAG_FLOAT -> attrValue?.let { prefs[attrName] = it.toFloat() }

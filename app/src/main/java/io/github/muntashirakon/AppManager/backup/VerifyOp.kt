@@ -107,12 +107,9 @@ internal class VerifyOp @Throws(BackupException::class) constructor(
             if (checksum != mChecksum[infoFile.getName()]) {
                 throw BackupException(
                     "Couldn't verify metadata file." +
-                            "
-File: " + infoFile +
-                            "
-Found: " + checksum +
-                            "
-Required: " + mChecksum[infoFile.getName()]
+                            "\nFile: " + infoFile +
+                            "\nFound: " + checksum +
+                            "\nRequired: " + mChecksum[infoFile.getName()]
                 )
             }
         }
@@ -125,12 +122,9 @@ Required: " + mChecksum[infoFile.getName()]
         if (checksum != mChecksum[metadataFile.getName()]) {
             throw BackupException(
                 "Couldn't verify metadata file." +
-                        "
-File: " + metadataFile +
-                        "
-Found: " + checksum +
-                        "
-Required: " + mChecksum[metadataFile.getName()]
+                        "\nFile: " + metadataFile +
+                        "\nFound: " + checksum +
+                        "\nRequired: " + mChecksum[metadataFile.getName()]
             )
         }
     }
@@ -148,12 +142,9 @@ Required: " + mChecksum[metadataFile.getName()]
             if (checksum != mChecksum[file.getName()]) {
                 throw BackupException(
                     "Could not verify APK files." +
-                            "
-File: " + file.getName() +
-                            "
-Found: " + checksum +
-                            "
-Required: " + mChecksum[file.getName()]
+                            "\nFile: " + file.getName() +
+                            "\nFound: " + checksum +
+                            "\nRequired: " + mChecksum[file.getName()]
                 )
             }
         }
@@ -172,12 +163,9 @@ Required: " + mChecksum[file.getName()]
             if (checksum != mChecksum[file.getName()]) {
                 throw BackupException(
                     "Could not verify KeyStore files." +
-                            "
-File: " + file.getName() +
-                            "
-Found: " + checksum +
-                            "
-Required: " + mChecksum[file.getName()]
+                            "\nFile: " + file.getName() +
+                            "\nFound: " + checksum +
+                            "\nRequired: " + mChecksum[file.getName()]
                 )
             }
         }
@@ -197,12 +185,9 @@ Required: " + mChecksum[file.getName()]
                 if (checksum != mChecksum[file.getName()]) {
                     throw BackupException(
                         "Could not verify data files at index $i." +
-                                "
-File: " + file.getName() +
-                                "
-Found: " + checksum +
-                                "
-Required: " + mChecksum[file.getName()]
+                                "\nFile: " + file.getName() +
+                                "\nFound: " + checksum +
+                                "\nRequired: " + mChecksum[file.getName()]
                     )
                 }
             }
@@ -221,12 +206,9 @@ Required: " + mChecksum[file.getName()]
         if (checksum != mChecksum[miscFile.getName()]) {
             throw BackupException(
                 "Could not verify extras." +
-                        "
-File: " + miscFile.getName() +
-                        "
-Found: " + checksum +
-                        "
-Required: " + mChecksum[miscFile.getName()]
+                        "\nFile: " + miscFile.getName() +
+                        "\nFound: " + checksum +
+                        "\nRequired: " + mChecksum[miscFile.getName()]
                 )
         }
     }
@@ -247,12 +229,9 @@ Required: " + mChecksum[miscFile.getName()]
         if (checksum != mChecksum[rulesFile.getName()]) {
             throw BackupException(
                 "Could not verify rules file." +
-                        "
-File: " + rulesFile.getName() +
-                        "
-Found: " + checksum +
-                        "
-Required: " + mChecksum[rulesFile.getName()]
+                        "\nFile: " + rulesFile.getName() +
+                        "\nFound: " + checksum +
+                        "\nRequired: " + mChecksum[rulesFile.getName()]
             )
         }
     }

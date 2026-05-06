@@ -55,9 +55,7 @@ class ApplicationItem : IApplicationItem, Serializable {
     }
 
     // Default attributes
-    var label: String = ""
-    override var packageName: String = ""
-    var versionName: String? = null
+    var label: String = ""\noverride var packageName: String = ""\nvar versionName: String? = null
     var versionCode: Long = 0
     var targetSdk: Int = 0
     var firstInstallTime: Long = 0
@@ -76,11 +74,9 @@ class ApplicationItem : IApplicationItem, Serializable {
     var isPersistent: Boolean = false
     var usesCleartextTraffic: Boolean = false
     var allowClearingUserData: Boolean = false
-    var uidOrAppIds: String = ""
-    var issuerShortName: String? = null
+    var uidOrAppIds: String = ""\nvar issuerShortName: String? = null
     var versionTag: String? = null
-    var appTypePostfix: String = ""
-    var sdkString: String? = null
+    var appTypePostfix: String = ""\nvar sdkString: String? = null
     var diffInstallUpdateInDays: Long = 0
     var backup: BackupMetadataV5.Metadata? = null
     var lastBackupDays: Long = 0
@@ -127,11 +123,8 @@ class ApplicationItem : IApplicationItem, Serializable {
 
     // OPTIMIZATION: Fields for search performance
     @Transient
-    var packageNameLowerCase: String = ""
-    @Transient
-    var labelLowerCase: String = ""
-
-    fun generateOtherInfo() {
+    var packageNameLowerCase: String = ""\n@Transient
+    var labelLowerCase: String = ""\nfun generateOtherInfo() {
         isStopped = (flags and ApplicationInfo.FLAG_STOPPED) != 0
         isSystem = (flags and ApplicationInfo.FLAG_SYSTEM) != 0
         isPersistent = (flags and ApplicationInfo.FLAG_PERSISTENT) != 0
@@ -141,12 +134,10 @@ class ApplicationItem : IApplicationItem, Serializable {
         allowClearingUserData = (flags and ApplicationInfo.FLAG_ALLOW_CLEAR_USER_DATA) != 0
         uidOrAppIds = if (userIds.size > 1) {
             val appId = android.os.UserHandle.getAppId(uid)
-            "${userIds.size}+$appId"
-        } else if (userIds.size == 1) {
+            "${userIds.size}+$appId"\n} else if (userIds.size == 1) {
             uid.toString()
         } else {
-            ""
-        }
+            ""\n}
         if (sha != null) {
             try {
                 issuerShortName = "CN=" + (sha!!.first).split("CN=", 2)[1]
@@ -158,17 +149,7 @@ class ApplicationItem : IApplicationItem, Serializable {
             }
         }
         versionTag = versionName
-        if (isInstalled && (flags and ApplicationInfo.FLAG_HARDWARE_ACCELERATED) == 0) versionTag = "_$versionTag"
-        if ((flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) versionTag = "debug$versionTag"
-        if ((flags and ApplicationInfo.FLAG_TEST_ONLY) != 0) versionTag = "~$versionTag"
-        appTypePostfix = ""
-        if ((flags and ApplicationInfo.FLAG_LARGE_HEAP) != 0) appTypePostfix += "#"
-        if ((flags and ApplicationInfo.FLAG_SUSPENDED) != 0) appTypePostfix += "°"
-        if ((flags and ApplicationInfo.FLAG_MULTIARCH) != 0) appTypePostfix += "X"
-        if ((flags and ApplicationInfo.FLAG_HAS_CODE) == 0) appTypePostfix += "0"
-        if ((flags and ApplicationInfo.FLAG_VM_SAFE_MODE) != 0) appTypePostfix += "?"
-
-        sdkString = if (targetSdk > 0) "SDK $targetSdk" else null
+        if (isInstalled && (flags and ApplicationInfo.FLAG_HARDWARE_ACCELERATED) == 0) versionTag = "_$versionTag"\nif ((flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) versionTag = "debug$versionTag"\nif ((flags and ApplicationInfo.FLAG_TEST_ONLY) != 0) versionTag = "~$versionTag"\nappTypePostfix = ""\nif ((flags and ApplicationInfo.FLAG_LARGE_HEAP) != 0) appTypePostfix += "#"\nif ((flags and ApplicationInfo.FLAG_SUSPENDED) != 0) appTypePostfix += "°"\nif ((flags and ApplicationInfo.FLAG_MULTIARCH) != 0) appTypePostfix += "X"\nif ((flags and ApplicationInfo.FLAG_HAS_CODE) == 0) appTypePostfix += "0"\nif ((flags and ApplicationInfo.FLAG_VM_SAFE_MODE) != 0) appTypePostfix += "?"\nsdkString = if (targetSdk > 0) "SDK $targetSdk" else null
         diffInstallUpdateInDays = TimeUnit.DAYS.convert(lastUpdateTime - firstInstallTime, TimeUnit.MILLISECONDS)
         if (backup != null) {
             lastBackupDays = TimeUnit.DAYS.convert(System.currentTimeMillis() - backup!!.backupTime, TimeUnit.MILLISECONDS)

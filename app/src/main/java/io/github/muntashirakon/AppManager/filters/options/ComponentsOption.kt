@@ -34,8 +34,7 @@ class ComponentsOption : FilterOption("components") {
         COMPONENT_TYPE_ACTIVITY to "Activities",
         COMPONENT_TYPE_SERVICE to "Services",
         COMPONENT_TYPE_RECEIVER to "Receivers",
-        COMPONENT_TYPE_PROVIDER to "Providers"
-    )
+        COMPONENT_TYPE_PROVIDER to "Providers"\n)
 
     override fun getKeysWithType(): Map<String, Int> = mKeysWithType
 

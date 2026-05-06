@@ -72,9 +72,7 @@ abstract class VirtualFileSystem(private val mFile: Path) {
     companion object {
         @JvmField
         val TAG: String = VirtualFileSystem::class.java.simpleName
-        const val SCHEME = "vfs"
-
-        @JvmStatic
+        const val SCHEME = "vfs"\n@JvmStatic
         fun getUri(fsId: Int, path: String?): Uri {
             return Uri.Builder()
                 .scheme(SCHEME)

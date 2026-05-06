@@ -22,11 +22,7 @@ import java.lang.annotation.RetentionPolicy
 import java.util.Collections
 
 object NotificationUtils {
-    private const val HIGH_PRIORITY_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.HIGH_PRIORITY"
-    private const val INSTALL_CONFIRM_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.INSTALL_CONFIRM"
-    private const val FREEZE_UNFREEZE_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.FREEZE_UNFREEZE"
-
-    @JvmField
+    private const val HIGH_PRIORITY_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.HIGH_PRIORITY"\nprivate const val INSTALL_CONFIRM_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.INSTALL_CONFIRM"\nprivate const val FREEZE_UNFREEZE_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.FREEZE_UNFREEZE"\n@JvmField
     val HIGH_PRIORITY_NOTIFICATION_INFO: NotificationProgressHandler.NotificationManagerInfo =
         NotificationProgressHandler.NotificationManagerInfo(
             HIGH_PRIORITY_CHANNEL_ID, "Alerts", NotificationManagerCompat.IMPORTANCE_HIGH
@@ -89,8 +85,7 @@ object NotificationUtils {
         context: Context,
         notification: NotificationBuilder
     ) {
-        val notificationTag = "alert"
-        val notificationId = nextNotificationId(notificationTag)
+        val notificationTag = "alert"\nval notificationId = nextNotificationId(notificationTag)
         displayNotification(
             context, HIGH_PRIORITY_CHANNEL_ID, "Alerts",
             NotificationManagerCompat.IMPORTANCE_HIGH, notificationTag, notificationId, notification
@@ -205,8 +200,7 @@ object NotificationUtils {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
         } else {
-            intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
-            intent.putExtra("app_package", BuildConfig.APPLICATION_ID)
+            intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"\nintent.putExtra("app_package", BuildConfig.APPLICATION_ID)
             intent.putExtra("app_uid", Process.myUid())
         }
         return intent

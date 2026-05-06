@@ -45,8 +45,7 @@ object ArrayUtils {
 
         if ((offset or count) < 0 || offset > len - count) {
             throw ArrayIndexOutOfBoundsException(
-                "length=$len; regionStart=$offset; regionLength=$count"
-            )
+                "length=$len; regionStart=$offset; regionLength=$count"\n)
         }
     }
 

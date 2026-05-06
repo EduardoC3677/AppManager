@@ -138,8 +138,7 @@ abstract class Runner {
         init {
             // Print stderr
             if (mStderr.isNotEmpty()) {
-                Log.e(TAG, TextUtils.join("
-", mStderr))
+                Log.e(TAG, TextUtils.join("\n", mStderr))
             }
         }
 
@@ -165,8 +164,7 @@ abstract class Runner {
         }
 
         fun getOutput(): String {
-            return TextUtils.join("
-", mStdout)
+            return TextUtils.join("\n", mStdout)
         }
 
         fun getStderr(): List<String> {

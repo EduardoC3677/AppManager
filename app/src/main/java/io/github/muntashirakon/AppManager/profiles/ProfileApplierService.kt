@@ -123,9 +123,7 @@ class ProfileApplierService : ForegroundService("ProfileApplierService") {
     }
 
     companion object {
-        private const val EXTRA_QUEUE_ITEM = "queue_item"
-        private const val EXTRA_NOTIFY = "notify"
-        private val CHANNEL_ID = "${BuildConfig.APPLICATION_ID}.channel.PROFILE_APPLIER"
+        private const val EXTRA_QUEUE_ITEM = "queue_item"\nprivate const val EXTRA_NOTIFY = "notify"\nprivate val CHANNEL_ID = "${BuildConfig.APPLICATION_ID}.channel.PROFILE_APPLIER"
 
         @JvmStatic
         fun getIntent(context: Context, queueItem: ProfileQueueItem, notify: Boolean): Intent {

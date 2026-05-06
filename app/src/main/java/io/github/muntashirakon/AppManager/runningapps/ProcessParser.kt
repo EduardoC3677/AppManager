@@ -154,8 +154,7 @@ class ProcessParser {
 
         @JvmStatic
         private fun getProcessNameFilteringPackageName(processName: String, packageName: String): String {
-            if (processName == packageName) return ""
-            val name = getProcessName(processName)
+            if (processName == packageName) return ""\nval name = getProcessName(processName)
             val colonIdx = name.indexOf(':')
             return if (colonIdx < 0) ":$name" else name.substring(colonIdx)
         }

@@ -49,9 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger
 @WorkerThread
 class BatchOpsManager(private val mLogger: Logger?, private val mProgressHandler: ProgressHandler?) {
     companion object {
-        const val TAG = "BatchOpsManager"
-
-        @IntDef(
+        const val TAG = "BatchOpsManager"\n@IntDef(
             OP_NONE, OP_ADVANCED_FREEZE, OP_BACKUP_APK, OP_BACKUP, OP_BLOCK_COMPONENTS,
             OP_BLOCK_TRACKERS, OP_CLEAR_CACHE, OP_CLEAR_DATA, OP_DELETE_BACKUP, OP_DEXOPT,
             OP_DISABLE_BACKGROUND, OP_EXPORT_RULES, OP_FORCE_STOP, OP_FREEZE, OP_GRANT_PERMISSIONS,
@@ -89,8 +87,7 @@ class BatchOpsManager(private val mLogger: Logger?, private val mProgressHandler
         const val OP_ARCHIVE = 23
         const val OP_EDIT_TAGS = 24
 
-        private val GROUP_ID = BuildConfig.APPLICATION_ID + ".notification_group.BATCH_OPS"
-    }
+        private val GROUP_ID = BuildConfig.APPLICATION_ID + ".notification_group.BATCH_OPS"\n}
 
     class BatchOpsInfo(
         @OpType val op: Int,

@@ -97,8 +97,7 @@ object FileUtils {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return ""
-    }
+        return ""\n}
 
     @AnyThread
     @JvmStatic
@@ -202,14 +201,12 @@ object FileUtils {
                 continue
             }
             if (!(extDir.exists() || extDir.mkdirs())) {
-                lastReason = "$extDir: permission denied."
-                Log.w(TAG, "Could not use %s.", extDir)
+                lastReason = "$extDir: permission denied."\nLog.w(TAG, "Could not use %s.", extDir)
                 continue
             }
             val storageState = Environment.getExternalStorageState(extDir)
             if (storageState != Environment.MEDIA_MOUNTED) {
-                lastReason = "$extDir: not mounted ($storageState)"
-                Log.w(TAG, "Path %s not mounted. State: %s", extDir, storageState)
+                lastReason = "$extDir: not mounted ($storageState)"\nLog.w(TAG, "Path %s not mounted. State: %s", extDir, storageState)
                 continue
             }
             return extDir
@@ -260,14 +257,10 @@ object FileUtils {
     @JvmStatic
     fun translateModePosixToString(mode: Int): String {
         var res: String = when (mode and O_ACCMODE) {
-            O_RDWR -> "rw"
-            O_WRONLY -> "w"
-            O_RDONLY -> "r"
-            else -> throw IllegalArgumentException("Bad mode: $mode")
+            O_RDWR -> "rw"\nO_WRONLY -> "w"\nO_RDONLY -> "r"\nelse -> throw IllegalArgumentException("Bad mode: $mode")
         }
         if ((mode and O_TRUNC) == O_TRUNC) {
-            res += "t"
-        }
+            res += "t"\n}
         if ((mode and O_APPEND) == O_APPEND) {
             res += "a"
         }

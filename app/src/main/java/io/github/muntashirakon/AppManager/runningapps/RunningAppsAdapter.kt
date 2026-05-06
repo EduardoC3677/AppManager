@@ -115,9 +115,7 @@ class RunningAppsAdapter(private val mActivity: RunningAppsActivity) : MultiSele
         holder.mSwapInfoView.visibility = if (swapNonZero) View.VISIBLE else View.GONE
         if (swapNonZero) {
             holder.mSwapInfoChart.post { setLayoutWidth(holder.mSwapInfoChartChildren[0], (holder.mSwapInfoChart.width * usedSwap / totalSwap).toInt()) }
-            cd.append("
-
-").append(context.getString(R.string.swap_usage_accessibility_description, fTotalSwap, fUsedSwap))
+            cd.append("\n").append(context.getString(R.string.swap_usage_accessibility_description, fTotalSwap, fUsedSwap))
         }
         holder.mSwapShortInfoView.text = UIUtils.getStyledKeyValue(context, R.string.swap, "$fUsedSwap/$fTotalSwap")
         val swapInfo = UIUtils.charSequenceToSpannable(context.getString(R.string.swap_chart_info, Formatter.formatShortFileSize(context, usedSwap), Formatter.formatShortFileSize(context, totalSwap - usedSwap)))
@@ -137,8 +135,7 @@ class RunningAppsAdapter(private val mActivity: RunningAppsActivity) : MultiSele
         holder.processIds.text = mActivity.getString(R.string.pid_and_ppid, item.pid, item.ppid)
         holder.memoryUsage.text = mActivity.getString(R.string.memory_virtual_memory, Formatter.formatFileSize(mActivity, item.memory), Formatter.formatFileSize(mActivity, item.virtualMemory))
         val stateInfo = if (TextUtils.isEmpty(item.state_extra)) mActivity.getString(R.string.process_state, item.state) else mActivity.getString(R.string.process_state_with_extra, item.state, item.state_extra)
-        holder.userAndStateInfo.text = "${mActivity.getString(R.string.user_and_uid, item.user, item.uid)}, $stateInfo"
-        holder.selinuxContext.text = "SELinux${LangUtils.getSeparatorString()} ${item.context}"
+        holder.userAndStateInfo.text = "${mActivity.getString(R.string.user_and_uid, item.user, item.uid)}, $stateInfo"\nholder.selinuxContext.text = "SELinux${LangUtils.getSeparatorString()} ${item.context}"
         holder.more.setOnClickListener {
             val popup = PopupMenu(mActivity, it).apply { inflate(R.menu.activity_running_apps_popup_actions); setForceShowIcon(true) }
             val menu = popup.menu

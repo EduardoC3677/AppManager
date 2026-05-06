@@ -63,13 +63,8 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
 
     var hasRoot: Boolean = false
     var selinux: Int = 0
-    var encryptionStatus: String = ""
-    var dmVerity: String = ""
-    var verifiedBootState: String? = null
-    var verifiedBootStateString: String = ""
-    var avbVersion: String = ""
-    var bootloaderState: String = ""
-    var debuggable: Boolean = false
+    var encryptionStatus: String = ""\nvar dmVerity: String = ""\nvar verifiedBootState: String? = null
+    var verifiedBootStateString: String = ""\nvar avbVersion: String = ""\nvar bootloaderState: String = ""\nvar debuggable: Boolean = false
     val patchLevel: String?
     val securityProviders: Array<Provider> = Security.getProviders()
     val hardwareBackedFeatures: String?
@@ -78,8 +73,7 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
     var cpuHardware: String? = null
     val supportedAbis: Array<String> = Build.SUPPORTED_ABIS
     var availableProcessors: Int = 0
-    var openGlEsVersion: String = ""
-    var vulkanVersion: String? = null
+    var openGlEsVersion: String = ""\nvar vulkanVersion: String? = null
 
     val memoryInfo: ActivityManager.MemoryInfo = ActivityManager.MemoryInfo()
 
@@ -88,9 +82,7 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
     var batteryCapacityMAhAlt: Double = 0.0
     var batteryTechnology: String? = null
     var batteryCycleCount: Int = 0
-    var batteryHealth: String = ""
-
-    val displayDensityDpi: Int = StaticDataset.DEVICE_DENSITY
+    var batteryHealth: String = ""\nval displayDensityDpi: Int = StaticDataset.DEVICE_DENSITY
     val displayDensity: String = getDensity()
     var scalingFactor: Float = 0f
     var actualWidthPx: Int = 0
@@ -150,42 +142,29 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
     override fun toLocalizedString(ctx: Context): CharSequence {
         val builder = SpannableStringBuilder()
         builder.append(getStyledKeyValue(ctx, R.string.os_version, osVersion)).append(", ")
-            .append(getStyledKeyValue(ctx, "Build", Build.DISPLAY)).append("
-")
+            .append(getStyledKeyValue(ctx, "Build", Build.DISPLAY)).append("\n")
             .append(getStyledKeyValue(ctx, R.string.bootloader, bootloader)).append(", ")
-            .append(getStyledKeyValue(ctx, "VM", vm)).append("
-")
-            .append(getStyledKeyValue(ctx, R.string.kernel, kernel)).append("
-")
+            .append(getStyledKeyValue(ctx, "VM", vm)).append("\n")
+            .append(getStyledKeyValue(ctx, R.string.kernel, kernel)).append("\n")
             .append(getStyledKeyValue(ctx, R.string.brand_name, brandName)).append(", ")
-            .append(getStyledKeyValue(ctx, R.string.model, model)).append("
-")
+            .append(getStyledKeyValue(ctx, R.string.model, model)).append("\n")
             .append(getStyledKeyValue(ctx, R.string.board_name, board)).append(", ")
-            .append(getStyledKeyValue(ctx, R.string.manufacturer, manufacturer)).append("
-")
-        builder.append("
-").append(getTitleText(ctx, R.string.sdk)).append("
-")
+            .append(getStyledKeyValue(ctx, R.string.manufacturer, manufacturer)).append("\n")
+        builder.append("\n").append(getTitleText(ctx, R.string.sdk)).append("\n")
             .append(getStyledKeyValue(ctx, R.string.sdk_max, String.format(Locale.getDefault(), "%d", maxSdk)))
         if (minSdk != 0) {
             builder.append(", ").append(getStyledKeyValue(ctx, R.string.sdk_min, String.format(Locale.getDefault(), "%d", minSdk)))
         }
-        builder.append("
-")
-        builder.append("
-").append(getTitleText(ctx, R.string.security)).append("
-")
-        patchLevel?.let { builder.append(getStyledKeyValue(ctx, R.string.patch_level, it)).append("
-") }
+        builder.append("\n")
+        builder.append("\n").append(getTitleText(ctx, R.string.security)).append("\n")
+        patchLevel?.let { builder.append(getStyledKeyValue(ctx, R.string.patch_level, it)).append("\n") }
         builder.append(getStyledKeyValue(ctx, R.string.root, hasRoot.toString())).append(", ")
             .append(getStyledKeyValue(ctx, R.string.debuggable, debuggable.toString()))
-            .append("
-")
+            .append("\n")
         if (selinux != 2) {
             builder.append(getStyledKeyValue(ctx, R.string.selinux, getString(if (selinux == 1) R.string.enforcing else R.string.permissive))).append(", ")
         }
-        builder.append(getStyledKeyValue(ctx, R.string.encryption, encryptionStatus)).append("
-")
+        builder.append(getStyledKeyValue(ctx, R.string.encryption, encryptionStatus)).append("\n")
         var verifiedBoot = false
         if (!TextUtils.isEmpty(verifiedBootState)) {
             verifiedBoot = true
@@ -194,10 +173,8 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
         }
         if (!TextUtils.isEmpty(avbVersion)) {
             if (verifiedBoot) builder.append(", ")
-            builder.append(getStyledKeyValue(ctx, R.string.android_verified_bootloader_version, avbVersion)).append("
-")
-        } else if (verifiedBoot) builder.append("
-")
+            builder.append(getStyledKeyValue(ctx, R.string.android_verified_bootloader_version, avbVersion)).append("\n")
+        } else if (verifiedBoot) builder.append("\n")
         var isDmVerity = false
         if (!TextUtils.isEmpty(dmVerity)) {
             isDmVerity = true
@@ -205,10 +182,8 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
         }
         if (!TextUtils.isEmpty(bootloaderState)) {
             if (isDmVerity) builder.append(", ")
-            builder.append(getStyledKeyValue(ctx, R.string.bootloader, bootloaderState)).append("
-")
-        } else if (isDmVerity) builder.append("
-")
+            builder.append(getStyledKeyValue(ctx, R.string.bootloader, bootloaderState)).append("\n")
+        } else if (isDmVerity) builder.append("\n")
         val securityProvidersList = mutableListOf<CharSequence>()
         var hasAndroidKeyStore = false
         for (provider in securityProviders) {
@@ -217,126 +192,84 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
         }
         builder.append(getStyledKeyValue(ctx, R.string.security_providers, TextUtilsCompat.joinSpannable(", ", securityProvidersList))).append(".
 ")
-        if (hasAndroidKeyStore) builder.append("
-").append(getTitleText(ctx, "Android KeyStore")).append("
-")
+        if (hasAndroidKeyStore) builder.append("\n").append(getTitleText(ctx, "Android KeyStore")).append("\n")
         val featuresSb = StringBuilder("Software")
         hardwareBackedFeatures?.let { featuresSb.append(", Hardware") }
         strongBoxBackedFeatures?.let { featuresSb.append(", StrongBox") }
-        builder.append(getStyledKeyValue(ctx, R.string.features, featuresSb)).append("
-")
-        hardwareBackedFeatures?.let { builder.append("   ").append(getStyledKeyValue(ctx, "Hardware", it)).append("
-") }
-        strongBoxBackedFeatures?.let { builder.append("   ").append(getStyledKeyValue(ctx, "StrongBox", it)).append("
-") }
-        builder.append("
-").append(getTitleText(ctx, R.string.cpu)).append("
-")
-        cpuHardware?.let { builder.append(getStyledKeyValue(ctx, R.string.hardware, it)).append("
-") }
-        builder.append(getStyledKeyValue(ctx, R.string.support_architectures, TextUtils.join(", ", supportedAbis))).append("
-")
-            .append(getStyledKeyValue(ctx, R.string.no_of_cores, String.format(Locale.getDefault(), "%d", availableProcessors))).append("
-")
-        builder.append("
-").append(getTitleText(ctx, R.string.graphics)).append("
-")
+        builder.append(getStyledKeyValue(ctx, R.string.features, featuresSb)).append("\n")
+        hardwareBackedFeatures?.let { builder.append("   ").append(getStyledKeyValue(ctx, "Hardware", it)).append("\n") }
+        strongBoxBackedFeatures?.let { builder.append("   ").append(getStyledKeyValue(ctx, "StrongBox", it)).append("\n") }
+        builder.append("\n").append(getTitleText(ctx, R.string.cpu)).append("\n")
+        cpuHardware?.let { builder.append(getStyledKeyValue(ctx, R.string.hardware, it)).append("\n") }
+        builder.append(getStyledKeyValue(ctx, R.string.support_architectures, TextUtils.join(", ", supportedAbis))).append("\n")
+            .append(getStyledKeyValue(ctx, R.string.no_of_cores, String.format(Locale.getDefault(), "%d", availableProcessors))).append("\n")
+        builder.append("\n").append(getTitleText(ctx, R.string.graphics)).append("\n")
             .append(getGlInfo(ctx))
-            .append(getStyledKeyValue(ctx, R.string.gles_version, openGlEsVersion)).append("
-")
-        vulkanVersion?.let { builder.append(getStyledKeyValue(ctx, R.string.vulkan_version, it)).append("
-") }
-        builder.append("
-").append(getTitleText(ctx, R.string.memory)).append("
-")
-            .append(Formatter.formatFileSize(ctx, memoryInfo.totalMem)).append("
-")
+            .append(getStyledKeyValue(ctx, R.string.gles_version, openGlEsVersion)).append("\n")
+        vulkanVersion?.let { builder.append(getStyledKeyValue(ctx, R.string.vulkan_version, it)).append("\n") }
+        builder.append("\n").append(getTitleText(ctx, R.string.memory)).append("\n")
+            .append(Formatter.formatFileSize(ctx, memoryInfo.totalMem)).append("\n")
         if (batteryPresent || batteryCapacityMAh > 0) {
-            builder.append("
-").append(getTitleText(ctx, R.string.battery)).append("
-")
-            batteryTechnology?.let { builder.append(getStyledKeyValue(ctx, R.string.battery_technology, it)).append("
-") }
+            builder.append("\n").append(getTitleText(ctx, R.string.battery)).append("\n")
+            batteryTechnology?.let { builder.append(getStyledKeyValue(ctx, R.string.battery_technology, it)).append("\n") }
             if (batteryCapacityMAh > 0) {
                 builder.append(getStyledKeyValue(ctx, R.string.battery_capacity, batteryCapacityMAh.toString())).append(" mAh")
                 if (batteryCapacityMAhAlt > 0) {
                     builder.append(" (est. ").append(String.format(Locale.ROOT, "%.1f", batteryCapacityMAhAlt)).append(" mAh)")
                 }
-                builder.append("
-")
+                builder.append("\n")
             } else if (batteryCapacityMAhAlt > 0) {
                 builder.append(getStyledKeyValue(ctx, R.string.battery_capacity, String.format(Locale.ROOT, "%.1f", batteryCapacityMAhAlt)))
-                    .append(" mAh (est.)").append("
-")
+                    .append(" mAh (est.)").append("\n")
             }
             if (batteryHealth.isNotEmpty()) {
                 builder.append(getStyledKeyValue(ctx, R.string.battery_health, batteryHealth))
                 if (batteryCycleCount > 0) {
                     builder.append(" ($batteryCycleCount cycles)")
                 }
-                builder.append("
-")
+                builder.append("\n")
             }
         }
-        builder.append("
-").append(getTitleText(ctx, R.string.screen)).append("
-")
-            .append(getStyledKeyValue(ctx, R.string.density, String.format(Locale.getDefault(), "%s (%d DPI)", displayDensity, displayDensityDpi))).append("
-")
-        builder.append(getStyledKeyValue(ctx, R.string.scaling_factor, scalingFactor.toString())).append("
-")
+        builder.append("\n").append(getTitleText(ctx, R.string.screen)).append("\n")
+            .append(getStyledKeyValue(ctx, R.string.density, String.format(Locale.getDefault(), "%s (%d DPI)", displayDensity, displayDensityDpi))).append("\n")
+        builder.append(getStyledKeyValue(ctx, R.string.scaling_factor, scalingFactor.toString())).append("\n")
             .append(getStyledKeyValue(ctx, R.string.size, "$actualWidthPx" + "px × $actualHeightPx" + "px
 "))
         builder.append(getStyledKeyValue(ctx, R.string.window_size, "$windowWidthPx" + "px × $windowHeightPx" + "px
 "))
-        builder.append(getStyledKeyValue(ctx, R.string.refresh_rate, String.format(Locale.getDefault(), "%.1f Hz", refreshRate))).append("
-")
+        builder.append(getStyledKeyValue(ctx, R.string.refresh_rate, String.format(Locale.getDefault(), "%.1f Hz", refreshRate))).append("\n")
         val localeStrings = mutableListOf<String>()
         for (i in 0 until systemLocales.size()) {
             localeStrings.add(systemLocales[i]!!.displayName)
         }
-        builder.append("
-").append(getTitleText(ctx, R.string.languages))
-            .append("
-").append(TextUtilsCompat.joinSpannable(", ", localeStrings)).append("
-")
+        builder.append("\n").append(getTitleText(ctx, R.string.languages))
+            .append("\n").append(TextUtilsCompat.joinSpannable(", ", localeStrings)).append("\n")
         users?.let {
-            builder.append("
-").append(getTitleText(ctx, R.string.users)).append("
-")
+            builder.append("\n").append(getTitleText(ctx, R.string.users)).append("\n")
             val userNames = it.map { u -> u.name ?: u.id.toString() }
             builder.append(String.format(Locale.getDefault(), "%d", it.size)).append(" (")
                 .append(TextUtilsCompat.joinSpannable(", ", userNames)).append(")
 ")
-            builder.append("
-").append(getTitleText(ctx, R.string.apps)).append("
-")
+            builder.append("\n").append(getTitleText(ctx, R.string.apps)).append("\n")
             for (user in it) {
                 val packageSizes = userPackages[user.id] ?: continue
                 if (packageSizes.first!! + packageSizes.second!! == 0) continue
-                builder.append(getStyledKeyValue(ctx, R.string.user, user.toLocalizedString(ctx))).append("
-   ")
+                builder.append(getStyledKeyValue(ctx, R.string.user, user.toLocalizedString(ctx))).append("\n")
                     .append(getStyledKeyValue(ctx, R.string.total_size, String.format(Locale.getDefault(), "%d", packageSizes.first!! + packageSizes.second!!))).append(", ")
                     .append(getStyledKeyValue(ctx, R.string.user, String.format(Locale.getDefault(), "%d", packageSizes.first))).append(", ")
                     .append(getStyledKeyValue(ctx, R.string.system, String.format(Locale.getDefault(), "%d", packageSizes.second)))
-                    .append("
-")
+                    .append("\n")
             }
         } ?: run {
-            builder.append("
-").append(getTitleText(ctx, R.string.apps)).append("
-")
+            builder.append("\n").append(getTitleText(ctx, R.string.apps)).append("\n")
             userPackages[UserHandleHidden.myUserId()]?.let { packageSizes ->
                 builder.append(getStyledKeyValue(ctx, R.string.total_size, String.format(Locale.getDefault(), "%d", packageSizes.first!! + packageSizes.second!!))).append(", ")
                     .append(getStyledKeyValue(ctx, R.string.user, String.format(Locale.getDefault(), "%d", packageSizes.first))).append(", ")
                     .append(getStyledKeyValue(ctx, R.string.system, String.format(Locale.getDefault(), "%d", packageSizes.second)))
-                    .append("
-")
+                    .append("\n")
             }
         }
-        builder.append("
-").append(getTitleText(ctx, R.string.features)).append("
-")
+        builder.append("\n").append(getTitleText(ctx, R.string.features)).append("\n")
         val featureStrings = mutableListOf<CharSequence>()
         for (info in features) {
             info.name?.let {
@@ -346,9 +279,7 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
             }
         }
         featureStrings.sortWith { o1, o2 -> o1.toString().compareTo(o2.toString(), ignoreCase = true) }
-        builder.append(TextUtilsCompat.joinSpannable("
-", featureStrings)).append("
-")
+        builder.append(TextUtilsCompat.joinSpannable("\n", featureStrings)).append("\n")
         return builder
     }
 
@@ -356,10 +287,8 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
         val eglCore = EglCore()
         val surface = OffscreenSurface(eglCore, 1, 1)
         surface.makeCurrent()
-        val gpu = "${GLES20.glGetString(GLES20.GL_VENDOR)} ${GLES20.glGetString(GLES20.GL_RENDERER)}"
-        val sb = SpannableStringBuilder()
-        sb.append(getStyledKeyValue(ctx, "GPU", gpu)).append("
-")
+        val gpu = "${GLES20.glGetString(GLES20.GL_VENDOR)} ${GLES20.glGetString(GLES20.GL_RENDERER)}"\nval sb = SpannableStringBuilder()
+        sb.append(getStyledKeyValue(ctx, "GPU", gpu)).append("\n")
         surface.release()
         eglCore.release()
         return sb
@@ -400,14 +329,7 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
                 batteryCycleCount = it.getInt(BatteryManager.EXTRA_CYCLE_COUNT, 0)
             }
             batteryHealth = when (it.getInt(BatteryManager.EXTRA_HEALTH, BatteryManager.BATTERY_HEALTH_UNKNOWN)) {
-                BatteryManager.BATTERY_HEALTH_GOOD -> "Good"
-                BatteryManager.BATTERY_HEALTH_OVERHEAT -> "Overheat"
-                BatteryManager.BATTERY_HEALTH_DEAD -> "Dead"
-                BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> "Over voltage"
-                BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> "failure"
-                BatteryManager.BATTERY_HEALTH_COLD -> "Cold"
-                else -> "Unknown"
-            }
+                BatteryManager.BATTERY_HEALTH_GOOD -> "Good"\nBatteryManager.BATTERY_HEALTH_OVERHEAT -> "Overheat"\nBatteryManager.BATTERY_HEALTH_DEAD -> "Dead"\nBatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> "Over voltage"\nBatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> "failure"\nBatteryManager.BATTERY_HEALTH_COLD -> "Cold"\nelse -> "Unknown"\n}
         }
     }
 
@@ -431,15 +353,11 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
     }
 
     private fun getVmVersion(): String {
-        var vm = "Dalvik"
-        val vmVersion = System.getProperty("java.vm.version")
-        if (vmVersion != null && vmVersion.startsWith("2")) vm = "ART"
-        return vm
+        var vm = "Dalvik"\nval vmVersion = System.getProperty("java.vm.version")
+        if (vmVersion != null && vmVersion.startsWith("2")) vm = "ART"\nreturn vm
     }
 
-    private fun getKernel(): String = System.getProperty("os.version") ?: ""
-
-    @WorkerThread
+    private fun getKernel(): String = System.getProperty("os.version") ?: ""\n@WorkerThread
     private fun getSelinuxStatus(): Int {
         if (SELinux.isSELinuxEnabled()) {
             val result = Runner.runCommand("getenforce")
@@ -454,9 +372,7 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
         return if ("encrypted" == state) {
             val encryptedMsg = getString(R.string.encrypted)
             when (SystemProperties.get("ro.crypto.type", "")) {
-                "file" -> "$encryptedMsg (FBE)"
-                "block" -> "$encryptedMsg (FDE)"
-                else -> encryptedMsg
+                "file" -> "$encryptedMsg (FBE)"\n"block" -> "$encryptedMsg (FDE)"\nelse -> encryptedMsg
             }
         } else if ("unencrypted" == state) getString(R.string.unencrypted)
         else getString(R.string.state_unknown)
@@ -464,11 +380,7 @@ class DeviceInfo2(private val mActivity: FragmentActivity) : LocalizedString {
 
     private fun getVerifiedBootStateString(color: String): String {
         return when (color) {
-            "green" -> "verified"
-            "yellow" -> "self-signed"
-            "red" -> "failed"
-            else -> "unverified"
-        }
+            "green" -> "verified"\n"yellow" -> "self-signed"\n"red" -> "failed"\nelse -> "unverified"\n}
     }
 
     private fun getHardwareBackedFeatures(): String? {

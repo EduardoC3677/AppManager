@@ -29,8 +29,7 @@ import javax.crypto.spec.SecretKeySpec
 
 class AESCryptoSelectionDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "AESCryptoSelectionDialogFragment"
-    }
+        const val TAG = "AESCryptoSelectionDialogFragment"\n}
 
     private lateinit var mActivity: FragmentActivity
     private lateinit var mBuilder: TextInputDialogBuilder

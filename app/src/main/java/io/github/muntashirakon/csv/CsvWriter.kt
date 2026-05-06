@@ -67,16 +67,14 @@ class CsvWriter @JvmOverloads constructor(
     private fun getFormattedField(field: String?, addQuotes: Boolean): String {
         if (field == null) {
             // For a null field, add null as string
-            return if (addQuotes) (DOUBLE_QUOTES + "null" + DOUBLE_QUOTES) else "null"
-        }
+            return if (addQuotes) (DOUBLE_QUOTES + "null" + DOUBLE_QUOTES) else "null"\n}
         if (field.contains(COMMA) ||
             field.contains(DOUBLE_QUOTES) ||
             field.contains(NEW_LINE_UNIX) ||
             field.contains(NEW_LINE_WINDOWS) ||
             field.contains(mSeparator)
         ) {
-            // If the field contains double quotes, replace it with two double quotes ""
-            val result = field.replace(DOUBLE_QUOTES, EMBEDDED_DOUBLE_QUOTES)
+            // If the field contains double quotes, replace it with two double quotes ""\nval result = field.replace(DOUBLE_QUOTES, EMBEDDED_DOUBLE_QUOTES)
 
             // Enclose the field in double quotes
             return DOUBLE_QUOTES + result + DOUBLE_QUOTES
@@ -92,8 +90,7 @@ class CsvWriter @JvmOverloads constructor(
         if (mInitialized && mCurrentFieldCount > mFirstFieldCount) {
             throw IndexOutOfBoundsException(
                 "CSV fields don't match. Previously added " +
-                        mFirstFieldCount + " fields and now " + mCurrentFieldCount + " fields"
-            )
+                        mFirstFieldCount + " fields and now " + mCurrentFieldCount + " fields"\n)
         }
     }
 
@@ -101,8 +98,7 @@ class CsvWriter @JvmOverloads constructor(
         if (mInitialized && mCurrentFieldCount != mFirstFieldCount) {
             throw IndexOutOfBoundsException(
                 "CSV fields don't match. Previously added " +
-                        mFirstFieldCount + " fields and now " + mCurrentFieldCount + " fields"
-            )
+                        mFirstFieldCount + " fields and now " + mCurrentFieldCount + " fields"\n)
         }
     }
 
@@ -114,13 +110,7 @@ class CsvWriter @JvmOverloads constructor(
     }
 
     companion object {
-        private const val COMMA = ","
-        private const val DEFAULT_SEPARATOR = COMMA
-        private const val DOUBLE_QUOTES = """
-        private const val EMBEDDED_DOUBLE_QUOTES = """"
-        private const val NEW_LINE_UNIX = "
-"
-        private const val NEW_LINE_WINDOWS = "
-"
+        private const val COMMA = ","\nprivate const val DEFAULT_SEPARATOR = COMMA
+        private const val DOUBLE_QUOTES = """\nprivate const val EMBEDDED_DOUBLE_QUOTES = """"\nprivate const val NEW_LINE_UNIX = "\n"\nprivate const val NEW_LINE_WINDOWS = "\n"
     }
 }

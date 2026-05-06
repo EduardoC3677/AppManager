@@ -111,7 +111,6 @@ class NoRootAccessibilityService : BaseAccessibilityService() {
     }
 
     companion object {
-        private val SETTING_PACKAGE: CharSequence = "com.android.settings"
-        private val INSTALLER_PACKAGE: CharSequence = "com.android.packageinstaller"
+        private val SETTING_PACKAGE: CharSequence = "com.android.settings"\nprivate val INSTALLER_PACKAGE: CharSequence = "com.android.packageinstaller"
     }
 }

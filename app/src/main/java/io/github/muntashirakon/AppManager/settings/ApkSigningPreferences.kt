@@ -17,8 +17,7 @@ import io.github.muntashirakon.dialog.SearchableFlagsDialogBuilder
 
 class ApkSigningPreferences : PreferenceFragment() {
     companion object {
-        const val TAG = "ApkSigningPreferences"
-    }
+        const val TAG = "ApkSigningPreferences"\n}
 
     private lateinit var mActivity: SettingsActivity
     private var mCustomSigPref: Preference? = null

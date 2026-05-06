@@ -380,8 +380,7 @@ class FmFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
             }
             R.id.action_copy_path -> {
                 val paths = selectedFiles.map { FmUtils.getDisplayablePath(it) }
-                Utils.copyToClipboard(mActivity, "Paths", TextUtils.join("
-", paths))
+                Utils.copyToClipboard(mActivity, "Paths", TextUtils.join("\n", paths))
             }
         }
         return false
@@ -407,8 +406,7 @@ class FmFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
             mEmptyViewDetails!!.visibility = View.GONE
             return
         }
-        val report = StringBuilder(th.toString() + "
-")
+        val report = StringBuilder(th.toString() + "\n")
         th.stackTrace.take(3).forEach { report.append("    at $it
 ") }
         var cause = th.cause
@@ -672,8 +670,7 @@ class FmFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
     }
 
     private fun findNextBestDisplayName(basePath: Path, prefix: String, extension: String?, startIndex: Int = 1): String {
-        val ext = if (TextUtils.isEmpty(extension)) "" else ".$extension"
-        var displayName = prefix + ext
+        val ext = if (TextUtils.isEmpty(extension)) "" else ".$extension"\nvar displayName = prefix + ext
         var i = startIndex
         while (basePath.hasFile(displayName)) {
             displayName = String.format(Locale.ROOT, "%s (%d)%s", prefix, i, ext)
@@ -706,9 +703,7 @@ class FmFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
 
     companion object {
         val TAG: String = FmFragment::class.java.simpleName
-        private const val ARG_URI = "uri"
-        const val ARG_OPTIONS = "opt"
-        const val ARG_POSITION = "pos"
+        private const val ARG_URI = "uri"\nconst val ARG_OPTIONS = "opt"\nconst val ARG_POSITION = "pos"
 
         @JvmStatic
         fun getNewInstance(options: FmActivity.Options, position: Int?): FmFragment {

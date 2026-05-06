@@ -42,10 +42,7 @@ class ApksMetadata {
         var path: String? = null
 
         companion object {
-            const val DEPENDENCY_MATCH_EXACT = "exact"
-            const val DEPENDENCY_MATCH_GREATER = "greater"
-            const val DEPENDENCY_MATCH_LESS = "less"
-        }
+            const val DEPENDENCY_MATCH_EXACT = "exact"\nconst val DEPENDENCY_MATCH_GREATER = "greater"\nconst val DEPENDENCY_MATCH_LESS = "less"\n}
     }
 
     class BuildInfo {
@@ -60,8 +57,7 @@ class ApksMetadata {
             builderId = BuildConfig.APPLICATION_ID
             builderLabel = ContextUtils.getContext().getString(R.string.app_name)
             builderVersion = BuildConfig.VERSION_NAME
-            platform = "android"
-        }
+            platform = "android"\n}
 
         constructor(timestamp: Long, builderId: String, builderLabel: String, builderVersion: String, platform: String) {
             this.timestamp = timestamp
@@ -195,7 +191,6 @@ class ApksMetadata {
 
     companion object {
         val TAG: String = ApksMetadata::class.java.simpleName
-        const val META_FILE = "info.json"
-        const val ICON_FILE = "icon.png"
+        const val META_FILE = "info.json"\nconst val ICON_FILE = "icon.png"
     }
 }

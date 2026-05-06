@@ -93,19 +93,14 @@ class ApkFile : AutoCloseable {
             extension = apkSource.extension!!
         } else {
             extension = when (currentMimeType) {
-                "application/x-apks" -> "apks"
-                "application/xapk-package-archive" -> "xapk"
-                "application/vnd.apkm" -> "apkm"
-                else -> "apk"
-            }
+                "application/x-apks" -> "apks"\n"application/xapk-package-archive" -> "xapk"\n"application/vnd.apkm" -> "apkm"\nelse -> "apk"\n}
         }
         if (extension == "apkm") {
             try {
                 if (FileUtils.isZip(apkSource)) {
                     // DRM-free APKM file, mark it as APKS
                     // FIXME(#227): Give it a special name and verify integrity
-                    extension = "apks"
-                }
+                    extension = "apks"\n}
             } catch (e: IOException) {
                 throw ApkFileException(e)
             } catch (e: SecurityException) {
@@ -696,8 +691,7 @@ class ApkFile : AutoCloseable {
                     start, builder.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
-            return SpannableStringBuilder(localizedString).append("
-").append(getSmallerText(builder))
+            return SpannableStringBuilder(localizedString).append("\n").append(getSmallerText(builder))
         }
 
         fun toShortLocalizedString(context: Context): CharSequence {
@@ -747,19 +741,7 @@ class ApkFile : AutoCloseable {
     }
 
     companion object {
-        const val TAG = "ApkFile"
-
-        private const val ATTR_IS_FEATURE_SPLIT = "android:isFeatureSplit"
-        private const val ATTR_IS_SPLIT_REQUIRED = "android:isSplitRequired"
-        private const val ATTR_ISOLATED_SPLIT = "android:isolatedSplits"
-        private const val ATTR_CONFIG_FOR_SPLIT = "configForSplit"
-        private const val ATTR_SPLIT = "split"
-        private const val ATTR_PACKAGE = "package"
-        private const val CONFIG_PREFIX = "config."
-
-        private const val UN_APKM_PKG = "io.github.muntashirakon.unapkm"
-
-        private val sApkFiles = SparseArrayCompat<ApkFile>(3)
+        const val TAG = "ApkFile"\nprivate const val ATTR_IS_FEATURE_SPLIT = "android:isFeatureSplit"\nprivate const val ATTR_IS_SPLIT_REQUIRED = "android:isSplitRequired"\nprivate const val ATTR_ISOLATED_SPLIT = "android:isolatedSplits"\nprivate const val ATTR_CONFIG_FOR_SPLIT = "configForSplit"\nprivate const val ATTR_SPLIT = "split"\nprivate const val ATTR_PACKAGE = "package"\nprivate const val CONFIG_PREFIX = "config."\nprivate const val UN_APKM_PKG = "io.github.muntashirakon.unapkm"\nprivate val sApkFiles = SparseArrayCompat<ApkFile>(3)
         private val sInstanceCount = SparseIntArray(3)
 
         @JvmStatic

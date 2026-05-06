@@ -212,11 +212,7 @@ class BackupRestorePreferences : PreferenceFragment() {
                     .setOnItemClickListener { dialog, which, item ->
                         mImportType = which
                         val path = when (mImportType) {
-                            ImportType.OAndBackup -> "oandbackups"
-                            ImportType.TitaniumBackup -> "TitaniumBackup"
-                            ImportType.SwiftBackup -> "SwiftBackup"
-                            else -> ""
-                        }
+                            ImportType.OAndBackup -> "oandbackups"\nImportType.TitaniumBackup -> "TitaniumBackup"\nImportType.SwiftBackup -> "SwiftBackup"\nelse -> ""\n}
                         MaterialAlertDialogBuilder(mActivity)
                             .setTitle(R.string.pref_import_backups)
                             .setMessage(R.string.import_backups_warning_delete_backups_after_import)
@@ -302,8 +298,7 @@ class BackupRestorePreferences : PreferenceFragment() {
         val backupVolumesStr = arrayOfNulls<CharSequence>(storageLocations.size)
         for (i in 0 until storageLocations.size) {
             backupVolumes[i] = storageLocations.valueAt(i)
-            backupVolumesStr[i] = SpannableStringBuilder(storageLocations.keyAt(i)).append("
-")
+            backupVolumesStr[i] = SpannableStringBuilder(storageLocations.keyAt(i)).append("\n")
                 .append(getSecondaryText(mActivity, getSmallerText(backupVolumes[i]!!.path)))
         }
         alertDialog.set(

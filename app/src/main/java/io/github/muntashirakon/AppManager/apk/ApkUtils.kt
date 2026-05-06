@@ -52,13 +52,8 @@ object ApkUtils {
     @JvmField
     val TAG: String = ApkUtils::class.java.simpleName
 
-    const val EXT_APK = ".apk"
-    const val EXT_APKS = ".apks"
-
-    private val sLock = Any()
-    private const val MANIFEST_FILE = "AndroidManifest.xml"
-
-    @JvmStatic
+    const val EXT_APK = ".apk"\nconst val EXT_APKS = ".apks"\nprivate val sLock = Any()
+    private const val MANIFEST_FILE = "AndroidManifest.xml"\n@JvmStatic
     @WorkerThread
     @Throws(IOException::class)
     fun getSharableApkFile(ctx: Context, packageInfo: PackageInfo): Path {

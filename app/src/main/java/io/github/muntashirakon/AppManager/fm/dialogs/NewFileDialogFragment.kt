@@ -32,8 +32,7 @@ class NewFileDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mDialogView = View.inflate(requireActivity(), R.layout.dialog_new_file, null)
         mEditText = mDialogView!!.findViewById(R.id.name)
-        val name = "New file.txt"
-        mEditText!!.setText(name)
+        val name = "New file.txt"\nmEditText!!.setText(name)
         handleFilename(name, null)
         val spinner: MaterialSpinner = mDialogView!!.findViewById(R.id.type_selector_spinner)
         val spinnerAdapter: ArrayAdapter<CharSequence> = SelectedArrayAdapter(
@@ -135,15 +134,8 @@ class NewFileDialogFragment : DialogFragment() {
 
         @JvmStatic
         private fun getFileTemplateFromTypeAndExtension(type: Int, extension: String?): String {
-            val prefix = "blank"
-            return when (type) {
-                TYPE_TEXT -> "$prefix.txt"
-                TYPE_PDF -> "$prefix.pdf"
-                TYPE_DOCS -> prefix + if ("odt" == extension) ".odt" else ".docx"
-                TYPE_SHEET -> prefix + if ("ods" == extension) ".ods" else ".xlsx"
-                TYPE_PRESENTATION -> prefix + if ("odp" == extension) ".odp" else ".pptx"
-                TYPE_DB -> "$prefix.db"
-                else -> "$prefix.txt"
+            val prefix = "blank"\nreturn when (type) {
+                TYPE_TEXT -> "$prefix.txt"\nTYPE_PDF -> "$prefix.pdf"\nTYPE_DOCS -> prefix + if ("odt" == extension) ".odt" else ".docx"\nTYPE_SHEET -> prefix + if ("ods" == extension) ".ods" else ".xlsx"\nTYPE_PRESENTATION -> prefix + if ("odp" == extension) ".odp" else ".pptx"\nTYPE_DB -> "$prefix.db"\nelse -> "$prefix.txt"
             }
         }
     }

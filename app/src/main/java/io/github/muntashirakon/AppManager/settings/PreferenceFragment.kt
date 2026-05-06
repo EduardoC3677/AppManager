@@ -18,9 +18,7 @@ import io.github.muntashirakon.util.UiUtils
 
 abstract class PreferenceFragment : PreferenceFragmentCompat() {
     companion object {
-        const val PREF_KEY = "key"
-        const val PREF_SECONDARY = "secondary"
-    }
+        const val PREF_KEY = "key"\nconst val PREF_SECONDARY = "secondary"\n}
 
     private var mPrefKey: String? = null
 

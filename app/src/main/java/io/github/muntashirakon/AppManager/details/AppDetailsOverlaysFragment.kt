@@ -137,8 +137,7 @@ class AppDetailsOverlaysFragment : AppDetailsFragment() {
             holder.packageName.text = item.packageName
             item.category?.let {
                 holder.overlayCategory.visibility = View.VISIBLE
-                holder.overlayCategory.text = "${getString(R.string.overlay_category)}${LangUtils.getSeparatorString()}$it"
-            } ?: run { holder.overlayCategory.visibility = View.GONE }
+                holder.overlayCategory.text = "${getString(R.string.overlay_category)}${LangUtils.getSeparatorString()}$it"\n} ?: run { holder.overlayCategory.visibility = View.GONE }
             holder.toggleSwitch.isEnabled = item.isMutable
             holder.toggleSwitch.isClickable = true
             holder.toggleSwitch.isChecked = item.isEnabled

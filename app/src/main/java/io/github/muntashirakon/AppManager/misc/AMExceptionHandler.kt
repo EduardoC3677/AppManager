@@ -28,8 +28,7 @@ class AMExceptionHandler(private val mContext: Context) : Thread.UncaughtExcepti
 ") }
             cause = cause.cause
         }
-        report.append("
-Device Info:
+        report.append("\nDevice Info:
 ")
         report.append(DeviceInfo(mContext))
 
@@ -37,8 +36,7 @@ Device Info:
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 identifier = System.currentTimeMillis().toString()
             }
-            type = "text/plain"
-            putExtra(Intent.EXTRA_EMAIL, arrayOf(EMAIL))
+            type = "text/plain"\nputExtra(Intent.EXTRA_EMAIL, arrayOf(EMAIL))
             putExtra(Intent.EXTRA_SUBJECT, "App Manager: Crash report")
             putExtra(Intent.EXTRA_TEXT, report.toString())
         }

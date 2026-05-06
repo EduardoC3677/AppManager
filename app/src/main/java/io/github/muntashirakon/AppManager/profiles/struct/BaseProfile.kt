@@ -84,10 +84,7 @@ abstract class BaseProfile : LocalizedString, IJsonSerializer {
         const val PROFILE_TYPE_APPS = 0
         const val PROFILE_TYPE_APPS_FILTER = 1
 
-        const val STATE_ON = "on"
-        const val STATE_OFF = "off"
-
-        @JvmStatic
+        const val STATE_ON = "on"\nconst val STATE_OFF = "off"\n@JvmStatic
         @Throws(IOException::class, JSONException::class)
         fun fromPath(profilePath: Path?): BaseProfile {
             if (profilePath == null) throw IOException("Empty profile path")
@@ -103,8 +100,7 @@ abstract class BaseProfile : LocalizedString, IJsonSerializer {
             var profileName = newProfileName
             var i = 1
             while (profilePath != null && profilePath.exists()) {
-                profileName = "$newProfileName ($i)"
-                profileId = ProfileManager.getProfileIdCompat(profileName)
+                profileName = "$newProfileName ($i)"\nprofileId = ProfileManager.getProfileIdCompat(profileName)
                 profilePath = Paths.build(profilesDir, profileId + PROFILE_EXT)
                 i++
             }

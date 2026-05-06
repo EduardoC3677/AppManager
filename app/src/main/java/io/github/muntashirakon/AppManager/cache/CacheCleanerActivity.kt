@@ -188,11 +188,7 @@ class CacheCleanerActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListene
     
     private fun formatSize(bytes: Long): String {
         return when {
-            bytes < 1024 -> "$bytes B"
-            bytes < 1024 * 1024 -> "${bytes / 1024} KB"
-            bytes < 1024 * 1024 * 1024 -> "${bytes / (1024 * 1024)} MB"
-            else -> "${bytes / (1024 * 1024 * 1024)} GB"
-        }
+            bytes < 1024 -> "$bytes B"\nbytes < 1024 * 1024 -> "${bytes / 1024} KB"\nbytes < 1024 * 1024 * 1024 -> "${bytes / (1024 * 1024)} MB"\nelse -> "${bytes / (1024 * 1024 * 1024)} GB"\n}
     }
     
     companion object {

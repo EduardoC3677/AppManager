@@ -24,19 +24,7 @@ import java.util.*
 
 class BatchOpsService : ForegroundService("BatchOpsService") {
     companion object {
-        const val EXTRA_QUEUE_ITEM = "queue_item"
-        const val EXTRA_OP = "EXTRA_OP"
-        const val EXTRA_OP_PKG = "EXTRA_OP_PKG"
-        const val EXTRA_FAILED_PKG = "EXTRA_FAILED_PKG_ARR"
-        const val EXTRA_FAILURE_MESSAGE = "EXTRA_FAILURE_MESSAGE"
-        const val EXTRA_REQUIRES_RESTART = "requires_restart"
-
-        const val ACTION_BATCH_OPS_COMPLETED = BuildConfig.APPLICATION_ID + ".action.BATCH_OPS_COMPLETED"
-        const val ACTION_BATCH_OPS_STARTED = BuildConfig.APPLICATION_ID + ".action.BATCH_OPS_STARTED"
-
-        const val CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.BATCH_OPS"
-
-        @JvmStatic
+        const val EXTRA_QUEUE_ITEM = "queue_item"\nconst val EXTRA_OP = "EXTRA_OP"\nconst val EXTRA_OP_PKG = "EXTRA_OP_PKG"\nconst val EXTRA_FAILED_PKG = "EXTRA_FAILED_PKG_ARR"\nconst val EXTRA_FAILURE_MESSAGE = "EXTRA_FAILURE_MESSAGE"\nconst val EXTRA_REQUIRES_RESTART = "requires_restart"\nconst val ACTION_BATCH_OPS_COMPLETED = BuildConfig.APPLICATION_ID + ".action.BATCH_OPS_COMPLETED"\nconst val ACTION_BATCH_OPS_STARTED = BuildConfig.APPLICATION_ID + ".action.BATCH_OPS_STARTED"\nconst val CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel.BATCH_OPS"\n@JvmStatic
         fun getServiceIntent(context: Context, queueItem: BatchQueueItem): Intent {
             val intent = Intent(context, BatchOpsService::class.java)
             IntentCompat.putWrappedParcelableExtra(intent, EXTRA_QUEUE_ITEM, queueItem)

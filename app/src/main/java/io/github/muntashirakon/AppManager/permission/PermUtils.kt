@@ -31,9 +31,7 @@ import io.github.muntashirakon.AppManager.utils.ContextUtils
 import io.github.muntashirakon.AppManager.utils.IntentUtils
 
 object PermUtils {
-    private const val KILL_REASON_APP_OP_CHANGE = "Permission related app op changed"
-
-    class SettingItem(val action: String, val supportPkg: Boolean = true) {
+    private const val KILL_REASON_APP_OP_CHANGE = "Permission related app op changed"\nclass SettingItem(val action: String, val supportPkg: Boolean = true) {
         fun toIntent(packageName: String?): Intent {
             return IntentUtils.getSettings(action, if (supportPkg) packageName else null)
         }

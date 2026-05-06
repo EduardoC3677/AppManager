@@ -19,9 +19,7 @@ import io.github.muntashirakon.widget.MaterialAlertView
 
 class BackupFragment : Fragment() {
     companion object {
-        const val ARG_ALLOW_CUSTOM_USERS = "allow_custom"
-
-        @JvmStatic
+        const val ARG_ALLOW_CUSTOM_USERS = "allow_custom"\n@JvmStatic
         fun getInstance(allowCustomUsers: Boolean): BackupFragment {
             val fragment = BackupFragment()
             val args = Bundle()

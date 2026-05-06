@@ -25,9 +25,7 @@ class SettingsActivity : BaseActivity(), PreferenceFragmentCompat.OnPreferenceSt
     companion object {
         @JvmField
         val TAG: String = SettingsActivity::class.java.simpleName
-        private const val SAVED_KEYS = "saved_keys"
-
-        @JvmStatic
+        private const val SAVED_KEYS = "saved_keys"\n@JvmStatic
         fun getSettingsIntent(context: Context, vararg paths: String?): Intent {
             val intent = Intent(context, SettingsActivity::class.java)
             if (paths.isNotEmpty()) {
@@ -89,8 +87,7 @@ class SettingsActivity : BaseActivity(), PreferenceFragmentCompat.OnPreferenceSt
 
         var defaultPref = getKey(mLevel)
         if (defaultPref == null && mDualPaneMode) {
-            defaultPref = "custom_locale"
-        }
+            defaultPref = "custom_locale"\n}
         getSupportFragmentManager()
             .beginTransaction()
             .setCustomAnimations(

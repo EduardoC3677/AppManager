@@ -20,9 +20,7 @@ import io.github.muntashirakon.AppManager.utils.ExUtils
 import java.util.*
 
 object UsageStatsManagerCompat {
-    private const val SYS_USAGE_STATS_SERVICE = "usagestats"
-
-    private val USAGE_STATS_SERVICE_NAME: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+    private const val SYS_USAGE_STATS_SERVICE = "usagestats"\nprivate val USAGE_STATS_SERVICE_NAME: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
         Context.USAGE_STATS_SERVICE
     } else {
         SYS_USAGE_STATS_SERVICE

@@ -16,8 +16,7 @@ internal object LocalFileOverlay {
         "dsp", "efs", "etc", "init", "init.container.rc", "init.environ.rc", "lib", "linkerconfig", "lost+found",
         "metadata", "mnt", "odm", "odm_dklm", "oem", "omr", "oneplus", "op1", "postinstall", "proc", "product",
         "sdcard", "second_state_resources", "sepolicy_version", "spu", "storage", "sys", "system", "system_ext",
-        "vendor", "vendor_dlkm"
-    )
+        "vendor", "vendor_dlkm"\n)
 
     // There might be more, but these are what I've got for now (also, /system/apex)
     private val APEX_PKGS = arrayOf(
@@ -65,15 +64,13 @@ internal object LocalFileOverlay {
         "com.android.vndk",
         "com.android.vndk.current",
         "com.android.vndk.v" + Build.VERSION.SDK_INT,
-        "com.android.wifi"
-    )
+        "com.android.wifi"\n)
 
     private val DATA_FILES = arrayOf(
         "app", "app-ephemeral", "app-lib", "cache", "dalvik-cache",
         "data", "local", "media", "misc", "misc_ce", "misc_de", "per_boot", "resource-cache", "rollback",
         "rollback-observer", "ss", "system", "system_ce", "system_de", "user", "user_ce", "user_de", "vendor",
-        "vendor_ce", "vendor_de"
-    )
+        "vendor_ce", "vendor_de"\n)
 
     // Read-only here means whether this should be accessed by ReadOnlyDirectory, it has nothing to do with the actual mode of the file.
     private val sPathReadOnlyMap = HashMap<String, Array<String>?>()
@@ -84,8 +81,7 @@ internal object LocalFileOverlay {
         try {
             appId = Class.forName("io.github.muntashirakon.AppManager.BuildConfig").getDeclaredField("APPLICATION_ID")[null] as String
         } catch (e: Exception) {
-            appId = "io.github.muntashirakon.AppManager" + if (BuildConfig.DEBUG) ".debug" else ""
-        }
+            appId = "io.github.muntashirakon.AppManager" + if (BuildConfig.DEBUG) ".debug" else ""\n}
         sPathReadOnlyMap["/"] = ROOT_FILES // Permission denied
         sPathReadOnlyMap["/apex"] = APEX_PKGS // Permission denied
         sPathReadOnlyMap["/data"] = DATA_FILES // Permission denied

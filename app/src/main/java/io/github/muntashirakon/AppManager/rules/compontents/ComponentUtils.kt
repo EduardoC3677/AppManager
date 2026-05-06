@@ -135,8 +135,7 @@ object ComponentUtils {
     @Throws(IOException::class)
     fun storeRules(os: OutputStream, rules: List<RuleEntry>, isExternal: Boolean) {
         for (entry in rules) {
-            os.write((entry.flattenToString(isExternal) + "
-").toByteArray())
+            os.write((entry.flattenToString(isExternal) + "\n").toByteArray())
         }
     }
 
@@ -207,12 +206,7 @@ object ComponentUtils {
         return rules
     }
 
-    const val TAG_RULES = "rules"
-    const val TAG_ACTIVITY = "activity"
-    const val TAG_BROADCAST = "broadcast"
-    const val TAG_SERVICE = "service"
-
-    @JvmStatic
+    const val TAG_RULES = "rules"\nconst val TAG_ACTIVITY = "activity"\nconst val TAG_BROADCAST = "broadcast"\nconst val TAG_SERVICE = "service"\n@JvmStatic
     fun readIFWRules(inputStream: InputStream, packageName: String): HashMap<String, RuleType> {
         val rules = HashMap<String, RuleType>()
         val parser = Xml.newPullParser()

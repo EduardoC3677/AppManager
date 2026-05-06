@@ -133,8 +133,7 @@ class UriManager {
         override fun toString(): String = flattenToString()
 
         fun flattenToString(): String {
-            return "$sourceUserId,$targetUserId,$userHandle,$sourcePkg,$targetPkg,$prefix,$modeFlags,$createdTime,${uri}"
-        }
+            return "$sourceUserId,$targetUserId,$userHandle,$sourcePkg,$targetPkg,$prefix,$modeFlags,$createdTime,${uri}"\n}
 
         companion object {
             @JvmStatic
@@ -159,17 +158,6 @@ class UriManager {
     }
 
     companion object {
-        const val TAG = "UriManager"
-        private const val TAG_URI_GRANTS = "uri-grants"
-        private const val TAG_URI_GRANT = "uri-grant"
-        private const val ATTR_USER_HANDLE = "userHandle"
-        private const val ATTR_SOURCE_USER_ID = "sourceUserId"
-        private const val ATTR_TARGET_USER_ID = "targetUserId"
-        private const val ATTR_SOURCE_PKG = "sourcePkg"
-        private const val ATTR_TARGET_PKG = "targetPkg"
-        private const val ATTR_URI = "uri"
-        private const val ATTR_MODE_FLAGS = "modeFlags"
-        private const val ATTR_CREATED_TIME = "createdTime"
-        private const val ATTR_PREFIX = "prefix"
+        const val TAG = "UriManager"\nprivate const val TAG_URI_GRANTS = "uri-grants"\nprivate const val TAG_URI_GRANT = "uri-grant"\nprivate const val ATTR_USER_HANDLE = "userHandle"\nprivate const val ATTR_SOURCE_USER_ID = "sourceUserId"\nprivate const val ATTR_TARGET_USER_ID = "targetUserId"\nprivate const val ATTR_SOURCE_PKG = "sourcePkg"\nprivate const val ATTR_TARGET_PKG = "targetPkg"\nprivate const val ATTR_URI = "uri"\nprivate const val ATTR_MODE_FLAGS = "modeFlags"\nprivate const val ATTR_CREATED_TIME = "createdTime"\nprivate const val ATTR_PREFIX = "prefix"
     }
 }

@@ -47,8 +47,7 @@ class SLConverter(private val mBackupFile: Path) : Converter() {
         @JvmField
         val TAG: String = SLConverter::class.java.simpleName
         
-        private const val CATEGORY_PREFIX = "sl_category_"
-    }
+        private const val CATEGORY_PREFIX = "sl_category_"\n}
 
     private val mContext: Context = ContextUtils.getContext()
     private val mPm: PackageManager = mContext.packageManager
@@ -57,9 +56,7 @@ class SLConverter(private val mBackupFile: Path) : Converter() {
     private var mBackupTime: Long = 0
     private var mCategoryCount: Int = 0
 
-    override val packageName: String = "SmartLauncher_Import"
-
-    override fun convert() {
+    override val packageName: String = "SmartLauncher_Import"\noverride fun convert() {
         mBackupTime = mBackupFile.lastModified()
         
         try {
@@ -273,9 +270,7 @@ class SLConverter(private val mBackupFile: Path) : Converter() {
     @SuppressLint("NewApi")
     private fun createProfileForCategory(categoryName: String, packages: List<String>) {
         val sanitizedCategoryName = sanitizeCategoryName(categoryName)
-        val profileName = "$CATEGORY_PREFIX$sanitizedCategoryName"
-        
-        // Check if profile already exists
+        val profileName = "$CATEGORY_PREFIX$sanitizedCategoryName"\n// Check if profile already exists
         val existingProfiles = ProfileManager.getProfiles()
         for (profile in existingProfiles) {
             if (profile.name == profileName) {

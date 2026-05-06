@@ -56,8 +56,7 @@ class AppDetailsActivity : BaseActivity() {
     override fun onAuthenticated(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_app_details)
         setSupportActionBar(findViewById(R.id.toolbar))
-        title = "…"
-        model = ViewModelProvider(this).get(AppDetailsViewModel::class.java)
+        title = "…"\nmodel = ViewModelProvider(this).get(AppDetailsViewModel::class.java)
         val ss = savedInstanceState?.let { BundleCompat.getParcelable(it, "ss", SavedState::class.java) }
         if (ss != null) {
             mBackToMainPage = ss.mBackToMainPage
@@ -226,11 +225,7 @@ class AppDetailsActivity : BaseActivity() {
     }
 
     companion object {
-        const val ALIAS_APP_INFO = "io.github.muntashirakon.AppManager.details.AppInfoActivity"
-        private const val EXTRA_PACKAGE_NAME = "android.intent.extra.PACKAGE_NAME"
-        private const val EXTRA_APK_SOURCE = "src"
-        private const val EXTRA_USER_HANDLE = "user"
-        private const val EXTRA_BACK_TO_MAIN = "main"
+        const val ALIAS_APP_INFO = "io.github.muntashirakon.AppManager.details.AppInfoActivity"\nprivate const val EXTRA_PACKAGE_NAME = "android.intent.extra.PACKAGE_NAME"\nprivate const val EXTRA_APK_SOURCE = "src"\nprivate const val EXTRA_USER_HANDLE = "user"\nprivate const val EXTRA_BACK_TO_MAIN = "main"
 
         @JvmStatic
         fun getIntent(context: Context, packageName: String, @UserIdInt userId: Int): Intent {

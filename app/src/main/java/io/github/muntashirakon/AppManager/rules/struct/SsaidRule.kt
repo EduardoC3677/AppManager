@@ -27,8 +27,7 @@ class SsaidRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "SsaidRule{packageName='$packageName', ssaid='$ssaid'}"
-    }
+        return "SsaidRule{packageName='$packageName', ssaid='$ssaid'}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t$ssaid"

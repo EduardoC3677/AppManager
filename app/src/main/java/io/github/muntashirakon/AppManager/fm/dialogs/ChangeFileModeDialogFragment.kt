@@ -97,8 +97,7 @@ class ChangeFileModeDialogFragment : DialogFragment() {
 
     companion object {
         val TAG: String = ChangeFileModeDialogFragment::class.java.simpleName
-        private const val ARG_MODE = "mode"
-        private const val ARG_DISPLAY_RECURSIVE = "recursive"
+        private const val ARG_MODE = "mode"\nprivate const val ARG_DISPLAY_RECURSIVE = "recursive"
 
         @JvmStatic
         fun getInstance(

@@ -148,8 +148,7 @@ class OneClickOpsActivity : BaseActivity() {
         val names = mutableListOf<CharSequence>()
         for (t in trackerCounts) {
             pkgs.add(t.packageName!!)
-            names.add(SpannableStringBuilder(t.packageLabel).append("
-").append(getSmallerText(resources.getQuantityString(R.plurals.no_of_trackers, t.count, t.count))))
+            names.add(SpannableStringBuilder(t.packageLabel).append("\n").append(getSmallerText(resources.getQuantityString(R.plurals.no_of_trackers, t.count, t.count))))
         }
         SearchableMultiChoiceDialogBuilder(this, pkgs, names).addSelections(pkgs).setTitle(R.string.filtered_packages).setPositiveButton(R.string.block) { _, _, sel -> mProgressIndicator!!.show(); launchService(BatchQueueItem.getOneClickQueue(BatchOpsManager.OP_BLOCK_TRACKERS, sel, null, null)) }.setNeutralButton(R.string.unblock) { _, _, sel -> mProgressIndicator!!.show(); launchService(BatchQueueItem.getOneClickQueue(BatchOpsManager.OP_UNBLOCK_TRACKERS, sel, null, null)) }.setNegativeButton(R.string.cancel, null).show()
     }
@@ -163,8 +162,7 @@ class OneClickOpsActivity : BaseActivity() {
         val names = mutableListOf<CharSequence>()
         for (c in componentCounts) {
             pkgs.add(c.packageName!!)
-            names.add(SpannableStringBuilder(c.packageLabel).append("
-").append(getSmallerText(resources.getQuantityString(R.plurals.no_of_components, c.count, c.count))))
+            names.add(SpannableStringBuilder(c.packageLabel).append("\n").append(getSmallerText(resources.getQuantityString(R.plurals.no_of_components, c.count, c.count))))
         }
         val options = BatchComponentOptions(signatures)
         SearchableMultiChoiceDialogBuilder(this, pkgs, names).addSelections(pkgs).setTitle(R.string.filtered_packages).setPositiveButton(R.string.block) { _, _, sel -> mProgressIndicator!!.show(); launchService(BatchQueueItem.getOneClickQueue(BatchOpsManager.OP_BLOCK_COMPONENTS, sel, null, options)) }.setNeutralButton(R.string.unblock) { _, _, sel -> mProgressIndicator!!.show(); launchService(BatchQueueItem.getOneClickQueue(BatchOpsManager.OP_UNBLOCK_COMPONENTS, sel, null, options)) }.setNegativeButton(R.string.cancel, null).show()
@@ -199,8 +197,7 @@ class OneClickOpsActivity : BaseActivity() {
         val names = mutableListOf<CharSequence>()
         for (ao in appOpCounts) {
             pkgs.add(ao.packageName!!)
-            names.add(SpannableStringBuilder(ao.packageLabel).append("
-").append(getSmallerText("(${ao.count}) ${TextUtilsCompat.joinSpannable(", ", appOpToNames(ao.appOps!!))}")))
+            names.add(SpannableStringBuilder(ao.packageLabel).append("\n").append(getSmallerText("(${ao.count}) ${TextUtilsCompat.joinSpannable(", ", appOpToNames(ao.appOps!!))}")))
         }
         val options = BatchAppOpsOptions(appOpList, mode)
         SearchableMultiChoiceDialogBuilder(this, pkgs, names).addSelections(pkgs).setTitle(R.string.filtered_packages).setPositiveButton(R.string.apply) { _, _, sel -> mProgressIndicator!!.show(); launchService(BatchQueueItem.getOneClickQueue(BatchOpsManager.OP_SET_APP_OPS, sel, null, options)) }.setNegativeButton(R.string.cancel) { _, _, _ -> mProgressIndicator!!.hide() }.show()

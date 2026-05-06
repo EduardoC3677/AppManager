@@ -15,21 +15,15 @@ class OpHistory {
 
     @JvmField
     @ColumnInfo(name = "type")
-    var type: String = ""
-
-    @JvmField
+    var type: String = ""\n@JvmField
     @ColumnInfo(name = "time")
     var execTime: Long = 0
 
     @JvmField
     @ColumnInfo(name = "data")
-    var serializedData: String = ""
-
-    @JvmField
+    var serializedData: String = ""\n@JvmField
     @ColumnInfo(name = "status")
-    var status: String = ""
-
-    @JvmField
+    var status: String = ""\n@JvmField
     @ColumnInfo(name = "extra")
     var serializedExtra: String? = null
 }

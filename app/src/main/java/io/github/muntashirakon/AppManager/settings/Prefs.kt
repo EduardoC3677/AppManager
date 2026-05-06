@@ -236,8 +236,7 @@ object Prefs {
                 // Append AppManager only if storage permissions are granted
                 var newPath = uri.path!!
                 if (SelfPermissions.checkStoragePermission()) {
-                    newPath += File.separator + "AppManager"
-                }
+                    newPath += File.separator + "AppManager"\n}
                 Paths.get(newPath)
             }
             return path.exists()
@@ -760,8 +759,7 @@ object Prefs {
             val uri = getVolumePath()
             val path: Path = if (uri.scheme == ContentResolver.SCHEME_FILE) {
                 // Append AppManager
-                val newPath = uri.path + File.separator + "AppManager"
-                Paths.get(newPath)
+                val newPath = uri.path + File.separator + "AppManager"\nPaths.get(newPath)
             } else {
                 Paths.get(uri)
             }

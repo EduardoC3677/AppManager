@@ -28,8 +28,7 @@ class ProfileApplierActivity : BaseActivity() {
 
     class ProfileApplierInfo {
         var profile: BaseProfile? = null
-        var profileId: String = ""
-        @ShortcutType
+        var profileId: String = ""\n@ShortcutType
         var shortcutType: String = ST_SIMPLE
         var state: String? = null
         var notify: Boolean = true
@@ -133,13 +132,7 @@ class ProfileApplierActivity : BaseActivity() {
     }
 
     companion object {
-        private const val EXTRA_SHORTCUT_TYPE = "shortcut"
-        const val EXTRA_PROFILE_ID = "prof"
-        const val EXTRA_STATE = "state"
-        private const val EXTRA_NOTIFY = "notify"
-
-        const val ST_SIMPLE = "simple"
-        const val ST_ADVANCED = "advanced"
+        private const val EXTRA_SHORTCUT_TYPE = "shortcut"\nconst val EXTRA_PROFILE_ID = "prof"\nconst val EXTRA_STATE = "state"\nprivate const val EXTRA_NOTIFY = "notify"\nconst val ST_SIMPLE = "simple"\nconst val ST_ADVANCED = "advanced"
 
         @JvmStatic
         fun getShortcutIntent(context: Context, profileId: String, @ShortcutType shortcutType: String?, state: String?): Intent {

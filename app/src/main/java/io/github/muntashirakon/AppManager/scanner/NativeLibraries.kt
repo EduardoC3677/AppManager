@@ -73,15 +73,13 @@ object NativeLibraries {
             sb.append("Magic")
                 .append(LangUtils.getSeparatorString())
                 .append(HexEncoding.encodeToString(getMagic()))
-                .append("
-")
+                .append("\n")
                 .append(getPath())
             return sb
         }
 
         override fun toString(): String {
-            return "InvalidLib(mPath='${getPath()}', mSize=${getSize()})"
-        }
+            return "InvalidLib(mPath='${getPath()}', mSize=${getSize()})"\n}
     }
 
     class ElfLib(path: String, size: Long) : NativeLib(path, size, ByteArray(0)) {
@@ -102,15 +100,13 @@ object NativeLibraries {
                 .append(getEndiannessName(mEndianness)).append(", ")
                 .append(getIsaName(mIsa)).append(", ")
                 .append(getTypeName(mType))
-                .append("
-")
+                .append("\n")
                 .append(getPath())
             return sb
         }
 
         override fun toString(): String {
-            return "ElfLib(mPath='${getPath()}', mSize=${getSize()}, mArch=$mArch, mEndianness=$mEndianness, mType=$mType, mIsa=$mIsa)"
-        }
+            return "ElfLib(mPath='${getPath()}', mSize=${getSize()}, mArch=$mArch, mEndianness=$mEndianness, mType=$mType, mIsa=$mIsa)"\n}
 
         companion object {
             const val ARCH_NONE: Byte = 0
@@ -138,47 +134,25 @@ object NativeLibraries {
             @AnyThread
             fun getArchName(arch: Byte): String {
                 return when (arch) {
-                    ARCH_NONE -> "None"
-                    ARCH_32BIT -> "32-bit"
-                    ARCH_64BIT -> "64-bit"
-                    else -> "Unknown"
-                }
+                    ARCH_NONE -> "None"\nARCH_32BIT -> "32-bit"\nARCH_64BIT -> "64-bit"\nelse -> "Unknown"\n}
             }
 
             @AnyThread
             fun getEndiannessName(endianness: Byte): String {
                 return when (endianness) {
-                    ENDIANNESS_NONE -> "None"
-                    ENDIANNESS_LITTLE_ENDIAN -> "Little-endian"
-                    ENDIANNESS_BIG_ENDIAN -> "Big-endian"
-                    else -> "Unknown"
-                }
+                    ENDIANNESS_NONE -> "None"\nENDIANNESS_LITTLE_ENDIAN -> "Little-endian"\nENDIANNESS_BIG_ENDIAN -> "Big-endian"\nelse -> "Unknown"\n}
             }
 
             @AnyThread
             fun getTypeName(type: Char): String {
                 return when (type) {
-                    TYPE_NONE -> "None"
-                    TYPE_RELOCATABLE -> "Relocatable"
-                    TYPE_EXECUTABLE -> "Executable"
-                    TYPE_SHARED -> "Shared"
-                    TYPE_CORE -> "Core"
-                    else -> "Unknown"
-                }
+                    TYPE_NONE -> "None"\nTYPE_RELOCATABLE -> "Relocatable"\nTYPE_EXECUTABLE -> "Executable"\nTYPE_SHARED -> "Shared"\nTYPE_CORE -> "Core"\nelse -> "Unknown"\n}
             }
 
             @AnyThread
             fun getIsaName(isa: Char): String {
                 return when (isa) {
-                    ISA_NONE -> "None"
-                    ISA_ARM -> "ARM"
-                    ISA_X86 -> "X86"
-                    ISA_MIPS -> "MIPS"
-                    ISA_ARM64 -> "AArch64"
-                    ISA_X86_64 -> "X86-64"
-                    ISA_MIPS64 -> "MIPS-64"
-                    else -> "Unknown"
-                }
+                    ISA_NONE -> "None"\nISA_ARM -> "ARM"\nISA_X86 -> "X86"\nISA_MIPS -> "MIPS"\nISA_ARM64 -> "AArch64"\nISA_X86_64 -> "X86-64"\nISA_MIPS64 -> "MIPS-64"\nelse -> "Unknown"\n}
             }
         }
     }

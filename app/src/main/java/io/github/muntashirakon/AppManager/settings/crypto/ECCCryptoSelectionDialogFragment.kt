@@ -25,8 +25,7 @@ import java.security.cert.X509Certificate
 
 class ECCCryptoSelectionDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "ECCCryptoSelectionDialogFragment"
-    }
+        const val TAG = "ECCCryptoSelectionDialogFragment"\n}
 
     interface OnKeyPairUpdatedListener {
         fun keyPairUpdated(keyPair: KeyPair?, certificateBytes: ByteArray?)

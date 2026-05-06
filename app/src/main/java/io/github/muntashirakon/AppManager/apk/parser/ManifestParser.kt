@@ -126,19 +126,6 @@ class ManifestParser {
 
     companion object {
         val TAG: String = ManifestParser::class.java.simpleName
-        private const val TAG_MANIFEST = "manifest"
-        private const val ATTR_MANIFEST_PACKAGE = "package"
-        private const val TAG_APPLICATION = "application"
-        private const val TAG_ACTIVITY = "activity"
-        private const val TAG_ACTIVITY_ALIAS = "activity-alias"
-        private const val TAG_SERVICE = "service"
-        private const val TAG_RECEIVER = "receiver"
-        private const val TAG_PROVIDER = "provider"
-        private const val ATTR_NAME = "name"
-        private const val TAG_INTENT_FILTER = "intent-filter"
-        private const val ATTR_PRIORITY = "priority"
-        private const val TAG_ACTION = "action"
-        private const val TAG_CATEGORY = "category"
-        private const val TAG_DATA = "data"
+        private const val TAG_MANIFEST = "manifest"\nprivate const val ATTR_MANIFEST_PACKAGE = "package"\nprivate const val TAG_APPLICATION = "application"\nprivate const val TAG_ACTIVITY = "activity"\nprivate const val TAG_ACTIVITY_ALIAS = "activity-alias"\nprivate const val TAG_SERVICE = "service"\nprivate const val TAG_RECEIVER = "receiver"\nprivate const val TAG_PROVIDER = "provider"\nprivate const val ATTR_NAME = "name"\nprivate const val TAG_INTENT_FILTER = "intent-filter"\nprivate const val ATTR_PRIORITY = "priority"\nprivate const val TAG_ACTION = "action"\nprivate const val TAG_CATEGORY = "category"\nprivate const val TAG_DATA = "data"
     }
 }

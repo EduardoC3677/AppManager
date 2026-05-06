@@ -72,8 +72,6 @@ class VirusTotalPreferences : PreferenceFragment() {
             true
         }
         promptBeforeUploadPref.isChecked = Prefs.VirusTotal.promptBeforeUpload()
-        infoPref.summary = getString(R.string.pref_vt_apikey_description) + "
-
-" + getString(R.string.vt_disclaimer)
+        infoPref.summary = getString(R.string.pref_vt_apikey_description) + "\n" + getString(R.string.vt_disclaimer)
     }
 }

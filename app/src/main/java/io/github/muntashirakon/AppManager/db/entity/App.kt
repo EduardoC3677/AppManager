@@ -35,9 +35,7 @@ import java.util.Objects
 class App : Serializable {
     @JvmField
     @ColumnInfo(name = "package_name")
-    var packageName: String = ""
-
-    @JvmField
+    var packageName: String = ""\n@JvmField
     @ColumnInfo(name = "user_id", defaultValue = "-10000")
     var userId: Int = 0
 
@@ -227,8 +225,7 @@ class App : Serializable {
             app.versionName = backup.versionName
             app.versionCode = backup.versionCode
             app.sharedUserId = null
-            app.certName = ""
-            app.certAlgo = ""
+            app.certName = ""\napp.certAlgo = ""
             app.firstInstallTime = backup.backupTime
             app.lastUpdateTime = backup.backupTime
             app.hasActivities = false

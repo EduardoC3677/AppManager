@@ -20,8 +20,7 @@ internal class PathContentInfoImpl private constructor(
 
         // Associations not present in ContentInfoUtil, they're derived from simple-name
         private val sSimpleNameMimeAssociations = hashMapOf(
-            "SQLite" to "application/vnd.sqlite3"
-        )
+            "SQLite" to "application/vnd.sqlite3"\n)
 
         private val sPartialOverrides = hashMapOf(
             "application/zip" to true

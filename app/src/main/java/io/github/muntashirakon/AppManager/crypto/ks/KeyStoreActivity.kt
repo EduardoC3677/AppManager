@@ -90,7 +90,6 @@ class KeyStoreActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_ALIAS = "key"
-        const val EXTRA_KS = "ks"
+        const val EXTRA_ALIAS = "key"\nconst val EXTRA_KS = "ks"
     }
 }

@@ -252,9 +252,7 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
                 override fun onStartInstall(sessionId: Int, packageName: String) {}
                 override fun onFinishedInstall(sessionId: Int, packageName: String, result: Int, blockingPackage: String?, statusMessage: String?) {
                     val sb = StringBuilder(PackageInstallerService.getStringFromStatus(getApplication(), result, getAppLabel().value, blockingPackage))
-                    statusMessage?.let { sb.append("
-
-").append(it) }
+                    statusMessage?.let { sb.append("\n").append(it) }
                     mInstallExistingResult.postValue(Pair(result, sb.toString()))
                 }
             })

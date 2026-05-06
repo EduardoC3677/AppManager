@@ -24,15 +24,13 @@ class BloatwareOption : FilterOption("bloatware") {
         FILTER_LIST_CARRIER to "Carrier",
         FILTER_LIST_GOOGLE to "Google",
         FILTER_LIST_MISC to "Misc",
-        FILTER_LIST_OEM to "OEM"
-    )
+        FILTER_LIST_OEM to "OEM"\n)
 
     private val mRemovalFlags = linkedMapOf(
         REMOVAL_SAFE to "Safe",
         REMOVAL_REPLACE to "Replace",
         REMOVAL_CAUTION to "Caution",
-        REMOVAL_UNSAFE to "Unsafe"
-    )
+        REMOVAL_UNSAFE to "Unsafe"\n)
 
     override fun getKeysWithType(): Map<String, Int> {
         return mKeysWithType

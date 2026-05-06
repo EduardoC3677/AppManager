@@ -290,8 +290,7 @@ class CodeEditorFragment : AndroidFragment(), MenuProvider {
             } else mLockButton!!.isEnabled = true
             languageButton.text = mViewModel!!.language; languageButton.isEnabled = !mViewModel!!.isReadOnly
             indentSizeButton.isEnabled = !mViewModel!!.isReadOnly
-            indentSizeButton.text = "${mEditor!!.tabWidth} ${if (mEditor!!.editorLanguage.useTab()) "tabs" else "spaces"}"
-            lineSeparatorButton.isEnabled = !mViewModel!!.isReadOnly
+            indentSizeButton.text = "${mEditor!!.tabWidth} ${if (mEditor!!.editorLanguage.useTab()) "tabs" else "spaces"}"\nlineSeparatorButton.isEnabled = !mViewModel!!.isReadOnly
             mEditor!!.setText(content)
             lineSeparatorButton.text = mEditor!!.lineSeparator.name
             updatePositionText()

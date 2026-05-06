@@ -181,8 +181,7 @@ class AppTypeOption : FilterOption("app_type") {
             if (flag and APP_TYPE_SSAID != 0) {
                 if (TextUtils.isEmpty(info.ssaid)) return true
             }
-            // All requested flags are present, so "not all flags missing"
-            return false
+            // All requested flags are present, so "not all flags missing"\nreturn false
         }
     }
 

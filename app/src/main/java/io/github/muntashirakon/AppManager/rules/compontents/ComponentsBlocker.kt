@@ -100,8 +100,7 @@ class ComponentsBlocker private constructor(packageName: String, userHandle: Int
         for (component in getAllComponents()) {
             if (!component.isIfw) continue
             val filter = "  <component-filter name="$packageName/${component.name}"/>
-"
-            when (component.type) {
+"\nwhen (component.type) {
                 RuleType.ACTIVITY -> activities.append(filter)
                 RuleType.RECEIVER -> receivers.append(filter)
                 RuleType.SERVICE -> services.append(filter)
@@ -119,8 +118,7 @@ $services</service>
                 (if (receivers.isEmpty()) "" else "<broadcast block="true" log="false">
 $receivers</broadcast>
 ") +
-                "</rules>"
-        var rulesStream: FileOutputStream? = null
+                "</rules>"\nvar rulesStream: FileOutputStream? = null
         return try {
             rulesStream = mRulesFile.startWrite()
             Log.d(TAG, "Rules: $rules")
@@ -279,10 +277,7 @@ $receivers</broadcast>
     }
 
     companion object {
-        const val TAG = "ComponentBlocker"
-        val SYSTEM_RULES_PATH: String = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) "/data/secure/system/ifw" else "/data/system/ifw"
-
-        @JvmStatic
+        const val TAG = "ComponentBlocker"\nval SYSTEM_RULES_PATH: String = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) "/data/secure/system/ifw" else "/data/system/ifw"\n@JvmStatic
         fun getInstance(packageName: String, userHandle: Int): ComponentsBlocker = getInstance(packageName, userHandle, true)
 
         @JvmStatic

@@ -9,9 +9,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 object Pithus {
-    private const val BASE_URL = "https://beta.pithus.org/report"
-
-    @JvmStatic
+    private const val BASE_URL = "https://beta.pithus.org/report"\n@JvmStatic
     @WorkerThread
     @Throws(IOException::class)
     fun resolveReport(sha256Sum: String): String? {

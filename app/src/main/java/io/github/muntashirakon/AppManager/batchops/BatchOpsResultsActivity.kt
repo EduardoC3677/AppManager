@@ -104,8 +104,7 @@ class BatchOpsResultsActivity : BaseActivity() {
     private fun getFormattedLogs(logs: List<String>): SpannableString {
         val sb = StringBuilder()
         for (log in logs) {
-            sb.append(log).append("
-")
+            sb.append(log).append("\n")
         }
         val ss = SpannableString(sb.toString())
         var start = 0

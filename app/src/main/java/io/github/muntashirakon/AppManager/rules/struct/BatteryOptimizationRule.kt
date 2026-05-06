@@ -27,8 +27,7 @@ class BatteryOptimizationRule : RuleEntry {
     }
 
     override fun toString(): String {
-        return "BatteryOptimizationRule{packageName='$packageName', enabled=$isEnabled}"
-    }
+        return "BatteryOptimizationRule{packageName='$packageName', enabled=$isEnabled}"\n}
 
     override fun flattenToString(isExternal: Boolean): String {
         return addPackageWithTab(isExternal) + "$name\t${type.name}\t$isEnabled"

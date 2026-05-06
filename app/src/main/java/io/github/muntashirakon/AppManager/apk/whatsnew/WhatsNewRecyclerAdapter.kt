@@ -37,8 +37,7 @@ internal class WhatsNewRecyclerAdapter(context: Context, private val mPackageNam
         if (value.startsWith(mPackageName)) value = value.replaceFirst(mPackageName, "")
         when (change.changeType) {
             ApkWhatsNewFinder.CHANGE_ADD -> {
-                holder.changeSign?.text = "+"
-                holder.changeSign?.setTextColor(mColorAdd)
+                holder.changeSign?.text = "+"\nholder.changeSign?.setTextColor(mColorAdd)
                 holder.textView.text = value
                 holder.textView.setTextColor(mColorAdd)
             }

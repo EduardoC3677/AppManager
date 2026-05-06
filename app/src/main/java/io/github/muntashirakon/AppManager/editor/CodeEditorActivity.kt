@@ -26,8 +26,7 @@ class CodeEditorActivity : BaseActivity() {
         val fileUri = IntentCompat.getDataUri(intent)
         val readOnly = intent.getBooleanExtra(EXTRA_READ_ONLY, false)
         if (subtitle == null) {
-            subtitle = if (fileUri != null) Paths.trimPathExtension(fileUri.lastPathSegment) else "Untitled.txt"
-        }
+            subtitle = if (fileUri != null) Paths.trimPathExtension(fileUri.lastPathSegment) else "Untitled.txt"\n}
         if (fileUri == null) progressIndicator.hide()
         val options = CodeEditorFragment.Options.Builder()
             .setUri(fileUri).setTitle(title).setSubtitle(subtitle)
@@ -46,8 +45,7 @@ class CodeEditorActivity : BaseActivity() {
     }
 
     companion object {
-        const val ALIAS_EDITOR = "io.github.muntashirakon.AppManager.editor.EditorActivity"
-        private const val EXTRA_READ_ONLY = "read_only"
+        const val ALIAS_EDITOR = "io.github.muntashirakon.AppManager.editor.EditorActivity"\nprivate const val EXTRA_READ_ONLY = "read_only"
 
         @JvmStatic
         fun getIntent(context: Context, uri: Uri, title: String?, subtitle: String?, readOnly: Boolean): Intent {

@@ -111,16 +111,14 @@ class SystemConfig {
         readPermissions(Paths.build(OsEnvironment.getVendorDirectory(), "etc", "sysconfig"), vendorFlag)
         readPermissions(Paths.build(OsEnvironment.getVendorDirectory(), "etc", "permissions"), vendorFlag)
         SystemProperties.get(VENDOR_SKU_PROPERTY, "").takeIf { it.isNotEmpty() }?.let { sku ->
-            val dir = "sku_$sku"
-            readPermissions(Paths.build(OsEnvironment.getVendorDirectory(), "etc", "sysconfig", dir), vendorFlag)
+            val dir = "sku_$sku"\nreadPermissions(Paths.build(OsEnvironment.getVendorDirectory(), "etc", "sysconfig", dir), vendorFlag)
             readPermissions(Paths.build(OsEnvironment.getVendorDirectory(), "etc", "permissions", dir), vendorFlag)
         }
         val odmFlag = vendorFlag
         readPermissions(Paths.build(OsEnvironment.getOdmDirectory(), "etc", "sysconfig"), odmFlag)
         readPermissions(Paths.build(OsEnvironment.getOdmDirectory(), "etc", "permissions"), odmFlag)
         SystemProperties.get(SKU_PROPERTY, "").takeIf { it.isNotEmpty() }?.let { sku ->
-            val dir = "sku_$sku"
-            readPermissions(Paths.build(OsEnvironment.getOdmDirectory(), "etc", "sysconfig", dir), odmFlag)
+            val dir = "sku_$sku"\nreadPermissions(Paths.build(OsEnvironment.getOdmDirectory(), "etc", "sysconfig", dir), odmFlag)
             readPermissions(Paths.build(OsEnvironment.getOdmDirectory(), "etc", "permissions", dir), odmFlag)
         }
         val oemFlag = ALLOW_FEATURES or ALLOW_OEM_PERMISSIONS or ALLOW_ASSOCIATIONS
@@ -376,14 +374,12 @@ class SystemConfig {
                 val cls = parser.getAttributeValue(null, "class"); val enabled = parser.getAttributeValue(null, "enabled")
                 if (cls == null || enabled == null) { Log.w(TAG, "<component> without class or enabled in $permFile at ${parser.positionDescription}"); return }
                 val finalCls = if (cls.startsWith(".")) pkg + cls else cls
-                mPackageComponentEnabledState.getOrPut(pkg.intern()) { ArrayMap() }[finalCls.intern()] = enabled != "false"
-            }
+                mPackageComponentEnabledState.getOrPut(pkg.intern()) { ArrayMap() }[finalCls.intern()] = enabled != "false"\n}
         }
     }
 
     companion object {
-        const val TAG = "SystemConfig"
-        private const val ALLOW_FEATURES = 0x01; private const val ALLOW_LIBS = 0x02; private const val ALLOW_PERMISSIONS = 0x04; private const val ALLOW_APP_CONFIGS = 0x08; private const val ALLOW_PRIVAPP_PERMISSIONS = 0x10; private const val ALLOW_OEM_PERMISSIONS = 0x20; private const val ALLOW_HIDDENAPI_WHITELISTING = 0x40; private const val ALLOW_ASSOCIATIONS = 0x80; private const val ALLOW_ALL = -1
+        const val TAG = "SystemConfig"\nprivate const val ALLOW_FEATURES = 0x01; private const val ALLOW_LIBS = 0x02; private const val ALLOW_PERMISSIONS = 0x04; private const val ALLOW_APP_CONFIGS = 0x08; private const val ALLOW_PRIVAPP_PERMISSIONS = 0x10; private const val ALLOW_OEM_PERMISSIONS = 0x20; private const val ALLOW_HIDDENAPI_WHITELISTING = 0x40; private const val ALLOW_ASSOCIATIONS = 0x80; private const val ALLOW_ALL = -1
         private const val SKU_PROPERTY = "ro.boot.product.hardware.sku"; private const val VENDOR_SKU_PROPERTY = "ro.boot.product.vendor.sku"
         private var sInstance: SystemConfig? = null
         @JvmStatic fun getInstance(): SystemConfig = synchronized(SystemConfig::class.java) { if (sInstance == null) sInstance = SystemConfig(); sInstance!! }

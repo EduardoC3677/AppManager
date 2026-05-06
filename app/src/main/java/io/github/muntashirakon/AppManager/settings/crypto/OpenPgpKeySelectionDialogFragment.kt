@@ -28,8 +28,7 @@ import java.util.concurrent.Executors
 
 class OpenPgpKeySelectionDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "OpenPgpKeySelectionDialogFragment"
-    }
+        const val TAG = "OpenPgpKeySelectionDialogFragment"\n}
 
     private var mOpenPgpProvider: String? = null
     private var mServiceConnection: OpenPgpServiceConnection? = null
