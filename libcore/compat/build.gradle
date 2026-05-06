@@ -41,6 +41,7 @@ dependencies {
     api "androidx.annotation:annotation:${annotation_version}"
 
     // Unit Testing
+    testImplementation project(path: ':hiddenapi')
     testImplementation "junit:junit:${junit_version}"
     testImplementation "org.robolectric:robolectric:${robolectric_version}"
 }

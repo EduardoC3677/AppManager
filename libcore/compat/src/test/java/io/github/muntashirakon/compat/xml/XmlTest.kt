@@ -148,7 +148,7 @@ class XmlTest {
                         } else {
                             val holder = IntArray(2)
                             val chars = parser.getTextCharacters(holder)
-                            text = String(chars, holder[0], holder[1])
+                            text = String(chars as CharArray, holder[0], holder[1])
                             serializer.text(text)
                         }
                     }
