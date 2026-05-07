@@ -39,31 +39,38 @@ import io.github.muntashirakon.AppManager.types.PackageSizeInfo
 import io.github.muntashirakon.AppManager.uri.UriManager
 import io.github.muntashirakon.AppManager.usage.AppUsageStatsManager
 import io.github.muntashirakon.AppManager.usage.UsageUtils
-import io.github.muntashirakon.AppManager.utils.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.muntashirakon.AppManager.StaticDataset
+...
 import io.github.muntashirakon.io.Paths
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
 import java.io.File
-import java.io.IOException
-import java.util.*
+...
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.zip.ZipFile
+import javax.inject.Inject
 
-class AppInfoViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class AppInfoViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
     private val mAppLabel = MutableLiveData<CharSequence>()
     private val mTagCloud = MutableLiveData<TagCloud>()
     private val mAppInfo = MutableLiveData<AppInfo>()
     private val mInstallExistingResult = MutableLiveData<Pair<Int, CharSequence>>()
-    private val mExecutor = Executors.newFixedThreadPool(4)
-    private var mTagCloudFuture: Future<*>? = null
-    private var mAppInfoFuture: Future<*>? = null
+    private var mTagCloudJob: Job? = null
+    private var mAppInfoJob: Job? = null
     private var mMainModel: AppDetailsViewModel? = null
 
     override fun onCleared() {
-        mTagCloudFuture?.cancel(true)
-        mAppInfoFuture?.cancel(true)
+        mTagCloudJob?.cancel()
+        mAppInfoJob?.cancel()
         super.onCleared()
     }
-
     fun setMainModel(mainModel: AppDetailsViewModel) {
         mMainModel = mainModel
     }
@@ -75,7 +82,7 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
 
     @AnyThread
     fun loadAppLabel(applicationInfo: ApplicationInfo) {
-        ThreadUtils.postOnBackgroundThread {
+        viewModelScope.launch(Dispatchers.IO) {
             val appLabel = applicationInfo.loadLabel(getApplication<Application>().packageManager)
             mAppLabel.postValue(appLabel)
         }
@@ -83,8 +90,8 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
 
     @AnyThread
     fun loadTagCloud(packageInfo: PackageInfo, isExternalApk: Boolean) {
-        mTagCloudFuture?.cancel(true)
-        mTagCloudFuture = ThreadUtils.postOnBackgroundThread { loadTagCloudInternal(packageInfo, isExternalApk) }
+        mTagCloudJob?.cancel()
+        mTagCloudJob = viewModelScope.launch(Dispatchers.IO) { loadTagCloudInternal(packageInfo, isExternalApk) }
     }
 
     @WorkerThread
@@ -102,7 +109,7 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
                 tagCloud.trackerComponents!!.add(componentRule)
                 tagCloud.areAllTrackersBlocked = tagCloud.areAllTrackersBlocked and componentRule.isBlocked
             }
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             tagCloud.isSystemApp = ApplicationInfoCompat.isSystemApp(applicationInfo)
             tagCloud.isUpdatedSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
             val codePath = PackageUtils.getHiddenCodePathOrDefault(packageName, applicationInfo.publicSourceDir)
@@ -121,14 +128,14 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
             tagCloud.hasCode = (applicationInfo.flags and ApplicationInfo.FLAG_HAS_CODE) != 0
             tagCloud.isOverlay = PackageInfoCompat2.getOverlayTarget(packageInfo) != null
             tagCloud.hasRequestedLargeHeap = (applicationInfo.flags and ApplicationInfo.FLAG_LARGE_HEAP) != 0
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             tagCloud.isRunning = ActivityManagerCompat.getRunningAppProcesses().any { ArrayUtils.contains(it.pkgList, packageName) }
             tagCloud.runningServices = ActivityManagerCompat.getRunningServices(packageName, userId)
             tagCloud.isForceStopped = ApplicationInfoCompat.isStopped(applicationInfo)
             tagCloud.isAppEnabled = applicationInfo.enabled
             tagCloud.isAppSuspended = ApplicationInfoCompat.isSuspended(applicationInfo)
             tagCloud.isAppHidden = ApplicationInfoCompat.isHidden(applicationInfo)
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             tagCloud.magiskHiddenProcesses = MagiskHide.getProcesses(packageInfo)
             var magiskHideEnabled = false
             for (proc in tagCloud.magiskHiddenProcesses!!) {
@@ -143,9 +150,9 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
                 if (tagCloud.runningServices!!.any { it.process.startsWith(proc.name) }) proc.isRunning = true
             }
             tagCloud.isMagiskDenyListEnabled = !isExternalApk && magiskDenyListEnabled
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             StaticDataset.getDebloatObjects().find { packageName == it.packageName }?.let { tagCloud.bloatwareRemovalType = it.removal }
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             tagCloud.sensorsEnabled = if (!isExternalApk && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && SelfPermissions.checkSelfOrRemotePermission(ManifestCompat.permission.MANAGE_SENSORS)) SensorServiceCompat.isSensorEnabled(packageName, userId) else true
             try {
                 ZipFile(applicationInfo.publicSourceDir).use { zipFile ->
@@ -159,7 +166,7 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
             tagCloud.hasKeyStoreItems = KeyStoreUtils.hasKeyStore(applicationInfo.uid)
             tagCloud.hasMasterKeyInKeyStore = KeyStoreUtils.hasMasterKey(applicationInfo.uid)
             tagCloud.usesPlayAppSigning = PackageUtils.usesPlayAppSigning(applicationInfo)
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             tagCloud.backups = BackupUtils.getBackupMetadataFromDbNoLockValidate(packageName)
             tagCloud.isBatteryOptimized = if (!isExternalApk) DeviceIdleManagerCompat.isBatteryOptimizedApp(packageName) else true
             tagCloud.netPolicies = if (!isExternalApk && SelfPermissions.checkSelfOrRemotePermission(ManifestCompat.permission.MANAGE_NETWORK_POLICY)) NetworkPolicyManagerCompat.getUidPolicy(applicationInfo.uid) else 0
@@ -169,13 +176,13 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
                 } catch (ignore: IOException) {}
             }
             if (!isExternalApk) {
-                if (ThreadUtils.isInterrupted()) return
+                ensureActive()
                 UriManager().getGrantedUris(packageName)?.let { grants ->
                     tagCloud.uriGrants = grants.filter { it.targetUserId == userId }
                 }
             }
             if (ApplicationInfoCompat.isStaticSharedLibrary(applicationInfo)) {
-                if (ThreadUtils.isInterrupted()) return
+                ensureActive()
                 val names = mutableListOf<String>()
                 try {
                     PackageManagerCompat.getInstalledApplications(PackageManagerCompat.MATCH_STATIC_SHARED_AND_SDK_LIBRARIES, userId).forEach {
@@ -184,7 +191,7 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
                 } catch (ignore: Throwable) { names.add(applicationInfo.processName) }
                 tagCloud.staticSharedLibraryNames = names.toTypedArray()
             }
-            if (ThreadUtils.isInterrupted()) return
+            ensureActive()
             mTagCloud.postValue(tagCloud)
         } catch (th: Throwable) {
             ThreadUtils.postOnMainThread { throw RuntimeException(th) }
@@ -193,8 +200,8 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
 
     @AnyThread
     fun loadAppInfo(packageInfo: PackageInfo, isExternalApk: Boolean) {
-        mAppInfoFuture?.cancel(true)
-        mAppInfoFuture = ThreadUtils.postOnBackgroundThread { loadAppInfoInternal(packageInfo, isExternalApk) }
+        mAppInfoJob?.cancel()
+        mAppInfoJob = viewModelScope.launch(Dispatchers.IO) { loadAppInfoInternal(packageInfo, isExternalApk) }
     }
 
     @WorkerThread
@@ -246,7 +253,7 @@ class AppInfoViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun installExisting(packageName: String, userId: Int) {
-        mExecutor.submit {
+        viewModelScope.launch(Dispatchers.IO) {
             val installer = PackageInstallerCompat.getNewInstance()
             installer.setOnInstallListener(object : PackageInstallerCompat.OnInstallListener {
                 override fun onStartInstall(sessionId: Int, packageName: String) {}
