@@ -48,7 +48,7 @@ class AppDb @Inject constructor(
 
     fun getAllApplications(): List<App> {
         synchronized(sLock) {
-            return mAppDao.allSync
+            return mAppDao.getAllSync()
         }
     }
 
@@ -235,7 +235,7 @@ class AppDb @Inject constructor(
     fun updateApplications(context: Context) {
         synchronized(sLock) {
             val backups = getBackups(false)
-            val oldApps = ArrayList(mAppDao.allSync)
+            val oldApps = ArrayList(mAppDao.getAllSync())
             val modifiedApps: MutableList<App> = ArrayList()
             val newApps: MutableSet<String> = HashSet()
             val updatedApps: MutableSet<String> = HashSet()

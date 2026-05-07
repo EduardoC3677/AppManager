@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,6 +11,9 @@ import io.github.muntashirakon.AppManager.db.entity.FmFavorite
 
 @Dao
 interface FmFavoriteDao {
+    @Query("SELECT * FROM fm_favorite")
+    fun getAllFlow(): Flow<List<FmFavorite>>
+
     @Query("SELECT * FROM fm_favorite")
     suspend fun getAll(): List<FmFavorite>
 

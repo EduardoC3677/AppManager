@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,7 +13,13 @@ import io.github.muntashirakon.AppManager.db.entity.LogFilter
 @Dao
 interface LogFilterDao {
     @Query("SELECT * FROM log_filter")
+    fun getAllFlow(): Flow<List<LogFilter>>
+
+    @Query("SELECT * FROM log_filter")
     suspend fun getAll(): List<LogFilter>
+
+    @Query("SELECT * FROM log_filter WHERE id = :id LIMIT 1")
+    fun getFlow(id: Long): Flow<LogFilter?>
 
     @Query("SELECT * FROM log_filter WHERE id = :id LIMIT 1")
     suspend fun get(id: Long): LogFilter?

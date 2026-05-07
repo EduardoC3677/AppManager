@@ -17,31 +17,28 @@ interface AppDao {
     fun getAllFlow(): Flow<List<App>>
 
     @Query("SELECT * FROM app")
-    suspend fun getAll(): List<App>
-
-    @Query("SELECT * FROM app")
     fun getAllSync(): List<App>
 
     @Query("SELECT * FROM app WHERE is_installed = 1")
-    suspend fun getAllInstalled(): List<App>
+    fun getAllInstalledFlow(): Flow<List<App>>
 
     @Query("SELECT * FROM app WHERE is_installed = 1")
     fun getAllInstalledSync(): List<App>
 
     @Query("SELECT * FROM app WHERE package_name = :packageName")
-    suspend fun getAll(packageName: String): List<App>
+    fun getAllFlow(packageName: String): Flow<List<App>>
 
     @Query("SELECT * FROM app WHERE package_name = :packageName")
     fun getAllSync(packageName: String): List<App>
 
     @Query("SELECT * FROM app WHERE package_name = :packageName AND user_id = :userId")
-    suspend fun getAll(packageName: String, userId: Int): List<App>
+    fun getAllFlow(packageName: String, userId: Int): Flow<List<App>>
 
     @Query("SELECT * FROM app WHERE package_name = :packageName AND user_id = :userId")
     fun getAllSync(packageName: String, userId: Int): List<App>
 
     @Query("SELECT * FROM app WHERE tags LIKE '%' || :tag || '%'")
-    suspend fun getByTag(tag: String): List<App>
+    fun getByTagFlow(tag: String): Flow<List<App>>
 
     @Query("UPDATE app SET tags = :tags WHERE package_name = :packageName AND user_id = :userId")
     suspend fun updateTags(packageName: String, userId: Int, tags: String?)

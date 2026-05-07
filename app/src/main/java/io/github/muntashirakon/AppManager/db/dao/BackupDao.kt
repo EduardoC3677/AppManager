@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -13,10 +14,16 @@ import io.github.muntashirakon.AppManager.db.entity.Backup
 @Dao
 interface BackupDao {
     @Query("SELECT * FROM backup")
+    fun getAllFlow(): Flow<List<Backup>>
+
+    @Query("SELECT * FROM backup")
     suspend fun getAll(): List<Backup>
 
     @Query("SELECT * FROM backup")
     fun getAllSync(): List<Backup>
+
+    @Query("SELECT * FROM backup WHERE package_name = :packageName")
+    fun getFlow(packageName: String): Flow<List<Backup>>
 
     @Query("SELECT * FROM backup WHERE package_name = :packageName")
     suspend fun get(packageName: String): List<Backup>

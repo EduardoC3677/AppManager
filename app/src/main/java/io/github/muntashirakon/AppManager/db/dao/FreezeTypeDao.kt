@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,6 +11,9 @@ import io.github.muntashirakon.AppManager.db.entity.FreezeType
 
 @Dao
 interface FreezeTypeDao {
+    @Query("SELECT * FROM freeze_type WHERE package_name = :packageName LIMIT 1")
+    fun getFlow(packageName: String): Flow<FreezeType?>
+
     @Query("SELECT * FROM freeze_type WHERE package_name = :packageName LIMIT 1")
     suspend fun get(packageName: String): FreezeType?
 

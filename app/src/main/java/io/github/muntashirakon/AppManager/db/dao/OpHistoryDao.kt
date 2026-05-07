@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,6 +11,9 @@ import io.github.muntashirakon.AppManager.db.entity.OpHistory
 
 @Dao
 interface OpHistoryDao {
+    @Query("SELECT * FROM op_history")
+    fun getAllFlow(): Flow<List<OpHistory>>
+
     @Query("SELECT * FROM op_history")
     suspend fun getAll(): List<OpHistory>
 
