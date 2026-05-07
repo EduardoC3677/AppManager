@@ -14,6 +14,8 @@ import androidx.annotation.WorkerThread
 import io.github.muntashirakon.AppManager.backup.BackupUtils
 import io.github.muntashirakon.AppManager.compat.PackageManagerCompat
 import io.github.muntashirakon.AppManager.db.AppsDb
+import io.github.muntashirakon.AppManager.db.dao.AppDao
+import io.github.muntashirakon.AppManager.db.dao.BackupDao
 import io.github.muntashirakon.AppManager.db.entity.App
 import io.github.muntashirakon.AppManager.db.entity.Backup
 import io.github.muntashirakon.AppManager.logs.Log
@@ -33,10 +35,16 @@ import io.github.muntashirakon.AppManager.utils.KeyStoreUtils
 import io.github.muntashirakon.AppManager.utils.PackageUtils
 import io.github.muntashirakon.AppManager.utils.ThreadUtils
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AppDb {
-    private val mAppDao = AppsDb.getInstance().appDao()
-    private val mBackupDao = AppsDb.getInstance().backupDao()
+@Singleton
+class AppDb @Inject constructor(
+    private val mAppDao: AppDao,
+    private val mBackupDao: BackupDao
+) {
+    // Keep these for backward compatibility during migration
+    constructor() : this(AppsDb.getInstance().appDao(), AppsDb.getInstance().backupDao())
 
     fun getAllApplications(): List<App> {
         synchronized(sLock) {

@@ -17,6 +17,8 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.muntashirakon.AppManager.apk.list.ListExporter
 import io.github.muntashirakon.AppManager.backup.BackupUtils
 import io.github.muntashirakon.AppManager.compat.ActivityManagerCompat
@@ -52,6 +54,9 @@ import io.github.muntashirakon.AppManager.utils.PackageUtils
 import io.github.muntashirakon.AppManager.utils.ThreadUtils
 import io.github.muntashirakon.AppManager.utils.Utils
 import io.github.muntashirakon.io.Path
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import java.io.BufferedWriter
 import java.io.IOException
@@ -61,8 +66,13 @@ import java.text.Collator
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application), ListOptions.ListOptionActions {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    application: Application,
+    private val mAppDb: AppDb
+) : AndroidViewModel(application), ListOptions.ListOptionActions {
     private val mPackageManager: PackageManager = application.packageManager
     private val mPackageObserver: PackageIntentReceiver
     @MainListOptions.SortOrder
@@ -75,7 +85,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
     private var mSearchQuery: String? = null
     @AdvancedSearchView.SearchType
     private var mSearchType: Int = AdvancedSearchView.SEARCH_TYPE_CONTAINS
-    private var mFilterResult: Future<*>? = null
+    private var mFilterResult: Job? = null
     private val mSelectedPackageApplicationItemMap: MutableMap<String, ApplicationItem> = Collections.synchronizedMap(LinkedHashMap())
     val executor: ExecutorService = AppExecutor.getExecutor()
 
@@ -195,14 +205,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
         this.mSearchQuery = if (searchType != AdvancedSearchView.SEARCH_TYPE_REGEX) searchQuery?.lowercase(Locale.ROOT) else searchQuery
         this.mSearchType = searchType
         cancelIfRunning()
-        mFilterResult = executor.submit { filterItemsByFlags() }
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
     }
 
     override fun getSortBy(): Int = mSortBy
 
     override fun setReverseSort(reverseSort: Boolean) {
         cancelIfRunning()
-        mFilterResult = executor.submit {
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) {
             sortApplicationList(mSortBy, mReverseSort)
             filterItemsByFlags()
         }
@@ -215,7 +225,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
     override fun setSortBy(sortBy: Int) {
         if (mSortBy != sortBy) {
             cancelIfRunning()
-            mFilterResult = executor.submit {
+            mFilterResult = viewModelScope.launch(Dispatchers.IO) {
                 sortApplicationList(sortBy, mReverseSort)
                 filterItemsByFlags()
             }
@@ -230,14 +240,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
         mFilterFlags = mFilterFlags or filterFlag
         Prefs.MainPage.setFilters(mFilterFlags)
         cancelIfRunning()
-        mFilterResult = executor.submit { filterItemsByFlags() }
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
     }
 
     override fun removeFilterFlag(filterFlag: Int) {
         mFilterFlags = mFilterFlags and filterFlag.inv()
         Prefs.MainPage.setFilters(mFilterFlags)
         cancelIfRunning()
-        mFilterResult = executor.submit { filterItemsByFlags() }
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
     }
 
     fun setFilterProfileName(filterProfileName: String?) {
@@ -247,7 +257,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
         mFilterProfileName = filterProfileName
         Prefs.MainPage.setFilteredProfileName(filterProfileName)
         cancelIfRunning()
-        mFilterResult = executor.submit { filterItemsByFlags() }
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
     }
 
     fun getFilterProfileName(): String? = mFilterProfileName
@@ -269,7 +279,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
         }
         mSelectedUsers = selectedUsers
         cancelIfRunning()
-        mFilterResult = executor.submit { filterItemsByFlags() }
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
     }
 
     fun getSelectedUsers(): IntArray? = mSelectedUsers
@@ -290,7 +300,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
             mFilterFlags = newFilterFlags
             Prefs.MainPage.setFilters(mFilterFlags)
             cancelIfRunning()
-            mFilterResult = executor.submit { filterItemsByFlags() }
+            mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
         }
     }
 
@@ -298,7 +308,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
     fun onResume() {
         if ((mFilterFlags and MainListOptions.FILTER_RUNNING_APPS) != 0) {
             cancelIfRunning()
-            mFilterResult = executor.submit { filterItemsByFlags() }
+            mFilterResult = viewModelScope.launch(Dispatchers.IO) { filterItemsByFlags() }
         }
     }
 
@@ -332,7 +342,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
 
     fun loadApplicationItems(forceRefresh: Boolean) {
         cancelIfRunning()
-        mFilterResult = executor.submit {
+        mFilterResult = viewModelScope.launch(Dispatchers.IO) {
             var updatedApplicationItems: List<ApplicationItem>? = null
 
             if (!forceRefresh && mAppListCache.cacheExists()) {
@@ -369,7 +379,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     private fun cancelIfRunning() {
-        mFilterResult?.cancel(true)
+        mFilterResult?.cancel()
     }
 
     @WorkerThread
@@ -452,10 +462,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
                             packageUsageInfoList = mCachedUsageStats!!
                         } else {
                             packageUsageInfoList = buildUsageStatsMap()
-                            if (!ThreadUtils.isInterrupted()) {
-                                mCachedUsageStats = packageUsageInfoList
-                                mUsageStatsCacheTimestamp = currentTime
-                            }
+                            ensureActive()
+                            mCachedUsageStats = packageUsageInfoList
+                            mUsageStatsCacheTimestamp = currentTime
                         }
                     }
                 } else {
@@ -502,7 +511,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
                 val usageInfoList = ExUtils.exceptionAsNull { AppUsageStatsManager.getInstance().getUsageStats(interval, userId) }
                 if (usageInfoList != null) {
                     for (info in usageInfoList) {
-                        if (ThreadUtils.isInterrupted()) return packageUsageInfoList
+                        ensureActive()
+                        return@launch packageUsageInfoList
                         val oldInfo = packageUsageInfoList[info.packageName]
                         if (oldInfo != null) {
                             oldInfo.screenTime += info.screenTime
@@ -607,7 +617,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
         var modified = false
         when (action) {
             PackageChangeReceiver.ACTION_DB_PACKAGE_REMOVED, PackageChangeReceiver.ACTION_DB_PACKAGE_ALTERED, PackageChangeReceiver.ACTION_DB_PACKAGE_ADDED -> {
-                val appDb = AppDb()
+                val appDb = mAppDb
                 for (packageName in packages) {
                     val item = getNewApplicationItem(packageName, appDb.getAllApplications(packageName))
                     modified = modified or (if (item != null) insertOrAddApplicationItem(item) else deleteApplicationItem(packageName))
@@ -616,7 +626,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
             PackageChangeReceiver.ACTION_PACKAGE_REMOVED, PackageChangeReceiver.ACTION_PACKAGE_ALTERED, PackageChangeReceiver.ACTION_PACKAGE_ADDED,
             Intent.ACTION_PACKAGE_REMOVED, Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE, Intent.ACTION_PACKAGE_ADDED,
             Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE, Intent.ACTION_PACKAGE_CHANGED -> {
-                val appList = AppDb().updateApplications(getApplication(), packages)
+                val appList = mAppDb.updateApplications(getApplication(), packages)
                 for (packageName in packages) {
                     val item = getNewApplicationItem(packageName, appList)
                     modified = modified or (if (item != null) insertOrAddApplicationItem(item) else deleteApplicationItem(packageName))
@@ -757,5 +767,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
 
     companion object {
         private const val USAGE_STATS_CACHE_TTL_MS = 60_000L
+    }
+}
+_TTL_MS = 60_000L
     }
 }
