@@ -247,9 +247,13 @@ class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
         } else {
             displayChangelogIfRequired()
         }
-
-        viewModel!!.getApplicationItems().observe(this) { applicationItems ->
-            mAdapter?.setDefaultList(applicationItems)
+lifecycleScope.launch {
+    repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel!!.getApplicationItems().collect { applicationItems ->
+            adapter.submitList(applicationItems)
+        }
+    }
+}
             showProgressIndicator(false)
         }
         viewModel!!.getSuggestions().observe(this) { items ->

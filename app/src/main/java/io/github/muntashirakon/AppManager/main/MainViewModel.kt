@@ -90,8 +90,8 @@ class MainViewModel @Inject constructor(
     val executor: ExecutorService = AppExecutor.getExecutor()
 
     private val mOperationStatus = MutableLiveData<Boolean>()
-    private val mApplicationItemsLiveData = MutableLiveData<List<ApplicationItem>>()
-    private val mSuggestionsLiveData = MutableLiveData<List<ApplicationItem>>()
+    private val mApplicationItemsState = MutableStateFlow<List<ApplicationItem>>(emptyList())
+    private val mSuggestionsState = MutableStateFlow<List<ApplicationItem>>(emptyList())
     private val mApplicationItems: MutableList<ApplicationItem> = ArrayList()
 
     private val mCollator: Collator = Collator.getInstance()
@@ -118,16 +118,11 @@ class MainViewModel @Inject constructor(
     val applicationItemCount: Int
         get() = mApplicationItems.size
 
-    fun getApplicationItems(): LiveData<List<ApplicationItem>> {
-        if (mApplicationItemsLiveData.value == null) {
-            loadApplicationItems()
-        }
-        return mApplicationItemsLiveData
-    }
+    fun getApplicationItems(): StateFlow<List<ApplicationItem>> = mApplicationItemsState.asStateFlow()
 
     fun getOperationStatus(): LiveData<Boolean> = mOperationStatus
 
-    fun getSuggestions(): LiveData<List<ApplicationItem>> = mSuggestionsLiveData
+    fun getSuggestions(): StateFlow<List<ApplicationItem>> = mSuggestionsState.asStateFlow()
 
     fun deselect(item: ApplicationItem): ApplicationItem {
         synchronized(mApplicationItems) {
@@ -390,7 +385,7 @@ class MainViewModel @Inject constructor(
                     item.ensureLowerCaseFields()
                     listOf(item.packageNameLowerCase, item.labelLowerCase)
                 }, AdvancedSearchView.SEARCH_TYPE_REGEX)
-            mApplicationItemsLiveData.postValue(filteredApplicationItems)
+            mApplicationItemsState.value = filteredApplicationItems
             return
         }
         val queryLower = mSearchQuery?.lowercase(Locale.ROOT) ?: ""\nval filteredApplicationItems = ArrayList<ApplicationItem>()
@@ -407,7 +402,7 @@ class MainViewModel @Inject constructor(
                 filteredApplicationItems.add(item)
             }
         }
-        mApplicationItemsLiveData.postValue(filteredApplicationItems)
+        mApplicationItemsState.value = filteredApplicationItems
     }
 
     @WorkerThread
@@ -445,7 +440,7 @@ class MainViewModel @Inject constructor(
                 if (!TextUtils.isEmpty(mSearchQuery)) {
                     filterItemsByQuery(candidateApplicationItems)
                 } else {
-                    mApplicationItemsLiveData.postValue(candidateApplicationItems)
+                    mApplicationItemsState.value = candidateApplicationItems
                 }
             } else {
                 val filteredApplicationItems = ArrayList<ApplicationItem>()
@@ -495,10 +490,10 @@ class MainViewModel @Inject constructor(
                 if (!TextUtils.isEmpty(mSearchQuery)) {
                     filterItemsByQuery(filteredApplicationItems)
                 } else {
-                    mApplicationItemsLiveData.postValue(filteredApplicationItems)
+                    mApplicationItemsState.value = filteredApplicationItems
                 }
             }
-            mSuggestionsLiveData.postValue(io.github.muntashirakon.AppManager.batchops.SuggestionHandler.getApplicationItemSuggestions(candidateApplicationItems))
+            mSuggestionsState.value = io.github.muntashirakon.AppManager.batchops.SuggestionHandler.getApplicationItemSuggestions(candidateApplicationItems)
         }
     }
 
