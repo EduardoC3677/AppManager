@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.BundleCompat
@@ -41,7 +42,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class AppDetailsActivity : BaseActivity() {
-    var model: AppDetailsViewModel? = null
+    private val model: AppDetailsViewModel by viewModels()
     var searchView: AdvancedSearchView? = null
 
     private var mViewPager: ViewPager2? = null
@@ -58,9 +59,8 @@ class AppDetailsActivity : BaseActivity() {
     override fun onAuthenticated(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_app_details)
         setSupportActionBar(findViewById(R.id.toolbar))
-        title = "…"\nmodel = ViewModelProvider(this).get(AppDetailsViewModel::class.java)
+        title = "…"
         val ss = savedInstanceState?.let { BundleCompat.getParcelable(it, "ss", SavedState::class.java) }
-        if (ss != null) {
             mBackToMainPage = ss.mBackToMainPage
             mPackageName = ss.mPackageName
             mApkSource = ss.mApkSource
@@ -81,7 +81,7 @@ class AppDetailsActivity : BaseActivity() {
             }
             mApkType = intent.type
         }
-        model!!.setUserId(mUserId)
+        model.setUserId(mUserId)
         mTabTitleIds = resources.obtainTypedArray(R.array.TAB_TITLES)
         mTabFragments = arrayOfNulls(mTabTitleIds!!.length())
         if (mPackageName == null && mApkSource == null) {
@@ -101,7 +101,7 @@ class AppDetailsActivity : BaseActivity() {
         mViewPager!!.offscreenPageLimit = 4
         mViewPager!!.adapter = AppDetailsFragmentPagerAdapter(this)
         TabLayoutMediator(tabLayout, mViewPager!!) { tab, position -> tab.text = mTabTitleIds!!.getString(position) }.attach()
-        val ld = if (mPackageName != null) model!!.setPackage(mPackageName!!) else model!!.setPackage(mApkSource!!)
+        val ld = if (mPackageName != null) model.setPackage(mPackageName!!) else model.setPackage(mApkSource!!)
         ld.observe(this) { packageInfo ->
             progressDialog.dismiss()
             if (packageInfo == null) {
@@ -111,17 +111,17 @@ class AppDetailsActivity : BaseActivity() {
             }
             title = packageInfo.applicationInfo.loadLabel(packageManager)
         }
-        model!!.isPackageExistLiveData.observe(this) { isPackageExist ->
+        model.isPackageExistLiveData.observe(this) { isPackageExist ->
             if (!isPackageExist) {
-                if (!model!!.isExternalApk) UIUtils.displayShortToast(R.string.app_not_installed)
+                if (!model.isExternalApk) UIUtils.displayShortToast(R.string.app_not_installed)
                 finish()
             }
         }
-        model!!.userInfo.observe(this) { userInfo ->
+        model.userInfo.observe(this) { userInfo ->
             supportActionBar?.subtitle = getString(R.string.user_profile_with_id, userInfo.name, userInfo.id)
         }
-        model!!.isPackageChanged().observe(this) { isPackageChanged ->
-            if (isPackageChanged && model!!.isPackageExist) loadTabs()
+        model.isPackageChanged().observe(this) { isPackageChanged ->
+            if (isPackageChanged && model.isPackageExist) loadTabs()
         }
     }
 
@@ -197,7 +197,7 @@ class AppDetailsActivity : BaseActivity() {
     private fun loadTabs() {
         val id = mViewPager!!.currentItem
         Log.d("ADA - " + mTabTitleIds!!.getText(id), "isPackageChanged called")
-        for (i in 0 until mTabTitleIds!!.length()) model!!.load(i)
+        for (i in 0 until mTabTitleIds!!.length()) model.load(i)
     }
 
     private inner class AppDetailsFragmentPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {

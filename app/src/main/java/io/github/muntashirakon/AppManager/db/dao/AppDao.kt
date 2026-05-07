@@ -2,6 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,6 +13,9 @@ import io.github.muntashirakon.AppManager.db.entity.App
 
 @Dao
 interface AppDao {
+    @Query("SELECT * FROM app")
+    fun getAllFlow(): Flow<List<App>>
+
     @Query("SELECT * FROM app")
     suspend fun getAll(): List<App>
 

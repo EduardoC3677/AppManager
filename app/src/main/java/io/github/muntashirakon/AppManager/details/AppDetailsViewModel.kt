@@ -24,6 +24,8 @@ import androidx.core.content.pm.PermissionInfoCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import com.android.apksig.ApkVerifier
 import io.github.muntashirakon.AppManager.apk.ApkFile
 import io.github.muntashirakon.AppManager.apk.ApkSource
@@ -49,6 +51,10 @@ import io.github.muntashirakon.AppManager.users.UserInfo
 import io.github.muntashirakon.AppManager.users.Users
 import io.github.muntashirakon.AppManager.utils.*
 import io.github.muntashirakon.io.IoUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
@@ -59,8 +65,10 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import javax.inject.Inject
 
-class AppDetailsViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class AppDetailsViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
     private val mPackageManager: PackageManager = application.packageManager
     private val mBlockerLocker = Any()
     private val mExecutor: ExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2)

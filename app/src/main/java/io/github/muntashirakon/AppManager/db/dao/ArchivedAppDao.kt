@@ -2,7 +2,7 @@
 
 package io.github.muntashirakon.AppManager.db.dao
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -13,7 +13,7 @@ import io.github.muntashirakon.AppManager.db.entity.ArchivedApp
 @Dao
 interface ArchivedAppDao {
     @Query("SELECT * FROM archived_apps ORDER BY app_name ASC")
-    fun getAll(): LiveData<List<ArchivedApp>>
+    fun getAll(): Flow<List<ArchivedApp>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(archivedApp: ArchivedApp)

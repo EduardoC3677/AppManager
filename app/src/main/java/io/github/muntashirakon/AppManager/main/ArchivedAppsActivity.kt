@@ -6,15 +6,22 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.muntashirakon.AppManager.BaseActivity
 import io.github.muntashirakon.AppManager.R
-import io.github.muntashirakon.AppManager.db.AppsDb
 import io.github.muntashirakon.AppManager.db.entity.ArchivedApp
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ArchivedAppsActivity : BaseActivity() {
 
+    private val viewModel: ArchivedAppsViewModel by viewModels()
     private var adapter: ArchivedAppsAdapter? = null
 
     override fun onAuthenticated(savedInstanceState: Bundle?) {
@@ -22,12 +29,16 @@ class ArchivedAppsActivity : BaseActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.archived_apps_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        AppsDb.getInstance().archivedAppDao().all.observe(this) { archivedApps ->
-            if (adapter == null) {
-                adapter = ArchivedAppsAdapter(archivedApps) { onRestoreClicked(it) }
-                recyclerView.adapter = adapter
-            } else {
-                adapter!!.updateData(archivedApps)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.archivedApps.collect { archivedApps ->
+                    if (adapter == null) {
+                        adapter = ArchivedAppsAdapter(archivedApps) { onRestoreClicked(it) }
+                        recyclerView.adapter = adapter
+                    } else {
+                        adapter!!.updateData(archivedApps)
+                    }
+                }
             }
         }
     }
