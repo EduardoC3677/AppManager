@@ -3,31 +3,39 @@
 package io.github.muntashirakon.AppManager.cache
 
 import android.app.Application
-import android.content.pm.PackageManager
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.muntashirakon.AppManager.compat.PackageManagerCompat
 import io.github.muntashirakon.AppManager.users.Users
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.io.File
+import javax.inject.Inject
 
 /**
  * ViewModel for Cache Cleaner
  * Handles cache size calculation and data management
  */
-class CacheCleanerViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class CacheCleanerViewModel @Inject constructor(
+    application: Application
+) : AndroidViewModel(application) {
     
-    private val mCacheData = MutableLiveData<CacheData>()
-    private val mCleaningStatus = MutableLiveData<CleaningStatus>()
+    private val _cacheData = MutableStateFlow<CacheData>(CacheData(emptyList(), 0L, 0))
+    val cacheData: StateFlow<CacheData> = _cacheData.asStateFlow()
     
-    val cacheData: LiveData<CacheData> = mCacheData
-    val cleaningStatus: LiveData<CleaningStatus> = mCleaningStatus
+    private val _cleaningStatus = MutableStateFlow<CleaningStatus>(CleaningStatus.Idle)
+    val cleaningStatus: StateFlow<CleaningStatus> = _cleaningStatus.asStateFlow()
     
     private val mPackageManager = application.packageManager
     private val mUserId = Users.myUserId()
     
     fun loadCacheData() {
-        Thread {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val installedPackages = PackageManagerCompat.getInstalledPackages(
                     PackageManagerCompat.MATCH_UNINSTALLED_PACKAGES,
@@ -55,25 +63,20 @@ class CacheCleanerViewModel(application: Application) : AndroidViewModel(applica
                             totalCacheSize += cacheSize
                         }
                     } catch (e: Exception) {
-                        // Skip apps we can't access
                     }
                 }
                 
-                // Sort by cache size (largest first)
                 appCacheList.sortByDescending { it.cacheSize }
                 
-                mCacheData.postValue(
-                    CacheData(
-                        apps = appCacheList,
-                        totalCacheSize = totalCacheSize,
-                        appCount = appCacheList.size
-                    )
+                _cacheData.value = CacheData(
+                    apps = appCacheList,
+                    totalCacheSize = totalCacheSize,
+                    appCount = appCacheList.size
                 )
             } catch (e: Exception) {
-                // Handle error
-                mCacheData.postValue(CacheData(emptyList(), 0L, 0))
+                _cacheData.value = CacheData(emptyList(), 0L, 0)
             }
-        }.start()
+        }
     }
     
     private fun getPackageCacheSize(packageName: String): Long {
@@ -93,15 +96,15 @@ class CacheCleanerViewModel(application: Application) : AndroidViewModel(applica
     }
     
     fun startCleaning() {
-        mCleaningStatus.postValue(CleaningStatus.Cleaning)
+        _cleaningStatus.value = CleaningStatus.Cleaning
     }
     
     fun cleaningCompleted(spaceFreed: Long) {
-        mCleaningStatus.postValue(CleaningStatus.Completed(spaceFreed))
+        _cleaningStatus.value = CleaningStatus.Completed(spaceFreed)
     }
     
     fun resetCleaningStatus() {
-        mCleaningStatus.postValue(CleaningStatus.Idle)
+        _cleaningStatus.value = CleaningStatus.Idle
     }
     
     data class CacheData(
