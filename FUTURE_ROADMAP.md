@@ -4,32 +4,32 @@ This document tracks high-level architectural and UI enhancements based on Googl
 
 ## [ISSUE-01] Implement Hilt for Dependency Injection
 **Priority:** High
-**Status:** TODO
+**Status:** IN_PROGRESS
 **Description:**
 The project currently relies on manual `ViewModelProvider` instantiation and manual passing of dependencies (Database, Shizuku shells, etc.). This makes the codebase brittle and hard to test.
 **Tasks:**
-- [ ] Add Hilt Gradle dependencies.
-- [ ] Annotate `App.java` with `@HiltAndroidApp`.
-- [ ] Migrate `AppsDb` to a Hilt Module.
-- [ ] Refactor `MainActivity` and `AppInfoFragment` to use `@AndroidEntryPoint`.
+- [x] Add Hilt Gradle dependencies.
+- [x] Annotate `AppManager.kt` with `@HiltAndroidApp`.
+- [x] Migrate `AppsDb` to a Hilt Module.
+- [x] Refactor `MainActivity` and `AppInfoFragment` to use `@AndroidEntryPoint`.
 
 ## [ISSUE-02] Gradual Migration to Kotlin
 **Priority:** Medium
-**Status:** TODO
+**Status:** IN_PROGRESS
 **Description:**
 To leverage modern features like Coroutines, Flow, and Jetpack Compose, the project needs to start adopting Kotlin.
 **Tasks:**
-- [ ] Configure Kotlin in `build.gradle`.
-- [ ] Convert utility classes (e.g., `FileUtils`, `LangUtils`) to Kotlin.
-- [ ] Start writing new ViewModels in Kotlin.
+- [x] Configure Kotlin in `build.gradle`.
+- [x] Convert utility classes (e.g., `FileUtils`, `LangUtils`) to Kotlin.
+- [x] Start writing new ViewModels in Kotlin.
 
 ## [ISSUE-03] Migrate Asynchronous Logic to Coroutines & Flow
 **Priority:** High
-**Status:** TODO
+**Status:** IN_PROGRESS
 **Description:**
 Replace legacy Java `Threads`, `Executors`, and `LiveData` with Kotlin Coroutines and `StateFlow`.
 **Tasks:**
-- [ ] Replace `ThreadUtils` background posts with `viewModelScope.launch`.
+- [x] Replace `ThreadUtils` background posts with `viewModelScope.launch` in `MainViewModel` and `AppInfoViewModel`.
 - [ ] Migrate `AppDao` to return `Flow<List<App>>` instead of `LiveData`.
 - [ ] Use `collectLatest` in UI to handle list updates efficiently.
 
