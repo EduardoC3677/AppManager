@@ -10,6 +10,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:${agp_version}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:${hilt_version}"
+        classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:${ksp_version}"
     }
 }
 

@@ -8,6 +8,7 @@ import android.os.Build
 import android.sun.security.provider.JavaKeyStoreProvider
 import androidx.annotation.Keep
 import com.topjohnwu.superuser.Shell
+import dagger.hilt.android.HiltAndroidApp
 import io.github.muntashirakon.AppManager.ipc.LocalServices
 import io.github.muntashirakon.AppManager.misc.AMExceptionHandler
 import io.github.muntashirakon.AppManager.utils.AppPref
@@ -20,6 +21,7 @@ import org.lsposed.hiddenapibypass.HiddenApiBypass
 import java.security.Security
 import dalvik.system.ZipPathValidator
 
+@HiltAndroidApp
 class AppManager : Application() {
     companion object {
         init {

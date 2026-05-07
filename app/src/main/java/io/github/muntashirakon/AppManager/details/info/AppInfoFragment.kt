@@ -37,6 +37,7 @@ import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -113,6 +114,7 @@ import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 import java.util.zip.ZipFile
 
+@AndroidEntryPoint
 class AppInfoFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MenuProvider {
     private lateinit var mPackageManager: PackageManager
     private var mPackageName: String? = null

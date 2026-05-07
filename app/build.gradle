@@ -6,6 +6,8 @@ plugins {
     id('org.jetbrains.kotlin.kapt')
     id('org.jetbrains.kotlin.plugin.parcelize')
     id('dev.rikka.tools.refine') version "${refine_version}"
+    id('com.google.dagger.hilt.android')
+    id('com.google.devtools.ksp')
 }
 
 android {
@@ -244,6 +246,10 @@ dependencies {
     def shizuku_version = "13.1.5"
     implementation "dev.rikka.shizuku:api:$shizuku_version"
     implementation "dev.rikka.shizuku:provider:$shizuku_version"
+
+    // Hilt Dependency Injection
+    implementation "com.google.dagger:hilt-android:${hilt_version}"
+    ksp "com.google.dagger:hilt-compiler:${hilt_version}"
 }
 
 preBuild.dependsOn ":server:build"

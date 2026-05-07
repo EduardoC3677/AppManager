@@ -9,6 +9,8 @@ ext {
     // Gradle plugins
     agp_version = '8.13.2'
     kotlin_version = '2.0.21'
+    hilt_version = '2.54'
+    ksp_version = '2.0.21-1.0.27'
 
     // Library dependencies
     activity_version = "1.11.0" // API 21-22 support dropped in 1.12.x

@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
+import dagger.hilt.android.AndroidEntryPoint
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
@@ -81,6 +82,7 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.util.*
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity(), AdvancedSearchView.OnQueryTextListener,
     SwipeRefreshLayout.OnRefreshListener, MultiSelectionActionsView.OnItemSelectedListener,
     MultiSelectionView.OnSelectionModeChangeListener {

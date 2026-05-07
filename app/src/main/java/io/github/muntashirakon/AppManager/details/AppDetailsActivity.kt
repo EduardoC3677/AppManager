@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import com.google.android.material.tabs.TabLayoutMediator
 import io.github.muntashirakon.AppManager.BaseActivity
 import io.github.muntashirakon.AppManager.R
@@ -38,6 +39,7 @@ import io.github.muntashirakon.io.Paths
 import io.github.muntashirakon.util.UiUtils
 import java.util.*
 
+@AndroidEntryPoint
 class AppDetailsActivity : BaseActivity() {
     var model: AppDetailsViewModel? = null
     var searchView: AdvancedSearchView? = null
