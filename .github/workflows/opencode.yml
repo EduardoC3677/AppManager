@@ -209,7 +209,7 @@ jobs:
         uses: anomalyco/opencode/github@latest
         continue-on-error: true
         with:
-          github_token: ${{ env.GITHUB_TOKEN }}
+          use_github_token: true
           model: ${{ steps.normalize_model.outputs.model }}
 
       - name: Run OpenCode for issues/PR/workflow_dispatch
@@ -221,7 +221,7 @@ jobs:
         uses: anomalyco/opencode/github@latest
         continue-on-error: true
         with:
-          github_token: ${{ env.GITHUB_TOKEN }}
+          use_github_token: true
           model: ${{ steps.normalize_model.outputs.model }}
           prompt: >-
             ${{
