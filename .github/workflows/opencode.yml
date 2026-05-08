@@ -228,3 +228,19 @@ jobs:
               github.event_name == 'pull_request' && format('Review pull request #{0}, apply needed fixes, and update the branch when required.', github.event.pull_request.number) ||
               ''
             }}
+            
+      - name: Mostrar logs de opencode
+        if: always()   # importante para que corra aunque falle el job
+        run: |
+          echo "Mostrando logs..."
+          ls -lah /home/runner/.local/share/opencode/log || true
+          echo "---- LOG CONTENT ----"
+          cat /home/runner/.local/share/opencode/log/*.log || true
+      - name: Subir logs como artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-logs
+          path: /home/runner/.local/share/opencode/log/*.log
+          if-no-files-found: warn
+    
