@@ -59,7 +59,7 @@ jobs:
       AZURE_RESOURCE_NAME: ${{ secrets.AZURE_FOUNDRY_RESOURCE_NAME || secrets.AZURE_RESOURCE_NAME }}
       ANTHROPIC_API_KEY: ${{ secrets.AZURE_FOUNDRY_API_KEY || secrets.AZURE_API_KEY }}
       RAW_MODEL: ${{ github.event.inputs.model || vars.OPENCODE_MODEL || 'anthropic/claude-opus-4-6' }}
-      GITHUB_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ secrets.ONT }}
 
     steps:
       - name: Checkout repository
@@ -209,6 +209,7 @@ jobs:
         uses: anomalyco/opencode/github@latest
         continue-on-error: true
         with:
+          github_token: ${{ env.GITHUB_TOKEN }}
           model: ${{ steps.normalize_model.outputs.model }}
 
       - name: Run OpenCode for issues/PR/workflow_dispatch
@@ -220,6 +221,7 @@ jobs:
         uses: anomalyco/opencode/github@latest
         continue-on-error: true
         with:
+          github_token: ${{ env.GITHUB_TOKEN }}
           model: ${{ steps.normalize_model.outputs.model }}
           prompt: >-
             ${{
